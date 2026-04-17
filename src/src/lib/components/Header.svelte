@@ -91,11 +91,15 @@
                 onclick={closeMobileMenu}
             >
                 <div
-                    class="text-primary flex items-center justify-center border-2 border-primary p-1 group-hover:bg-primary group-hover:text-black transition-colors"
+                    class="flex items-center justify-center border-2 border-primary p-1 group-hover:bg-primary transition-colors"
                 >
-                    <span class="material-symbols-outlined text-3xl"
-                        >terminal</span
-                    >
+                    <img
+                        src="/webdeploy-icon.png"
+                        alt="WebDeploy"
+                        width="32"
+                        height="32"
+                        class="block h-8 w-8"
+                    />
                 </div>
                 <span
                     class="text-3xl font-display font-bold tracking-widest text-white uppercase group-hover:text-primary transition-colors"
