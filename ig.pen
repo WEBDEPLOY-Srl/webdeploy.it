@@ -6,12 +6,1297 @@
       "id": "bi8Au",
       "x": 0,
       "y": 0,
-      "name": "Frame",
+      "name": "Slide 1 — Cover",
       "clip": true,
-      "width": 800,
-      "height": 600,
-      "fill": "#FFFFFF",
-      "layout": "none"
+      "width": 1080,
+      "height": 1350,
+      "fill": "#050a10",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "FgpuS",
+          "x": 0,
+          "y": 0,
+          "name": "Header bar",
+          "width": 1080,
+          "height": 80,
+          "fill": "#0e1621",
+          "gap": 12,
+          "padding": [
+            0,
+            32
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "Gcso8",
+              "name": "dotR",
+              "fill": "#ff5f56",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "7vBGB",
+              "name": "dotY",
+              "fill": "#ffbd2e",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "3T3Ax",
+              "name": "dotG",
+              "fill": "#27c93f",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "frame",
+              "id": "SHGY5",
+              "name": "hdrSpacer",
+              "width": 16,
+              "height": 1,
+              "fill": "#00000000"
+            },
+            {
+              "type": "text",
+              "id": "wO9fs",
+              "name": "hdrTitle",
+              "fill": "#64748b",
+              "content": "news.log — webdeploy.it",
+              "fontFamily": "Space Mono",
+              "fontSize": 20,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "XFyXq",
+          "x": 0,
+          "y": 78,
+          "name": "hdrBorder1",
+          "fill": "#00f0ff",
+          "width": 1080,
+          "height": 2
+        },
+        {
+          "type": "text",
+          "id": "y7f6f",
+          "x": 80,
+          "y": 200,
+          "name": "tagLabel1",
+          "fill": "#00f0ff",
+          "content": "[ NEWS · 04/17/2026 ]",
+          "fontFamily": "Space Mono",
+          "fontSize": 28,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "OdNby",
+          "x": 80,
+          "y": 380,
+          "name": "prompt1",
+          "fill": "#ff00ff",
+          "content": "> ",
+          "fontFamily": "VT323",
+          "fontSize": 140,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "m9hVL",
+          "x": 80,
+          "y": 520,
+          "name": "title1a",
+          "fill": "#ffffff",
+          "content": "NOW",
+          "fontFamily": "VT323",
+          "fontSize": 220,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "yq84G",
+          "x": 80,
+          "y": 720,
+          "name": "title1b",
+          "fill": "#ffffff",
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#ff00ff",
+            "offset": {
+              "x": 6,
+              "y": 6
+            }
+          },
+          "content": "OPEN SOURCE",
+          "fontFamily": "VT323",
+          "fontSize": 220,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "APiyo",
+          "x": 80,
+          "y": 960,
+          "name": "sub1",
+          "fill": "#b0b8c4",
+          "textGrowth": "fixed-width",
+          "width": 920,
+          "content": "webdeploy.it — source code released under AGPL-3.0",
+          "fontFamily": "Space Mono",
+          "fontSize": 30,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "id": "xxqfq",
+          "x": 80,
+          "y": 1060,
+          "name": "divider1",
+          "fill": "#00f0ff",
+          "width": 80,
+          "height": 4
+        },
+        {
+          "type": "frame",
+          "id": "QwKLD",
+          "x": 80,
+          "y": 1140,
+          "name": "Terminal card",
+          "width": 920,
+          "height": 140,
+          "fill": "#0e1621",
+          "stroke": {
+            "align": "inside",
+            "thickness": 2,
+            "fill": "#00f0ff"
+          },
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#ff00ff",
+            "offset": {
+              "x": 8,
+              "y": 8
+            }
+          },
+          "gap": 16,
+          "padding": [
+            0,
+            28
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Endw3",
+              "name": "cmdPrompt",
+              "fill": "#ff00ff",
+              "content": "$",
+              "fontFamily": "Space Mono",
+              "fontSize": 26,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "s5XNQ",
+              "name": "cmdText",
+              "fill": "#ffffff",
+              "content": "git clone github.com/WEBDEPLOY-Srl/webdeploy.it",
+              "fontFamily": "Space Mono",
+              "fontSize": 26,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "rectangle",
+              "id": "8S81L",
+              "name": "cursor",
+              "fill": "#00f0ff",
+              "width": 16,
+              "height": 26
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "aE66N",
+      "x": 1180,
+      "y": 0,
+      "name": "Slide 2 — Announcement",
+      "width": 1080,
+      "height": 1350,
+      "fill": "#050a10",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "49b0Q",
+          "x": 0,
+          "y": 0,
+          "name": "Header",
+          "width": 1080,
+          "height": 80,
+          "fill": "#0e1621",
+          "gap": 12,
+          "padding": [
+            0,
+            32
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "1TAcY",
+              "name": "d2a",
+              "fill": "#ff5f56",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "UCRIx",
+              "name": "d2b",
+              "fill": "#ffbd2e",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "65cl2",
+              "name": "d2c",
+              "fill": "#27c93f",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "frame",
+              "id": "ClClR",
+              "name": "sp2",
+              "width": 16,
+              "height": 1,
+              "fill": "#00000000"
+            },
+            {
+              "type": "text",
+              "id": "jf8SU",
+              "name": "ht2",
+              "fill": "#64748b",
+              "content": "02/06 — announcement",
+              "fontFamily": "Space Mono",
+              "fontSize": 20,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "LjwRl",
+          "x": 0,
+          "y": 78,
+          "name": "hb2",
+          "fill": "#00f0ff",
+          "width": 1080,
+          "height": 2
+        },
+        {
+          "type": "text",
+          "id": "pS7yb",
+          "x": 80,
+          "y": 180,
+          "name": "tag2",
+          "fill": "#ff00ff",
+          "content": "> cat announcement.md",
+          "fontFamily": "Space Mono",
+          "fontSize": 28,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "8A8Ol",
+          "x": 80,
+          "y": 280,
+          "name": "tl2a",
+          "fill": "#ffffff",
+          "content": "WE'RE",
+          "fontFamily": "VT323",
+          "fontSize": 180,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "6t6F0",
+          "x": 80,
+          "y": 440,
+          "name": "tl2b",
+          "fill": "#ffffff",
+          "content": "GOING",
+          "fontFamily": "VT323",
+          "fontSize": 180,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "wiPZf",
+          "x": 80,
+          "y": 600,
+          "name": "tl2c",
+          "fill": "#00f0ff",
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#ff00ff",
+            "offset": {
+              "x": 6,
+              "y": 6
+            }
+          },
+          "content": "PUBLIC.",
+          "fontFamily": "VT323",
+          "fontSize": 180,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "id": "DNQqH",
+          "x": 80,
+          "y": 800,
+          "name": "div2",
+          "fill": "#00f0ff",
+          "width": 80,
+          "height": 4
+        },
+        {
+          "type": "text",
+          "id": "8H2Fp",
+          "x": 80,
+          "y": 850,
+          "name": "body2",
+          "fill": "#b0b8c4",
+          "textGrowth": "fixed-width",
+          "width": 920,
+          "content": "The full source of webdeploy.it — our company website — is now live on our public repository. Fully open, fully hackable.",
+          "lineHeight": 1.35,
+          "fontFamily": "Space Mono",
+          "fontSize": 34,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "vJaEX",
+          "x": 80,
+          "y": 1200,
+          "name": "foot2",
+          "width": 920,
+          "height": 80,
+          "fill": "#00000000",
+          "gap": 16,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "vF2Dj",
+              "name": "ft2a",
+              "fill": "#00f0ff",
+              "content": "swipe →",
+              "fontFamily": "Space Mono",
+              "fontSize": 24,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "dcmW6",
+              "name": "ft2b",
+              "fill": "#64748b",
+              "content": "·",
+              "fontFamily": "Space Mono",
+              "fontSize": 24,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "dYFT5",
+              "name": "ft2c",
+              "fill": "#64748b",
+              "content": "read on",
+              "fontFamily": "Space Mono",
+              "fontSize": 24,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "O1xVw",
+      "x": 4720,
+      "y": 0,
+      "name": "Slide 3 — Stack",
+      "width": 1080,
+      "height": 1350,
+      "fill": "#050a10",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "Aozyb",
+          "x": 0,
+          "y": 0,
+          "name": "Header",
+          "width": 1080,
+          "height": 80,
+          "fill": "#0e1621",
+          "gap": 12,
+          "padding": [
+            0,
+            32
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "w60BG",
+              "name": "d3a",
+              "fill": "#ff5f56",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "cVcBB",
+              "name": "d3b",
+              "fill": "#ffbd2e",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "eaBb9",
+              "name": "d3c",
+              "fill": "#27c93f",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "frame",
+              "id": "vjusU",
+              "name": "sp3",
+              "width": 16,
+              "height": 1,
+              "fill": "#00000000"
+            },
+            {
+              "type": "text",
+              "id": "KYf4O",
+              "name": "ht3",
+              "fill": "#64748b",
+              "content": "05/06 — stack",
+              "fontFamily": "Space Mono",
+              "fontSize": 20,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "6ATul",
+          "x": 0,
+          "y": 78,
+          "name": "hb3",
+          "fill": "#00f0ff",
+          "width": 1080,
+          "height": 2
+        },
+        {
+          "type": "text",
+          "id": "FYBda",
+          "x": 80,
+          "y": 180,
+          "name": "tag3",
+          "fill": "#ff00ff",
+          "content": "> ls ./stack",
+          "fontFamily": "Space Mono",
+          "fontSize": 28,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "oiQ5O",
+          "x": 80,
+          "y": 260,
+          "name": "tl3",
+          "fill": "#ffffff",
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#ff00ff",
+            "offset": {
+              "x": 6,
+              "y": 6
+            }
+          },
+          "content": "BUILT WITH",
+          "fontFamily": "VT323",
+          "fontSize": 160,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "Uk6Ui",
+          "x": 80,
+          "y": 520,
+          "name": "SvelteKit card",
+          "width": 920,
+          "height": 200,
+          "fill": "#0e1621",
+          "stroke": {
+            "align": "inside",
+            "thickness": 2,
+            "fill": "#00f0ff"
+          },
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#ff00ff",
+            "offset": {
+              "x": 8,
+              "y": 8
+            }
+          },
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 32,
+          "children": [
+            {
+              "type": "text",
+              "id": "iFS0e",
+              "name": "c1t",
+              "fill": "#00f0ff",
+              "content": "01 · FORGEJO",
+              "fontFamily": "VT323",
+              "fontSize": 56,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "51uUB",
+              "name": "c1d",
+              "fill": "#b0b8c4",
+              "textGrowth": "fixed-width",
+              "width": 856,
+              "content": "Self-hosted Forgejo instance. Our code lives on our own iron, public mirror on GitHub.",
+              "fontFamily": "Space Mono",
+              "fontSize": 26,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "a84lu",
+          "x": 80,
+          "y": 750,
+          "name": "Tailwind card",
+          "width": 920,
+          "height": 200,
+          "fill": "#0e1621",
+          "stroke": {
+            "align": "inside",
+            "thickness": 2,
+            "fill": "#ff00ff"
+          },
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#00f0ff",
+            "offset": {
+              "x": 8,
+              "y": 8
+            }
+          },
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 32,
+          "children": [
+            {
+              "type": "text",
+              "id": "fIqXL",
+              "name": "c2t",
+              "fill": "#ff00ff",
+              "content": "02 · WOODPECKER CI",
+              "fontFamily": "VT323",
+              "fontSize": 56,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "rVsBq",
+              "name": "c2d",
+              "fill": "#b0b8c4",
+              "textGrowth": "fixed-width",
+              "width": 856,
+              "content": "Woodpecker CI builds and ships every commit. Open source, container-native.",
+              "fontFamily": "Space Mono",
+              "fontSize": 26,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ksrbK",
+          "x": 80,
+          "y": 980,
+          "name": "Leaflet card",
+          "width": 920,
+          "height": 200,
+          "fill": "#0e1621",
+          "stroke": {
+            "align": "inside",
+            "thickness": 2,
+            "fill": "#00f0ff"
+          },
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#ff00ff",
+            "offset": {
+              "x": 8,
+              "y": 8
+            }
+          },
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 32,
+          "children": [
+            {
+              "type": "text",
+              "id": "TdF5R",
+              "name": "c3t",
+              "fill": "#00f0ff",
+              "content": "03 · LEAFLET + OSM",
+              "fontFamily": "VT323",
+              "fontSize": 56,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "PNvUL",
+              "name": "c3d",
+              "fill": "#b0b8c4",
+              "textGrowth": "fixed-width",
+              "width": 856,
+              "content": "Keyless map stack. OpenStreetMap tiles, no vendor.",
+              "fontFamily": "Space Mono",
+              "fontSize": 26,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "wpdJb",
+      "x": 3540,
+      "y": 0,
+      "name": "Slide 4 — Why",
+      "width": 1080,
+      "height": 1350,
+      "fill": "#050a10",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "T7q6D",
+          "x": 0,
+          "y": 0,
+          "name": "Header",
+          "width": 1080,
+          "height": 80,
+          "fill": "#0e1621",
+          "gap": 12,
+          "padding": [
+            0,
+            32
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "Ufl0s",
+              "name": "d4a",
+              "fill": "#ff5f56",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "yPJg9",
+              "name": "d4b",
+              "fill": "#ffbd2e",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "mtofQ",
+              "name": "d4c",
+              "fill": "#27c93f",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "frame",
+              "id": "GgnDY",
+              "name": "sp4",
+              "width": 16,
+              "height": 1,
+              "fill": "#00000000"
+            },
+            {
+              "type": "text",
+              "id": "y0wUC",
+              "name": "ht4",
+              "fill": "#64748b",
+              "content": "04/06 — why",
+              "fontFamily": "Space Mono",
+              "fontSize": 20,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "cb6yL",
+          "x": 0,
+          "y": 78,
+          "name": "hb4",
+          "fill": "#00f0ff",
+          "width": 1080,
+          "height": 2
+        },
+        {
+          "type": "text",
+          "id": "T79TF",
+          "x": 80,
+          "y": 180,
+          "name": "tag4",
+          "fill": "#ff00ff",
+          "content": "> why ./framework-choice",
+          "fontFamily": "Space Mono",
+          "fontSize": 28,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "Rm0LZ",
+          "x": 80,
+          "y": 260,
+          "name": "tl4a",
+          "fill": "#ffffff",
+          "content": "DOCS",
+          "fontFamily": "VT323",
+          "fontSize": 200,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "QwK4B",
+          "x": 80,
+          "y": 440,
+          "name": "tl4b",
+          "fill": "#ffffff",
+          "content": "LLMS",
+          "fontFamily": "VT323",
+          "fontSize": 200,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "j0y3k",
+          "x": 80,
+          "y": 620,
+          "name": "tl4c",
+          "fill": "#00f0ff",
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#ff00ff",
+            "offset": {
+              "x": 6,
+              "y": 6
+            }
+          },
+          "content": "CAN READ.",
+          "fontFamily": "VT323",
+          "fontSize": 200,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "id": "1gb1R",
+          "x": 80,
+          "y": 880,
+          "name": "quoteBar",
+          "fill": "#ff00ff",
+          "width": 8,
+          "height": 260
+        },
+        {
+          "type": "text",
+          "id": "3jn7A",
+          "x": 120,
+          "y": 880,
+          "name": "quoteText",
+          "fill": "#b0b8c4",
+          "textGrowth": "fixed-width",
+          "width": 880,
+          "content": "Svelte and Tailwind were picked because their reference docs are clear, consistent, and easy for LLMs to work with. In an AI-assisted workflow, that means fewer hallucinations and less manual correction.",
+          "lineHeight": 1.4,
+          "fontFamily": "Space Mono",
+          "fontSize": 28,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "vZWBI",
+          "x": 80,
+          "y": 1200,
+          "name": "cap4",
+          "fill": "#64748b",
+          "content": "— our rationale, in one line.",
+          "fontFamily": "Space Mono",
+          "fontSize": 22,
+          "fontWeight": "normal"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "JmP6c",
+      "x": 2360,
+      "y": 0,
+      "name": "Slide 5 — License",
+      "width": 1080,
+      "height": 1350,
+      "fill": "#050a10",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "LCjZm",
+          "x": 0,
+          "y": 0,
+          "name": "Header",
+          "width": 1080,
+          "height": 80,
+          "fill": "#0e1621",
+          "gap": 12,
+          "padding": [
+            0,
+            32
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "V5c34",
+              "name": "d5a",
+              "fill": "#ff5f56",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "SmIbM",
+              "name": "d5b",
+              "fill": "#ffbd2e",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "nbRmx",
+              "name": "d5c",
+              "fill": "#27c93f",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "frame",
+              "id": "BxGBv",
+              "name": "sp5",
+              "width": 16,
+              "height": 1,
+              "fill": "#00000000"
+            },
+            {
+              "type": "text",
+              "id": "J1IrB",
+              "name": "ht5",
+              "fill": "#64748b",
+              "content": "03/06 — license",
+              "fontFamily": "Space Mono",
+              "fontSize": 20,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "24d7K",
+          "x": 0,
+          "y": 78,
+          "name": "hb5",
+          "fill": "#00f0ff",
+          "width": 1080,
+          "height": 2
+        },
+        {
+          "type": "text",
+          "id": "puTG5",
+          "x": 80,
+          "y": 180,
+          "name": "tag5",
+          "fill": "#ff00ff",
+          "content": "> cat LICENSE.md",
+          "fontFamily": "Space Mono",
+          "fontSize": 28,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "h7d1u",
+          "x": 80,
+          "y": 280,
+          "name": "License badge",
+          "width": 920,
+          "height": 460,
+          "fill": "#0e1621",
+          "stroke": {
+            "align": "inside",
+            "thickness": 4,
+            "fill": "#ff00ff"
+          },
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#00f0ff",
+            "offset": {
+              "x": 12,
+              "y": 12
+            }
+          },
+          "layout": "vertical",
+          "gap": 18,
+          "padding": 48,
+          "children": [
+            {
+              "type": "text",
+              "id": "7HCiX",
+              "name": "bLabel",
+              "fill": "#64748b",
+              "content": "LICENSED UNDER",
+              "fontFamily": "Space Mono",
+              "fontSize": 28,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "AKfbb",
+              "name": "bTitle",
+              "fill": "#ff00ff",
+              "content": "AGPL-3.0",
+              "fontFamily": "VT323",
+              "fontSize": 200,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "6RT6N",
+              "name": "bSub",
+              "fill": "#ffffff",
+              "content": "GNU Affero General Public License v3.0",
+              "fontFamily": "Space Mono",
+              "fontSize": 26,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "g246y",
+          "x": 80,
+          "y": 800,
+          "name": "div5",
+          "fill": "#00f0ff",
+          "width": 80,
+          "height": 4
+        },
+        {
+          "type": "text",
+          "id": "wS05t",
+          "x": 80,
+          "y": 850,
+          "name": "desc5",
+          "fill": "#b0b8c4",
+          "textGrowth": "fixed-width",
+          "width": 920,
+          "content": "Use it. Fork it. Self-host it. Modify it. Ship it. Contribute back — if you deploy a modified version over a network, AGPL asks you to share your changes.",
+          "lineHeight": 1.4,
+          "fontFamily": "Space Mono",
+          "fontSize": 30,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "hedwa",
+          "x": 80,
+          "y": 1200,
+          "name": "cap5",
+          "fill": "#00f0ff",
+          "content": "# free as in freedom.",
+          "fontFamily": "Space Mono",
+          "fontSize": 24,
+          "fontWeight": "normal"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "x1OpV",
+      "x": 5900,
+      "y": 0,
+      "name": "Slide 6 — CTA",
+      "width": 1080,
+      "height": 1350,
+      "fill": "#050a10",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "aP5AL",
+          "x": 0,
+          "y": 0,
+          "name": "Header",
+          "width": 1080,
+          "height": 80,
+          "fill": "#0e1621",
+          "gap": 12,
+          "padding": [
+            0,
+            32
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "6CGeT",
+              "name": "d6a",
+              "fill": "#ff5f56",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "SDvaw",
+              "name": "d6b",
+              "fill": "#ffbd2e",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "ellipse",
+              "id": "Tw97T",
+              "name": "d6c",
+              "fill": "#27c93f",
+              "width": 14,
+              "height": 14
+            },
+            {
+              "type": "frame",
+              "id": "9AJrs",
+              "name": "sp6",
+              "width": 16,
+              "height": 1,
+              "fill": "#00000000"
+            },
+            {
+              "type": "text",
+              "id": "M68IP",
+              "name": "ht6",
+              "fill": "#64748b",
+              "content": "06/06 — cta",
+              "fontFamily": "Space Mono",
+              "fontSize": 20,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "dSyOF",
+          "x": 0,
+          "y": 78,
+          "name": "hb6",
+          "fill": "#00f0ff",
+          "width": 1080,
+          "height": 2
+        },
+        {
+          "type": "text",
+          "id": "4kquK",
+          "x": 80,
+          "y": 180,
+          "name": "tag6",
+          "fill": "#ff00ff",
+          "content": "> ./contribute",
+          "fontFamily": "Space Mono",
+          "fontSize": 28,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "FOdBn",
+          "x": 80,
+          "y": 260,
+          "name": "tl6a",
+          "fill": "#ffffff",
+          "content": "FORK.",
+          "fontFamily": "VT323",
+          "fontSize": 220,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "a0JtW",
+          "x": 80,
+          "y": 460,
+          "name": "tl6b",
+          "fill": "#ffffff",
+          "content": "STAR.",
+          "fontFamily": "VT323",
+          "fontSize": 220,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "DhJuw",
+          "x": 80,
+          "y": 660,
+          "name": "tl6c",
+          "fill": "#00f0ff",
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#ff00ff",
+            "offset": {
+              "x": 6,
+              "y": 6
+            }
+          },
+          "content": "SHIP.",
+          "fontFamily": "VT323",
+          "fontSize": 220,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "em7ci",
+          "x": 80,
+          "y": 940,
+          "name": "URL card",
+          "width": 920,
+          "height": 130,
+          "fill": "#0e1621",
+          "stroke": {
+            "align": "inside",
+            "thickness": 2,
+            "fill": "#00f0ff"
+          },
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#ff00ff",
+            "offset": {
+              "x": 8,
+              "y": 8
+            }
+          },
+          "gap": 16,
+          "padding": [
+            0,
+            32
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "FIFF3",
+              "name": "uA",
+              "fill": "#ff00ff",
+              "content": "$",
+              "fontFamily": "Space Mono",
+              "fontSize": 32,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "imOjr",
+              "name": "uB",
+              "fill": "#64748b",
+              "content": "open",
+              "fontFamily": "Space Mono",
+              "fontSize": 32,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "neFY1",
+              "name": "uC",
+              "fill": "#ffffff",
+              "content": "webdeploy.it",
+              "fontFamily": "Space Mono",
+              "fontSize": 32,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "K4Y7N",
+          "x": 80,
+          "y": 1110,
+          "name": "cap6",
+          "fill": "#00f0ff",
+          "content": "# developing greatness.",
+          "fontFamily": "Space Mono",
+          "fontSize": 30,
+          "fontWeight": "700"
+        },
+        {
+          "type": "text",
+          "id": "5a6nR",
+          "x": 80,
+          "y": 1170,
+          "name": "cap6b",
+          "fill": "#64748b",
+          "content": "@webdeploy · link in bio → webdeploy.it",
+          "fontFamily": "Space Mono",
+          "fontSize": 22,
+          "fontWeight": "normal"
+        }
+      ]
     }
   ]
 }
