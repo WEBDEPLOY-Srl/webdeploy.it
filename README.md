@@ -4,6 +4,18 @@ Source code for [webdeploy.it](https://webdeploy.it) — the WebDeploy S.R.L. co
 
 Built with [SvelteKit](https://kit.svelte.dev/), [Tailwind CSS](https://tailwindcss.com/) and [Leaflet](https://leafletjs.com/) (OpenStreetMap tiles).
 
+> **On the choice of frameworks.** SvelteKit and Tailwind CSS were picked
+> primarily because their documentation is clear, consistent, and easy for
+> large language models to work with. In an AI-assisted workflow this matters
+> a lot: well-structured reference docs translate directly into fewer
+> hallucinations, fewer wrong suggestions, and less manual correction when
+> pairing with a coding agent.
+
+> **On Leaflet and the map.** Leaflet was chosen for its small footprint,
+> permissive licensing, and seamless integration with OpenStreetMap tiles —
+> giving the site a fully open, keyless map stack with no proprietary
+> provider dependency.
+
 ## Development
 
 ```sh
