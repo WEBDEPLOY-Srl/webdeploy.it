@@ -22,6 +22,14 @@
 		<!-- News Grid -->
 		<div class="grid md:grid-cols-2 gap-8">
 			<NewsCard
+				title={t('news.openSourceRelease.title')}
+				date={t('news.openSourceRelease.date')}
+				image="/open-source-release.jpg"
+				href="/news/open-source-release"
+				description={t('news.openSourceRelease.description')}
+			/>
+
+			<NewsCard
 				title={t('news.fosdem2026.title')}
 				date={t('news.fosdem2026.date')}
 				image="/fosdem-2026.jpg"

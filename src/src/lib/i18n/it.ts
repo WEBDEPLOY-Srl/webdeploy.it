@@ -350,6 +350,37 @@ export const it = {
 		linkCopied: 'Link copiato. Puoi incollarlo nella tua Storia Instagram.',
 		copyFailed: 'Impossibile copiare il link. Copialo dalla barra degli indirizzi.',
 		popupBlocked: 'Popup bloccato. Apertura in una nuova scheda.',
+		openSourceRelease: {
+			title: 'WebDeploy.it è ora Open Source',
+			date: '17/04/2026',
+			description:
+				'Il codice sorgente di webdeploy.it è ora pubblico sotto licenza AGPL-3.0. Costruito con SvelteKit, Tailwind CSS e Leaflet — scelte tecniche guidate da documentazione facile da leggere per gli LLM.',
+			intro:
+				'Il sito che stai leggendo in questo momento è open source. Abbiamo appena pubblicato il codice sorgente completo di webdeploy.it sul nostro repository pubblico, sotto la GNU Affero General Public License v3.0. Niente marketing — un\'applicazione statica SvelteKit, alcuni componenti Svelte, un po\' di Tailwind CSS e una mappa Leaflet con tile OpenStreetMap. Puoi clonarlo, forkarlo, self-hostarlo o semplicemente leggerne il codice.',
+			whatHappened: 'Cosa Abbiamo Pubblicato',
+			whatHappenedDescription:
+				'Tutto ciò che compone il sito in produzione è ora nel repository: l\'app SvelteKit in src/, le traduzioni in inglese e italiano, la libreria di componenti, i design token del tema retro-cyberpunk, il Dockerfile e la configurazione della pipeline CI. Nessun sottomodulo privato, nessuna dipendenza chiusa — ciò che cloni è esattamente ciò che gira su webdeploy.it.',
+			stackTitle: 'Lo Stack',
+			stackIntro: 'Il sito è volutamente piccolo. Tre strumenti fanno quasi tutto il lavoro:',
+			stack: [
+				'SvelteKit con l\'adapter statico — prerenderizzato in HTML puro e servito come file statici.',
+				'Tailwind CSS v4 — costruito attorno ai design token @theme e a uno stile retrò a raggio zero con ombre nette.',
+				'Leaflet con tile OpenStreetMap — uno stack mappe senza chiavi e senza vendor proprietari, introdotto al posto di Mapbox prima della pubblicazione.'
+			],
+			whyFrameworks: 'Perché Questi Framework',
+			whyFrameworksDescription:
+				'SvelteKit e Tailwind CSS sono stati scelti soprattutto perché la loro documentazione di riferimento è chiara, coerente e facile da leggere per i large language model. In un flusso di sviluppo assistito dall\'AI questo conta più di quanto sembri: una documentazione ben strutturata si traduce direttamente in meno allucinazioni, meno suggerimenti sbagliati e meno correzioni manuali quando si fa pair programming con un coding agent. Leaflet è stato scelto per un motivo diverso — il suo footprint ridotto, la licenza permissiva e l\'integrazione nativa con le tile OpenStreetMap lo rendono la scelta naturale per uno stack mappe completamente aperto e senza chiavi.',
+			whyLicense: 'Perché AGPL-3.0',
+			whyLicenseDescription:
+				'L\'AGPL è una licenza copyleft forte: chiunque può usare, modificare e ridistribuire il codice, ma le modifiche distribuite tramite rete devono essere condivise sotto gli stessi termini. È coerente con il nostro modo di pensare l\'infrastruttura — mantenere il web pubblico onestamente aperto, senza permettere a fork commerciali di richiudere silenziosamente il sorgente.',
+			howToContribute: 'Come Contribuire',
+			howToContributeDescription:
+				'I contributi sono benvenuti. Il repository include una guida CONTRIBUTING, un Code of Conduct, template per issue e pull request, e un CHANGELOG che segue Keep a Changelog. Inizia con npm install && npm run dev dentro src/, apri un\'issue o una pull request e mantieni i commit piccoli — i prefissi conventional-commit (feat, fix, docs, refactor) rendono il changelog facile da mantenere.',
+			callToAction: 'Leggi il Codice',
+			callToActionDescription:
+				'Se vuoi vedere come è costruito end-to-end un sito aziendale piccolo, statico e privacy-first, il codice è tutto lì. Forkalo, mettigli una stella, eseguilo localmente, smontalo — è esattamente il motivo per cui esiste.',
+			visitRepo: 'Apri webdeploy.it'
+		},
 		websiteLaunch: {
 			title: 'Benvenuti nel Nuovo Sito WebDeploy',
 			date: '31/12/2025',

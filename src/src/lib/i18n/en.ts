@@ -360,6 +360,37 @@ export const en = {
 		linkCopied: 'Link copied. You can paste it into your Instagram Story.',
 		copyFailed: 'Unable to copy link. Please copy from address bar.',
 		popupBlocked: 'Popup blocked. Opening in new tab instead.',
+		openSourceRelease: {
+			title: 'WebDeploy.it Is Now Open Source',
+			date: '17/04/2026',
+			description:
+				'The source code of webdeploy.it is now public under AGPL-3.0. Built with SvelteKit, Tailwind CSS and Leaflet — framework choices driven by LLM-friendly documentation.',
+			intro:
+				'The site you are reading right now is open source. We just published the full source code of webdeploy.it on our public repository under the GNU Affero General Public License v3.0. No marketing copy — a SvelteKit static site, a handful of Svelte components, some Tailwind CSS, and a Leaflet map with OpenStreetMap tiles. Clone it, fork it, self-host it, or just read through the code.',
+			whatHappened: 'What We Released',
+			whatHappenedDescription:
+				'Everything that ships the production website is now in the repository: the SvelteKit app in src/, the English and Italian translations, the component library, the design tokens for the retro-cyberpunk theme, the Dockerfile, and the CI pipeline configuration. There are no private submodules and no closed dependencies — what you clone is what runs on webdeploy.it.',
+			stackTitle: 'The Stack',
+			stackIntro: 'The site is intentionally small. Three tools do most of the work:',
+			stack: [
+				'SvelteKit with the static adapter — prerendered to flat HTML and served as static files.',
+				'Tailwind CSS v4 — built around @theme design tokens and a zero-radius, hard-shadow retro style.',
+				'Leaflet with OpenStreetMap tiles — a keyless map stack with no proprietary vendor, swapped in to replace Mapbox before publication.'
+			],
+			whyFrameworks: 'Why These Frameworks',
+			whyFrameworksDescription:
+				'SvelteKit and Tailwind CSS were chosen primarily because their reference documentation is clear, consistent, and easy for large language models to work with. In an AI-assisted development workflow this matters more than it sounds: well-structured docs translate directly into fewer hallucinations, fewer wrong suggestions, and less manual correction when pairing with a coding agent. Leaflet was chosen for a different reason — its small footprint, permissive licensing, and seamless integration with OpenStreetMap tiles make it the natural choice for a fully open, keyless map stack.',
+			whyLicense: 'Why AGPL-3.0',
+			whyLicenseDescription:
+				'The AGPL is a strong copyleft license: anyone can use, modify, and redistribute the code, but modifications deployed over a network must be shared back under the same terms. That matches how we think about infrastructure — keeping the public web honestly open, without letting commercial forks quietly close the source again.',
+			howToContribute: 'How to Contribute',
+			howToContributeDescription:
+				'Contributions are welcome. The repository ships with a CONTRIBUTING guide, a Code of Conduct, issue and pull-request templates, and a CHANGELOG following Keep a Changelog. Start with npm install && npm run dev inside src/, open an issue or a pull request, and keep commits small — conventional-commit prefixes (feat, fix, docs, refactor) make the changelog easy to maintain.',
+			callToAction: 'Read the Source',
+			callToActionDescription:
+				'If you want to see how a small, static, privacy-first company site is built end-to-end, the code is there. Fork it, star it, run it locally, tear it apart — that is exactly what it is there for.',
+			visitRepo: 'Open webdeploy.it'
+		},
 		websiteLaunch: {
 			title: 'Welcome to the New WebDeploy Website',
 			date: '31/12/2025',
