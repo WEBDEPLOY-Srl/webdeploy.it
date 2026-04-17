@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <defs>
+    <!-- Grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,240,255,0.1)" stroke-width="1"/>
+    </pattern>
+    <!-- Glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Cyan glow -->
+    <filter id="cyanGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00f0ff" flood-opacity="0.8"/>
+    </filter>
+    <!-- Magenta glow -->
+    <filter id="magentaGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#ff00ff" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="#050a10"/>
+  <rect width="800" height="400" fill="url(#grid)"/>
+
+  <!-- Decorative lines -->
+  <line x1="0" y1="380" x2="800" y2="380" stroke="#00f0ff" stroke-width="2" opacity="0.3"/>
+  <line x1="0" y1="20" x2="800" y2="20" stroke="#ff00ff" stroke-width="2" opacity="0.3"/>
+
+  <!-- Server Rack 1 -->
+  <g transform="translate(80, 80)">
+    <rect x="0" y="0" width="120" height="240" fill="#0e1621" stroke="#00f0ff" stroke-width="2" filter="url(#cyanGlow)"/>
+    <!-- Server units -->
+    <rect x="10" y="15" width="100" height="25" fill="#15202e" stroke="#00f0ff" stroke-width="1"/>
+    <circle cx="95" cy="27" r="4" fill="#00f0ff"/>
+    <rect x="20" y="22" width="40" height="3" fill="#00f0ff" opacity="0.5"/>
+
+    <rect x="10" y="50" width="100" height="25" fill="#15202e" stroke="#00f0ff" stroke-width="1"/>
+    <circle cx="95" cy="62" r="4" fill="#00f0ff"/>
+    <rect x="20" y="57" width="30" height="3" fill="#00f0ff" opacity="0.5"/>
+
+    <rect x="10" y="85" width="100" height="25" fill="#15202e" stroke="#ff00ff" stroke-width="1"/>
+    <circle cx="95" cy="97" r="4" fill="#ff00ff"/>
+    <rect x="20" y="92" width="50" height="3" fill="#ff00ff" opacity="0.5"/>
+
+    <rect x="10" y="120" width="100" height="25" fill="#15202e" stroke="#00f0ff" stroke-width="1"/>
+    <circle cx="95" cy="132" r="4" fill="#00f0ff"/>
+    <rect x="20" y="127" width="35" height="3" fill="#00f0ff" opacity="0.5"/>
+
+    <rect x="10" y="155" width="100" height="25" fill="#15202e" stroke="#00f0ff" stroke-width="1"/>
+    <circle cx="95" cy="167" r="4" fill="#00f0ff"/>
+    <rect x="20" y="162" width="45" height="3" fill="#00f0ff" opacity="0.5"/>
+
+    <rect x="10" y="190" width="100" height="25" fill="#15202e" stroke="#ff00ff" stroke-width="1"/>
+    <circle cx="95" cy="202" r="4" fill="#ff00ff"/>
+    <rect x="20" y="197" width="25" height="3" fill="#ff00ff" opacity="0.5"/>
+  </g>
+
+  <!-- Server Rack 2 -->
+  <g transform="translate(240, 80)">
+    <rect x="0" y="0" width="120" height="240" fill="#0e1621" stroke="#ff00ff" stroke-width="2" filter="url(#magentaGlow)"/>
+    <rect x="10" y="15" width="100" height="25" fill="#15202e" stroke="#ff00ff" stroke-width="1"/>
+    <circle cx="95" cy="27" r="4" fill="#ff00ff"/>
+    <rect x="20" y="22" width="35" height="3" fill="#ff00ff" opacity="0.5"/>
+
+    <rect x="10" y="50" width="100" height="25" fill="#15202e" stroke="#00f0ff" stroke-width="1"/>
+    <circle cx="95" cy="62" r="4" fill="#00f0ff"/>
+    <rect x="20" y="57" width="50" height="3" fill="#00f0ff" opacity="0.5"/>
+
+    <rect x="10" y="85" width="100" height="25" fill="#15202e" stroke="#00f0ff" stroke-width="1"/>
+    <circle cx="95" cy="97" r="4" fill="#00f0ff"/>
+    <rect x="20" y="92" width="40" height="3" fill="#00f0ff" opacity="0.5"/>
+
+    <rect x="10" y="120" width="100" height="25" fill="#15202e" stroke="#ff00ff" stroke-width="1"/>
+    <circle cx="95" cy="132" r="4" fill="#ff00ff"/>
+    <rect x="20" y="127" width="55" height="3" fill="#ff00ff" opacity="0.5"/>
+
+    <rect x="10" y="155" width="100" height="25" fill="#15202e" stroke="#00f0ff" stroke-width="1"/>
+    <circle cx="95" cy="167" r="4" fill="#00f0ff"/>
+    <rect x="20" y="162" width="30" height="3" fill="#00f0ff" opacity="0.5"/>
+
+    <rect x="10" y="190" width="100" height="25" fill="#15202e" stroke="#00f0ff" stroke-width="1"/>
+    <circle cx="95" cy="202" r="4" fill="#00f0ff"/>
+    <rect x="20" y="197" width="45" height="3" fill="#00f0ff" opacity="0.5"/>
+  </g>
+
+  <!-- Central Hub / Cloud -->
+  <g transform="translate(460, 120)">
+    <!-- Hexagon shape -->
+    <polygon points="100,0 180,50 180,130 100,180 20,130 20,50" fill="#0e1621" stroke="#00f0ff" stroke-width="3" filter="url(#cyanGlow)"/>
+    <polygon points="100,20 160,60 160,120 100,160 40,120 40,60" fill="none" stroke="#ff00ff" stroke-width="1" opacity="0.5"/>
+    <!-- Inner elements -->
+    <circle cx="100" cy="90" r="30" fill="none" stroke="#00f0ff" stroke-width="2"/>
+    <circle cx="100" cy="90" r="20" fill="none" stroke="#ff00ff" stroke-width="1"/>
+    <circle cx="100" cy="90" r="8" fill="#00f0ff"/>
+    <!-- Text -->
+    <text x="100" y="145" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="12" font-weight="bold">INWD</text>
+  </g>
+
+  <!-- Connection lines -->
+  <g stroke-width="2" fill="none" filter="url(#glow)">
+    <!-- Rack 1 to Hub -->
+    <path d="M 200 200 Q 300 200 380 200" stroke="#00f0ff" stroke-dasharray="5,5">
+      <animate attributeName="stroke-dashoffset" from="0" to="20" dur="1s" repeatCount="indefinite"/>
+    </path>
+    <!-- Rack 2 to Hub -->
+    <path d="M 360 200 L 420 200" stroke="#ff00ff" stroke-dasharray="5,5">
+      <animate attributeName="stroke-dashoffset" from="0" to="20" dur="1s" repeatCount="indefinite"/>
+    </path>
+    <!-- Hub to right elements -->
+    <path d="M 620 200 Q 680 200 720 150" stroke="#00f0ff" stroke-dasharray="5,5">
+      <animate attributeName="stroke-dashoffset" from="0" to="20" dur="1s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 620 200 Q 680 200 720 250" stroke="#ff00ff" stroke-dasharray="5,5">
+      <animate attributeName="stroke-dashoffset" from="0" to="20" dur="1s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- Right side: Git/Code symbols -->
+  <g transform="translate(700, 100)">
+    <!-- Git branch icon -->
+    <circle cx="30" cy="20" r="8" fill="none" stroke="#00f0ff" stroke-width="2"/>
+    <circle cx="30" cy="60" r="8" fill="none" stroke="#00f0ff" stroke-width="2"/>
+    <line x1="30" y1="28" x2="30" y2="52" stroke="#00f0ff" stroke-width="2"/>
+    <text x="30" y="90" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="10">GIT</text>
+  </g>
+
+  <g transform="translate(700, 200)">
+    <!-- Terminal icon -->
+    <rect x="10" y="10" width="40" height="30" fill="#0e1621" stroke="#ff00ff" stroke-width="2"/>
+    <text x="20" y="30" fill="#ff00ff" font-family="monospace" font-size="12">&gt;_</text>
+    <text x="30" y="60" text-anchor="middle" fill="#ff00ff" font-family="monospace" font-size="10">CLI</text>
+  </g>
+
+  <!-- Bottom labels -->
+  <text x="140" y="350" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="11" opacity="0.8">SERVERS</text>
+  <text x="300" y="350" text-anchor="middle" fill="#ff00ff" font-family="monospace" font-size="11" opacity="0.8">CONTAINERS</text>
+  <text x="560" y="350" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="11" opacity="0.8">ORCHESTRATION</text>
+  <text x="730" y="350" text-anchor="middle" fill="#ff00ff" font-family="monospace" font-size="11" opacity="0.8">GITOPS</text>
+
+  <!-- Decorative corner elements -->
+  <path d="M 10 10 L 10 40 M 10 10 L 40 10" stroke="#00f0ff" stroke-width="2" fill="none"/>
+  <path d="M 790 10 L 790 40 M 790 10 L 760 10" stroke="#ff00ff" stroke-width="2" fill="none"/>
+  <path d="M 10 390 L 10 360 M 10 390 L 40 390" stroke="#ff00ff" stroke-width="2" fill="none"/>
+  <path d="M 790 390 L 790 360 M 790 390 L 760 390" stroke="#00f0ff" stroke-width="2" fill="none"/>
+</svg>

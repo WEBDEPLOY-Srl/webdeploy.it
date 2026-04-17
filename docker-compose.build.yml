@@ -1,0 +1,13 @@
+services:
+  frontend:
+    image: git.webdeploy.it/webdeploy/webdeploy.it
+    restart: always
+    build:
+      args:
+        TAG: ${TAG}
+      context: .
+      dockerfile: Dockerfile
+
+  version_tag:
+    extends: frontend
+    image: git.webdeploy.it/webdeploy/webdeploy.it:${TAG}

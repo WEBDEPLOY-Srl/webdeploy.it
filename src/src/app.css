@@ -1,0 +1,866 @@
+@import "tailwindcss";
+
+/* ==========================================
+   FONTS: Self-hosted @font-face definitions
+   ========================================== */
+
+/* Space Mono - Regular (400) */
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/space-mono-400-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/space-mono-400-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Space Mono - Bold (700) */
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/space-mono-700-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Space Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/space-mono-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* VT323 - Regular (400) */
+@font-face {
+  font-family: 'VT323';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/vt323-400-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'VT323';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/vt323-400-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Material Symbols Outlined */
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/material-symbols-outlined.woff2') format('woff2');
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom theme configuration */
+@theme {
+  /* ==========================================
+     COLORS: Core palette
+     ========================================== */
+  --color-primary: #00f0ff;
+  --color-secondary: #ff00ff;
+  --color-background-dark: #050a10;
+  --color-surface-dark: #0e1621;
+  --color-surface-light: #15202e;
+
+  /* Text colors */
+  --color-text-body: #b0b8c4;
+  --color-text-muted: #64748b;
+  --color-text-heading: #ffffff;
+
+  /* Border colors */
+  --color-border-default: #1e293b;
+  --color-border-muted: #334155;
+  --color-border-strong: #475569;
+
+  /* Border colors with theme accents (for decorative borders) */
+  --color-border-primary-soft: rgba(0, 240, 255, 0.2);
+  --color-border-primary: rgba(0, 240, 255, 0.3);
+  --color-border-secondary-soft: rgba(255, 0, 255, 0.2);
+  --color-border-secondary: rgba(255, 0, 255, 0.3);
+
+  /* Social brand colors */
+  --color-linkedin: #0077b5;
+  --color-linkedin-hover: #005582;
+  --color-instagram-start: #833ab4;
+  --color-instagram-mid: #fd1d1d;
+  --color-instagram-end: #fcb045;
+
+  /* ==========================================
+     TYPOGRAPHY
+     ========================================== */
+  --font-display: "VT323", monospace;
+  --font-mono: "Space Mono", monospace;
+  --font-sans: "Space Mono", monospace;
+
+  /* ==========================================
+     SPACING & SIZING
+     ========================================== */
+  --radius: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-full: 0px;
+
+  /* ==========================================
+     SHADOWS
+     ========================================== */
+  --shadow-retro-primary: 4px 4px 0px 0px var(--color-primary);
+  --shadow-retro-primary-soft: 4px 4px 0px 0px rgba(0, 240, 255, 0.3);
+  --shadow-retro-secondary: 4px 4px 0px 0px var(--color-secondary);
+  --shadow-retro-secondary-soft: 4px 4px 0px 0px rgba(255, 0, 255, 0.3);
+  --shadow-retro-hover: 2px 2px 0px 0px;
+  --shadow-glow-secondary: 0 0 15px rgba(255, 0, 255, 0.2);
+
+  /* ==========================================
+     ANIMATION: Easing curves
+     ========================================== */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-mono);
+  background-color: var(--color-background-dark);
+  color: var(--color-text-body);
+  overflow-x: hidden;
+}
+
+/* Retro grid background */
+.retro-grid {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+}
+
+/* CRT scanlines effect */
+.crt-scanlines {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0,0,0,0.2) 50%,
+    rgba(0,0,0,0.2)
+  );
+  background-size: 100% 4px;
+  z-index: 50;
+  opacity: 0.15;
+  /* GPU layer promotion for better scroll performance */
+  will-change: opacity;
+  contain: strict;
+}
+
+/* Text glow effects */
+.crt-glow {
+  text-shadow: 0 0 2px rgba(0, 240, 255, 0.7);
+}
+
+.title-glow {
+  text-shadow: 2px 2px 0px #ff00ff;
+}
+
+/* ==========================================
+   BUTTONS: Retro style system
+   ========================================== */
+
+/* Base retro button */
+.btn-retro-primary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  box-shadow: var(--shadow-retro-primary);
+  transition: all 0.1s ease;
+}
+
+.btn-retro-primary:hover {
+  background-color: var(--color-primary);
+  color: #000;
+  box-shadow: var(--shadow-retro-hover) var(--color-secondary);
+  transform: translate(2px, 2px);
+}
+
+.btn-retro-primary:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0px 0px var(--color-secondary);
+}
+
+.btn-retro-secondary {
+  background-color: transparent;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
+  box-shadow: var(--shadow-retro-secondary);
+  transition: all 0.1s ease;
+}
+
+.btn-retro-secondary:hover {
+  background-color: var(--color-secondary);
+  color: #000;
+  box-shadow: var(--shadow-retro-hover) var(--color-primary);
+  transform: translate(2px, 2px);
+}
+
+.btn-retro-secondary:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0px 0px var(--color-primary);
+}
+
+/* CTA buttons (inverted style for colored backgrounds) */
+.btn-cta-primary {
+  background-color: #000;
+  color: #fff;
+  border: 2px solid #000;
+  box-shadow: 8px 8px 0px 0px rgba(255, 255, 255, 0.5);
+  transition: all 0.15s ease;
+}
+
+.btn-cta-primary:hover {
+  background-color: #fff;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.btn-cta-primary:active {
+  transform: translateY(0);
+  box-shadow: 4px 4px 0px 0px rgba(255, 255, 255, 0.5);
+}
+
+.btn-cta-secondary {
+  background-color: transparent;
+  color: #000;
+  border: 2px solid #000;
+  transition: all 0.15s ease;
+}
+
+.btn-cta-secondary:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Social share buttons */
+.btn-social-linkedin {
+  background-color: var(--color-linkedin);
+  color: #fff;
+  border: 2px solid var(--color-linkedin);
+  transition: all 0.15s ease;
+}
+
+.btn-social-linkedin:hover {
+  background-color: var(--color-linkedin-hover);
+  border-color: var(--color-linkedin-hover);
+}
+
+.btn-social-instagram {
+  background: linear-gradient(
+    to right,
+    var(--color-instagram-start),
+    var(--color-instagram-mid),
+    var(--color-instagram-end)
+  );
+  color: #fff;
+  border: 2px solid var(--color-instagram-start);
+  transition: opacity 0.15s ease;
+}
+
+.btn-social-instagram:hover {
+  opacity: 0.8;
+}
+
+/* ==========================================
+   TOAST: Lightweight notification snackbar
+   ========================================== */
+
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  pointer-events: none;
+  /* Support safe area insets for notched devices */
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.toast {
+  background-color: var(--color-surface-light);
+  color: var(--color-text-body);
+  border: 2px solid var(--color-primary);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  max-width: calc(100vw - 2rem);
+  text-align: center;
+  animation: toast-slide-up 0.3s var(--ease-out-quart);
+}
+
+@keyframes toast-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion: no animation */
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}
+
+/* Retro card styles */
+.card-retro {
+  border: 2px solid var(--color-border-default);
+  transition: all 0.2s ease;
+}
+
+.card-retro:hover {
+  border-color: var(--color-secondary);
+  box-shadow: var(--shadow-glow-secondary);
+}
+
+/* ==========================================
+   ANIMATIONS: Keyframes & Utilities
+   ========================================== */
+
+/* Cursor blink animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Fade in and slide up */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in only */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Slide down for menus */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation utility classes */
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s var(--ease-out-quart) forwards;
+  opacity: 0;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s var(--ease-out-quart) forwards;
+  opacity: 0;
+}
+
+/* Stagger delay utilities */
+.delay-1 { animation-delay: 0ms; }
+.delay-2 { animation-delay: 100ms; }
+.delay-3 { animation-delay: 200ms; }
+.delay-4 { animation-delay: 300ms; }
+.delay-5 { animation-delay: 400ms; }
+.delay-6 { animation-delay: 500ms; }
+
+/* Scroll-triggered animation (starts invisible, JS adds .is-visible) */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s var(--ease-out-quart), transform 0.5s var(--ease-out-quart);
+}
+
+.scroll-animate.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Easing utility classes */
+.ease-out-quart {
+  transition-timing-function: var(--ease-out-quart);
+}
+
+.ease-out-quint {
+  transition-timing-function: var(--ease-out-quint);
+}
+
+.ease-out-expo {
+  transition-timing-function: var(--ease-out-expo);
+}
+
+/* Selection colors */
+::selection {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+/* ==========================================
+   ACCESSIBILITY: Focus indicators
+   ========================================== */
+
+/* Focus-visible for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Remove default focus for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Enhanced focus for interactive elements */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+[role="menuitem"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.2);
+}
+
+/* Focus within for dropdown containers */
+.dropdown-container:focus-within {
+  outline: none;
+}
+
+/* ==========================================
+   TEXT OVERFLOW: Handling long content
+   ========================================== */
+
+/* Single line truncation with ellipsis */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Multi-line truncation */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Word breaking for long strings */
+.break-words {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Prevent flex/grid item overflow */
+.min-w-0 {
+  min-width: 0;
+}
+
+/* ==========================================
+   ACCESSIBILITY: Skip link
+   ========================================== */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background-color: var(--color-primary);
+  color: #000;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-mono);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0px 0px #000;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ==========================================
+   ACCESSIBILITY: Reduced motion
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Disable CRT scanlines effect */
+  .crt-scanlines {
+    display: none !important;
+  }
+
+  /* Disable all animations */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable specific animations */
+  .animate-pulse,
+  .cursor-blink {
+    animation: none !important;
+  }
+
+  /* Remove transform transitions on hover */
+  .btn-retro-primary:hover,
+  .btn-retro-secondary:hover {
+    transform: none !important;
+  }
+
+  /* Show scroll-animated elements immediately */
+  .scroll-animate {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Show entrance animations immediately */
+  .animate-fade-in-up,
+  .animate-fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY: Screen reader only
+   ========================================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================
+   UTILITIES: Shadow classes
+   ========================================== */
+
+.shadow-retro-primary-soft {
+  box-shadow: var(--shadow-retro-primary-soft);
+}
+
+.shadow-retro-secondary-soft {
+  box-shadow: var(--shadow-retro-secondary-soft);
+}
+
+.shadow-retro-primary {
+  box-shadow: var(--shadow-retro-primary);
+}
+
+.shadow-retro-secondary {
+  box-shadow: var(--shadow-retro-secondary);
+}
+
+/* ==========================================
+   UTILITIES: Border colors
+   ========================================== */
+
+.border-default {
+  border-color: var(--color-border-default);
+}
+
+.border-muted {
+  border-color: var(--color-border-muted);
+}
+
+.border-strong {
+  border-color: var(--color-border-strong);
+}
+
+.border-primary-soft {
+  border-color: var(--color-border-primary-soft);
+}
+
+.border-primary-accent {
+  border-color: var(--color-border-primary);
+}
+
+.border-secondary-soft {
+  border-color: var(--color-border-secondary-soft);
+}
+
+.border-secondary-accent {
+  border-color: var(--color-border-secondary);
+}
+
+/* ==========================================
+   PERFORMANCE: CSS Containment
+   ========================================== */
+
+/* Contain sections for better paint performance */
+section {
+  contain: layout style;
+}
+
+/* Promote interactive elements for smooth animations */
+.btn-retro-primary,
+.btn-retro-secondary,
+.btn-cta-primary,
+.card-retro {
+  will-change: transform, box-shadow;
+}
+
+/* Remove will-change after animation completes (reduces memory) */
+.btn-retro-primary:not(:hover),
+.btn-retro-secondary:not(:hover),
+.btn-cta-primary:not(:hover),
+.card-retro:not(:hover) {
+  will-change: auto;
+}
+
+/* Content visibility for below-fold sections */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* ==========================================
+   RESPONSIVE: Safe area insets (notched devices)
+   ========================================== */
+
+/* Support for iPhone X+ and other notched devices */
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Ensure sticky header respects notch */
+  header {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  /* Footer padding for home indicator */
+  footer {
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* ==========================================
+   RESPONSIVE: Landscape orientation
+   ========================================== */
+
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Reduce vertical padding in landscape on small screens */
+  .py-16 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .py-20 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .py-24 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Smaller hero text in landscape */
+  .text-6xl {
+    font-size: 2.5rem;
+  }
+
+  .text-7xl {
+    font-size: 3rem;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE: Touch-friendly utilities
+   ========================================== */
+
+/* Minimum touch target for footer/small links */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Increase tap area without changing visual size */
+.tap-area-expand {
+  position: relative;
+}
+
+.tap-area-expand::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -8px;
+}
+
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+
+@media print {
+  /* Reset colors for printing */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+  }
+
+  /* Hide non-essential elements */
+  header,
+  footer,
+  .crt-scanlines,
+  .skip-link,
+  .btn-retro-primary,
+  .btn-retro-secondary,
+  .btn-cta-primary,
+  .btn-cta-secondary,
+  nav {
+    display: none !important;
+  }
+
+  /* Remove background effects */
+  .retro-grid {
+    background: white !important;
+    background-image: none !important;
+  }
+
+  .bg-surface-dark,
+  .bg-background-dark,
+  .bg-secondary {
+    background: white !important;
+  }
+
+  /* Make text black */
+  .text-primary,
+  .text-secondary,
+  .text-white,
+  .text-slate-400,
+  .text-slate-500 {
+    color: black !important;
+  }
+
+  /* Remove shadows and borders that don't print well */
+  .card-retro {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+
+  /* Remove text effects */
+  .title-glow,
+  .crt-glow {
+    text-shadow: none !important;
+  }
+
+  /* Ensure links are visible */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+    color: #666;
+  }
+
+  /* Don't show URL for internal links */
+  a[href^="/"]:after,
+  a[href^="#"]:after,
+  a[href^="mailto:"]:after {
+    content: "";
+  }
+
+  /* Page breaks */
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  section {
+    page-break-inside: avoid;
+  }
+
+  /* Ensure images print */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+}

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <filter id="cyanGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#00f0ff" flood-opacity="0.8"/>
+    </filter>
+    <filter id="magentaGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#ff00ff" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="64" height="64" fill="#0e1621"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.3"/>
+
+  <!-- Head -->
+  <circle cx="32" cy="22" r="12" fill="#15202e" stroke="#00f0ff" stroke-width="2" filter="url(#cyanGlow)"/>
+
+  <!-- Body -->
+  <path d="M12,58 Q12,40 32,40 Q52,40 52,58" fill="#15202e" stroke="#ff00ff" stroke-width="2" filter="url(#magentaGlow)"/>
+
+  <!-- Inner head detail -->
+  <circle cx="32" cy="22" r="6" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.5"/>
+</svg>

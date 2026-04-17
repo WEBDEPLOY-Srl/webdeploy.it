@@ -1,0 +1,7 @@
+# https://webdeploy.it robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://webdeploy.it/sitemap.xml

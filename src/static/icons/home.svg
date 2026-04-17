@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <filter id="cyanGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#00f0ff" flood-opacity="0.8"/>
+    </filter>
+    <filter id="magentaGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#ff00ff" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="64" height="64" fill="#0e1621"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.3"/>
+
+  <!-- Roof -->
+  <polygon points="32,10 8,32 16,32 16,54 48,54 48,32 56,32" fill="#15202e" stroke="#00f0ff" stroke-width="2" filter="url(#cyanGlow)"/>
+
+  <!-- Door -->
+  <rect x="26" y="38" width="12" height="16" fill="#0e1621" stroke="#ff00ff" stroke-width="2" filter="url(#magentaGlow)"/>
+
+  <!-- Door knob -->
+  <circle cx="35" cy="46" r="2" fill="#00f0ff">
+    <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Window -->
+  <rect x="36" y="26" width="8" height="8" fill="#0e1621" stroke="#00f0ff" stroke-width="1"/>
+</svg>

@@ -1,0 +1,5 @@
+.env
+node_modules/
+.claude/commands/
+.claude/skills/frontend-design/
+.claude/settings.local.json

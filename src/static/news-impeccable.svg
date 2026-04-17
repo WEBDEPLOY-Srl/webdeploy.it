@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <defs>
+    <!-- Grid pattern -->
+    <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
+      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(0,240,255,0.08)" stroke-width="1"/>
+    </pattern>
+    <!-- Glow filters -->
+    <filter id="cyanGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00f0ff" flood-opacity="0.8"/>
+    </filter>
+    <filter id="magentaGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#ff00ff" flood-opacity="0.8"/>
+    </filter>
+    <filter id="strongGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#00f0ff" flood-opacity="0.6"/>
+    </filter>
+    <!-- Gradient for panels -->
+    <linearGradient id="panelGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#15202e"/>
+      <stop offset="100%" style="stop-color:#0a0f15"/>
+    </linearGradient>
+    <!-- Sparkle gradient -->
+    <radialGradient id="sparkle" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ff00ff;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#ff00ff;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="400" fill="#050a10"/>
+  <rect width="600" height="400" fill="url(#grid)"/>
+
+  <!-- Decorative lines -->
+  <line x1="0" y1="380" x2="600" y2="380" stroke="#00f0ff" stroke-width="2" opacity="0.3"/>
+  <line x1="0" y1="20" x2="600" y2="20" stroke="#ff00ff" stroke-width="2" opacity="0.3"/>
+
+  <!-- Before Panel (left side) - "messy" design -->
+  <g transform="translate(40, 60)">
+    <!-- Panel frame -->
+    <rect x="0" y="0" width="200" height="250" fill="url(#panelGradient)" stroke="#ff00ff" stroke-width="2" opacity="0.6"/>
+
+    <!-- Browser chrome -->
+    <rect x="0" y="0" width="200" height="24" fill="#15202e"/>
+    <circle cx="14" cy="12" r="5" fill="#ff00ff" opacity="0.5"/>
+    <circle cx="32" cy="12" r="5" fill="#0e1621"/>
+    <circle cx="50" cy="12" r="5" fill="#0e1621"/>
+
+    <!-- Messy content representation -->
+    <g transform="translate(10, 35)" opacity="0.6">
+      <!-- Misaligned blocks -->
+      <rect x="5" y="0" width="80" height="15" fill="#ff00ff" opacity="0.3"/>
+      <rect x="15" y="25" width="120" height="10" fill="#ff00ff" opacity="0.2"/>
+      <rect x="0" y="45" width="90" height="10" fill="#ff00ff" opacity="0.25"/>
+      <rect x="30" y="65" width="140" height="8" fill="#ff00ff" opacity="0.2"/>
+      <rect x="10" y="85" width="60" height="40" fill="#ff00ff" opacity="0.15"/>
+      <rect x="80" y="90" width="95" height="30" fill="#ff00ff" opacity="0.2"/>
+      <rect x="5" y="135" width="170" height="8" fill="#ff00ff" opacity="0.2"/>
+      <rect x="20" y="155" width="130" height="8" fill="#ff00ff" opacity="0.15"/>
+      <rect x="0" y="175" width="100" height="8" fill="#ff00ff" opacity="0.2"/>
+    </g>
+
+    <!-- "BEFORE" label -->
+    <text x="100" y="235" text-anchor="middle" fill="#ff00ff" font-family="monospace" font-size="12" opacity="0.8">BEFORE</text>
+  </g>
+
+  <!-- Transformation Arrow -->
+  <g transform="translate(260, 160)">
+    <!-- Arrow body with animation -->
+    <path d="M 0 25 L 60 25" stroke="#00f0ff" stroke-width="3" stroke-dasharray="8,4">
+      <animate attributeName="stroke-dashoffset" from="24" to="0" dur="1s" repeatCount="indefinite"/>
+    </path>
+    <polygon points="60,15 80,25 60,35" fill="#00f0ff" filter="url(#cyanGlow)"/>
+
+    <!-- Sparkle effects around arrow -->
+    <circle cx="20" cy="10" r="3" fill="#ff00ff">
+      <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="50" cy="40" r="2" fill="#00f0ff">
+      <animate attributeName="opacity" values="0;1;0" dur="1.8s" begin="0.3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="40" cy="5" r="2" fill="#ff00ff">
+      <animate attributeName="opacity" values="0;1;0" dur="1.2s" begin="0.6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- After Panel (right side) - "polished" design -->
+  <g transform="translate(360, 60)">
+    <!-- Panel frame with glow -->
+    <rect x="0" y="0" width="200" height="250" fill="url(#panelGradient)" stroke="#00f0ff" stroke-width="2" filter="url(#cyanGlow)"/>
+
+    <!-- Browser chrome -->
+    <rect x="0" y="0" width="200" height="24" fill="#00f0ff"/>
+    <circle cx="14" cy="12" r="5" fill="#ff00ff"/>
+    <circle cx="32" cy="12" r="5" fill="#0e1621"/>
+    <circle cx="50" cy="12" r="5" fill="#0e1621"/>
+
+    <!-- Clean content representation -->
+    <g transform="translate(10, 35)">
+      <!-- Aligned, organized blocks -->
+      <rect x="0" y="0" width="100" height="15" fill="#00f0ff" opacity="0.4"/>
+      <rect x="0" y="25" width="180" height="10" fill="#00f0ff" opacity="0.3"/>
+      <rect x="0" y="45" width="180" height="10" fill="#00f0ff" opacity="0.3"/>
+      <rect x="0" y="65" width="140" height="8" fill="#00f0ff" opacity="0.25"/>
+
+      <!-- Image placeholder -->
+      <rect x="0" y="85" width="85" height="60" fill="#00f0ff" opacity="0.2" stroke="#00f0ff" stroke-width="1"/>
+      <rect x="95" y="85" width="85" height="60" fill="#ff00ff" opacity="0.2" stroke="#ff00ff" stroke-width="1"/>
+
+      <!-- More aligned text -->
+      <rect x="0" y="155" width="180" height="8" fill="#00f0ff" opacity="0.3"/>
+      <rect x="0" y="170" width="150" height="8" fill="#00f0ff" opacity="0.25"/>
+      <rect x="0" y="185" width="120" height="8" fill="#00f0ff" opacity="0.2"/>
+    </g>
+
+    <!-- "AFTER" label -->
+    <text x="100" y="235" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="12" font-weight="bold">AFTER</text>
+
+    <!-- Checkmark -->
+    <g transform="translate(160, 215)">
+      <circle cx="0" cy="0" r="12" fill="#0e1621" stroke="#00f0ff" stroke-width="2"/>
+      <path d="M -5 0 L -2 4 L 6 -4" stroke="#00f0ff" stroke-width="2" fill="none"/>
+    </g>
+  </g>
+
+  <!-- Center emblem - "impeccable" -->
+  <g transform="translate(300, 340)">
+    <rect x="-80" y="-20" width="160" height="35" fill="#0e1621" stroke="#ff00ff" stroke-width="2" filter="url(#magentaGlow)"/>
+    <text x="0" y="5" text-anchor="middle" fill="#ff00ff" font-family="monospace" font-size="14" font-weight="bold" letter-spacing="2">IMPECCABLE</text>
+  </g>
+
+  <!-- Magic wand / AI spark effect -->
+  <g transform="translate(300, 100)">
+    <!-- Central star -->
+    <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3" fill="#ff00ff" filter="url(#magentaGlow)">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+    </polygon>
+    <!-- Orbiting dots -->
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#00f0ff" stroke-width="1" opacity="0.3" stroke-dasharray="2,4">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- Corner accents -->
+  <path d="M 10 10 L 10 40 M 10 10 L 40 10" stroke="#00f0ff" stroke-width="2" fill="none"/>
+  <path d="M 590 10 L 590 40 M 590 10 L 560 10" stroke="#ff00ff" stroke-width="2" fill="none"/>
+  <path d="M 10 390 L 10 360 M 10 390 L 40 390" stroke="#ff00ff" stroke-width="2" fill="none"/>
+  <path d="M 590 390 L 590 360 M 590 390 L 560 390" stroke="#00f0ff" stroke-width="2" fill="none"/>
+
+  <!-- Top label -->
+  <text x="300" y="40" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="10" opacity="0.7">DESIGN TRANSFORMATION</text>
+
+  <!-- Bottom feature labels -->
+  <text x="140" y="330" text-anchor="middle" fill="#ff00ff" font-family="monospace" font-size="9" opacity="0.8">UNPOLISHED</text>
+  <text x="460" y="330" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="9" opacity="0.8">REFINED</text>
+</svg>

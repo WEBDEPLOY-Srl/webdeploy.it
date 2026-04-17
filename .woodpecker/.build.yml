@@ -1,0 +1,65 @@
+when:
+  - event: push
+    branch: main
+  - event: manual
+
+steps:
+  build_frontend:
+    image: git.webdeploy.it/webdeploy/alpine:latest
+    environment:
+      DOCKER_USERNAME:
+        from_secret: docker_username
+      DOCKER_PASSWORD:
+        from_secret: docker_password
+    commands:
+      - echo "$${DOCKER_PASSWORD}" | docker login --password-stdin --username "$${DOCKER_USERNAME}" git.webdeploy.it
+      - echo "TAG=$(jq -r .version ./src/package.json)" >> .env
+      # Build website
+      - docker-compose -f docker-compose.build.yml build
+      # push frontend
+      - docker push git.webdeploy.it/webdeploy/webdeploy.it:latest
+      - docker push git.webdeploy.it/webdeploy/webdeploy.it:$(jq -r .version ./src/package.json)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  notify_success:
+    image: curlimages/curl:8.19.0
+    environment:
+      NTFY_URL:
+        from_secret: ntfy_url
+      NTFY_TOPIC:
+        from_secret: ntfy_topic
+      NTFY_TOKEN:
+        from_secret: ntfy_token
+    commands:
+      - |
+        curl -fsS -X POST \
+          -H "Authorization: Bearer $${NTFY_TOKEN}" \
+          -H "Title: ✅ Deploy succeeded" \
+          -H "Priority: 3" \
+          -H "Tags: rocket,white_check_mark" \
+          -d "Repo: ${CI_REPO}\nBranch: ${CI_COMMIT_BRANCH}\nCommit: ${CI_COMMIT_SHA}\nPipeline: ${CI_PIPELINE_NUMBER}\nURL: ${CI_PIPELINE_URL}" \
+          "$${NTFY_URL}/$${NTFY_TOPIC}"
+    when:
+      status: [success]
+
+  notify_failure:
+    image: curlimages/curl:8.19.0
+    environment:
+      NTFY_URL:
+        from_secret: ntfy_url
+      NTFY_TOPIC:
+        from_secret: ntfy_topic
+      NTFY_TOKEN:
+        from_secret: ntfy_token
+    commands:
+      - |
+        curl -fsS -X POST \
+          -H "Authorization: Bearer $${NTFY_TOKEN}" \
+          -H "Title: ❌ Deploy failed" \
+          -H "Priority: 5" \
+          -H "Tags: warning,x" \
+          -d "Repo: ${CI_REPO}\nBranch: ${CI_COMMIT_BRANCH}\nCommit: ${CI_COMMIT_SHA}\nPipeline: ${CI_PIPELINE_NUMBER}\nURL: ${CI_PIPELINE_URL}" \
+          "$${NTFY_URL}/$${NTFY_TOPIC}"
+    when:
+      status: [failure]

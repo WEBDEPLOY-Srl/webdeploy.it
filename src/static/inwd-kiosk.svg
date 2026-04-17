@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500">
+  <defs>
+    <!-- Grid pattern -->
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(0,240,255,0.08)" stroke-width="1"/>
+    </pattern>
+    <!-- Glow filters -->
+    <filter id="cyanGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00f0ff" flood-opacity="0.8"/>
+    </filter>
+    <filter id="magentaGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#ff00ff" flood-opacity="0.8"/>
+    </filter>
+    <filter id="screenGlow">
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#00f0ff" flood-opacity="0.5"/>
+    </filter>
+    <!-- Scanline pattern -->
+    <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="4" y2="0" stroke="rgba(0,0,0,0.3)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="500" fill="#050a10"/>
+  <rect width="600" height="500" fill="url(#grid)"/>
+
+  <!-- Decorative lines -->
+  <line x1="0" y1="480" x2="600" y2="480" stroke="#00f0ff" stroke-width="2" opacity="0.3"/>
+  <line x1="0" y1="20" x2="600" y2="20" stroke="#ff00ff" stroke-width="2" opacity="0.3"/>
+
+  <!-- Kiosk Body -->
+  <g transform="translate(175, 40)">
+    <!-- Main frame -->
+    <rect x="0" y="0" width="250" height="400" fill="#0e1621" stroke="#00f0ff" stroke-width="3" filter="url(#cyanGlow)"/>
+
+    <!-- Inner bezel -->
+    <rect x="10" y="10" width="230" height="380" fill="#0a0f15" stroke="#00f0ff" stroke-width="1" opacity="0.5"/>
+
+    <!-- Screen area -->
+    <rect x="20" y="20" width="210" height="280" fill="#0a1520" stroke="#00f0ff" stroke-width="2" filter="url(#screenGlow)"/>
+
+    <!-- Scanlines overlay -->
+    <rect x="20" y="20" width="210" height="280" fill="url(#scanlines)" opacity="0.5"/>
+
+    <!-- Screen content - Linux terminal -->
+    <g transform="translate(30, 30)">
+      <!-- Terminal header bar -->
+      <rect x="0" y="0" width="190" height="20" fill="#15202e"/>
+      <circle cx="12" cy="10" r="4" fill="#ff00ff"/>
+      <circle cx="28" cy="10" r="4" fill="#00f0ff"/>
+      <circle cx="44" cy="10" r="4" fill="#00f0ff" opacity="0.5"/>
+      <text x="100" y="14" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="8">inWD_KIOSK</text>
+
+      <!-- Terminal content -->
+      <text x="5" y="40" fill="#00f0ff" font-family="monospace" font-size="9">
+        <tspan x="5" dy="0">&gt; system.status</tspan>
+        <tspan x="5" dy="14" fill="#ff00ff">● ONLINE</tspan>
+        <tspan x="5" dy="18">&gt; display.mode</tspan>
+        <tspan x="5" dy="14" fill="#ff00ff">INTERACTIVE</tspan>
+        <tspan x="5" dy="18">&gt; os.kernel</tspan>
+        <tspan x="5" dy="14" fill="#ff00ff">Linux 6.x LTS</tspan>
+        <tspan x="5" dy="18">&gt; touch.enabled</tspan>
+        <tspan x="5" dy="14" fill="#ff00ff">TRUE</tspan>
+        <tspan x="5" dy="18">&gt; license</tspan>
+        <tspan x="5" dy="14" fill="#ff00ff">OPEN_SOURCE</tspan>
+      </text>
+
+      <!-- Blinking cursor -->
+      <rect x="5" y="195" width="8" height="12" fill="#00f0ff">
+        <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+      </rect>
+    </g>
+
+    <!-- Touch indicator dots -->
+    <g transform="translate(125, 250)">
+      <circle cx="0" cy="0" r="15" fill="none" stroke="#ff00ff" stroke-width="1" opacity="0.5">
+        <animate attributeName="r" values="10;20;10" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="0" cy="0" r="5" fill="#ff00ff" opacity="0.8"/>
+    </g>
+
+    <!-- Control panel below screen -->
+    <rect x="20" y="310" width="210" height="70" fill="#15202e" stroke="#ff00ff" stroke-width="1"/>
+
+    <!-- Status LEDs -->
+    <g transform="translate(40, 325)">
+      <circle cx="0" cy="0" r="5" fill="#00f0ff">
+        <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+      <text x="12" y="4" fill="#00f0ff" font-family="monospace" font-size="8">PWR</text>
+
+      <circle cx="50" cy="0" r="5" fill="#00f0ff">
+        <animate attributeName="opacity" values="1;0.5;1" dur="0.8s" repeatCount="indefinite"/>
+      </circle>
+      <text x="62" y="4" fill="#00f0ff" font-family="monospace" font-size="8">NET</text>
+
+      <circle cx="100" cy="0" r="5" fill="#ff00ff"/>
+      <text x="112" y="4" fill="#ff00ff" font-family="monospace" font-size="8">APP</text>
+    </g>
+
+    <!-- NFC/Card reader slot -->
+    <rect x="60" y="345" width="130" height="25" fill="#0a0f15" stroke="#00f0ff" stroke-width="1"/>
+    <text x="125" y="362" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="8" opacity="0.7">NFC / CARD</text>
+  </g>
+
+  <!-- Tux mascot (simplified) -->
+  <g transform="translate(60, 150)">
+    <ellipse cx="40" cy="60" rx="30" ry="40" fill="#15202e" stroke="#00f0ff" stroke-width="2"/>
+    <ellipse cx="40" cy="30" rx="22" ry="22" fill="#15202e" stroke="#00f0ff" stroke-width="2"/>
+    <!-- Eyes -->
+    <ellipse cx="32" cy="26" rx="6" ry="8" fill="white"/>
+    <ellipse cx="48" cy="26" rx="6" ry="8" fill="white"/>
+    <circle cx="34" cy="26" r="3" fill="black"/>
+    <circle cx="50" cy="26" r="3" fill="black"/>
+    <!-- Beak -->
+    <ellipse cx="40" cy="38" rx="8" ry="5" fill="#ff00ff"/>
+    <!-- Belly -->
+    <ellipse cx="40" cy="65" rx="18" ry="25" fill="#1a2a3a" stroke="#00f0ff" stroke-width="1"/>
+    <!-- Feet -->
+    <ellipse cx="28" cy="100" rx="12" ry="6" fill="#ff00ff"/>
+    <ellipse cx="52" cy="100" rx="12" ry="6" fill="#ff00ff"/>
+    <text x="40" y="125" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="10">LINUX</text>
+  </g>
+
+  <!-- Connection lines to cloud/server -->
+  <g stroke-width="2" fill="none">
+    <!-- From kiosk to right -->
+    <path d="M 425 240 Q 480 240 500 180" stroke="#00f0ff" stroke-dasharray="5,5">
+      <animate attributeName="stroke-dashoffset" from="0" to="20" dur="1s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 425 240 Q 480 240 500 300" stroke="#ff00ff" stroke-dasharray="5,5">
+      <animate attributeName="stroke-dashoffset" from="0" to="20" dur="1s" repeatCount="indefinite"/>
+    </path>
+  </g>
+
+  <!-- Right side icons -->
+  <!-- Cloud/Server -->
+  <g transform="translate(490, 130)">
+    <rect x="0" y="0" width="60" height="50" fill="#0e1621" stroke="#00f0ff" stroke-width="2" filter="url(#cyanGlow)"/>
+    <rect x="8" y="10" width="44" height="8" fill="#15202e" stroke="#00f0ff" stroke-width="1"/>
+    <circle cx="46" cy="14" r="2" fill="#00f0ff"/>
+    <rect x="8" y="22" width="44" height="8" fill="#15202e" stroke="#00f0ff" stroke-width="1"/>
+    <circle cx="46" cy="26" r="2" fill="#ff00ff"/>
+    <rect x="8" y="34" width="44" height="8" fill="#15202e" stroke="#00f0ff" stroke-width="1"/>
+    <circle cx="46" cy="38" r="2" fill="#00f0ff"/>
+    <text x="30" y="65" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="8">INWD</text>
+  </g>
+
+  <!-- GitOps icon -->
+  <g transform="translate(490, 270)">
+    <circle cx="30" cy="15" r="12" fill="#0e1621" stroke="#ff00ff" stroke-width="2" filter="url(#magentaGlow)"/>
+    <circle cx="30" cy="55" r="12" fill="#0e1621" stroke="#ff00ff" stroke-width="2"/>
+    <line x1="30" y1="27" x2="30" y2="43" stroke="#ff00ff" stroke-width="2"/>
+    <!-- Branch -->
+    <circle cx="50" cy="35" r="8" fill="#0e1621" stroke="#ff00ff" stroke-width="2"/>
+    <path d="M 38 22 Q 50 22 50 27" stroke="#ff00ff" stroke-width="2" fill="none"/>
+    <text x="30" y="80" text-anchor="middle" fill="#ff00ff" font-family="monospace" font-size="8">GITOPS</text>
+  </g>
+
+  <!-- Feature labels at bottom -->
+  <g transform="translate(0, 460)">
+    <text x="100" y="0" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="10" opacity="0.8">OPEN SOURCE</text>
+    <text x="300" y="0" text-anchor="middle" fill="#ff00ff" font-family="monospace" font-size="10" opacity="0.8">INTERACTIVE</text>
+    <text x="500" y="0" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="10" opacity="0.8">MANAGED</text>
+  </g>
+
+  <!-- Decorative corner elements -->
+  <path d="M 10 10 L 10 40 M 10 10 L 40 10" stroke="#00f0ff" stroke-width="2" fill="none"/>
+  <path d="M 590 10 L 590 40 M 590 10 L 560 10" stroke="#ff00ff" stroke-width="2" fill="none"/>
+  <path d="M 10 490 L 10 460 M 10 490 L 40 490" stroke="#ff00ff" stroke-width="2" fill="none"/>
+  <path d="M 590 490 L 590 460 M 590 490 L 560 490" stroke="#00f0ff" stroke-width="2" fill="none"/>
+</svg>
