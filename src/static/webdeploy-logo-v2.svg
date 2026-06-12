@@ -33,7 +33,7 @@
     </radialGradient>
     <style>
       .wdl-march { animation: wdl-march 1.2s linear infinite; }
-      .wdl-march-slow { animation: wdl-march 8s linear infinite; }
+      .wdl-march-slow { animation: wdl-march-slow 8s linear infinite; }
       .wdl-blink { animation: wdl-blink 1s steps(1) infinite; }
       .wdl-pulse { animation: wdl-pulse 2s ease-in-out infinite; }
       .wdl-pulse-fast { animation: wdl-pulse 1.5s ease-in-out infinite; }
@@ -48,10 +48,11 @@
       .wdl-cursor { animation: wdl-type 0.01s steps(1) 3.2s backwards, wdl-blink 1s steps(1) 3.4s infinite; }
       .wdl-ping { transform-box: fill-box; transform-origin: center; animation: wdl-ping 2.4s ease-out infinite; }
       .wdl-pkt { transform-box: fill-box; offset-rotate: 0deg; }
-      .wdl-pkt-in { offset-path: path('M 70 200 L 96 200'); animation: wdl-run 1.8s linear infinite; }
-      .wdl-pkt-out { offset-path: path('M 304 200 L 334 200'); animation: wdl-run 1.8s linear 0.9s infinite; }
+      .wdl-pkt-in { offset-path: path('M 68 200 L 100 200'); animation: wdl-run 1.8s linear infinite; }
+      .wdl-pkt-out { offset-path: path('M 300 200 L 332 200'); animation: wdl-run 1.8s linear 0.9s infinite; }
       .wdl-d2 { animation-delay: 0.75s; }
       @keyframes wdl-march { to { stroke-dashoffset: -32; } }
+      @keyframes wdl-march-slow { to { stroke-dashoffset: -48; } }
       @keyframes wdl-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
       @keyframes wdl-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
       @keyframes wdl-type { from { opacity: 0; } to { opacity: 1; } }
@@ -94,7 +95,7 @@
     <circle cx="113" cy="111" r="4.5" fill="#ff00ff"/>
     <circle cx="130" cy="111" r="4.5" fill="#0e1621"/>
     <circle cx="147" cy="111" r="4.5" fill="#0e1621"/>
-    <text x="226" y="115" text-anchor="middle" fill="#0e1621" font-family="monospace" font-size="11" font-weight="bold">inwd.sh — bash</text>
+    <text x="202" y="115" text-anchor="middle" fill="#0e1621" font-family="monospace" font-size="11" font-weight="bold">inwd.sh — bash</text>
 
     <!-- Terminal content, typed in line by line -->
     <g transform="translate(112, 140)" font-family="monospace">
@@ -117,14 +118,14 @@
 
   <!-- Deployment flow: in / out -->
   <g fill="none" stroke-width="2">
-    <path class="wdl-march" d="M 70 200 L 92 200" stroke="#ff00ff" stroke-dasharray="4 4"/>
+    <path class="wdl-march" d="M 68 200 L 92 200" stroke="#ff00ff" stroke-dasharray="4 4"/>
     <polygon points="92,195 100,200 92,205" fill="#ff00ff"/>
-    <path class="wdl-march" d="M 308 200 L 330 200" stroke="#00f0ff" stroke-dasharray="4 4"/>
-    <polygon points="330,195 338,200 330,205" fill="#00f0ff"/>
+    <path class="wdl-march" d="M 300 200 L 324 200" stroke="#00f0ff" stroke-dasharray="4 4"/>
+    <polygon points="324,195 332,200 324,205" fill="#00f0ff"/>
   </g>
   <!-- Data packets riding the arrows -->
-  <circle class="wdl-pkt wdl-pkt-in" cx="70" cy="200" r="3" fill="#ff00ff"/>
-  <circle class="wdl-pkt wdl-pkt-out" cx="304" cy="200" r="3" fill="#00f0ff"/>
+  <circle class="wdl-pkt wdl-pkt-in" cx="68" cy="200" r="3" fill="#ff00ff"/>
+  <circle class="wdl-pkt wdl-pkt-out" cx="300" cy="200" r="3" fill="#00f0ff"/>
 
   <!-- Connection nodes with ping rings -->
   <g>

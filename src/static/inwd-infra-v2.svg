@@ -33,8 +33,8 @@
       .inf-orbit { transform-box: fill-box; transform-origin: center; animation: inf-rot 6s linear infinite; }
       .inf-pkt { transform-box: fill-box; offset-rotate: 0deg; }
       .inf-p1 { offset-path: path('M 200 200 L 240 200'); animation: inf-run 1.6s linear infinite; }
-      .inf-p2 { offset-path: path('M 360 200 C 410 200 440 208 478 210'); animation: inf-run 2s linear 0.4s infinite; }
-      .inf-p3 { offset-path: path('M 642 196 C 680 180 700 150 722 124'); animation: inf-run 2s linear 0.9s infinite; }
+      .inf-p2 { offset-path: path('M 360 200 C 410 200 440 208 480 210'); animation: inf-run 2s linear 0.4s infinite; }
+      .inf-p3 { offset-path: path('M 642 196 C 680 180 700 150 724 121'); animation: inf-run 2s linear 0.9s infinite; }
       .inf-p4 { offset-path: path('M 642 224 C 676 238 690 230 708 226'); animation: inf-run 2s linear 1.4s infinite; }
       .inf-d2 { animation-delay: 0.7s; }
       .inf-d3 { animation-delay: 1.3s; }
@@ -134,8 +134,8 @@
   <!-- Connection lines: rack 1 → rack 2 → hub → endpoints -->
   <g stroke-width="2" fill="none">
     <path class="inf-march" d="M 200 200 L 240 200" stroke="#00f0ff" stroke-dasharray="5 5"/>
-    <path class="inf-march" d="M 360 200 C 410 200 440 208 478 210" stroke="#ff00ff" stroke-dasharray="5 5"/>
-    <path class="inf-march" d="M 642 196 C 680 180 700 150 722 124" stroke="#00f0ff" stroke-dasharray="5 5"/>
+    <path class="inf-march" d="M 360 200 C 410 200 440 208 480 210" stroke="#ff00ff" stroke-dasharray="5 5"/>
+    <path class="inf-march" d="M 642 196 C 680 180 700 150 724 121" stroke="#00f0ff" stroke-dasharray="5 5"/>
     <path class="inf-march" d="M 642 224 C 676 238 690 230 708 226" stroke="#ff00ff" stroke-dasharray="5 5"/>
   </g>
   <!-- Data packets -->

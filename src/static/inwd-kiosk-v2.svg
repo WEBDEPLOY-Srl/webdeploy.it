@@ -41,8 +41,8 @@
       .kio-bob { animation: kio-bob 4s ease-in-out infinite; }
       .kio-card { animation: kio-card 3.2s ease-in-out infinite; }
       .kio-pkt { transform-box: fill-box; offset-rotate: 0deg; }
-      .kio-pkt-a { offset-path: path('M 425 230 C 470 230 480 195 488 165'); animation: kio-run 2s linear infinite; }
-      .kio-pkt-b { offset-path: path('M 425 250 C 470 250 480 285 488 300'); animation: kio-run 2s linear 1s infinite; }
+      .kio-pkt-a { offset-path: path('M 425 230 C 470 230 480 195 490 165'); animation: kio-run 2s linear infinite; }
+      .kio-pkt-b { offset-path: path('M 425 250 C 470 250 478 290 509 317'); animation: kio-run 2s linear 1s infinite; }
       .kio-d2 { animation-delay: 1.2s; }
       .kio-d3 { animation-delay: 0.5s; }
       @keyframes kio-march { to { stroke-dashoffset: -20; } }
@@ -150,6 +150,8 @@
 
   <!-- Tux mascot -->
   <g transform="translate(58, 140)">
+    <ellipse cx="40" cy="113" rx="20" ry="3" fill="#000" opacity="0.5"/>
+    <ellipse cx="40" cy="113" rx="20" ry="3" fill="#00f0ff" opacity="0.12"/>
     <g class="kio-bob">
       <ellipse cx="12" cy="62" rx="7" ry="20" fill="#0a0f15" stroke="#00f0ff" stroke-width="1.5" transform="rotate(22 12 62)"/>
       <ellipse cx="68" cy="62" rx="7" ry="20" fill="#0a0f15" stroke="#00f0ff" stroke-width="1.5" transform="rotate(-22 68 62)"/>
@@ -172,8 +174,8 @@
 
   <!-- Connection lines to cloud/server -->
   <g stroke-width="2" fill="none">
-    <path class="kio-march" d="M 425 230 C 470 230 480 195 488 165" stroke="#00f0ff" stroke-dasharray="5 5"/>
-    <path class="kio-march" d="M 425 250 C 470 250 480 285 488 300" stroke="#ff00ff" stroke-dasharray="5 5"/>
+    <path class="kio-march" d="M 425 230 C 470 230 480 195 490 165" stroke="#00f0ff" stroke-dasharray="5 5"/>
+    <path class="kio-march" d="M 425 250 C 470 250 478 290 509 317" stroke="#ff00ff" stroke-dasharray="5 5"/>
   </g>
   <circle class="kio-pkt kio-pkt-a" cx="425" cy="230" r="3.5" fill="#00f0ff"/>
   <circle class="kio-pkt kio-pkt-b" cx="425" cy="250" r="3.5" fill="#ff00ff"/>
