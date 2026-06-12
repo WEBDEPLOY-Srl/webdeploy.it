@@ -40,9 +40,6 @@
       .kio-ping { transform-box: fill-box; transform-origin: center; animation: kio-ping 2.4s ease-out infinite; }
       .kio-bob { animation: kio-bob 4s ease-in-out infinite; }
       .kio-card { animation: kio-card 3.2s ease-in-out infinite; }
-      .kio-pkt { transform-box: fill-box; offset-rotate: 0deg; }
-      .kio-pkt-a { offset-path: path('M 425 230 C 470 230 480 195 490 165'); animation: kio-run 2s linear infinite; }
-      .kio-pkt-b { offset-path: path('M 425 250 C 470 250 478 290 509 317'); animation: kio-run 2s linear 1s infinite; }
       .kio-d2 { animation-delay: 1.2s; }
       .kio-d3 { animation-delay: 0.5s; }
       @keyframes kio-march { to { stroke-dashoffset: -20; } }
@@ -58,13 +55,10 @@
         80% { transform: translateX(0); opacity: 0; }
         100% { transform: translateX(0); opacity: 0; }
       }
-      @keyframes kio-run {
-        0% { offset-distance: 0%; opacity: 0; }
-        15% { opacity: 1; }
-        85% { opacity: 1; }
-        100% { offset-distance: 100%; opacity: 0; }
+      @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; }
+        .kio-pkt { display: none; }
       }
-      @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
     </style>
   </defs>
 
@@ -177,8 +171,18 @@
     <path class="kio-march" d="M 425 230 C 470 230 480 195 490 165" stroke="#00f0ff" stroke-dasharray="5 5"/>
     <path class="kio-march" d="M 425 250 C 470 250 478 290 509 317" stroke="#ff00ff" stroke-dasharray="5 5"/>
   </g>
-  <circle class="kio-pkt kio-pkt-a" cx="425" cy="230" r="3.5" fill="#00f0ff"/>
-  <circle class="kio-pkt kio-pkt-b" cx="425" cy="250" r="3.5" fill="#ff00ff"/>
+  <g transform="translate(425, 230)">
+    <circle class="kio-pkt" r="3.5" fill="#00f0ff">
+      <animateMotion path="M 0 0 C 45 0 55 -35 65 -65" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g transform="translate(425, 250)">
+    <circle class="kio-pkt" r="3.5" fill="#ff00ff">
+      <animateMotion path="M 0 0 C 45 0 53 40 84 67" dur="2s" begin="1s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2s" begin="1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
   <!-- inWD cloud/server -->
   <g transform="translate(490, 130)">

@@ -30,12 +30,6 @@
       .inf-bar { transform-box: fill-box; transform-origin: left center; animation: inf-bar 2.8s ease-in-out infinite; }
       .inf-rot { transform-box: fill-box; transform-origin: center; animation: inf-rot 12s linear infinite; }
       .inf-rot-rev { transform-box: fill-box; transform-origin: center; animation: inf-rot-rev 9s linear infinite; }
-      .inf-orbit { transform-box: fill-box; transform-origin: center; animation: inf-rot 6s linear infinite; }
-      .inf-pkt { transform-box: fill-box; offset-rotate: 0deg; }
-      .inf-p1 { offset-path: path('M 200 200 L 240 200'); animation: inf-run 1.6s linear infinite; }
-      .inf-p2 { offset-path: path('M 360 200 C 410 200 440 208 480 210'); animation: inf-run 2s linear 0.4s infinite; }
-      .inf-p3 { offset-path: path('M 642 196 C 680 180 700 150 724 121'); animation: inf-run 2s linear 0.9s infinite; }
-      .inf-p4 { offset-path: path('M 642 224 C 676 238 690 230 708 226'); animation: inf-run 2s linear 1.4s infinite; }
       .inf-d2 { animation-delay: 0.7s; }
       .inf-d3 { animation-delay: 1.3s; }
       .inf-d4 { animation-delay: 1.8s; }
@@ -45,13 +39,10 @@
       @keyframes inf-bar { 0%, 100% { transform: scaleX(0.35); } 40% { transform: scaleX(1); } 70% { transform: scaleX(0.55); } }
       @keyframes inf-rot { to { transform: rotate(360deg); } }
       @keyframes inf-rot-rev { to { transform: rotate(-360deg); } }
-      @keyframes inf-run {
-        0% { offset-distance: 0%; opacity: 0; }
-        15% { opacity: 1; }
-        85% { opacity: 1; }
-        100% { offset-distance: 100%; opacity: 0; }
+      @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; }
+        .inf-pkt, .inf-sat { display: none; }
       }
-      @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
     </style>
   </defs>
 
@@ -121,10 +112,11 @@
     <!-- Rotating orchestration rings -->
     <circle class="inf-rot" cx="100" cy="90" r="38" fill="none" stroke="#00f0ff" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.7"/>
     <circle class="inf-rot-rev" cx="100" cy="90" r="28" fill="none" stroke="#ff00ff" stroke-width="1" stroke-dasharray="3 5" opacity="0.6"/>
-    <!-- Orbiting satellite (ghost dot keeps rotation centered) -->
-    <g class="inf-orbit">
-      <circle cx="138" cy="90" r="3.5" fill="#ff00ff"/>
-      <circle cx="62" cy="90" r="3.5" fill="#ff00ff" opacity="0"/>
+    <!-- Orbiting satellite -->
+    <g transform="translate(138, 90)">
+      <circle class="inf-sat" r="3.5" fill="#ff00ff">
+        <animateMotion path="M 0 0 A 38 38 0 1 1 -76 0 A 38 38 0 1 1 0 0" dur="6s" repeatCount="indefinite"/>
+      </circle>
     </g>
     <circle cx="100" cy="90" r="16" fill="#00f0ff" opacity="0.2"/>
     <circle class="inf-pulse" cx="100" cy="90" r="9" fill="#00f0ff"/>
@@ -139,10 +131,30 @@
     <path class="inf-march" d="M 642 224 C 676 238 690 230 708 226" stroke="#ff00ff" stroke-dasharray="5 5"/>
   </g>
   <!-- Data packets -->
-  <circle class="inf-pkt inf-p1" cx="200" cy="200" r="3" fill="#00f0ff"/>
-  <circle class="inf-pkt inf-p2" cx="360" cy="200" r="3" fill="#ff00ff"/>
-  <circle class="inf-pkt inf-p3" cx="642" cy="196" r="3" fill="#00f0ff"/>
-  <circle class="inf-pkt inf-p4" cx="642" cy="224" r="3" fill="#ff00ff"/>
+  <g transform="translate(200, 200)">
+    <circle class="inf-pkt" r="3" fill="#00f0ff">
+      <animateMotion path="M 0 0 L 40 0" dur="1.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="1.6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g transform="translate(360, 200)">
+    <circle class="inf-pkt" r="3" fill="#ff00ff">
+      <animateMotion path="M 0 0 C 50 0 80 8 120 10" dur="2s" begin="0.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2s" begin="0.4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g transform="translate(642, 196)">
+    <circle class="inf-pkt" r="3" fill="#00f0ff">
+      <animateMotion path="M 0 0 C 38 -16 58 -46 82 -75" dur="2s" begin="0.9s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2s" begin="0.9s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g transform="translate(642, 224)">
+    <circle class="inf-pkt" r="3" fill="#ff00ff">
+      <animateMotion path="M 0 0 C 34 14 48 6 66 2" dur="2s" begin="1.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="2s" begin="1.4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
   <!-- Git endpoint -->
   <g transform="translate(700, 100)">

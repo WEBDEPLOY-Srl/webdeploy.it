@@ -47,9 +47,6 @@
       .wdl-l7 { animation-delay: 3.2s; }
       .wdl-cursor { animation: wdl-type 0.01s steps(1) 3.2s backwards, wdl-blink 1s steps(1) 3.4s infinite; }
       .wdl-ping { transform-box: fill-box; transform-origin: center; animation: wdl-ping 2.4s ease-out infinite; }
-      .wdl-pkt { transform-box: fill-box; offset-rotate: 0deg; }
-      .wdl-pkt-in { offset-path: path('M 68 200 L 100 200'); animation: wdl-run 1.8s linear infinite; }
-      .wdl-pkt-out { offset-path: path('M 300 200 L 332 200'); animation: wdl-run 1.8s linear 0.9s infinite; }
       .wdl-d2 { animation-delay: 0.75s; }
       @keyframes wdl-march { to { stroke-dashoffset: -32; } }
       @keyframes wdl-march-slow { to { stroke-dashoffset: -48; } }
@@ -57,13 +54,10 @@
       @keyframes wdl-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
       @keyframes wdl-type { from { opacity: 0; } to { opacity: 1; } }
       @keyframes wdl-ping { 0% { transform: scale(0.6); opacity: 0.9; } 80%, 100% { transform: scale(1.9); opacity: 0; } }
-      @keyframes wdl-run {
-        0% { offset-distance: 0%; opacity: 0; }
-        15% { opacity: 1; }
-        85% { opacity: 1; }
-        100% { offset-distance: 100%; opacity: 0; }
+      @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; }
+        .wdl-pkt { display: none; }
       }
-      @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
     </style>
   </defs>
 
@@ -124,8 +118,18 @@
     <polygon points="324,195 332,200 324,205" fill="#00f0ff"/>
   </g>
   <!-- Data packets riding the arrows -->
-  <circle class="wdl-pkt wdl-pkt-in" cx="68" cy="200" r="3" fill="#ff00ff"/>
-  <circle class="wdl-pkt wdl-pkt-out" cx="300" cy="200" r="3" fill="#00f0ff"/>
+  <g transform="translate(68, 200)">
+    <circle class="wdl-pkt" r="3" fill="#ff00ff">
+      <animateMotion path="M 0 0 L 32 0" dur="1.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g transform="translate(300, 200)">
+    <circle class="wdl-pkt" r="3" fill="#00f0ff">
+      <animateMotion path="M 0 0 L 32 0" dur="1.8s" begin="0.9s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.85;1" dur="1.8s" begin="0.9s" repeatCount="indefinite"/>
+    </circle>
+  </g>
 
   <!-- Connection nodes with ping rings -->
   <g>
