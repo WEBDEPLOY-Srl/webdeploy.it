@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.19.1] - 2026-06-12
+
+### Fixed
+- Moving dots in the header illustrations (data packets and orbiting
+  satellites) could drift off their guide lines in some browsers; they now
+  use SMIL `animateMotion`, which follows path geometry exactly. Dots park on
+  their lines when animations are unavailable and are hidden under
+  `prefers-reduced-motion`.
+
+## [1.19.0] - 2026-06-12
+
+### Changed
+- Redesigned the four page-header illustrations (`webdeploy-logo.svg`,
+  `inwd-kiosk.svg`, `inwd-infra.svg`, `news-impeccable.svg`): richer scenes,
+  layered neon glows, CRT vignette and scanlines, and retro hard offset
+  shadows matching the site's design language.
+- Replaced SMIL animations with CSS animations that honor
+  `prefers-reduced-motion`, with a fully-rendered static fallback.
+- Added accessibility metadata (`role="img"`, `<title>`, `<desc>`) and
+  per-file namespaced ids to every header illustration.
+
+### Fixed
+- Geometry issues in the header illustrations: connection lines now terminate
+  on their target nodes, the infrastructure diagram no longer routes a link
+  through a server rack, and the logo terminal fits inside its hexagonal
+  frame.
+
 ## [1.18.0] - 2026-04-17
 
 ### Added
