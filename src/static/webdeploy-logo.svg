@@ -1,136 +1,169 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="wdl-title wdl-desc">
+  <title id="wdl-title">WebDeploy — inwd terminal emblem</title>
+  <desc id="wdl-desc">Neon hexagonal badge with a terminal window running inwd init, deployment arrows and a WD badge, in cyan and magenta on a dark grid.</desc>
   <defs>
     <!-- Grid pattern -->
-    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+    <pattern id="wdl-grid" width="20" height="20" patternUnits="userSpaceOnUse">
       <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0,240,255,0.1)" stroke-width="1"/>
     </pattern>
-    <!-- Glow filters -->
-    <filter id="cyanGlow">
-      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#00f0ff" flood-opacity="0.9"/>
+    <!-- CRT scanlines -->
+    <pattern id="wdl-scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="2" fill="rgba(0,0,0,0.22)"/>
+    </pattern>
+    <!-- Dual-layer glow: tight core + wide halo -->
+    <filter id="wdl-cyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#00f0ff" flood-opacity="0.9"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#00f0ff" flood-opacity="0.45"/>
     </filter>
-    <filter id="magentaGlow">
-      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#ff00ff" flood-opacity="0.9"/>
+    <filter id="wdl-magentaGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#ff00ff" flood-opacity="0.9"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#ff00ff" flood-opacity="0.45"/>
     </filter>
-    <filter id="strongGlow">
-      <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="#00f0ff" flood-opacity="0.6"/>
-    </filter>
-    <!-- Gradient for terminal -->
-    <linearGradient id="termGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#15202e"/>
-      <stop offset="100%" style="stop-color:#0a0f15"/>
+    <linearGradient id="wdl-termGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#15202e"/>
+      <stop offset="100%" stop-color="#0a0f15"/>
     </linearGradient>
+    <radialGradient id="wdl-coreLight" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="wdl-vignette" cx="50%" cy="50%" r="72%">
+      <stop offset="62%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.5"/>
+    </radialGradient>
+    <style>
+      .wdl-march { animation: wdl-march 1.2s linear infinite; }
+      .wdl-march-slow { animation: wdl-march-slow 8s linear infinite; }
+      .wdl-blink { animation: wdl-blink 1s steps(1) infinite; }
+      .wdl-pulse { animation: wdl-pulse 2s ease-in-out infinite; }
+      .wdl-pulse-fast { animation: wdl-pulse 1.5s ease-in-out infinite; }
+      .wdl-type { animation: wdl-type 0.01s steps(1) backwards; }
+      .wdl-l1 { animation-delay: 0.3s; }
+      .wdl-l2 { animation-delay: 0.9s; }
+      .wdl-l3 { animation-delay: 1.5s; }
+      .wdl-l4 { animation-delay: 1.9s; }
+      .wdl-l5 { animation-delay: 2.3s; }
+      .wdl-l6 { animation-delay: 2.7s; }
+      .wdl-l7 { animation-delay: 3.2s; }
+      .wdl-cursor { animation: wdl-type 0.01s steps(1) 3.2s backwards, wdl-blink 1s steps(1) 3.4s infinite; }
+      .wdl-ping { transform-box: fill-box; transform-origin: center; animation: wdl-ping 2.4s ease-out infinite; }
+      .wdl-pkt { transform-box: fill-box; offset-rotate: 0deg; }
+      .wdl-pkt-in { offset-path: path('M 68 200 L 100 200'); animation: wdl-run 1.8s linear infinite; }
+      .wdl-pkt-out { offset-path: path('M 300 200 L 332 200'); animation: wdl-run 1.8s linear 0.9s infinite; }
+      .wdl-d2 { animation-delay: 0.75s; }
+      @keyframes wdl-march { to { stroke-dashoffset: -32; } }
+      @keyframes wdl-march-slow { to { stroke-dashoffset: -48; } }
+      @keyframes wdl-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+      @keyframes wdl-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+      @keyframes wdl-type { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes wdl-ping { 0% { transform: scale(0.6); opacity: 0.9; } 80%, 100% { transform: scale(1.9); opacity: 0; } }
+      @keyframes wdl-run {
+        0% { offset-distance: 0%; opacity: 0; }
+        15% { opacity: 1; }
+        85% { opacity: 1; }
+        100% { offset-distance: 100%; opacity: 0; }
+      }
+      @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+    </style>
   </defs>
 
   <!-- Background -->
   <rect width="400" height="400" fill="#050a10"/>
-  <rect width="400" height="400" fill="url(#grid)"/>
+  <rect width="400" height="400" fill="url(#wdl-grid)"/>
+  <rect width="400" height="400" fill="url(#wdl-coreLight)"/>
 
-  <!-- Outer hexagon frame -->
-  <polygon
-    points="200,30 350,100 350,300 200,370 50,300 50,100"
-    fill="none"
-    stroke="#00f0ff"
-    stroke-width="3"
-    filter="url(#cyanGlow)"
-  />
+  <!-- Outer hexagon: CRT misconvergence echo + main frame + marching ants -->
+  <polygon points="200,30 350,100 350,300 200,370 50,300 50,100"
+    fill="none" stroke="#ff00ff" stroke-width="3" opacity="0.3" transform="translate(2.5,-2.5)"/>
+  <polygon points="200,30 350,100 350,300 200,370 50,300 50,100"
+    fill="none" stroke="#00f0ff" stroke-width="3" filter="url(#wdl-cyanGlow)"/>
+  <polygon class="wdl-march-slow" points="200,30 350,100 350,300 200,370 50,300 50,100"
+    fill="none" stroke="#aef9ff" stroke-width="1" stroke-dasharray="10 14" opacity="0.8"/>
 
   <!-- Inner hexagon -->
-  <polygon
-    points="200,50 330,110 330,290 200,350 70,290 70,110"
-    fill="#0e1621"
-    stroke="#ff00ff"
-    stroke-width="1"
-    opacity="0.8"
-  />
+  <polygon points="200,50 330,110 330,290 200,350 70,290 70,110"
+    fill="#0e1621" stroke="#ff00ff" stroke-width="1" opacity="0.8"/>
 
   <!-- Terminal window -->
-  <g transform="translate(90, 90)">
-    <!-- Terminal frame -->
-    <rect x="0" y="0" width="220" height="180" fill="url(#termGradient)" stroke="#00f0ff" stroke-width="2"/>
+  <g>
+    <!-- Retro hard offset shadow -->
+    <rect x="105" y="105" width="200" height="170" fill="rgba(255,0,255,0.35)"/>
+    <rect x="100" y="100" width="200" height="170" fill="url(#wdl-termGradient)" stroke="#00f0ff" stroke-width="2" filter="url(#wdl-cyanGlow)"/>
 
     <!-- Title bar -->
-    <rect x="0" y="0" width="220" height="24" fill="#00f0ff"/>
-    <circle cx="14" cy="12" r="5" fill="#ff00ff"/>
-    <circle cx="32" cy="12" r="5" fill="#0e1621"/>
-    <circle cx="50" cy="12" r="5" fill="#0e1621"/>
-    <text x="110" y="17" text-anchor="middle" fill="#0e1621" font-family="monospace" font-size="11" font-weight="bold">inwd.sh</text>
+    <rect x="100" y="100" width="200" height="22" fill="#00f0ff"/>
+    <circle cx="113" cy="111" r="4.5" fill="#ff00ff"/>
+    <circle cx="130" cy="111" r="4.5" fill="#0e1621"/>
+    <circle cx="147" cy="111" r="4.5" fill="#0e1621"/>
+    <text x="202" y="115" text-anchor="middle" fill="#0e1621" font-family="monospace" font-size="11" font-weight="bold">inwd.sh — bash</text>
 
-    <!-- Terminal content -->
-    <g transform="translate(12, 36)">
-      <text fill="#00f0ff" font-family="monospace" font-size="12">
-        <tspan x="0" dy="0" fill="#ff00ff">$</tspan>
-        <tspan> inwd init</tspan>
+    <!-- Terminal content, typed in line by line -->
+    <g transform="translate(112, 140)" font-family="monospace">
+      <text class="wdl-type wdl-l1" font-size="12">
+        <tspan fill="#ff00ff">$</tspan>
+        <tspan fill="#00f0ff"> inwd init</tspan>
       </text>
-      <text y="20" fill="#00f0ff" font-family="monospace" font-size="11" opacity="0.8">
-        <tspan x="0">Initializing...</tspan>
-      </text>
-      <text y="40" fill="#ff00ff" font-family="monospace" font-size="11">
-        <tspan x="0">✓ Infrastructure ready</tspan>
-      </text>
-      <text y="60" fill="#ff00ff" font-family="monospace" font-size="11">
-        <tspan x="0">✓ Containers deployed</tspan>
-      </text>
-      <text y="80" fill="#ff00ff" font-family="monospace" font-size="11">
-        <tspan x="0">✓ GitOps enabled</tspan>
-      </text>
-      <text y="105" fill="#00f0ff" font-family="monospace" font-size="12">
-        <tspan x="0" fill="#ff00ff">$</tspan>
-        <tspan> _</tspan>
-      </text>
-      <!-- Blinking cursor -->
-      <rect x="20" y="95" width="10" height="14" fill="#00f0ff">
-        <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
-      </rect>
+      <text class="wdl-type wdl-l2" y="17" fill="#00f0ff" font-size="10" opacity="0.75">Initializing core ...</text>
+      <text class="wdl-type wdl-l3" y="33" fill="#ff00ff" font-size="10">✓ Infrastructure ready</text>
+      <text class="wdl-type wdl-l4" y="49" fill="#ff00ff" font-size="10">✓ Containers deployed</text>
+      <text class="wdl-type wdl-l5" y="65" fill="#ff00ff" font-size="10">✓ GitOps enabled</text>
+      <text class="wdl-type wdl-l6" y="81" fill="#ff00ff" font-size="10">✓ Monitoring live</text>
+      <text class="wdl-type wdl-l7" y="103" fill="#ff00ff" font-size="12">$</text>
+      <rect class="wdl-cursor" x="12" y="93" width="7.5" height="13" fill="#00f0ff"/>
     </g>
+
+    <!-- Screen scanlines -->
+    <rect x="100" y="122" width="200" height="148" fill="url(#wdl-scan)" opacity="0.5"/>
   </g>
 
-  <!-- Deployment arrows -->
-  <g stroke-width="2" fill="none">
-    <!-- Arrow from left -->
-    <path d="M 60 200 L 85 200" stroke="#ff00ff" stroke-dasharray="4,4">
-      <animate attributeName="stroke-dashoffset" from="0" to="16" dur="1s" repeatCount="indefinite"/>
-    </path>
-    <polygon points="85,195 95,200 85,205" fill="#ff00ff"/>
+  <!-- Deployment flow: in / out -->
+  <g fill="none" stroke-width="2">
+    <path class="wdl-march" d="M 68 200 L 92 200" stroke="#ff00ff" stroke-dasharray="4 4"/>
+    <polygon points="92,195 100,200 92,205" fill="#ff00ff"/>
+    <path class="wdl-march" d="M 300 200 L 324 200" stroke="#00f0ff" stroke-dasharray="4 4"/>
+    <polygon points="324,195 332,200 324,205" fill="#00f0ff"/>
+  </g>
+  <!-- Data packets riding the arrows -->
+  <circle class="wdl-pkt wdl-pkt-in" cx="68" cy="200" r="3" fill="#ff00ff"/>
+  <circle class="wdl-pkt wdl-pkt-out" cx="300" cy="200" r="3" fill="#00f0ff"/>
 
-    <!-- Arrow to right -->
-    <path d="M 305 200 L 330 200" stroke="#00f0ff" stroke-dasharray="4,4">
-      <animate attributeName="stroke-dashoffset" from="16" to="0" dur="1s" repeatCount="indefinite"/>
-    </path>
-    <polygon points="330,195 340,200 330,205" fill="#00f0ff"/>
+  <!-- Connection nodes with ping rings -->
+  <g>
+    <circle cx="60" cy="200" r="8" fill="#0e1621" stroke="#ff00ff" stroke-width="2" filter="url(#wdl-magentaGlow)"/>
+    <circle class="wdl-ping" cx="60" cy="200" r="8" fill="none" stroke="#ff00ff" stroke-width="1.5"/>
+  </g>
+  <g>
+    <circle cx="340" cy="200" r="8" fill="#0e1621" stroke="#00f0ff" stroke-width="2" filter="url(#wdl-cyanGlow)"/>
+    <circle class="wdl-ping wdl-d2" cx="340" cy="200" r="8" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
   </g>
 
-  <!-- WD Badge -->
+  <!-- WD Badge with retro shadow -->
   <g transform="translate(200, 320)">
-    <rect x="-50" y="-20" width="100" height="35" fill="#0e1621" stroke="#00f0ff" stroke-width="2" filter="url(#cyanGlow)"/>
+    <rect x="-46" y="-16" width="100" height="35" fill="rgba(255,0,255,0.4)"/>
+    <rect x="-50" y="-20" width="100" height="35" fill="#0e1621" stroke="#00f0ff" stroke-width="2" filter="url(#wdl-cyanGlow)"/>
     <text x="0" y="5" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="20" font-weight="bold" letter-spacing="4">WD</text>
   </g>
 
-  <!-- Connection nodes -->
-  <circle cx="60" cy="200" r="8" fill="#0e1621" stroke="#ff00ff" stroke-width="2" filter="url(#magentaGlow)"/>
-  <circle cx="340" cy="200" r="8" fill="#0e1621" stroke="#00f0ff" stroke-width="2" filter="url(#cyanGlow)"/>
-
-  <!-- Top decoration -->
+  <!-- Top beacon -->
   <g transform="translate(200, 55)">
-    <circle cx="0" cy="0" r="12" fill="#0e1621" stroke="#00f0ff" stroke-width="2"/>
-    <circle cx="0" cy="0" r="5" fill="#00f0ff">
-      <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
-    </circle>
+    <circle r="12" fill="#0e1621" stroke="#00f0ff" stroke-width="2"/>
+    <circle class="wdl-ping" r="12" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
+    <circle class="wdl-pulse" r="5" fill="#00f0ff"/>
   </g>
 
   <!-- Corner accents -->
-  <path d="M 20 20 L 20 50 M 20 20 L 50 20" stroke="#00f0ff" stroke-width="2" fill="none"/>
-  <path d="M 380 20 L 380 50 M 380 20 L 350 20" stroke="#ff00ff" stroke-width="2" fill="none"/>
-  <path d="M 20 380 L 20 350 M 20 380 L 50 380" stroke="#ff00ff" stroke-width="2" fill="none"/>
-  <path d="M 380 380 L 380 350 M 380 380 L 350 380" stroke="#00f0ff" stroke-width="2" fill="none"/>
+  <path class="wdl-pulse" d="M 20 20 L 20 50 M 20 20 L 50 20" stroke="#00f0ff" stroke-width="2" fill="none"/>
+  <path class="wdl-pulse wdl-d2" d="M 380 20 L 380 50 M 380 20 L 350 20" stroke="#ff00ff" stroke-width="2" fill="none"/>
+  <path class="wdl-pulse wdl-d2" d="M 20 380 L 20 350 M 20 380 L 50 380" stroke="#ff00ff" stroke-width="2" fill="none"/>
+  <path class="wdl-pulse" d="M 380 380 L 380 350 M 380 380 L 350 380" stroke="#00f0ff" stroke-width="2" fill="none"/>
 
   <!-- Status indicator -->
   <g transform="translate(200, 385)">
-    <circle cx="-48" cy="0" r="4" fill="#00f0ff">
-      <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
-    </circle>
-    <text x="0" y="4" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="9" opacity="0.8">SYSTEM ONLINE</text>
-    <circle cx="48" cy="0" r="4" fill="#00f0ff">
-      <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
-    </circle>
+    <circle class="wdl-pulse-fast" cx="-60" cy="0" r="4" fill="#00f0ff"/>
+    <text x="0" y="4" text-anchor="middle" fill="#00f0ff" font-family="monospace" font-size="9" letter-spacing="2" opacity="0.8">SYSTEM ONLINE</text>
+    <circle class="wdl-pulse-fast wdl-d2" cx="60" cy="0" r="4" fill="#00f0ff"/>
   </g>
+
+  <!-- CRT vignette -->
+  <rect width="400" height="400" fill="url(#wdl-vignette)" pointer-events="none"/>
 </svg>
