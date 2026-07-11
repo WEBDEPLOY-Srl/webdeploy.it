@@ -247,6 +247,16 @@
 				</ul>
 			</div>
 
+			<!-- DPA Section -->
+			<div id="dpa" class="card-retro bg-surface-dark p-8 scroll-mt-24">
+				<h2 class="text-2xl font-display uppercase text-secondary mb-6 flex items-center gap-2">
+					<span class="material-symbols-outlined">contract</span>
+					{t('privacy.dpaTitle')}
+				</h2>
+
+				<p class="text-slate-400 leading-relaxed">{t('privacy.dpaText')}</p>
+			</div>
+
 			<!-- Contact Section -->
 			<div class="card-retro bg-surface-dark p-8">
 				<h2 class="text-2xl font-display uppercase text-primary mb-6 flex items-center gap-2">

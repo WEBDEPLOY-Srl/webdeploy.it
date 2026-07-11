@@ -335,6 +335,53 @@ export const it = {
 		}
 	},
 
+	// Early Access (funnel NIS2/CRA)
+	earlyAccess: {
+		title: 'Early access NIS2/CRA',
+		subtitle: 'Hosting conforme a NIS2 e CRA by design. Compliance gestita. Senza drama.',
+		benefitsTitle: 'Cosa ottieni',
+		benefits: [
+			'Gap-analysis NIS2/CRA per PMI e MSP: 12 pagine, 15 minuti, zero buzzword',
+			'Dove sei oggi rispetto a NIS2 e CRA e cosa ti manca davvero',
+			'Un piano concreto per i prossimi 90 giorni',
+			'Posto in lista per l\'early access riservato a 10 PMI italiane'
+		],
+		form: {
+			email: 'Email aziendale',
+			name: 'Nome e cognome',
+			company: 'Azienda',
+			rolePlaceholder: 'Il tuo ruolo',
+			roleA: 'CTO / IT manager',
+			roleB: 'C-level / Titolare',
+			roleC: 'Compliance officer / DPO',
+			submit: 'Iscriviti all\'early access',
+			sending: 'Invio in corso...',
+			successTitle: 'Ci siamo quasi',
+			success:
+				'Ti abbiamo inviato un\'email: conferma l\'iscrizione e ricevi subito la gap-analysis NIS2/CRA.',
+			error:
+				'Qualcosa non ha funzionato. Controlla l\'email e la spunta sul consenso, poi riprova.',
+			errorSubmit:
+				'Invio non riuscito. Riprova tra poco; se il problema persiste scrivici a info@webdeploy.it.',
+			consent:
+				'Acconsento al trattamento dei miei dati per ricevere comunicazioni sull\'early access WebDeploy. Posso revocare il consenso in qualsiasi momento. Vedi <a href="/privacy" class="text-primary hover:underline">Privacy</a> e <a href="/privacy#dpa" class="text-primary hover:underline">DPA</a>.',
+			gdprNote:
+				'Doppio opt-in: riceverai un\'email di conferma. Niente spam, nessuna cessione a terzi.'
+		},
+		confirmed: {
+			title: 'Iscrizione confermata',
+			subtitle: 'Sei dentro. La tua gap-analysis NIS2/CRA sta arrivando nella tua casella email.',
+			nextTitle: 'Cosa succede ora',
+			next: [
+				'Controlla l\'email: trovi il link per scaricare la gap-analysis NIS2/CRA',
+				'Una sola email a settimana, sempre concreta, niente spam',
+				'Tra poche settimane apriamo l\'early access a 10 PMI italiane — sei già in lista'
+			],
+			cta: 'Scopri l\'infrastruttura gestita',
+			tagline: 'Compliance gestita. Senza drama.'
+		}
+	},
+
 	// News
 	news: {
 		title: 'Notizie',
@@ -576,6 +623,9 @@ export const it = {
 		],
 		contactTitle: 'Contatti',
 		contactText: 'Per qualsiasi domanda relativa alla privacy, contattaci a:',
+		dpaTitle: 'Accordo sul trattamento dei dati (DPA)',
+		dpaText:
+			'Quando WebDeploy S.R.L. tratta dati personali per tuo conto in qualità di responsabile del trattamento, lo fa sulla base di un accordo sul trattamento dei dati (DPA) conforme all\'art. 28 GDPR: finalità e durata del trattamento definite, misure di sicurezza tecniche e organizzative, elenco dei sub-responsabili, assistenza per le richieste degli interessati, e cancellazione o restituzione dei dati al termine del servizio. Richiedi il testo del DPA scrivendo a info@webdeploy.it.',
 		optOut: {
 			OptOutComplete: 'Opt-out completato. Le tue visite a questo sito non verranno registrate dallo strumento di Web Analytics.',
 			OptOutCompleteBis: 'Nota che se cancelli i tuoi cookie, cancelli anche il cookie di opt-out, e se cambi computer o browser web, devi fare nuovamente la procedura di opt-out.',

@@ -345,6 +345,51 @@ export const en = {
 		}
 	},
 
+	// Early Access (NIS2/CRA funnel)
+	earlyAccess: {
+		title: 'NIS2/CRA early access',
+		subtitle: 'Hosting that is NIS2- and CRA-compliant by design. Managed compliance. No drama.',
+		benefitsTitle: 'What you get',
+		benefits: [
+			'NIS2/CRA gap-analysis for SMBs and MSPs: 12 pages, 15 minutes, zero buzzwords',
+			'Where you stand today against NIS2 and CRA, and what you are missing',
+			'A concrete plan for the next 90 days',
+			'A spot in line for the early access reserved to 10 Italian SMBs'
+		],
+		form: {
+			email: 'Work email',
+			name: 'Full name',
+			company: 'Company',
+			rolePlaceholder: 'Your role',
+			roleA: 'CTO / IT manager',
+			roleB: 'C-level / Owner',
+			roleC: 'Compliance officer / DPO',
+			submit: 'Join the early access',
+			sending: 'Sending...',
+			successTitle: 'Almost there',
+			success:
+				'We sent you an email: confirm your subscription to receive the NIS2/CRA gap-analysis.',
+			error: 'Something went wrong. Check your email and the consent checkbox, then try again.',
+			errorSubmit:
+				'Submission failed. Please try again shortly; if it keeps happening, email us at info@webdeploy.it.',
+			consent:
+				'I consent to the processing of my data to receive communications about WebDeploy early access. I can withdraw consent at any time. See <a href="/privacy" class="text-primary hover:underline">Privacy</a> and <a href="/privacy#dpa" class="text-primary hover:underline">DPA</a>.',
+			gdprNote: 'Double opt-in: you\'ll get a confirmation email. No spam, no sharing with third parties.'
+		},
+		confirmed: {
+			title: 'Subscription confirmed',
+			subtitle: 'You are in. Your NIS2/CRA gap-analysis is on its way to your inbox.',
+			nextTitle: 'What happens now',
+			next: [
+				'Check your email: it has the link to download the NIS2/CRA gap-analysis',
+				'One email a week, always concrete, no spam',
+				'In a few weeks we open the early access to 10 Italian SMBs — you are already in line'
+			],
+			cta: 'Explore managed infrastructure',
+			tagline: 'Managed compliance. No drama.'
+		}
+	},
+
 	// News
 	news: {
 		title: 'News',
@@ -586,6 +631,9 @@ export const en = {
 		],
 		contactTitle: 'Contact',
 		contactText: 'For any privacy-related questions, contact us at:',
+		dpaTitle: 'Data Processing Agreement (DPA)',
+		dpaText:
+			'When WebDeploy S.R.L. processes personal data on your behalf as a processor, it does so under a Data Processing Agreement (DPA) compliant with Art. 28 GDPR: defined purpose and duration, technical and organizational security measures, a list of sub-processors, assistance with data-subject requests, and deletion or return of the data at the end of the service. Request the DPA text by writing to info@webdeploy.it.',
 		optOut: {
 			OptOutComplete: 'Opt-out complete; your visits to this website will not be recorded by the Web Analytics tool.',
 			OptOutCompleteBis: 'Note that if you clear your cookies, delete the opt-out cookie, or if you change computers or Web browsers, you will need to perform the opt-out procedure again.',

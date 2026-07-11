@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.20.0] - 2026-07-11
+
+### Added
+- Early-access funnel for the NIS2/CRA campaign: `/early-access` landing page
+  with `EarlyAccessForm` (email, name, company, role, GDPR consent, honeypot,
+  UTM capture) that POSTs to the n8n webhook, and a `/early-access/confermato`
+  thank-you page that fires the Matomo confirmed-signup goal and the Google Ads
+  conversion (gated, inert until the tag is configured).
+- Data Processing Agreement (DPA) section on the Privacy page (`/privacy#dpa`),
+  linked from the early-access consent copy. English and Italian.
+
 ## [1.19.1] - 2026-06-12
 
 ### Fixed
