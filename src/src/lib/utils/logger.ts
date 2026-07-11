@@ -28,6 +28,7 @@ export const logPrivacy = createLogger('Privacy');
 export const logShare = createLogger('Share');
 export const logAnimation = createLogger('Animation');
 export const logMap = createLogger('LeafletMap');
+export const logEarlyAccess = createLogger('EarlyAccess');
 
 // Generic logger factory for new modules
 export { createLogger };
