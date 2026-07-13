@@ -3,10 +3,13 @@
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import CrtEffects from '$lib/components/CrtEffects.svelte';
+	import CookieConsent from '$lib/components/CookieConsent.svelte';
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { locale } from '$lib/stores/locale.svelte';
+	import { consent } from '$lib/stores/consent.svelte';
+	import { loadMetaPixel } from '$lib/utils/metaPixel';
 	import { logI18n, logAnalytics } from '$lib/utils/logger';
 
 	let { children } = $props();
@@ -42,6 +45,9 @@
 		document.head.appendChild(script);
 
 		logAnalytics.log('Matomo initialized (cookieless mode)');
+
+		// Meta Pixel loads only if the visitor granted marketing consent previously.
+		if (consent.marketing === 'granted') loadMetaPixel();
 	});
 
 	// Track page views on navigation
@@ -110,4 +116,5 @@
 		{@render children()}
 	</main>
 	<Footer />
+	<CookieConsent />
 </div>

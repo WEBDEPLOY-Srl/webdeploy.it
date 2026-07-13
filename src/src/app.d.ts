@@ -9,9 +9,11 @@ declare global {
 		// interface Platform {}
 	}
 
-	// Matomo analytics
+	// Matomo analytics + Meta Pixel (consent-gated)
 	interface Window {
 		_paq: Array<Array<string | number>>;
+		fbq?: (...args: unknown[]) => void;
+		_fbq?: unknown;
 	}
 }
 

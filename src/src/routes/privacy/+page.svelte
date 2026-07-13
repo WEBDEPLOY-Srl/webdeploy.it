@@ -247,6 +247,16 @@
 				</ul>
 			</div>
 
+			<!-- Marketing Section -->
+			<div class="card-retro bg-surface-dark p-8">
+				<h2 class="text-2xl font-display uppercase text-secondary mb-6 flex items-center gap-2">
+					<span class="material-symbols-outlined">ads_click</span>
+					{t('privacy.marketingTitle')}
+				</h2>
+
+				<p class="text-slate-400 leading-relaxed">{t('privacy.marketingText')}</p>
+			</div>
+
 			<!-- DPA Section -->
 			<div id="dpa" class="card-retro bg-surface-dark p-8 scroll-mt-24">
 				<h2 class="text-2xl font-display uppercase text-secondary mb-6 flex items-center gap-2">
