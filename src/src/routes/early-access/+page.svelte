@@ -4,12 +4,13 @@
 	import EarlyAccessForm from '$lib/components/EarlyAccessForm.svelte';
 	import { onMount } from 'svelte';
 	import { initGoogleAds } from '$lib/utils/googleAds';
+	import { trackMetaEvent } from '$lib/utils/metaPixel';
 
-	// Capture the GCLID into a first-party cookie on landing so a later
-	// confirmation conversion attributes to the Google click. No-op until the
-	// Google Ads tag is configured (see $lib/utils/googleAds).
+	// On landing: capture the GCLID (Google) into a first-party cookie, and fire
+	// the Meta ViewContent event. Both no-op until configured / consented.
 	onMount(() => {
 		initGoogleAds();
+		trackMetaEvent('ViewContent', { content_name: 'early-access', content_category: 'lead-magnet' });
 	});
 </script>
 

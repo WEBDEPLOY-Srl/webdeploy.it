@@ -3,7 +3,6 @@
 	import Seo from '$lib/components/Seo.svelte';
 	import { onMount } from 'svelte';
 	import { logEarlyAccess } from '$lib/utils/logger';
-	import { fireGoogleAdsConversion } from '$lib/utils/googleAds';
 
 	// Matomo goal for a *confirmed* signup (double opt-in complete), distinct from
 	// the submit goal id 1 fired by the n8n workflow. Create this goal in Matomo
@@ -20,7 +19,6 @@
 			window._paq = window._paq || [];
 			window._paq.push(['trackGoal', MATOMO_SIGNUP_CONFIRMED_GOAL_ID]);
 			logEarlyAccess.log('Matomo signup-confirmed goal fired', MATOMO_SIGNUP_CONFIRMED_GOAL_ID);
-			fireGoogleAdsConversion();
 		}, 0);
 		return () => clearTimeout(id);
 	});

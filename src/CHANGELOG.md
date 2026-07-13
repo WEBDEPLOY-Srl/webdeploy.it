@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.0] - 2026-07-13
+
+### Added
+- Consent-gated Meta (Facebook/Instagram) pixel for the ad campaigns: a
+  `CookieConsent` banner (IT/EN) gates all marketing scripts behind explicit
+  opt-in; the pixel (`metaPixel.ts`) loads only after consent and fires
+  `PageView`, `ViewContent` on `/early-access`, and `Lead` on form submit.
+  Consent is persisted in `localStorage` (`consent.svelte` store). Matomo stays
+  cookieless and always-on. Added a Marketing section to the Privacy page
+  disclosing the pixel.
+
+## [1.20.1] - 2026-07-13
+
+### Changed
+- The early-access Google Ads conversion now fires on form submit (on
+  `/early-access`, where the gclid is freshest) instead of on
+  `/early-access/confermato`. the email provider has no clean post-confirm redirect hook,
+  and for the the paid-search test the submit is the conversion signal;
+  confirmed-rate is tracked natively in the email provider. `/confermato` keeps the Matomo
+  signup-confirmed goal. Still gated/no-op until the Google Ads tag is set.
+
 ## [1.20.0] - 2026-07-11
 
 ### Added

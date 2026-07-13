@@ -623,6 +623,9 @@ export const it = {
 		],
 		contactTitle: 'Contatti',
 		contactText: 'Per qualsiasi domanda relativa alla privacy, contattaci a:',
+		marketingTitle: 'Marketing e pubblicità',
+		marketingText:
+			'Con il tuo consenso esplicito usiamo il pixel di Meta (Facebook/Instagram) per misurare l\'efficacia delle campagne pubblicitarie e per il retargeting. Il pixel imposta cookie e viene caricato solo dopo il consenso, che puoi negare o revocare in qualsiasi momento cancellando i cookie del sito. Senza consenso, nessuno script pubblicitario viene caricato.',
 		dpaTitle: 'Accordo sul trattamento dei dati (DPA)',
 		dpaText:
 			'Quando WebDeploy S.R.L. tratta dati personali per tuo conto in qualità di responsabile del trattamento, lo fa sulla base di un accordo sul trattamento dei dati (DPA) conforme all\'art. 28 GDPR: finalità e durata del trattamento definite, misure di sicurezza tecniche e organizzative, elenco dei sub-responsabili, assistenza per le richieste degli interessati, e cancellazione o restituzione dei dati al termine del servizio. Richiedi il testo del DPA scrivendo a info@webdeploy.it.',
@@ -647,5 +650,13 @@ export const it = {
 		learnMore: 'Scopri di più',
 		contactUs: 'Contattaci',
 		requestDemo: 'Richiedi Demo'
+	},
+
+	// Cookie / marketing consent
+	consent: {
+		title: 'Privacy e cookie',
+		body: 'Usiamo Matomo (analytics senza cookie, sempre attivo) e, solo con il tuo consenso, il pixel Meta per misurare le campagne pubblicitarie. Dettagli nella <a href="/privacy" class="text-primary hover:underline">Privacy</a>.',
+		accept: 'Accetta',
+		reject: 'Solo necessari'
 	}
 };

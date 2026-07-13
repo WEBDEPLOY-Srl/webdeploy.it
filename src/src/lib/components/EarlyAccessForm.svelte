@@ -3,6 +3,8 @@
 	import { locale } from '$lib/stores/locale.svelte';
 	import { browser } from '$app/environment';
 	import { logEarlyAccess } from '$lib/utils/logger';
+	import { fireGoogleAdsConversion } from '$lib/utils/googleAds';
+	import { trackMetaEvent } from '$lib/utils/metaPixel';
 
 	// n8n webhook (the funnel spec): a single submit
 	// fans out to the email provider (double opt-in) + a CRM mirror + Matomo goal.
@@ -84,9 +86,17 @@
 			logEarlyAccess.log(`Webhook responded ${res.status} in ${ms}ms`);
 			if (!res.ok) throw new Error(`webhook ${res.status}`);
 			status = 'ok';
-			// Client-side safety net for the submit goal; the n8n workflow fires the
-			// authoritative server-side goal (id 1) that survives ad-blockers.
-			if (browser) window._paq?.push(['trackGoal', 1]);
+			if (browser) {
+				// Client-side safety net for the submit goal; the n8n workflow fires the
+				// authoritative server-side goal (id 1) that survives ad-blockers.
+				window._paq?.push(['trackGoal', 1]);
+				// Google Ads conversion fires here (on submit), not on /confermato:
+				// the email provider has no clean post-confirm redirect and the gclid cookie is
+				// freshest on this landing page. Gated/no-op until GOOGLE_ADS is set.
+				fireGoogleAdsConversion();
+				// Meta pixel Lead (no-op unless marketing consent granted + pixel loaded).
+				trackMetaEvent('Lead', { content_name: 'early-access' });
+			}
 		} catch (err) {
 			status = 'error';
 			errorKind = 'submit';
