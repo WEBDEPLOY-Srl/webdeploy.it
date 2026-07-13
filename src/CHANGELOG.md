@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.1] - 2026-07-13
+
+### Fixed
+- Meta pixel used the Meta **App** id (`REDACTED-APP-ID`) instead of the
+  **web dataset** id, so browser events never landed ("event never received").
+  Point `metaPixel.ts` at the real `webdeploy.it` web dataset `1041037201718407`.
+
 ## [1.21.0] - 2026-07-13
 
 ### Added
