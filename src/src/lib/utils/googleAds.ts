@@ -4,12 +4,10 @@ import { logEarlyAccess } from './logger';
 /**
  * Google Ads conversion wiring for the early-access funnel.
  *
- * Inert by design: `GOOGLE_ADS` is null until the the paid-search test
- * (see the private ads spec) is set up and a conversion action exists. Once
- * the conversion action is created in Google Ads, fill in the tag id + label and
- * every helper below activates. Kept out of the global layout so gtag/gclid
- * cookies are only ever set on the funnel pages, preserving the site's
- * cookieless-by-default posture everywhere else.
+ * Inert by design: `GOOGLE_ADS` is null until a conversion action exists in
+ * Google Ads. Fill in the tag id + label and every helper below activates. Kept
+ * out of the global layout so gtag/gclid cookies are only ever set on the funnel
+ * pages, preserving the site's cookieless-by-default posture everywhere else.
  */
 type GoogleAdsConfig = {
 	/** Conversion tag id, e.g. 'AW-1234567890' */
@@ -18,7 +16,7 @@ type GoogleAdsConfig = {
 	conversionLabel: string;
 };
 
-// TODO(pre-launch): set from the Google Ads conversion action before enabling paid search.
+// TODO: set from the Google Ads conversion action before enabling paid search.
 export const GOOGLE_ADS: GoogleAdsConfig | null = null;
 
 type GtagWindow = Window & {

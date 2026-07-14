@@ -8,9 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.21.1] - 2026-07-13
 
 ### Fixed
-- Meta pixel used the Meta **App** id (`REDACTED-APP-ID`) instead of the
-  **web dataset** id, so browser events never landed ("event never received").
-  Point `metaPixel.ts` at the real `webdeploy.it` web dataset `1041037201718407`.
+- Meta pixel pointed at the wrong id (an app id) instead of the web dataset id,
+  so browser events never landed ("event never received"). Point `metaPixel.ts`
+  at the correct web dataset id.
 
 ## [1.21.0] - 2026-07-13
 
@@ -28,19 +28,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - The early-access Google Ads conversion now fires on form submit (on
   `/early-access`, where the gclid is freshest) instead of on
-  `/early-access/confermato`. the email provider has no clean post-confirm redirect hook,
-  and for the the paid-search test the submit is the conversion signal;
-  confirmed-rate is tracked natively in the email provider. `/confermato` keeps the Matomo
-  signup-confirmed goal. Still gated/no-op until the Google Ads tag is set.
+  `/early-access/confermato`: the confirmation redirect isn't controllable, so
+  submit is the conversion signal. `/confermato` keeps the confirmed-signup
+  analytics goal. Still gated/no-op until the Google Ads tag is set.
 
 ## [1.20.0] - 2026-07-11
 
 ### Added
 - Early-access funnel for the NIS2/CRA campaign: `/early-access` landing page
   with `EarlyAccessForm` (email, name, company, role, GDPR consent, honeypot,
-  UTM capture) that POSTs to the n8n webhook, and a `/early-access/confermato`
-  thank-you page that fires the Matomo confirmed-signup goal and the Google Ads
-  conversion (gated, inert until the tag is configured).
+  UTM capture) that POSTs to a lead-capture webhook, and a
+  `/early-access/confermato` thank-you page that fires the confirmed-signup
+  analytics goal and the Google Ads conversion (gated, inert until the tag is
+  configured).
 - Data Processing Agreement (DPA) section on the Privacy page (`/privacy#dpa`),
   linked from the early-access consent copy. English and Italian.
 
