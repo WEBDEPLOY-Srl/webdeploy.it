@@ -6,8 +6,8 @@
 	import { fireGoogleAdsConversion } from '$lib/utils/googleAds';
 	import { trackMetaEvent } from '$lib/utils/metaPixel';
 
-	// n8n webhook (the funnel spec): a single submit
-	// fans out to the email provider (double opt-in) + a CRM mirror + Matomo goal.
+	// Lead-capture webhook: a single submit kicks off email double opt-in and
+	// records the signup goal server-side.
 	const ENDPOINT = 'https://n8n.webdeploy.it/webhook/early-access';
 
 	let email = $state('');
@@ -87,12 +87,12 @@
 			if (!res.ok) throw new Error(`webhook ${res.status}`);
 			status = 'ok';
 			if (browser) {
-				// Client-side safety net for the submit goal; the n8n workflow fires the
-				// authoritative server-side goal (id 1) that survives ad-blockers.
+				// Best-effort client-side submit goal; the authoritative goal is recorded
+				// server-side (this survives ad-blockers that drop the client tag).
 				window._paq?.push(['trackGoal', 1]);
-				// Google Ads conversion fires here (on submit), not on /confermato:
-				// the email provider has no clean post-confirm redirect and the gclid cookie is
-				// freshest on this landing page. Gated/no-op until GOOGLE_ADS is set.
+				// Fire the ads conversion on submit, not on the confirmation page: the
+				// confirmation redirect isn't controllable and the click id is freshest
+				// on this landing page. Gated/no-op until GOOGLE_ADS is set.
 				fireGoogleAdsConversion();
 				// Meta pixel Lead (no-op unless marketing consent granted + pixel loaded).
 				trackMetaEvent('Lead', { content_name: 'early-access' });

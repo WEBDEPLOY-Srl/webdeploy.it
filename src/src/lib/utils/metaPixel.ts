@@ -9,8 +9,7 @@ import { logAnalytics, logPrivacy } from '$lib/utils/logger';
  * browser that loads the pixel), so it is a plain constant here — same pattern
  * as the hard-coded Matomo siteId in +layout.svelte. Not a secret.
  *
- * This is the WEB dataset `webdeploy.it` (Events Manager → WebDeploy Srl), NOT
- * the Meta App id REDACTED-APP-ID (that one is for an internal login app).
+ * Note: this is the web pixel/dataset id, not any Meta App id.
  */
 const PIXEL_ID = '1041037201718407';
 let loaded = false;

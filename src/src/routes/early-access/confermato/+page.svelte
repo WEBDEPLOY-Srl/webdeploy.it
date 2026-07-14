@@ -4,16 +4,15 @@
 	import { onMount } from 'svelte';
 	import { logEarlyAccess } from '$lib/utils/logger';
 
-	// Matomo goal for a *confirmed* signup (double opt-in complete), distinct from
-	// the submit goal id 1 fired by the n8n workflow. Create this goal in Matomo
-	// (the funnel spec); keep this id in sync with it.
+	// Analytics goal for a *confirmed* signup (double opt-in complete), distinct
+	// from the submit goal fired on the form page. Keep this id in sync with the
+	// goal configured in analytics.
 	const MATOMO_SIGNUP_CONFIRMED_GOAL_ID = 2;
 
-	// This page is the the email provider double-opt-in redirect target. On load, fire the
-	// confirmed-signup goal + the Google Ads conversion (the ads test counts
-	// this page as a confirmed lead). Deferred to a macrotask because this child
-	// onMount runs before the root layout's Matomo bootstrap; the timeout lets the
-	// layout queue setTrackerUrl/setSiteId ahead of our trackGoal.
+	// Double-opt-in confirmation redirect target. On load, fire the confirmed-
+	// signup analytics goal. Deferred to a macrotask because this child onMount
+	// runs before the root layout's analytics bootstrap; the timeout lets the
+	// layout queue its tracker setup ahead of our trackGoal.
 	onMount(() => {
 		const id = setTimeout(() => {
 			window._paq = window._paq || [];
