@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.22.1] - 2026-07-15
+
+### Changed
+- Early-access page copy: retire the campaign slogan in favour of the
+  site-wide "developing greatness" tagline, describe the subtitle as
+  audit-ready evidence, and update the guide's reading-time claim
+  (25 minutes, page count dropped). Refresh the served gap-analysis PDF
+  to the current edition (supplier playbook, board one-pager, coverage
+  table, same brand line).
+
 ## [1.22.0] - 2026-07-15
 
 ### Added

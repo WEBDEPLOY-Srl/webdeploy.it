@@ -348,10 +348,10 @@ export const en = {
 	// Early Access (NIS2/CRA funnel)
 	earlyAccess: {
 		title: 'NIS2/CRA early access',
-		subtitle: 'Hosting that is NIS2- and CRA-compliant by design. Managed compliance. No drama.',
+		subtitle: 'Hosting that is NIS2- and CRA-compliant by design, with audit-ready evidence.',
 		benefitsTitle: 'What you get',
 		benefits: [
-			'NIS2/CRA gap-analysis for SMBs and MSPs: 12 pages, 15 minutes, zero buzzwords',
+			'NIS2/CRA gap-analysis for SMBs and MSPs: a 25-minute read, zero buzzwords',
 			'Where you stand today against NIS2 and CRA, and what you are missing',
 			'A concrete plan for the next 90 days',
 			'A spot in line for the early access reserved to 10 Italian SMBs'
@@ -386,7 +386,7 @@ export const en = {
 				'In a few weeks we open the early access to 10 Italian SMBs — you are already in line'
 			],
 			cta: 'Explore managed infrastructure',
-			tagline: 'Managed compliance. No drama.'
+			tagline: 'developing greatness'
 		}
 	},
 

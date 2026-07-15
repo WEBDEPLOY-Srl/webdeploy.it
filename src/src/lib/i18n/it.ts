@@ -338,10 +338,10 @@ export const it = {
 	// Early Access (funnel NIS2/CRA)
 	earlyAccess: {
 		title: 'Early access NIS2/CRA',
-		subtitle: 'Hosting conforme a NIS2 e CRA by design. Compliance gestita. Senza drama.',
+		subtitle: 'Hosting conforme a NIS2 e CRA by design, con evidenze pronte per l\'audit.',
 		benefitsTitle: 'Cosa ottieni',
 		benefits: [
-			'Gap-analysis NIS2/CRA per PMI e MSP: 12 pagine, 15 minuti, zero buzzword',
+			'Gap-analysis NIS2/CRA per PMI e MSP: 25 minuti di lettura, zero buzzword',
 			'Dove sei oggi rispetto a NIS2 e CRA e cosa ti manca davvero',
 			'Un piano concreto per i prossimi 90 giorni',
 			'Posto in lista per l\'early access riservato a 10 PMI italiane'
@@ -378,7 +378,7 @@ export const it = {
 				'Tra poche settimane apriamo l\'early access a 10 PMI italiane — sei già in lista'
 			],
 			cta: 'Scopri l\'infrastruttura gestita',
-			tagline: 'Compliance gestita. Senza drama.'
+			tagline: 'developing greatness'
 		}
 	},
 
