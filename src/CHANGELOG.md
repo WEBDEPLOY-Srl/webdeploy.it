@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.22.0] - 2026-07-15
+
+### Added
+- Serve the NIS2/CRA gap-analysis guide (PDF, Italian) at
+  `/uploads/nis2-cra-gap-analysis.pdf` — the document delivered to
+  early-access subscribers after double opt-in.
+
 ## [1.21.1] - 2026-07-13
 
 ### Fixed
