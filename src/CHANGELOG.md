@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.22.2] - 2026-08-13
+
+### Fixed
+- Header submenus were unreachable with the pointer: the 8px gap between a
+  nav trigger and its submenu belonged to no element inside
+  `.dropdown-container`, so crossing it fired the container's `mouseleave` and
+  dismissed the menu before the cursor arrived. A transparent bridge
+  (`.dropdown-menu::before`) now spans that gap, plus a 150ms grace period
+  before closing.
+- Keyboard access to the same submenus: `ArrowDown` on a trigger looked for the
+  menu *inside* the button, so it never focused anything. It now opens the
+  submenu and moves focus to the first item; `Escape` returns focus to the
+  trigger, and moving focus out of a dropdown closes it.
+- Tapping a nav trigger on a touch device at `lg` width did nothing — the
+  tap's compatibility hover event opened the submenu and the click that
+  followed toggled it straight back shut. Hover now opens only for non-touch
+  pointers, and a press outside closes an open submenu.
+
 ## [1.22.1] - 2026-07-15
 
 ### Changed

@@ -3,10 +3,14 @@
     import LanguageSwitcher from "./LanguageSwitcher.svelte";
     import { slide } from "svelte/transition";
     import { quintOut } from "svelte/easing";
+    import { onDestroy, tick } from "svelte";
+
+    type DropdownType = "products" | "services";
 
     let mobileMenuOpen = $state(false);
     let productsDropdownOpen = $state(false);
     let servicesDropdownOpen = $state(false);
+    let closeTimer: ReturnType<typeof setTimeout> | undefined;
 
     function toggleMobileMenu() {
         mobileMenuOpen = !mobileMenuOpen;
@@ -16,40 +20,104 @@
         mobileMenuOpen = false;
     }
 
-    function toggleProductsDropdown() {
-        productsDropdownOpen = !productsDropdownOpen;
-        servicesDropdownOpen = false;
+    function openDropdown(dropdownType: DropdownType) {
+        clearTimeout(closeTimer);
+        productsDropdownOpen = dropdownType === "products";
+        servicesDropdownOpen = dropdownType === "services";
     }
 
-    function toggleServicesDropdown() {
-        servicesDropdownOpen = !servicesDropdownOpen;
-        productsDropdownOpen = false;
+    function isDropdownOpen(dropdownType: DropdownType) {
+        return dropdownType === "products"
+            ? productsDropdownOpen
+            : servicesDropdownOpen;
+    }
+
+    function toggleDropdown(dropdownType: DropdownType) {
+        if (isDropdownOpen(dropdownType)) {
+            closeAllDropdowns();
+        } else {
+            openDropdown(dropdownType);
+        }
     }
 
     function closeAllDropdowns() {
+        clearTimeout(closeTimer);
         productsDropdownOpen = false;
         servicesDropdownOpen = false;
     }
 
-    function handleDropdownKeydown(
-        event: KeyboardEvent,
-        dropdownType: "products" | "services",
+    // Grace period so a pointer that clips a corner or a sub-pixel edge on its
+    // way to the submenu doesn't dismiss it; re-entering the container cancels.
+    function scheduleCloseDropdowns() {
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(closeAllDropdowns, 150);
+    }
+
+    // A tap also emits the compatibility hover events, which would open the
+    // submenu just for the click that follows to toggle it straight back shut.
+    // Touch opens on click only.
+    function handleDropdownPointerEnter(
+        event: PointerEvent,
+        dropdownType: DropdownType,
     ) {
-        if (event.key === "Escape") {
-            if (dropdownType === "products") {
-                productsDropdownOpen = false;
-            } else {
-                servicesDropdownOpen = false;
+        if (event.pointerType !== "touch") {
+            openDropdown(dropdownType);
+        }
+    }
+
+    function handleDropdownPointerLeave(event: PointerEvent) {
+        if (event.pointerType !== "touch") {
+            scheduleCloseDropdowns();
+        }
+    }
+
+    function closeDropdownsOnFocusOut(event: FocusEvent) {
+        const container = event.currentTarget as HTMLElement;
+        if (!container.contains(event.relatedTarget as Node | null)) {
+            closeAllDropdowns();
+        }
+    }
+
+    function dropdownContainerOf(element: HTMLElement | null) {
+        return element?.closest(".dropdown-container") ?? null;
+    }
+
+    // Without hover there is nothing to dismiss an open submenu, so a pointer
+    // press anywhere outside the dropdowns has to.
+    $effect(() => {
+        if (!productsDropdownOpen && !servicesDropdownOpen) return;
+
+        const handlePointerDown = (event: PointerEvent) => {
+            if (!dropdownContainerOf(event.target as HTMLElement)) {
+                closeAllDropdowns();
             }
-            (event.target as HTMLElement)?.focus();
+        };
+
+        document.addEventListener("pointerdown", handlePointerDown);
+        return () =>
+            document.removeEventListener("pointerdown", handlePointerDown);
+    });
+
+    onDestroy(() => clearTimeout(closeTimer));
+
+    async function handleDropdownKeydown(
+        event: KeyboardEvent,
+        dropdownType: DropdownType,
+    ) {
+        const trigger = event.currentTarget as HTMLElement;
+
+        if (event.key === "Escape") {
+            closeAllDropdowns();
+            trigger.focus();
         } else if (event.key === "ArrowDown") {
             event.preventDefault();
-            const menu = (event.currentTarget as HTMLElement)?.querySelector(
-                '[role="menu"]',
-            );
-            const firstItem = menu?.querySelector(
+            openDropdown(dropdownType);
+            // The menu is `visibility: hidden` until the state lands, and a
+            // hidden element cannot take focus.
+            await tick();
+            const firstItem = dropdownContainerOf(trigger)?.querySelector(
                 '[role="menuitem"]',
-            ) as HTMLElement;
+            ) as HTMLElement | null;
             firstItem?.focus();
         }
     }
@@ -74,9 +142,14 @@
                 menuItems[currentIndex - 1] || menuItems[menuItems.length - 1];
             prevItem?.focus();
         } else if (event.key === "Escape") {
+            const trigger = dropdownContainerOf(
+                event.currentTarget as HTMLElement,
+            )?.querySelector("button") as HTMLElement | null;
             closeAllDropdowns();
+            trigger?.focus();
         }
     }
+
 </script>
 
 <header
@@ -113,16 +186,18 @@
                 <!-- Products Dropdown -->
                 <div
                     class="relative dropdown-container"
-                    onmouseleave={() => (productsDropdownOpen = false)}
+                    onpointerenter={(e) =>
+                        handleDropdownPointerEnter(e, "products")}
+                    onpointerleave={handleDropdownPointerLeave}
+                    onfocusout={closeDropdownsOnFocusOut}
                 >
                     <button
                         class="text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-secondary transition-all flex items-center gap-1 min-h-[44px]"
                         aria-expanded={productsDropdownOpen}
                         aria-haspopup="true"
                         aria-controls="products-menu"
-                        onclick={toggleProductsDropdown}
+                        onclick={() => toggleDropdown("products")}
                         onkeydown={(e) => handleDropdownKeydown(e, "products")}
-                        onmouseenter={() => (productsDropdownOpen = true)}
                     >
                         <span aria-hidden="true">&gt;</span>
                         {t("nav.products")}
@@ -135,7 +210,7 @@
                         id="products-menu"
                         role="menu"
                         aria-label="Products submenu"
-                        class="absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[200px] transition-all duration-200 origin-top ease-out-quint {productsDropdownOpen
+                        class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[200px] transition-all duration-200 origin-top ease-out-quint {productsDropdownOpen
                             ? 'opacity-100 visible translate-y-0'
                             : 'opacity-0 invisible -translate-y-2'}"
                     >
@@ -162,16 +237,18 @@
                 <!-- Services Dropdown -->
                 <div
                     class="relative dropdown-container"
-                    onmouseleave={() => (servicesDropdownOpen = false)}
+                    onpointerenter={(e) =>
+                        handleDropdownPointerEnter(e, "services")}
+                    onpointerleave={handleDropdownPointerLeave}
+                    onfocusout={closeDropdownsOnFocusOut}
                 >
                     <button
                         class="text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-secondary transition-all flex items-center gap-1 min-h-[44px]"
                         aria-expanded={servicesDropdownOpen}
                         aria-haspopup="true"
                         aria-controls="services-menu"
-                        onclick={toggleServicesDropdown}
+                        onclick={() => toggleDropdown("services")}
                         onkeydown={(e) => handleDropdownKeydown(e, "services")}
-                        onmouseenter={() => (servicesDropdownOpen = true)}
                     >
                         <span aria-hidden="true">&gt;</span>
                         {t("nav.services")}
@@ -184,7 +261,7 @@
                         id="services-menu"
                         role="menu"
                         aria-label="Services submenu"
-                        class="absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[250px] transition-all duration-200 origin-top ease-out-quint {servicesDropdownOpen
+                        class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[250px] transition-all duration-200 origin-top ease-out-quint {servicesDropdownOpen
                             ? 'opacity-100 visible translate-y-0'
                             : 'opacity-0 invisible -translate-y-2'}"
                     >

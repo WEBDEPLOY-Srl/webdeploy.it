@@ -487,6 +487,26 @@ textarea:focus-visible {
   outline: none;
 }
 
+/* A submenu hangs 0.5rem (mt-2) below its trigger, and that gap belongs to no
+   element inside .dropdown-container — so a pointer travelling from the
+   trigger to the submenu leaves the container and dismisses the menu before it
+   can be reached. This transparent bridge fills exactly that gap: hit-testing
+   it resolves to the submenu, so the container never sees a mouseleave.
+   It inherits the submenu's `visibility: hidden` while closed, so it is inert
+   until the menu opens.
+   Height = 0.5rem (the `mt-2` gap) + 2px (the submenu's own `border-2`, which
+   sits between the gap and the padding box the bridge is positioned against).
+   It must not grow past that, or the bridge would cover the trigger's bottom
+   edge and swallow its clicks. */
+.dropdown-menu::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: calc(0.5rem + 2px);
+}
+
 /* ==========================================
    TEXT OVERFLOW: Handling long content
    ========================================== */
