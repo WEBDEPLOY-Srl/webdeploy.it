@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.22.3] - 2026-08-20
+
+### Changed
+- The site now runs on **gp-wd** (157.180.17.117) instead of the `webdeploy`
+  host. Nothing about the application changed: the same image, the same nginx
+  config, the same 106 files under `/usr/share/nginx/html`, verified
+  byte-identical on both hosts before the DNS record moved. The deployment is
+  rendered by `webdeploy/monitor` from now on, so `docker-compose.prod.yml` is
+  no longer what runs in production.
+- CI **builds once and tags twice.** `docker-compose.build.yml` declared a
+  second `version_tag` service that `extends: frontend` and differed only in
+  its image tag; compose treats that as two builds of the same context, so
+  `:latest` and `:<version>` were separate images with no guarantee of being
+  the same bytes. The pipeline now builds `:<version>` and applies `:latest`
+  with `docker tag`, which makes the version tag actually name what is running.
+- Manual pipeline runs are pinned to `main`. Woodpecker's `manual` event
+  carries no branch restriction of its own, so a hand-triggered build from any
+  branch would have pushed that branch to `:latest` — the tag the live host
+  pulls.
+
 ## [1.22.2] - 2026-08-13
 
 ### Fixed

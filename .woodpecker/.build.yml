@@ -1,7 +1,12 @@
+# Builds happen for main only, by either route. `manual` carries no branch
+# restriction of its own in Woodpecker, so without the second `branch: main` a
+# hand-triggered run on any branch would build that branch and push its result
+# to `:latest` — which is what gp-wd pulls for the live site.
 when:
   - event: push
     branch: main
   - event: manual
+    branch: main
 
 steps:
   build_frontend:
@@ -13,12 +18,18 @@ steps:
         from_secret: docker_password
     commands:
       - echo "$${DOCKER_PASSWORD}" | docker login --password-stdin --username "$${DOCKER_USERNAME}" git.webdeploy.it
-      - echo "TAG=$(jq -r .version ./src/package.json)" >> .env
-      # Build website
+      # `>` not `>>`: the agent workspace persists between runs, so appending
+      # accumulated one TAG line per build in a file that should have exactly
+      # one. Truncating removes the ambiguity rather than relying on which
+      # duplicate the dotenv parser happens to keep.
+      - echo "TAG=$(jq -r .version ./src/package.json)" > .env
+      # Build ONCE, then tag. The build file used to declare a second service
+      # whose only difference was the image tag, which built the context twice
+      # and produced two images that were not guaranteed identical.
       - docker-compose -f docker-compose.build.yml build
-      # push frontend
-      - docker push git.webdeploy.it/webdeploy/webdeploy.it:latest
+      - docker tag git.webdeploy.it/webdeploy/webdeploy.it:$(jq -r .version ./src/package.json) git.webdeploy.it/webdeploy/webdeploy.it:latest
       - docker push git.webdeploy.it/webdeploy/webdeploy.it:$(jq -r .version ./src/package.json)
+      - docker push git.webdeploy.it/webdeploy/webdeploy.it:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
