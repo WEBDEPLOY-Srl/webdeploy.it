@@ -1,13 +1,14 @@
+# Build definition for CI. Not a deployment file — see docker-compose.prod.yml.
+#
+# ONE service, not two. This previously declared a second `version_tag` service
+# that `extends: frontend` and differed only in its image tag, which docker
+# compose treats as two independent builds of the same context: `:latest` and
+# `:<version>` were separate images that happened to share a source tree, and
+# nothing guaranteed they were the same bytes. The pipeline now builds once and
+# applies the second tag with `docker tag`.
 services:
   frontend:
-    image: git.webdeploy.it/webdeploy/webdeploy.it
-    restart: always
+    image: git.webdeploy.it/webdeploy/webdeploy.it:${TAG}
     build:
-      args:
-        TAG: ${TAG}
       context: .
       dockerfile: Dockerfile
-
-  version_tag:
-    extends: frontend
-    image: git.webdeploy.it/webdeploy/webdeploy.it:${TAG}

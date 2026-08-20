@@ -1,6 +1,13 @@
+# Standalone production run of the built image.
+#
+# NOTE: the live deployment does not use this file. Since the move to gp-wd on
+# 2026-08-20 webdeploy.it is rendered by webdeploy/monitor
+# (roles/compose_app, compose_apps entry `webdeploy.it`), which writes
+# /opt/apps/webdeploy.it/docker-compose.yml on that host. This file is for
+# running the same image by hand somewhere else.
 services:
   frontend:
-    image: git.webdeploy.it/webdeploy/webdeploy.it/frontend
+    image: git.webdeploy.it/webdeploy/webdeploy.it:latest
     restart: always
     ports:
       - 127.0.0.1:8000:80
