@@ -186,18 +186,20 @@
 		margin: 0;
 		color: white;
 		font-family: var(--font-display);
-		font-size: clamp(3.5rem, 10vw, 8.5rem);
+		font-size: 60px;
 		font-weight: 400;
-		line-height: 0.78;
-		text-transform: lowercase;
+		line-height: 0.9;
+		text-transform: uppercase;
+		text-shadow: 2px 2px var(--color-secondary);
 	}
 
 	.readable-hero__title span {
 		display: block;
+		color: var(--color-primary);
 	}
 
 	.readable-hero__title-accent {
-		color: var(--color-primary);
+		color: var(--color-secondary) !important;
 	}
 
 	.readable-hero__tagline {
@@ -274,6 +276,10 @@
 
 		.readable-hero__mark {
 			justify-self: end;
+		}
+
+		.readable-hero__title {
+			font-size: 72px;
 		}
 	}
 

@@ -9,8 +9,8 @@
 
 <div class="home-page">
 	<Hero
-		name={t('home.heroFirstLine')}
-		text={t('home.heroLastLine')}
+		name={t('home.heroName')}
+		text={t('home.heroText')}
 		tagline={t('home.heroTagline')}
 		eyebrow={t('home.heroEyebrow')}
 		image="/webdeploy-logo.svg"
@@ -125,11 +125,12 @@
 	.home-section h2 {
 		margin: 0;
 		color: white;
-		font-family: var(--font-reading, system-ui, sans-serif);
+		font-family: var(--font-display);
 		font-size: clamp(2rem, 4.5vw, 3.25rem);
-		font-weight: 650;
-		letter-spacing: -0.035em;
+		font-weight: 400;
+		letter-spacing: normal;
 		line-height: 1.08;
+		text-transform: uppercase;
 	}
 
 	.home-section__intro > p:last-child,

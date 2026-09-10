@@ -87,10 +87,11 @@
 	.readable-feature h3 {
 		margin: 0;
 		color: white;
-		font-family: var(--font-reading, system-ui, sans-serif);
-		font-size: 1.375rem;
-		font-weight: 650;
+		font-family: var(--font-display);
+		font-size: 1.75rem;
+		font-weight: 400;
 		line-height: 1.25;
+		text-transform: uppercase;
 	}
 
 	.readable-feature p {

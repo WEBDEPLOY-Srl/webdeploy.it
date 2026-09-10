@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.23.1] - 2026-09-10
+
+### Changed
+- Restored the original Space Mono and VT323 typography and the
+  cyan/magenta “developing greatness” heading while retaining the simplified
+  homepage layout.
+
 ## [1.23.0] - 2026-09-10
 
 ### Changed

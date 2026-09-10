@@ -17,8 +17,6 @@ export const en = {
 	home: {
 		heroName: 'webdeploy',
 		heroText: 'developing greatness',
-		heroFirstLine: 'developing',
-		heroLastLine: 'greatness',
 		heroEyebrow: 'Webdeploy / open source',
 		heroTagline: 'Open source software and infrastructure for teams that want clear, dependable systems.',
 		heroImageAlt: 'Webdeploy logo',
