@@ -115,6 +115,7 @@
             // The menu is `visibility: hidden` until the state lands, and a
             // hidden element cannot take focus.
             await tick();
+            if (!isDropdownOpen(dropdownType)) return;
             const firstItem = dropdownContainerOf(trigger)?.querySelector(
                 '[role="menuitem"]',
             ) as HTMLElement | null;
@@ -153,14 +154,14 @@
 </script>
 
 <header
-    class="sticky top-0 z-40 w-full bg-background-dark/95 border-b-2 border-primary/30 backdrop-blur-sm"
+    class="site-header sticky top-0 z-40 w-full bg-background-dark/95 border-b-2 border-primary/30 backdrop-blur-sm"
 >
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-20">
+    <div class="site-header__container max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="site-header__inner flex items-center justify-between h-20">
             <!-- Logo -->
             <a
                 href="/"
-                class="flex items-center gap-3 group"
+                class="site-logo flex items-center gap-3 group"
                 onclick={closeMobileMenu}
             >
                 <div
@@ -175,14 +176,14 @@
                     />
                 </div>
                 <span
-                    class="text-3xl font-display font-bold tracking-widest text-white uppercase group-hover:text-primary transition-colors"
+                    class="site-logo__wordmark text-3xl font-display font-bold tracking-widest text-white uppercase group-hover:text-primary transition-colors"
                 >
                     WebDeploy<span class="animate-pulse">_</span>
                 </span>
             </a>
 
             <!-- Desktop Navigation -->
-            <nav class="hidden lg:flex gap-8" aria-label="Main navigation">
+            <nav class="site-nav hidden lg:flex gap-8" aria-label="Main navigation">
                 <!-- Products Dropdown -->
                 <div
                     class="relative dropdown-container"
@@ -199,7 +200,7 @@
                         onclick={() => toggleDropdown("products")}
                         onkeydown={(e) => handleDropdownKeydown(e, "products")}
                     >
-                        <span aria-hidden="true">&gt;</span>
+                        <span class="nav-prompt" aria-hidden="true">&gt;</span>
                         {t("nav.products")}
                         <span
                             class="material-symbols-outlined text-sm"
@@ -210,7 +211,7 @@
                         id="products-menu"
                         role="menu"
                         aria-label="Products submenu"
-                        class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[200px] transition-all duration-200 origin-top ease-out-quint {productsDropdownOpen
+                        class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[200px] transition-[opacity,transform] duration-200 origin-top ease-out-quint {productsDropdownOpen
                             ? 'opacity-100 visible translate-y-0'
                             : 'opacity-0 invisible -translate-y-2'}"
                     >
@@ -230,7 +231,7 @@
                     href="/news"
                     class="text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-secondary hover:underline decoration-2 underline-offset-4 transition-all min-h-[44px] flex items-center"
                 >
-                    <span aria-hidden="true">&gt;</span>
+                    <span class="nav-prompt" aria-hidden="true">&gt;</span>
                     {t("nav.news")}
                 </a>
 
@@ -250,7 +251,7 @@
                         onclick={() => toggleDropdown("services")}
                         onkeydown={(e) => handleDropdownKeydown(e, "services")}
                     >
-                        <span aria-hidden="true">&gt;</span>
+                        <span class="nav-prompt" aria-hidden="true">&gt;</span>
                         {t("nav.services")}
                         <span
                             class="material-symbols-outlined text-sm"
@@ -261,7 +262,7 @@
                         id="services-menu"
                         role="menu"
                         aria-label="Services submenu"
-                        class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[250px] transition-all duration-200 origin-top ease-out-quint {servicesDropdownOpen
+                        class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[250px] transition-[opacity,transform] duration-200 origin-top ease-out-quint {servicesDropdownOpen
                             ? 'opacity-100 visible translate-y-0'
                             : 'opacity-0 invisible -translate-y-2'}"
                     >
@@ -290,7 +291,7 @@
                     href="/developer-manifesto"
                     class="text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-secondary hover:underline decoration-2 underline-offset-4 transition-all min-h-[44px] flex items-center"
                 >
-                    <span aria-hidden="true">&gt;</span>
+                    <span class="nav-prompt" aria-hidden="true">&gt;</span>
                     {t("nav.manifesto")}
                 </a>
 
@@ -298,20 +299,22 @@
                     href="/contacts"
                     class="text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-secondary hover:underline decoration-2 underline-offset-4 transition-all min-h-[44px] flex items-center"
                 >
-                    <span aria-hidden="true">&gt;</span>
+                    <span class="nav-prompt" aria-hidden="true">&gt;</span>
                     {t("nav.contacts")}
                 </a>
             </nav>
 
             <!-- Right side: Language switcher + Mobile menu -->
-            <div class="flex items-center gap-4">
+            <div class="site-header__controls flex items-center gap-4">
                 <LanguageSwitcher />
 
                 <!-- Mobile menu button -->
                 <button
-                    class="lg:hidden text-primary border-2 border-primary p-2 hover:bg-primary hover:text-black transition-colors"
+                    class="site-menu-toggle lg:hidden text-primary border-2 border-primary p-2 hover:bg-primary hover:text-black transition-colors"
                     onclick={toggleMobileMenu}
                     aria-label="Toggle menu"
+                    aria-expanded={mobileMenuOpen}
+                    aria-controls="mobile-menu"
                 >
                     <span class="material-symbols-outlined">
                         {mobileMenuOpen ? "close" : "menu"}
@@ -324,7 +327,8 @@
     <!-- Mobile Navigation -->
     {#if mobileMenuOpen}
         <nav
-            class="lg:hidden bg-surface-dark border-t-2 border-primary/30 overflow-hidden"
+            id="mobile-menu"
+            class="site-mobile-nav lg:hidden bg-surface-dark border-t-2 border-primary/30 overflow-hidden"
             aria-label="Mobile navigation"
             transition:slide={{ duration: 250, easing: quintOut }}
         >
@@ -334,21 +338,21 @@
                     class="block px-4 py-4 min-h-[48px] text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center"
                     onclick={closeMobileMenu}
                 >
-                    <span aria-hidden="true">&gt;</span>&nbsp;{t("nav.kiosk")}
+                    <span class="nav-prompt" aria-hidden="true">&gt;</span>&nbsp;{t("nav.kiosk")}
                 </a>
                 <a
                     href="/news"
                     class="block px-4 py-4 min-h-[48px] text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center"
                     onclick={closeMobileMenu}
                 >
-                    <span aria-hidden="true">&gt;</span>&nbsp;{t("nav.news")}
+                    <span class="nav-prompt" aria-hidden="true">&gt;</span>&nbsp;{t("nav.news")}
                 </a>
                 <a
                     href="/services"
                     class="block px-4 py-4 min-h-[48px] text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center"
                     onclick={closeMobileMenu}
                 >
-                    <span aria-hidden="true">&gt;</span>&nbsp;{t(
+                    <span class="nav-prompt" aria-hidden="true">&gt;</span>&nbsp;{t(
                         "nav.services",
                     )}
                 </a>
@@ -357,7 +361,7 @@
                     class="block px-4 py-4 min-h-[48px] text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center"
                     onclick={closeMobileMenu}
                 >
-                    <span aria-hidden="true">&gt;</span>&nbsp;{t(
+                    <span class="nav-prompt" aria-hidden="true">&gt;</span>&nbsp;{t(
                         "nav.manifesto",
                     )}
                 </a>
@@ -366,7 +370,7 @@
                     class="block px-4 py-4 min-h-[48px] text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center"
                     onclick={closeMobileMenu}
                 >
-                    <span aria-hidden="true">&gt;</span>&nbsp;{t(
+                    <span class="nav-prompt" aria-hidden="true">&gt;</span>&nbsp;{t(
                         "nav.contacts",
                     )}
                 </a>

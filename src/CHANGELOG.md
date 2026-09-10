@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.23.0] - 2026-09-10
+
+### Changed
+- Homepage readability refresh preserving the dark retro identity, with clearer
+  typography and English/Italian copy, simplified hero/services/contact hierarchy,
+  and calmer home-page navigation/footer. Scoped home preview opt-in means other
+  pages keep the original style.
+
+### Fixed
+- Keyboard focus enters header submenus immediately when opened with ArrowDown;
+  visibility no longer waits for the menu animation.
+
 ## [1.22.3] - 2026-08-20
 
 ### Changed
