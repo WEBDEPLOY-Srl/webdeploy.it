@@ -2,9 +2,9 @@
 	import { t } from '$lib/i18n';
 </script>
 
-<footer class="bg-surface-dark border-t-2 border-primary/20 pt-12 sm:pt-16 pb-8">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 sm:gap-12 mb-12">
+<footer class="site-footer bg-surface-dark border-t-2 border-primary/20 pt-12 sm:pt-16 pb-8">
+	<div class="site-footer__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="site-footer__content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 sm:gap-12 mb-12">
 			<!-- Brand -->
 			<div class="col-span-1 sm:col-span-2 lg:col-span-2">
 				<div class="flex items-center gap-2 mb-6 group">
@@ -17,7 +17,7 @@
 						>WebDeploy</span
 					>
 				</div>
-				<p class="text-slate-500 text-sm font-mono mb-6 max-w-xs">
+				<p class="site-footer__description text-slate-500 text-sm font-mono mb-6 max-w-xs">
 					<span aria-hidden="true">//</span> {t('footer.tagline')}<br />
 					<span aria-hidden="true">&gt;</span> {t('footer.description')}
 				</p>
@@ -39,7 +39,7 @@
 				>
 					{t('footer.product')}
 				</h4>
-				<ul class="space-y-1 text-sm font-mono text-slate-500">
+				<ul class="site-footer__links space-y-1 text-sm font-mono text-slate-500">
 					<li>
 						<a
 							href="/totem"
@@ -71,7 +71,7 @@
 				>
 					{t('footer.resources')}
 				</h4>
-				<ul class="space-y-1 text-sm font-mono text-slate-500">
+				<ul class="site-footer__links space-y-1 text-sm font-mono text-slate-500">
 					<li>
 						<a
 							href="/developer-manifesto"
@@ -89,7 +89,7 @@
 				>
 					{t('footer.company')}
 				</h4>
-				<ul class="space-y-1 text-sm font-mono text-slate-500">
+				<ul class="site-footer__links space-y-1 text-sm font-mono text-slate-500">
 					<li>
 						<a
 							href="/contacts"
@@ -117,10 +117,10 @@
 
 		<!-- Legal Info -->
 		<div
-			class="border-t border-slate-800 pt-8 text-center text-xs font-mono text-slate-600 space-y-2"
+			class="site-footer__legal border-t border-slate-800 pt-8 text-center text-xs font-mono text-slate-600 space-y-2"
 		>
 			<p>{t('footer.registeredOffice')}: Parma, Via Puccini 15, 43123</p>
-			<p>PEC: legal@pec.webdeploy.it | P.IVA: IT02993340344 | SDI: KRRH6B9</p>
+			<p>PEC: legal@pec.webdeploy.it | P.IVA: IT02993340344 | SDI: 3RQHC04</p>
 			<p>{t('footer.copyright')}</p>
 		</div>
 	</div>

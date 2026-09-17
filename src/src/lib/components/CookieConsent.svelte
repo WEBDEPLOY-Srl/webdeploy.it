@@ -21,7 +21,7 @@
 		aria-label={t('consent.title')}
 	>
 		<div
-			class="card-retro bg-surface-dark max-w-4xl mx-auto p-6 flex flex-col md:flex-row md:items-center gap-4"
+			class="home-consent card-retro bg-surface-dark max-w-4xl mx-auto p-6 flex flex-col md:flex-row md:items-center gap-4"
 		>
 			<div class="flex-1">
 				<p class="text-sm font-display uppercase text-primary mb-1">{t('consent.title')}</p>

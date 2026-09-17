@@ -17,33 +17,39 @@ export const it = {
 	home: {
 		heroName: 'webdeploy',
 		heroText: 'developing greatness',
-		heroTagline: 'A look into the Future<void>',
+		heroEyebrow: 'Webdeploy / open source',
+		heroTagline: 'Software e infrastruttura open source per team che vogliono sistemi chiari e affidabili.',
+		heroImageAlt: 'Logo di Webdeploy',
 		manifestoBtn: 'Manifesto dello Sviluppatore',
-		servicesBtn: 'I Nostri Servizi',
 		systemOnline: 'Sistema Attivo',
-		systemCapabilities: 'Funzionalità',
-		capabilities: 'del Sistema',
-		capabilitiesLine1: 'Infrastruttura open source',
-		capabilitiesLine2: 'Approccio developer-first',
-		ctaTitle: 'Pronto a migliorare il tuo workflow?',
-		ctaDescription: 'Infrastruttura open source per sviluppatori moderni',
-		ctaContact: 'Contattaci',
-		ctaServices: 'I_Nostri_Servizi',
+		servicesBtn: 'Scopri i servizi',
+		servicesEyebrow: 'Cosa facciamo',
+		servicesTitle: 'Tecnologia aperta. Supporto concreto.',
+		servicesDescription: 'Supporto diretto per Linux, dati privati e infrastrutture che puoi comprendere.',
+		exploreService: 'Scopri il servizio',
+		aboutEyebrow: 'Il nostro approccio',
+		aboutTitle: 'Strumenti aperti. Scelte chiare.',
+		aboutDescription: 'Usiamo strumenti open source e processi trasparenti, per aiutarti a capire e controllare la tecnologia su cui lavori.',
+		aboutImageAlt: 'Illustrazione della sede di Webdeploy',
+		aboutLink: 'Leggi il manifesto dello sviluppatore',
+		ctaEyebrow: 'Inizia da qui',
+		ctaTitle: 'Iniziamo con una conversazione',
+		ctaDescription: 'Raccontaci a cosa stai lavorando e dove ti serve un partner affidabile.',
+		ctaContact: 'Contatta Webdeploy',
 		features: {
 			linux: {
-				title: 'Transizione Assistita a Workstation Linux',
-				details:
-					"Devi fidarti dei tuoi dispositivi, smettere di sperare che Windows Update non perda il tuo lavoro, e iniziare a fare affidamento su sistemi open-source stabili, sia che si tratti di un'azienda privata o, a maggior ragione di un'istituzione pubblica!"
+				title: 'Passa a Linux con un piano',
+				details: 'Migrazione e supporto per workstation Linux stabili, utili e sotto il tuo controllo.',
+				linkLabel: 'Migrazione a Linux'
 			},
 			privacy: {
-				title: 'Archiviazione Dati Cifrata',
-				details:
-					"Mantieni i tuoi dati privati! Scegli un'archiviazione file crittografata end-to-end che ci impedisce di guardare, utilizzare o vendere i tuoi dati personali a terze parti, a differenza di molti altri fornitori di servizi."
+				title: 'Archiviazione che rispetta i tuoi dati',
+				details: 'Archiviazione e infrastruttura privata e cifrata, pensata per lasciare i dati della tua attività nelle tue mani.'
 			},
 			inwd: {
-				title: "Scegli inwd per un'infrastruttura gestita",
-				details:
-					"Ospita la logica specifica della tua azienda all'interno di un'infrastruttura fidata, che non ti inganna."
+				title: 'Infrastruttura gestita, definita nel codice',
+				details: 'Workflow Git familiari per rendere le modifiche all’infrastruttura visibili, ripetibili e più semplici da gestire.',
+				linkLabel: 'Infrastruttura gestita'
 			}
 		}
 	},

@@ -104,7 +104,10 @@
 	</script>`}
 </svelte:head>
 
-<div class="retro-grid bg-background-dark min-h-screen relative selection:bg-secondary selection:text-white">
+<div
+	class="retro-grid bg-background-dark min-h-screen relative selection:bg-secondary selection:text-white"
+	class:home-preview={$page.url.pathname === '/'}
+>
 	<!-- Skip to main content link for keyboard users -->
 	<a href="#main-content" class="skip-link">
 		Skip to main content

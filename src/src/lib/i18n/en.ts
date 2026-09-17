@@ -17,33 +17,39 @@ export const en = {
 	home: {
 		heroName: 'webdeploy',
 		heroText: 'developing greatness',
-		heroTagline: 'A look into the Future<void>',
+		heroEyebrow: 'Webdeploy / open source',
+		heroTagline: 'Open source software and infrastructure for teams that want clear, dependable systems.',
+		heroImageAlt: 'Webdeploy logo',
 		manifestoBtn: 'Developer Manifesto',
-		servicesBtn: 'Our Services',
 		systemOnline: 'System Online',
-		systemCapabilities: 'System',
-		capabilities: 'Capabilities',
-		capabilitiesLine1: 'Open source infrastructure',
-		capabilitiesLine2: 'Developer-first approach',
-		ctaTitle: 'Ready to upgrade your workflow?',
-		ctaDescription: 'Open source infrastructure for modern developers',
-		ctaContact: 'Contact_Us',
-		ctaServices: 'Our_Services',
+		servicesBtn: 'Explore services',
+		servicesEyebrow: 'What we do',
+		servicesTitle: 'Open technology. Practical support.',
+		servicesDescription: 'Straightforward support for Linux, private data, and infrastructure you can understand.',
+		exploreService: 'Explore service',
+		aboutEyebrow: 'Our approach',
+		aboutTitle: 'Open tools. Clear choices.',
+		aboutDescription: 'We use open-source tools and transparent processes, so you can understand and control the technology you rely on.',
+		aboutImageAlt: 'Illustration of Webdeploy headquarters',
+		aboutLink: 'Read the developer manifesto',
+		ctaEyebrow: 'Start here',
+		ctaTitle: 'Start with a conversation',
+		ctaDescription: 'Tell us what you are working on and where you need a dependable partner.',
+		ctaContact: 'Contact Webdeploy',
 		features: {
 			linux: {
-				title: 'Linux Workstation Freedom',
-				details:
-					'Escape Windows dependency forever. We provide complete migration services to stable, open-source Linux systems that developers and businesses can trust and control.'
+				title: 'Move to Linux with a plan',
+				details: 'Migration and support for Linux workstations that stay stable, useful, and under your control.',
+				linkLabel: 'Linux migration'
 			},
 			privacy: {
-				title: 'Privacy-First Infrastructure',
-				details:
-					"Your data belongs to you. Our end-to-end encrypted storage and infrastructure solutions ensure your business data never becomes someone else's product."
+				title: 'Storage that respects your data',
+				details: 'Private, encrypted storage and infrastructure designed to keep your business data in your hands.'
 			},
 			inwd: {
-				title: 'inwd - Infrastructure as Code',
-				details:
-					'Manage your entire infrastructure through Git workflows. Version-controlled, reproducible, and transparent - infrastructure management the way developers want it.'
+				title: 'Managed infrastructure, defined in code',
+				details: 'Use familiar Git workflows to make infrastructure changes visible, repeatable, and easier to manage.',
+				linkLabel: 'Managed infrastructure'
 			}
 		}
 	},
