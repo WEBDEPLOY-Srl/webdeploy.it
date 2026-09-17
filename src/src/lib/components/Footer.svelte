@@ -120,7 +120,7 @@
 			class="site-footer__legal border-t border-slate-800 pt-8 text-center text-xs font-mono text-slate-600 space-y-2"
 		>
 			<p>{t('footer.registeredOffice')}: Parma, Via Puccini 15, 43123</p>
-			<p>PEC: legal@pec.webdeploy.it | P.IVA: IT02993340344 | SDI: KRRH6B9</p>
+			<p>PEC: legal@pec.webdeploy.it | P.IVA: IT02993340344 | SDI: 3RQHC04</p>
 			<p>{t('footer.copyright')}</p>
 		</div>
 	</div>
