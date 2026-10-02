@@ -10,7 +10,14 @@ export const en = {
 		linuxMigration: 'Linux Workstation Migration',
 		managedInfra: 'Managed Infrastructure',
 		manifesto: 'Developer Manifesto',
-		contacts: 'Contacts'
+		contacts: 'Contacts',
+		mainNavigation: 'Main navigation',
+		mobileNavigation: 'Mobile navigation',
+		productsSubmenu: 'Products submenu',
+		servicesSubmenu: 'Services submenu',
+		openMenu: 'Open menu',
+		closeMenu: 'Close menu',
+		switchLanguage: 'Switch language'
 	},
 
 	// Home page
@@ -18,9 +25,9 @@ export const en = {
 		heroName: 'webdeploy',
 		heroText: 'developing greatness',
 		heroSubtitle: 'A look into the Future<void>',
-		heroEyebrow: 'Webdeploy / open source',
+		heroEyebrow: 'WebDeploy / open source',
 		heroTagline: 'Open source software and infrastructure for teams that want clear, dependable systems.',
-		heroImageAlt: 'Webdeploy logo',
+		heroImageAlt: 'WebDeploy logo',
 		manifestoBtn: 'Developer Manifesto',
 		systemOnline: 'System Online',
 		servicesBtn: 'Explore services',
@@ -31,15 +38,15 @@ export const en = {
 		aboutEyebrow: 'Our approach',
 		aboutTitle: 'Open tools. Clear choices.',
 		aboutDescription: 'We use open-source tools and transparent processes, so you can understand and control the technology you rely on.',
-		hqTitle: 'Webdeploy HQ, live',
-		hqFrameTitle: 'Interactive Webdeploy HQ: neon bar and developer desks, switchable between 2D and 3D',
+		hqTitle: 'Interactive WebDeploy HQ',
+		hqFrameTitle: 'Interactive WebDeploy HQ: neon bar and developer desks, switchable between 2D and 3D',
 		hqHint: "Press T or the 2D/3D button to step inside · M for sound · C for free camera in 3D",
-		aboutImageAlt: 'Illustration of Webdeploy headquarters',
+		aboutImageAlt: 'Illustration of WebDeploy headquarters',
 		aboutLink: 'Read the developer manifesto',
 		ctaEyebrow: 'Start here',
 		ctaTitle: 'Start with a conversation',
 		ctaDescription: 'Tell us what you are working on and where you need a dependable partner.',
-		ctaContact: 'Contact Webdeploy',
+		ctaContact: 'Contact WebDeploy',
 		features: {
 			linux: {
 				title: 'Move to Linux with a plan',
@@ -61,9 +68,12 @@ export const en = {
 	// Services page
 	services: {
 		title: 'Services',
+		metaDescription:
+			'Open source services from WebDeploy: managed infrastructure, Linux workstation migration, interactive kiosks, and technical consulting.',
 		inwd: {
 			title: 'inwd - Managed Infrastructure',
-			subtitle: 'Infrastructure as Code (IaC) for the modern age',
+			subtitle: 'Infrastructure as Code (IaC) with Git workflows',
+			diagramAlt: 'inwd infrastructure diagram',
 			description:
 				'Transform your infrastructure management with our inwd platform - a comprehensive managed infrastructure solution that treats your servers, networks, and deployments as code. Built for developers who understand that infrastructure should be predictable, version-controlled, and effortlessly scalable.',
 			whatMakesDifferent: 'What Makes inwd Different',
@@ -173,8 +183,9 @@ export const en = {
 	// Totem/Kiosk page
 	totem: {
 		heroName: 'inWD Kiosk',
+		diagramAlt: 'inWD Kiosk diagram',
 		heroTagline: 'Open Source Linux Alternative to Windows Kiosk Systems',
-		requestDemo: 'Request Demo',
+		requestDemo: 'Request a Demo',
 		learnMore: 'Learn More',
 		features: {
 			openSource: {
@@ -194,7 +205,7 @@ export const en = {
 			}
 		},
 		whyLinux: {
-			title: 'Why Choose Linux Over Windows for Kiosk?',
+			title: 'Why Choose Linux Over Windows for Kiosks?',
 			freedom: {
 				title: 'Freedom & Control',
 				items: [
@@ -226,7 +237,7 @@ export const en = {
 		sonmi: {
 			title: 'Powered by Sonmi OS & m4ss.net Partnership',
 			description:
-				'Our kiosk solution leverages Sonmi OS, an innovative Linux distribution developed by m4ss.net - a technological startup specializing in Industrial IoT solutions.',
+				'Our kiosk solution leverages Sonmi OS, an innovative Linux distribution developed by m4ss.net - a technology startup specializing in industrial IoT solutions.',
 			features: [
 				"Industrial-grade reliability from m4ss.net's IoT expertise",
 				'Ethical technology principles - both companies support EFF and FSF',
@@ -347,6 +358,12 @@ export const en = {
 				"Ready to discuss your open source infrastructure needs? We're here to help you escape vendor lock-in and embrace developer-friendly solutions.",
 			location: 'Location'
 		},
+		address: 'Via Puccini 15, 43123 Parma (PR), Italy',
+		map: {
+			loading: 'Loading map…',
+			error: 'Unable to load map',
+			popupCity: '43123 Parma (PR), Italy'
+		},
 		careers: {
 			title: 'Join Our Team',
 			description:
@@ -361,24 +378,25 @@ export const en = {
 		subtitle: 'Hosting that is NIS2- and CRA-compliant by design, with audit-ready evidence.',
 		benefitsTitle: 'What you get',
 		benefits: [
-			'NIS2/CRA gap-analysis for SMBs and MSPs: a 25-minute read, zero buzzwords',
+			'NIS2/CRA gap analysis for SMBs and MSPs: a 25-minute read, zero buzzwords',
 			'Where you stand today against NIS2 and CRA, and what you are missing',
 			'A concrete plan for the next 90 days',
-			'A spot in line for the early access reserved to 10 Italian SMBs'
+			'A place in line for early access, reserved for 10 Italian SMBs'
 		],
 		form: {
 			email: 'Work email',
 			name: 'Full name',
 			company: 'Company',
+			emailPlaceholder: 'name@company.it',
 			rolePlaceholder: 'Your role',
 			roleA: 'CTO / IT manager',
 			roleB: 'C-level / Owner',
 			roleC: 'Compliance officer / DPO',
-			submit: 'Join the early access',
+			submit: 'Join the early access list',
 			sending: 'Sending...',
 			successTitle: 'Almost there',
 			success:
-				'We sent you an email: confirm your subscription to receive the NIS2/CRA gap-analysis.',
+				'We sent you an email: confirm your subscription to receive the NIS2/CRA gap analysis.',
 			error: 'Something went wrong. Check your email and the consent checkbox, then try again.',
 			errorSubmit:
 				'Submission failed. Please try again shortly; if it keeps happening, email us at info@webdeploy.it.',
@@ -388,12 +406,12 @@ export const en = {
 		},
 		confirmed: {
 			title: 'Subscription confirmed',
-			subtitle: 'You are in. Your NIS2/CRA gap-analysis is on its way to your inbox.',
+			subtitle: 'You are in. Your NIS2/CRA gap analysis is on its way to your inbox.',
 			nextTitle: 'What happens now',
 			next: [
-				'Check your email: it has the link to download the NIS2/CRA gap-analysis',
+				'Check your email: it has the link to download the NIS2/CRA gap analysis',
 				'One email a week, always concrete, no spam',
-				'In a few weeks we open the early access to 10 Italian SMBs — you are already in line'
+				'In a few weeks we\'ll open early access to 10 Italian SMBs — you are already in line'
 			],
 			cta: 'Explore managed infrastructure',
 			tagline: 'developing greatness'
@@ -413,15 +431,17 @@ export const en = {
 		shareOnLinkedIn: 'Share on LinkedIn',
 		shareOnInstagram: 'Share on Instagram',
 		linkCopied: 'Link copied. You can paste it into your Instagram Story.',
-		copyFailed: 'Unable to copy link. Please copy from address bar.',
+		copyFailed: 'Unable to copy the link. Please copy it from the address bar.',
+		shareText: 'Read this article:',
 		popupBlocked: 'Popup blocked. Opening in new tab instead.',
 		openSourceRelease: {
-			title: 'WebDeploy.it Is Now Open Source',
+			title: 'webdeploy.it is now open source',
+			imageAlt: 'webdeploy.it is now open source under AGPL-3.0',
 			date: '17/04/2026',
 			description:
 				'The source code of webdeploy.it is now public under AGPL-3.0. Built with SvelteKit, Tailwind CSS and Leaflet — framework choices driven by LLM-friendly documentation.',
 			intro:
-				'The site you are reading right now is open source. We just published the full source code of webdeploy.it on our public repository under the GNU Affero General Public License v3.0. No marketing copy — a SvelteKit static site, a handful of Svelte components, some Tailwind CSS, and a Leaflet map with OpenStreetMap tiles. Clone it, fork it, self-host it, or just read through the code.',
+				'The site you are reading right now is open source. We just published the full source code of webdeploy.it on our public repository under the GNU Affero General Public License v3.0. The actual production code — a SvelteKit static site, a handful of Svelte components, some Tailwind CSS, and a Leaflet map with OpenStreetMap tiles. Clone it, fork it, self-host it, or just read through the code.',
 			whatHappened: 'What We Released',
 			whatHappenedDescription:
 				'Everything that ships the production website is now in the repository: the SvelteKit app in src/, the English and Italian translations, the component library, the design tokens for the retro-cyberpunk theme, the Dockerfile, and the CI pipeline configuration. There are no private submodules and no closed dependencies — what you clone is what runs on webdeploy.it.',
@@ -444,10 +464,11 @@ export const en = {
 			callToAction: 'Read the Source',
 			callToActionDescription:
 				'If you want to see how a small, static, privacy-first company site is built end-to-end, the code is there. Fork it, star it, run it locally, tear it apart — that is exactly what it is there for.',
-			visitRepo: 'Open webdeploy.it'
+			visitRepo: 'Go to the homepage'
 		},
 		websiteLaunch: {
 			title: 'Welcome to the New WebDeploy Website',
+			imageAlt: 'WebDeploy logo',
 			date: '31/12/2025',
 			description:
 				'We are excited to announce the launch of our first official website, featuring our signature retro-cyberpunk aesthetic.',
@@ -482,13 +503,13 @@ export const en = {
 			title: 'Galleria Pilotta interactive table',
 			date: '10/11/2023',
 			description:
-				'Interactive table for Complesso della Pilotta with zoom capability for art pieces and paintings in restoration.',
+				'Interactive table for the Complesso della Pilotta, with zoom features for artworks and paintings undergoing restoration.',
 			intro:
 				'Our interactive table solution for the Complesso della Pilotta museum provides visitors with an immersive way to explore the art collection. The multi-touch interface allows users to zoom into details of each painting, revealing restoration work and hidden details that wouldn\'t be visible to the naked eye.',
 			keyFeatures: 'Key Features',
 			features: [
 				'High-resolution zoom capability for examining art pieces in detail',
-				'Display of paintings currently in restoration',
+				'Display of paintings currently undergoing restoration',
 				'Multi-touch interface supporting multiple simultaneous users',
 				'Built on our inWD Kiosk Linux-based platform'
 			],
@@ -497,7 +518,7 @@ export const en = {
 		rimini: {
 			title: 'Visit Rimini with Rimini Xperience',
 			date: '07/07/2022',
-			description: 'Rimini tourism application available on Google Play Store.',
+			description: 'A tourism app for Rimini, available on Google Play.',
 			intro:
 				'Rimini Xperience is a mobile tourism application designed to help visitors discover the beautiful city of Rimini. The app provides interactive guides, points of interest, and local recommendations to enhance the tourist experience.',
 			appFeatures: 'App Features',
@@ -505,7 +526,7 @@ export const en = {
 				'Interactive city maps with points of interest',
 				'Audio guides for major attractions',
 				'Local restaurant and accommodation recommendations',
-				'Offline mode for use without internet connection'
+				'Offline mode for use without an internet connection'
 			],
 			downloadTitle: 'Download the App',
 			downloadDescription: 'Rimini Xperience is available on the Google Play Store.',
@@ -513,7 +534,7 @@ export const en = {
 			collaboration: 'Developed in collaboration with the Rimini tourism board.'
 		},
 		impeccable: {
-			title: 'Web Standards We Applied Building This Site',
+			title: 'Web Standards We Used to Build This Site',
 			date: '28/01/2026',
 			description:
 				'A deep dive into the web standards, CSS features, and development best practices we applied to improve our website - from accessibility to performance optimization.',
@@ -580,6 +601,7 @@ export const en = {
 		},
 		fosdem2026: {
 			title: 'FOSDEM 2026: Regulation and Infrastructure',
+			imageAlt: 'FOSDEM 2026 at ULB Brussels',
 			date: '04/02/2026',
 			description:
 				'Our experience at FOSDEM 2026 in Brussels - from CRA and SBOM devrooms to discovering innovative open source projects like metal-stack.io.',
@@ -627,10 +649,10 @@ export const en = {
 			'No cookies are set on your device',
 			'IP addresses are anonymized',
 			'Do Not Track browser setting is respected',
-			'Data is stored on Hetzner Online GmbH servers in Falkenstein, Bavaria',
+			'Data is stored on Hetzner Online GmbH servers in Falkenstein, Saxony (Germany)'
 		],
-		optOutTitle: 'Opt-out of Analytics',
-		optOutText: 'Even though we use privacy-friendly tracking, you can opt-out of analytics entirely:',
+		optOutTitle: 'Opt out of analytics',
+		optOutText: 'Even though we use privacy-friendly tracking, you can opt out of analytics entirely:',
 		dataTitle: 'Data We Collect',
 		dataText: 'We only collect anonymous, aggregated data to understand how our website is used:',
 		dataItems: [
@@ -649,32 +671,53 @@ export const en = {
 			'When WebDeploy S.R.L. processes personal data on your behalf as a processor, it does so under a Data Processing Agreement (DPA) compliant with Art. 28 GDPR: defined purpose and duration, technical and organizational security measures, a list of sub-processors, assistance with data-subject requests, and deletion or return of the data at the end of the service. Request the DPA text by writing to info@webdeploy.it.',
 		optOut: {
 			OptOutComplete: 'Opt-out complete; your visits to this website will not be recorded by the Web Analytics tool.',
-			OptOutCompleteBis: 'Note that if you clear your cookies, delete the opt-out cookie, or if you change computers or Web browsers, you will need to perform the opt-out procedure again.',
+			OptOutCompleteBis: 'If you clear your cookies, delete the opt-out cookie, or change computers or browsers, you will need to opt out again.',
 			YouMayOptOut2: 'You may choose to prevent this website from aggregating and analyzing the actions you take here.',
 			YouMayOptOut3: 'Doing so will protect your privacy, but will also prevent the owner from learning from your actions and creating a better experience for you and other users.',
 			OptOutErrorNoCookies: 'The tracking opt-out feature requires cookies to be enabled.',
-			OptOutErrorNotHttps: 'The tracking opt-out feature may not work because this site was not loaded over HTTPS. Please reload the page to check if your opt out status changed.',
+			OptOutErrorNotHttps: 'The tracking opt-out feature may not work because this site was not loaded over HTTPS. Please reload the page to check if your opt-out status changed.',
 			YouAreNotOptedOut: 'You are not opted out.',
-			UncheckToOptOut: 'Uncheck this box to opt-out.',
+			UncheckToOptOut: 'Uncheck this box to opt out.',
 			YouAreOptedOut: 'You are currently opted out.',
-			CheckToOptIn: 'Check this box to opt-in.'
+			CheckToOptIn: 'Check this box to opt in.'
 		}
 	},
 
 	// Common
 	common: {
-		email: 'E-Mail',
+		email: 'Email',
 		phone: 'Phone',
 		learnMore: 'Learn More',
 		contactUs: 'Contact Us',
-		requestDemo: 'Request Demo'
+		requestDemo: 'Request a demo',
+		skipToContent: 'Skip to main content',
+		opensInNewTab: '(opens in a new tab)',
+		emailUs: 'Email us at info@webdeploy.it'
+	},
+
+	// Error page
+	error: {
+		pageTitle: 'Error',
+		codeLabel: 'ERROR_CODE',
+		statusLine: 'STATUS: SYSTEM_RECOVERY_AVAILABLE',
+		notFoundTitle: 'Page Not Found',
+		serverErrorTitle: 'Internal Server Error',
+		forbiddenTitle: 'Access Forbidden',
+		genericTitle: 'Something Went Wrong',
+		notFoundText: "The page you're looking for doesn't exist or has been moved.",
+		serverErrorText: 'Our servers encountered an unexpected error. Please try again later.',
+		forbiddenText: "You don't have permission to access this resource.",
+		genericText: 'An unexpected error occurred. Please try again.',
+		returnHome: 'Return Home',
+		goBack: 'Go Back',
+		needHelp: 'Need help? Contact us at'
 	},
 
 	// Cookie / marketing consent
 	consent: {
 		title: 'Privacy & cookies',
-		body: 'We use Matomo (cookieless analytics, always on) and, only with your consent, the Meta pixel to measure our ad campaigns. Details in our <a href="/privacy" class="text-primary hover:underline">Privacy</a>.',
-		accept: 'Accept',
-		reject: 'Necessary only'
+		body: 'We use Matomo (cookieless analytics, always on) and, only with your consent, the Meta pixel to measure our ad campaigns. Details in our <a href="/privacy" class="text-primary hover:underline">privacy policy</a>.',
+		accept: 'Accept marketing cookies',
+		reject: 'Reject marketing cookies'
 	}
 };

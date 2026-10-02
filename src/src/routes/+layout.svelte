@@ -8,6 +8,7 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { locale } from '$lib/stores/locale.svelte';
+	import { t } from '$lib/i18n';
 	import { consent } from '$lib/stores/consent.svelte';
 	import { loadMetaPixel } from '$lib/utils/metaPixel';
 	import { logI18n, logAnalytics } from '$lib/utils/logger';
@@ -110,7 +111,7 @@
 >
 	<!-- Skip to main content link for keyboard users -->
 	<a href="#main-content" class="skip-link">
-		Skip to main content
+		{t('common.skipToContent')}
 	</a>
 
 	<CrtEffects />

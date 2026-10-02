@@ -36,7 +36,7 @@
 					</p>
 					<p class="text-slate-400 flex items-start gap-3">
 						<span class="text-primary font-bold">{t('contacts.business.location')}:</span>
-						<span>Via Puccini 15, Parma (PR), 43123, Italy</span>
+						<span>{t('contacts.address')}</span>
 					</p>
 					<p class="text-slate-400 flex items-start gap-3">
 						<span class="text-primary font-bold">{t('common.phone')}:</span>

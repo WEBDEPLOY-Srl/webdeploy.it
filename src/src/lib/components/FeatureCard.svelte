@@ -55,7 +55,7 @@
 			{:else if icon}
 				<span class="text-2xl">{icon}</span>
 			{:else}
-				<span class="material-symbols-outlined text-2xl">bolt</span>
+				<span class="material-symbols-outlined text-2xl" aria-hidden="true">bolt</span>
 			{/if}
 		</div>
 		<h3 class="text-xl font-bold font-display text-white mb-3 uppercase tracking-wide">{title}</h3>

@@ -6,11 +6,18 @@ export const it = {
 		kiosk: 'Totem interattivo inWD',
 		news: 'Notizie',
 		services: 'Servizi',
-		encryptedStorage: 'Archiviazione Dati Cifrata',
-		linuxMigration: 'Migrazione Assistita a Linux',
-		managedInfra: 'Infrastruttura Automatizzata',
-		manifesto: 'Manifesto dello Sviluppatore',
-		contacts: 'Contatti'
+		encryptedStorage: 'Archiviazione cifrata dei dati',
+		linuxMigration: 'Migrazione delle workstation a Linux',
+		managedInfra: 'Infrastruttura gestita',
+		manifesto: 'Manifesto dello sviluppatore',
+		contacts: 'Contatti',
+		mainNavigation: 'Navigazione principale',
+		mobileNavigation: 'Navigazione mobile',
+		productsSubmenu: 'Sottomenu prodotti',
+		servicesSubmenu: 'Sottomenu servizi',
+		openMenu: 'Apri il menu',
+		closeMenu: 'Chiudi il menu',
+		switchLanguage: 'Cambia lingua'
 	},
 
 	// Home page
@@ -18,11 +25,11 @@ export const it = {
 		heroName: 'webdeploy',
 		heroText: 'developing greatness',
 		heroSubtitle: 'A look into the Future<void>',
-		heroEyebrow: 'Webdeploy / open source',
+		heroEyebrow: 'WebDeploy / open source',
 		heroTagline: 'Software e infrastruttura open source per team che vogliono sistemi chiari e affidabili.',
-		heroImageAlt: 'Logo di Webdeploy',
-		manifestoBtn: 'Manifesto dello Sviluppatore',
-		systemOnline: 'Sistema Attivo',
+		heroImageAlt: 'Logo di WebDeploy',
+		manifestoBtn: 'Manifesto dello sviluppatore',
+		systemOnline: 'Sistema attivo',
 		servicesBtn: 'Scopri i servizi',
 		servicesEyebrow: 'Cosa facciamo',
 		servicesTitle: 'Tecnologia aperta. Supporto concreto.',
@@ -30,16 +37,16 @@ export const it = {
 		exploreService: 'Scopri il servizio',
 		aboutEyebrow: 'Il nostro approccio',
 		aboutTitle: 'Strumenti aperti. Scelte chiare.',
-		aboutDescription: 'Usiamo strumenti open source e processi trasparenti, per aiutarti a capire e controllare la tecnologia su cui lavori.',
-		hqTitle: 'Webdeploy HQ, dal vivo',
-		hqFrameTitle: 'Webdeploy HQ interattivo: bar al neon e scrivanie degli sviluppatori, in 2D o 3D',
-		hqHint: "Premi T o il pulsante 2D/3D per entrare · M per l'audio · C per la camera libera in 3D",
-		aboutImageAlt: 'Illustrazione della sede di Webdeploy',
+		aboutDescription: 'Usiamo strumenti open source e processi trasparenti, per aiutarti a capire e controllare la tecnologia su cui fai affidamento.',
+		hqTitle: 'La sede virtuale interattiva di WebDeploy',
+		hqFrameTitle: 'Sede virtuale interattiva di WebDeploy: bar al neon e scrivanie degli sviluppatori, in 2D o 3D',
+		hqHint: "Premi T o il pulsante 2D/3D per entrare · M per l'audio · C per muoverti liberamente nella scena 3D",
+		aboutImageAlt: 'Illustrazione della sede di WebDeploy',
 		aboutLink: 'Leggi il manifesto dello sviluppatore',
 		ctaEyebrow: 'Inizia da qui',
 		ctaTitle: 'Iniziamo con una conversazione',
 		ctaDescription: 'Raccontaci a cosa stai lavorando e dove ti serve un partner affidabile.',
-		ctaContact: 'Contatta Webdeploy',
+		ctaContact: 'Contatta WebDeploy',
 		features: {
 			linux: {
 				title: 'Passa a Linux con un piano',
@@ -48,7 +55,7 @@ export const it = {
 			},
 			privacy: {
 				title: 'Archiviazione che rispetta i tuoi dati',
-				details: 'Archiviazione e infrastruttura privata e cifrata, pensata per lasciare i dati della tua attività nelle tue mani.'
+				details: 'Archiviazione e infrastruttura private e cifrate, pensate per mantenere i dati della tua attività sotto il tuo controllo.'
 			},
 			inwd: {
 				title: 'Infrastruttura gestita, definita nel codice',
@@ -61,18 +68,21 @@ export const it = {
 	// Services page
 	services: {
 		title: 'Servizi',
+		metaDescription:
+			'I servizi open source di WebDeploy: infrastruttura gestita, migrazione delle workstation a Linux, totem interattivi e consulenza tecnica.',
 		inwd: {
-			title: 'inwd - Infrastruttura Gestita',
-			subtitle: "Infrastructure as Code (IaC) per l'era moderna",
+			title: 'inwd - Infrastruttura gestita',
+			subtitle: 'Infrastructure as Code (IaC) con workflow Git',
+			diagramAlt: "Schema dell'infrastruttura inwd",
 			description:
-				'Trasforma la gestione della tua infrastruttura con la nostra piattaforma inwd - una soluzione completa di infrastruttura gestita che tratta i tuoi server, reti e deployment come codice. Costruita per sviluppatori che capiscono che l\'infrastruttura deve essere prevedibile, versionata e facilmente scalabile.',
-			whatMakesDifferent: 'Cosa Rende inwd Diverso',
+				'Trasforma la gestione della tua infrastruttura con la nostra piattaforma inwd - una soluzione completa di infrastruttura gestita che tratta i tuoi server, le tue reti e i tuoi deployment come codice. Costruita per sviluppatori che capiscono che l\'infrastruttura deve essere prevedibile, versionata e facilmente scalabile.',
+			whatMakesDifferent: 'Cosa distingue inwd',
 			features: [
-				'Infrastruttura Versionata - Ogni modifica tracciata, ogni deployment riproducibile',
-				'Esperienza Developer-First - Workflow Git familiari per la gestione dell\'infrastruttura',
-				'Zero Vendor Lock-in - Strumenti open source, processi trasparenti',
-				'Trasparenza dei Costi - Nessun costo nascosto, nessuna sorpresa',
-				'Monitoraggio 24/7 - Alert proattivi e rimedio automatizzato'
+				'Infrastruttura versionata — ogni modifica tracciata, ogni deployment riproducibile',
+				'Esperienza pensata per gli sviluppatori — workflow Git familiari per la gestione dell\'infrastruttura',
+				'Zero vendor lock-in — strumenti open source, processi trasparenti',
+				'Trasparenza dei costi — nessun costo nascosto, nessuna sorpresa',
+				'Monitoraggio 24/7 — avvisi proattivi e interventi correttivi automatici'
 			],
 			gitops: {
 				title: 'Workflow GitOps',
@@ -84,7 +94,7 @@ export const it = {
 				]
 			},
 			security: {
-				title: 'Sicurezza by Design',
+				title: 'Sicurezza fin dalla progettazione',
 				items: [
 					'Gestione dei segreti crittografata',
 					'Patch di sicurezza automatizzate',
@@ -93,16 +103,16 @@ export const it = {
 				]
 			},
 			observability: {
-				title: 'Osservabilità & Monitoraggio',
+				title: 'Osservabilità e monitoraggio',
 				items: [
 					'Metriche in tempo reale e dashboard',
 					'Regole di alerting personalizzate',
-					'Insights per ottimizzazione delle prestazioni',
+					'Indicazioni per ottimizzare le prestazioni',
 					'Automazione della pianificazione della capacità'
 				]
 			},
 			multiCloud: {
-				title: 'Supporto Multi-Cloud & Ibrido',
+				title: 'Supporto multi-cloud e ibrido',
 				items: [
 					'AWS, Azure, Google Cloud e on-premises',
 					'Orchestrazione Kubernetes',
@@ -112,30 +122,30 @@ export const it = {
 			}
 		},
 		linux: {
-			title: 'Migrazione e Gestione di Workstation Linux',
+			title: 'Migrazione e gestione delle workstation Linux',
 			subtitle: 'Liberati dalla dipendenza da Windows con servizi di migrazione professionali',
 			description:
 				'Aiuta la tua organizzazione nella transizione da workstation Windows a Linux con i nostri servizi completi di migrazione e gestione continua. Gestiamo tutto, dalla valutazione iniziale al supporto a lungo termine, assicurando che il tuo team rimanga produttivo durante tutta la transizione.',
 			assessment: {
-				title: 'Valutazione & Pianificazione',
+				title: 'Valutazione e pianificazione',
 				items: [
 					'Inventario software attuale e analisi di compatibilità',
 					'Documentazione e ottimizzazione del workflow utente',
-					'Timeline di migrazione personalizzata con minima interruzione',
+					'Piano di migrazione personalizzato con interruzioni minime',
 					'Sviluppo del piano di formazione per il tuo team'
 				]
 			},
 			transition: {
-				title: 'Processo di Transizione Fluido',
+				title: 'Processo di transizione fluido',
 				items: [
-					'Migrazione dati con garanzia zero perdita di dati',
+					'Migrazione dei dati con garanzia di assenza di perdite',
 					'Sostituzione e configurazione delle applicazioni',
 					'Preservazione del profilo utente e delle impostazioni',
 					'Rollout graduale per minimizzare l\'impatto sul business'
 				]
 			},
 			training: {
-				title: 'Formazione & Supporto',
+				title: 'Formazione e supporto',
 				items: [
 					'Programmi di formazione personalizzati per diversi tipi di utenti',
 					'Documentazione e guide di riferimento rapido',
@@ -145,24 +155,24 @@ export const it = {
 			}
 		},
 		kiosk: {
-			title: 'Soluzioni Kiosk Personalizzate',
+			title: 'Soluzioni kiosk personalizzate',
 			subtitle: 'Alternative Linux ai sistemi kiosk Windows',
 			description:
-				'Progetta e implementa soluzioni kiosk interattive usando tecnologia open source. Perfetto per retail, sanità, istruzione e spazi pubblici dove affidabilità e personalizzazione contano più del vendor lock-in.',
+				'Progetta e implementa soluzioni kiosk interattive usando tecnologia open source. Ideali per negozi, strutture sanitarie e scolastiche e spazi pubblici dove affidabilità e personalizzazione contano più del vendor lock-in.',
 			learnMore: 'Scopri di più sulle nostre soluzioni kiosk'
 		},
 		consulting: {
-			title: 'Consulenza Open Source',
-			subtitle: 'Guida esperta per adottare e contribuire a tecnologie open source',
+			title: 'Consulenza open source',
+			subtitle: 'Consulenza per adottare tecnologie open source e contribuire ai relativi progetti',
 			items: [
-				'Valutazione Tecnologica - Valuta alternative open source a soluzioni proprietarie',
-				'Sviluppo Personalizzato - Costruisci soluzioni usando framework e strumenti open source',
-				'Coinvolgimento della Comunità - Aiuta la tua organizzazione a contribuire ai progetti open source',
-				'Conformità delle Licenze - Assicura una corretta gestione delle licenze open source'
+				'Valutazione tecnologica — valuta alternative open source a soluzioni proprietarie',
+				'Sviluppo personalizzato — costruisci soluzioni usando framework e strumenti open source',
+				'Coinvolgimento della comunità — aiuta la tua organizzazione a contribuire ai progetti open source',
+				'Conformità delle licenze — assicura una corretta gestione delle licenze open source'
 			]
 		},
 		cta: {
-			title: 'Pronto per Iniziare?',
+			title: 'Vuoi iniziare?',
 			description:
 				'Ogni progetto inizia con la comprensione delle tue esigenze uniche. Discutiamo di come il nostro approccio orientato agli sviluppatori può risolvere le tue sfide infrastrutturali e tecnologiche.',
 			contactUs: 'Contattaci:',
@@ -173,158 +183,169 @@ export const it = {
 	// Totem/Kiosk page
 	totem: {
 		heroName: 'Totem interattivo inWD',
-		heroTagline: 'Un totem interattivo sicuro, personalizzabile e intelligente per il tuo business.',
-		requestDemo: 'Richiedi una demo!',
+		diagramAlt: 'Schema del totem inWD Kiosk',
+		heroTagline: "L'alternativa open source basata su Linux ai sistemi kiosk Windows",
+		requestDemo: 'Richiedi una demo',
 		learnMore: 'Scopri di più',
 		features: {
 			openSource: {
-				title: 'Mostra ciò che vuoi',
-				details: 'Il totem viene ottimizzato per mostrare esclusivamente il software desiderato.'
+				title: 'Fondamenta open source',
+				details:
+					'Basato sul solido Sonmi OS di m4ss.net, una distribuzione Linux progettata per applicazioni kiosk e soluzioni IoT industriali.'
 			},
 			windowsFree: {
-				title: 'Aumenta il coinvolgimento',
-				details: 'Perfetto per digital signage e promozioni interattive.'
+				title: "L'alternativa senza Windows",
+				details:
+					"Liberati dal vendor lock-in, dai costi di licenza e dagli aggiornamenti forzati. La nostra soluzione basata su Linux ti dà il pieno controllo sull'ambiente del tuo totem."
 			},
 			developer: {
-				title: 'Adattabile a diversi settori',
-				details: 'Retail, turismo, sanità, pubblica amministrazione, eventi ed altro.'
+				title: 'Progettato per gli sviluppatori',
+				details:
+					'Completamente personalizzabile tramite Infrastructure as Code (IaC), per dare agli sviluppatori la libertà di creare esattamente ciò di cui la tua attività ha bisogno.'
 			}
 		},
 		whyLinux: {
-			title: 'Perché scegliere il Totem inWD?',
+			title: 'Perché scegliere Linux invece di Windows per i totem?',
 			freedom: {
-				title: 'Completamente personalizzabile',
+				title: 'Libertà e controllo',
 				items: [
-					'Adattabile alle tue esigenze, dal branding al design fisico',
-					'Pronto per il white-label',
-					'Personalizzabile con il tuo logo, colori e identità visiva'
+					'Nessun aggiornamento forzato che interrompa il funzionamento del totem',
+					'Personalizzazione completa: modifica qualsiasi cosa in base alle tue esigenze',
+					'Nessun costo di licenza: riduci in modo significativo i costi operativi',
+					'Piena proprietà del tuo stack hardware e software'
 				]
 			},
 			security: {
-				title: 'Ambiente sicuro e controllato',
+				title: 'Sicurezza rafforzata',
 				items: [
-					'Basato su sistema Linux',
-					"Solo il software essenziale per un'esperienza utente sicura",
-					'Sistema Linux avanzato per garantire stabilità'
+					'Kernel Linux irrobustito, con una superficie di attacco minima',
+					"La trasparenza dell'open source: nessuna backdoor nascosta e nessuna telemetria",
+					'Permessi granulari: limita esattamente ciò a cui gli utenti possono accedere',
+					'Codice verificato dalla comunità, nel rispetto delle migliori pratiche di sicurezza'
 				]
 			},
 			performance: {
-				title: 'Versatile per molteplici applicazioni',
+				title: 'Prestazioni superiori',
 				items: [
-					'Ideale per punti informativi, pubblicità, ticketing',
-					'Check-in ed interazioni con gli utenti',
-					'IoT-ready con gestione remota'
+					'Sistema operativo leggero: più risorse per la tua applicazione',
+					"Stabile e affidabile: l'uptime di Linux si misura in anni, non in giorni",
+					'Nessun processo in background che consuma risorse, come la telemetria di Windows',
+					'Ottimizzato per sistemi embedded e totem'
 				]
 			}
 		},
 		sonmi: {
-			title: 'Caratteristiche principali',
-			description: 'Sicurezza, personalizzazione e connettività avanzata.',
+			title: 'Basato su Sonmi OS, in partnership con m4ss.net',
+			description:
+				"La nostra soluzione per totem sfrutta Sonmi OS, un'innovativa distribuzione Linux sviluppata da m4ss.net, una startup tecnologica specializzata in soluzioni IoT industriali.",
 			features: [
-				'Sicurezza Linux avanzata - stabilità e prevenzione accessi non autorizzati',
-				'Design white-label - adattabile alla tua identità aziendale',
-				'Hardware personalizzabile - dalla struttura del totem ai dispositivi connessi',
-				'Connettività avanzata - Wi-Fi, Bluetooth, NFC, QR Code, RFID'
+				"Affidabilità di livello industriale, grazie all'esperienza di m4ss.net nell'IoT",
+				'Principi etici nella tecnologia: entrambe le aziende sostengono EFF e FSF',
+				"Attenzione all'ambiente: attività alimentate al 100% da energia pulita",
+				"Etica hacker: cambiare le regole del gioco attraverso l'innovazione"
 			]
 		},
 		iac: {
-			title: 'Display premium e struttura resistente',
-			description: 'Qualità e durabilità per ogni ambiente.',
+			title: 'Gestione tramite Infrastructure as Code (IaC)',
+			description:
+				'A differenza delle tradizionali soluzioni kiosk basate su Windows, inWD Kiosk è gestito interamente tramite IaC:',
 			features: [
-				'Schermo HD/4K touchscreen con tecnologia multi-touch',
-				'Materiali durevoli, adatti per uso interno',
-				'Monitoraggio delle interazioni degli utenti',
-				'Perfetto per segnaletica digitale interattiva'
+				'Configurazioni versionate: traccia ogni modifica',
+				'Deployment riproducibili: configurazioni identiche in ogni sede',
+				'Provisioning automatizzato: installa decine di totem senza fatica',
+				'Workflow GitOps: gestisci i totem come un software moderno'
 			]
 		},
 		applications: {
-			title: 'Dove puoi utilizzare inWD Kiosk?',
-			description: 'Ideale per:',
+			title: 'Applicazioni concrete',
+			description: 'Ideale per le organizzazioni che cercano alternative nei mercati dominati da Windows:',
 			items: [
-				'Retail e centri commerciali - Segnaletica digitale, promozioni e postazioni self-service',
-				'Turismo e trasporti - Guide interattive, biglietteria e check-in',
-				'Ospedali e sanità - Check-in pazienti e chioschi informativi',
-				'Pubblica amministrazione ed eventi - Punti informativi self-service'
+				"Enti pubblici in transizione verso l'open source",
+				'Negozi che hanno bisogno di soluzioni affidabili ed economiche',
+				'Istituti scolastici che sostengono iniziative FOSS',
+				'Strutture sanitarie che richiedono sistemi sicuri e stabili',
+				'Eventi e fiere che richiedono esperienze personalizzabili'
 			]
 		},
 		cta: {
-			title: 'Contattaci!',
-			description: 'Rivoluziona la tua comunicazione digitale con il Totem inWD!',
-			button: 'Richiedi una demo',
+			title: 'Vuoi dire addio ai totem Windows?',
+			description:
+				"Unisciti al numero crescente di aziende che scelgono alternative open source attente all'esperienza degli sviluppatori, all'affidabilità dei sistemi e alla trasparenza dei costi.",
+			button: 'Richiedi oggi la tua demo',
 			email: 'Email',
 			partnership: 'Partnership',
-			poweredBy: 'Sviluppato da'
+			poweredBy: 'Basato su'
 		}
 	},
 
 	// Developer Manifesto
 	manifesto: {
-		title: 'Manifesto dello Sviluppatore',
-		coreBeliefs: 'I Nostri Valori Fondamentali',
+		title: 'Manifesto dello sviluppatore',
+		coreBeliefs: 'I nostri valori fondamentali',
 		devExp: {
-			title: 'Esperienza Developer First',
+			title: "L'esperienza degli sviluppatori prima di tutto",
 			description:
-				'Crediamo che sviluppatori felici creino software eccezionale. Quando gli sviluppatori hanno gli strumenti giusti, documentazione chiara e workflow senza attriti, producono il loro miglior lavoro. Tutto ciò che costruiamo inizia con la domanda: "Come possiamo migliorare la vita dello sviluppatore?"'
+				'Crediamo che sviluppatori felici creino software eccezionale. Quando gli sviluppatori hanno gli strumenti giusti, documentazione chiara e workflow senza attriti, producono il loro miglior lavoro. Tutto ciò che costruiamo inizia con la domanda: «Come possiamo migliorare la vita dello sviluppatore?»'
 		},
 		openSource: {
-			title: "L'Open Source è la Nostra Presa di Posizione",
+			title: "L'open source è il nostro fondamento",
 			description:
 				"Il software open source promuove innovazione, trasparenza e collaborazione. Scegliamo l'open source perché rappresenta libertà, comunità e l'avanzamento collettivo della tecnologia. Il nostro impegno verso il FOSS guida ogni decisione tecnica che prendiamo."
 		},
 		workLife: {
-			title: 'Work-Life Balance, Ridefinito',
+			title: 'Un nuovo equilibrio tra lavoro e vita privata',
 			description:
 				'Rifiutiamo il mito che un grande software richieda di sacrificare la vita personale. La vera produttività viene da pratiche sostenibili, non dal burnout.',
 			items: [
-				'Lavora dove ti senti produttivo - ufficio, casa, caffetteria o una spiaggia a Bali',
-				'Lavora quando sei al meglio - mattiniero o nottambulo, ci adattiamo al tuo ritmo',
-				'Ma gestisciti, coder! - la libertà viene con responsabilità e autodisciplina'
+				'Lavora dove rendi di più - ufficio, casa, caffetteria o una spiaggia a Bali',
+				'Lavora quando sei al meglio - che tu preferisca la mattina o la notte, ci adattiamo al tuo ritmo',
+				'Ma gestisciti, coder! - la libertà comporta responsabilità e autodisciplina'
 			],
 			note: 'Questa non è flessibilità ingenua - è fiducia matura in professionisti che capiscono che consegnare lavoro di qualità conta più che timbrare il cartellino.'
 		},
-		techPhilosophy: 'La Nostra Filosofia Tecnica',
+		techPhilosophy: 'La nostra filosofia tecnica',
 		quality: {
-			title: 'Qualità Prima della Velocità',
+			title: 'Qualità prima della velocità',
 			description:
-				'Costruiamo del software che dura. I lavori frettolosi creano debito tecnico, utenti frustrati e sviluppatori stressati. Investiamo tempo in anticipo per risparmiare innumerevoli ore dopo.'
+				"Costruiamo del software che dura. I lavori frettolosi creano debito tecnico, utenti frustrati e sviluppatori stressati. Investiamo tempo fin dall'inizio per risparmiare innumerevoli ore dopo."
 		},
 		docs: {
-			title: 'Documentazione come Codice',
+			title: 'Documentazione come codice',
 			description:
-				'Se non è documentato, non esiste. Una documentazione chiara e completa non è un ripensamento - è parte integrante di ogni funzionalità che rilasciamo.'
+				"Se non è documentato, non esiste. Una documentazione chiara e completa non è un'aggiunta dell'ultimo momento - è parte integrante di ogni funzionalità che rilasciamo."
 		},
 		tools: {
-			title: 'Strumenti che Potenziano',
+			title: 'Strumenti al servizio degli sviluppatori',
 			description:
 				"Investiamo in strumenti per sviluppatori, automazione e infrastruttura che elimina compiti ripetitivi e permette agli sviluppatori di concentrarsi sulla risoluzione di problemi reali."
 		},
 		community: {
-			title: 'Comunità Prima della Competizione',
+			title: 'Comunità prima della competizione',
 			description:
 				"Contribuiamo all'ecosistema open source che rende possibile il nostro lavoro. La conoscenza condivisa è conoscenza moltiplicata."
 		},
-		howWeWork: 'Come Lavoriamo',
+		howWeWork: 'Come lavoriamo',
 		purpose: {
-			title: 'Sviluppo Orientato allo Scopo',
+			title: 'Sviluppo orientato allo scopo',
 			description:
 				'Ogni riga di codice ha uno scopo. Costruiamo funzionalità di cui gli utenti hanno realmente bisogno, non metriche che fanno bella figura nelle riunioni.'
 		},
 		iterative: {
-			title: 'Eccellenza Iterativa',
+			title: 'Eccellenza iterativa',
 			description:
-				'Grazie al CI/CD rilasciamo e raccogliamo frequentemente feedback e miglioriamo ad ogni iterazione.'
+				'Non lasciare che la ricerca della perfezione impedisca di fare progressi. Con il CI/CD rilasciamo spesso, raccogliamo feedback e miglioriamo a ogni iterazione.'
 		},
 		learning: {
-			title: 'Apprendimento Continuo',
+			title: 'Apprendimento continuo',
 			description:
 				"La tecnologia evolve rapidamente. Dedichiamo tempo all'apprendimento, alla sperimentazione e al rimanere aggiornati con le best practice del settore."
 		},
 		growth: {
-			title: 'Crescita Sostenibile',
+			title: 'Crescita sostenibile',
 			description:
 				'Cresciamo a un ritmo che mantiene i nostri valori. Scalare velocemente a spese della cultura o della qualità del codice non è successo - è una scorciatoia verso il fallimento.'
 		},
-		cta: 'Pronto a lavorare con sviluppatori che danno priorità alla tua esperienza?',
+		cta: 'Vuoi lavorare con sviluppatori che danno priorità alla tua esperienza?',
 		getInTouch: 'Contattaci'
 	},
 
@@ -332,26 +353,32 @@ export const it = {
 	contacts: {
 		title: 'Contatti',
 		business: {
-			title: 'Richieste Business',
+			title: 'Richieste commerciali',
 			description:
-				'Pronto a discutere le tue esigenze di infrastruttura open source? Siamo qui per aiutarti a sfuggire al vendor lock-in e abbracciare soluzioni developer-friendly.',
+				'Vuoi parlare delle tue esigenze di infrastruttura open source? Siamo qui per aiutarti a sfuggire al vendor lock-in e abbracciare soluzioni developer-friendly.',
 			location: 'Sede'
 		},
+		address: 'Via Puccini 15, 43123 Parma (PR), Italia',
+		map: {
+			loading: 'Caricamento della mappa…',
+			error: 'Impossibile caricare la mappa',
+			popupCity: '43123 Parma (PR), Italia'
+		},
 		careers: {
-			title: 'Unisciti al Nostro Team',
+			title: 'Unisciti al nostro team',
 			description:
-				'Lavora con noi, non per noi. Cerchiamo sviluppatori che condividono la nostra passione per l\'open source, l\'esperienza developer e le pratiche di lavoro sostenibili.',
-			perks: 'Remote-friendly • Orari flessibili • Focus open source • Work-life balance'
+				'Lavora con noi, non per noi. Cerchiamo sviluppatori che condividono la nostra passione per l\'open source, l\'esperienza degli sviluppatori e le pratiche di lavoro sostenibili.',
+			perks: 'Lavoro da remoto • Orari flessibili • Open source • Equilibrio tra lavoro e vita privata'
 		}
 	},
 
 	// Early Access (funnel NIS2/CRA)
 	earlyAccess: {
 		title: 'Early access NIS2/CRA',
-		subtitle: 'Hosting conforme a NIS2 e CRA by design, con evidenze pronte per l\'audit.',
+		subtitle: 'Hosting progettato per essere conforme a NIS2 e CRA, con evidenze pronte per l\'audit.',
 		benefitsTitle: 'Cosa ottieni',
 		benefits: [
-			'Gap-analysis NIS2/CRA per PMI e MSP: 25 minuti di lettura, zero buzzword',
+			'Gap analysis NIS2/CRA per PMI e MSP: 25 minuti di lettura, zero buzzword',
 			'Dove sei oggi rispetto a NIS2 e CRA e cosa ti manca davvero',
 			'Un piano concreto per i prossimi 90 giorni',
 			'Posto in lista per l\'early access riservato a 10 PMI italiane'
@@ -360,15 +387,16 @@ export const it = {
 			email: 'Email aziendale',
 			name: 'Nome e cognome',
 			company: 'Azienda',
+			emailPlaceholder: 'nome@azienda.it',
 			rolePlaceholder: 'Il tuo ruolo',
 			roleA: 'CTO / IT manager',
 			roleB: 'C-level / Titolare',
 			roleC: 'Compliance officer / DPO',
-			submit: 'Iscriviti all\'early access',
+			submit: 'Iscriviti alla lista per l\'accesso anticipato',
 			sending: 'Invio in corso...',
 			successTitle: 'Ci siamo quasi',
 			success:
-				'Ti abbiamo inviato un\'email: conferma l\'iscrizione e ricevi subito la gap-analysis NIS2/CRA.',
+				'Ti abbiamo inviato un\'email: conferma l\'iscrizione e ricevi la gap analysis NIS2/CRA.',
 			error:
 				'Qualcosa non ha funzionato. Controlla l\'email e la spunta sul consenso, poi riprova.',
 			errorSubmit:
@@ -380,10 +408,10 @@ export const it = {
 		},
 		confirmed: {
 			title: 'Iscrizione confermata',
-			subtitle: 'Sei dentro. La tua gap-analysis NIS2/CRA sta arrivando nella tua casella email.',
+			subtitle: 'Sei dentro. La tua gap analysis NIS2/CRA sta arrivando nella tua casella email.',
 			nextTitle: 'Cosa succede ora',
 			next: [
-				'Controlla l\'email: trovi il link per scaricare la gap-analysis NIS2/CRA',
+				'Controlla l\'email: trovi il link per scaricare la gap analysis NIS2/CRA',
 				'Una sola email a settimana, sempre concreta, niente spam',
 				'Tra poche settimane apriamo l\'early access a 10 PMI italiane — sei già in lista'
 			],
@@ -398,76 +426,79 @@ export const it = {
 		pageDescription: 'Ultime notizie e aggiornamenti da WebDeploy',
 		readMore: 'Leggi di più',
 		backToNews: 'Notizie',
-		interestedSimilar: 'Interessato a una soluzione simile per la tua istituzione?',
-		interestedTourism: 'Interessato a un\'app turistica per la tua città?',
+		interestedSimilar: 'Ti interessa una soluzione simile per la tua istituzione?',
+		interestedTourism: 'Ti interessa un\'app turistica per la tua città?',
 		contactUs: 'Contattaci',
 		share: 'Condividi',
 		shareOnLinkedIn: 'Condividi su LinkedIn',
 		shareOnInstagram: 'Condividi su Instagram',
 		linkCopied: 'Link copiato. Puoi incollarlo nella tua Storia Instagram.',
 		copyFailed: 'Impossibile copiare il link. Copialo dalla barra degli indirizzi.',
+		shareText: 'Leggi questo articolo:',
 		popupBlocked: 'Popup bloccato. Apertura in una nuova scheda.',
 		openSourceRelease: {
-			title: 'WebDeploy.it è ora Open Source',
+			title: 'webdeploy.it è ora open source',
+			imageAlt: 'webdeploy.it è ora open source con licenza AGPL-3.0',
 			date: '17/04/2026',
 			description:
 				'Il codice sorgente di webdeploy.it è ora pubblico sotto licenza AGPL-3.0. Costruito con SvelteKit, Tailwind CSS e Leaflet — scelte tecniche guidate da documentazione facile da leggere per gli LLM.',
 			intro:
-				'Il sito che stai leggendo in questo momento è open source. Abbiamo appena pubblicato il codice sorgente completo di webdeploy.it sul nostro repository pubblico, sotto la GNU Affero General Public License v3.0. Niente marketing — un\'applicazione statica SvelteKit, alcuni componenti Svelte, un po\' di Tailwind CSS e una mappa Leaflet con tile OpenStreetMap. Puoi clonarlo, forkarlo, self-hostarlo o semplicemente leggerne il codice.',
-			whatHappened: 'Cosa Abbiamo Pubblicato',
+				'Il sito che stai leggendo in questo momento è open source. Abbiamo appena pubblicato il codice sorgente completo di webdeploy.it sul nostro repository pubblico, sotto la GNU Affero General Public License v3.0. Il vero codice di produzione — un\'applicazione statica SvelteKit, alcuni componenti Svelte, un po\' di Tailwind CSS e una mappa Leaflet con tile OpenStreetMap. Puoi clonarlo, forkarlo, ospitarlo sui tuoi server o semplicemente leggerne il codice.',
+			whatHappened: 'Cosa abbiamo pubblicato',
 			whatHappenedDescription:
 				'Tutto ciò che compone il sito in produzione è ora nel repository: l\'app SvelteKit in src/, le traduzioni in inglese e italiano, la libreria di componenti, i design token del tema retro-cyberpunk, il Dockerfile e la configurazione della pipeline CI. Nessun sottomodulo privato, nessuna dipendenza chiusa — ciò che cloni è esattamente ciò che gira su webdeploy.it.',
-			stackTitle: 'Lo Stack',
+			stackTitle: 'Lo stack',
 			stackIntro: 'Il sito è volutamente piccolo. Tre strumenti fanno quasi tutto il lavoro:',
 			stack: [
 				'SvelteKit con l\'adapter statico — prerenderizzato in HTML puro e servito come file statici.',
 				'Tailwind CSS v4 — costruito attorno ai design token @theme e a uno stile retrò a raggio zero con ombre nette.',
-				'Leaflet con tile OpenStreetMap — uno stack mappe senza chiavi e senza vendor proprietari, introdotto al posto di Mapbox prima della pubblicazione.'
+				'Leaflet con tile OpenStreetMap — uno stack per le mappe senza chiavi e senza vendor proprietari, introdotto al posto di Mapbox prima della pubblicazione.'
 			],
-			whyFrameworks: 'Perché Questi Framework',
+			whyFrameworks: 'Perché questi framework',
 			whyFrameworksDescription:
-				'SvelteKit e Tailwind CSS sono stati scelti soprattutto perché la loro documentazione di riferimento è chiara, coerente e facile da leggere per i large language model. In un flusso di sviluppo assistito dall\'AI questo conta più di quanto sembri: una documentazione ben strutturata si traduce direttamente in meno allucinazioni, meno suggerimenti sbagliati e meno correzioni manuali quando si fa pair programming con un coding agent. Leaflet è stato scelto per un motivo diverso — il suo footprint ridotto, la licenza permissiva e l\'integrazione nativa con le tile OpenStreetMap lo rendono la scelta naturale per uno stack mappe completamente aperto e senza chiavi.',
+				'SvelteKit e Tailwind CSS sono stati scelti soprattutto perché la loro documentazione di riferimento è chiara, coerente e facile da leggere per i large language model. In un flusso di sviluppo assistito dall\'AI questo conta più di quanto sembri: una documentazione ben strutturata si traduce direttamente in meno allucinazioni, meno suggerimenti sbagliati e meno correzioni manuali quando si fa pair programming con un coding agent. Leaflet è stato scelto per un motivo diverso — il suo footprint ridotto, la licenza permissiva e l\'integrazione nativa con le tile OpenStreetMap lo rendono la scelta naturale per uno stack per le mappe completamente aperto e senza chiavi.',
 			whyLicense: 'Perché AGPL-3.0',
 			whyLicenseDescription:
 				'L\'AGPL è una licenza copyleft forte: chiunque può usare, modificare e ridistribuire il codice, ma le modifiche distribuite tramite rete devono essere condivise sotto gli stessi termini. È coerente con il nostro modo di pensare l\'infrastruttura — mantenere il web pubblico onestamente aperto, senza permettere a fork commerciali di richiudere silenziosamente il sorgente.',
-			howToContribute: 'Come Contribuire',
+			howToContribute: 'Come contribuire',
 			howToContributeDescription:
 				'I contributi sono benvenuti. Il repository include una guida CONTRIBUTING, un Code of Conduct, template per issue e pull request, e un CHANGELOG che segue Keep a Changelog. Inizia con npm install && npm run dev dentro src/, apri un\'issue o una pull request e mantieni i commit piccoli — i prefissi conventional-commit (feat, fix, docs, refactor) rendono il changelog facile da mantenere.',
-			callToAction: 'Leggi il Codice',
+			callToAction: 'Leggi il codice',
 			callToActionDescription:
 				'Se vuoi vedere come è costruito end-to-end un sito aziendale piccolo, statico e privacy-first, il codice è tutto lì. Forkalo, mettigli una stella, eseguilo localmente, smontalo — è esattamente il motivo per cui esiste.',
-			visitRepo: 'Apri webdeploy.it'
+			visitRepo: 'Vai alla pagina iniziale'
 		},
 		websiteLaunch: {
-			title: 'Benvenuti nel Nuovo Sito WebDeploy',
+			title: 'Ti diamo il benvenuto nel nuovo sito WebDeploy',
+			imageAlt: 'Logo di WebDeploy',
 			date: '31/12/2025',
 			description:
 				'Siamo entusiasti di annunciare il lancio del nostro primo sito web ufficiale, con la nostra caratteristica estetica retro-cyberpunk.',
 			intro:
-				'Dopo anni in cui abbiamo lasciato parlare i nostri progetti, WebDeploy ha finalmente una casa. Questo non è un redesign - è il nostro primo sito web, costruito da zero per riflettere esattamente chi siamo: sostenitori dell\'open source, developer-first ed orientati ad una tecnologia che rispetta i suoi utenti.',
-			whatsNew: 'Cosa c\'è di Nuovo',
+				'Dopo anni in cui abbiamo lasciato parlare i nostri progetti, WebDeploy ha finalmente una casa. Questo non è un redesign - è il nostro primo sito web, costruito da zero per riflettere esattamente chi siamo: sostenitori dell\'open source, attenti all\'esperienza degli sviluppatori e convinti che la tecnologia debba rispettare chi la usa.',
+			whatsNew: 'Cosa c\'è di nuovo',
 			features: [
-				'Design retro-cyberpunk: Un\'estetica unica che riflette la nostra etica hacker',
-				'Completamente bilingue: Traduzioni complete in inglese e italiano',
-				'Privacy-focused: Nessun cookie di tracciamento, solo analitiche con Matomo self-hosted',
-				'Fondamenta open source: Costruito interamente con tecnologie FOSS',
-				'Leggero e veloce: Niente bloat, solo quello che serve'
+				'Design retro-cyberpunk: un\'estetica unica che riflette la nostra etica hacker',
+				'Completamente bilingue: traduzioni complete in inglese e italiano',
+				'Attenzione alla privacy: nessun cookie di tracciamento, solo analisi delle visite con Matomo ospitato sui nostri server',
+				'Fondamenta open source: costruito interamente con tecnologie FOSS',
+				'Leggero e veloce: niente bloat, solo quello che serve'
 			],
-			techStack: 'Una Nota sullo Sviluppo Web Moderno',
+			techStack: 'Una nota sullo sviluppo web moderno',
 			techDescription:
 				'Saremo onesti: abbiamo sempre preferito i linguaggi vanilla. C\'è qualcosa di profondamente soddisfacente nel capire ogni riga di codice che scrivi, senza strati di astrazione che nascondono cosa sta realmente accadendo. Quando padroneggi i fondamentali - HTML, CSS e JavaScript puri - ottieni un livello di controllo e comprensione che nessun framework può replicare.',
 			technologies: [
 				'Detto questo, abbiamo costruito questo sito con Svelte - e se devi usare un framework, Svelte è uno dei pochi che possiamo raccomandare.',
 				'Ciò che ha reso interessante questo progetto è come gli LLM hanno cambiato l\'equazione. I framework e le librerie moderne sono ampiamente documentati con esempi precisi per pattern UI specifici. Questo li rende ideali per lo sviluppo assistito dall\'AI.',
-				'Gli LLM eccellono nel generare codice specifico per framework perché i dati di training sono ricchi di documentazione ben strutturata e esempi. Il codice vanilla richiede una comprensione più profonda che deriva dallo studio e dalla pratica.',
+				'Gli LLM eccellono nel generare codice specifico per framework perché i dati di training sono ricchi di documentazione ben strutturata ed esempi. Il codice vanilla richiede una comprensione più profonda che deriva dallo studio e dalla pratica.',
 				'Quindi, mentre il nostro cuore resta con gli approcci vanilla per chi è disposto a investire tempo per imparare veramente, riconosciamo che la combinazione di strumenti ben documentati e assistenza AI ha reso i framework più pratici che mai per lo sviluppo rapido.'
 			],
-			designPhilosophy: 'Filosofia del Design',
+			designPhilosophy: 'Filosofia del design',
 			designDescription:
 				'L\'estetica retro-cyberpunk è più di un semplice stile visivo - rappresenta i nostri valori. L\'interfaccia ispirata al terminale, i colori neon e gli effetti CRT rendono omaggio all\'età d\'oro dell\'informatica, quando gli sviluppatori conoscevano intimamente le loro macchine. Ogni elemento è progettato per sembrare sia nostalgico che proiettato al futuro, un promemoria che a volte i vecchi modi hanno ancora molto da insegnarci.',
-			whatsNext: 'Cosa c\'è in Arrivo',
+			whatsNext: 'Cosa c\'è in arrivo',
 			whatsNextDescription:
-				'Questo lancio è solo l\'inizio. Aggiungeremo più contenuti, case study e risorse nei prossimi mesi. Restate sintonizzati per aggiornamenti sui nostri progetti e servizi.',
+				'Questo lancio è solo l\'inizio. Aggiungeremo più contenuti, case study e risorse nei prossimi mesi. Segui gli aggiornamenti sui nostri progetti e servizi.',
 			thanks: 'Grazie per aver visitato la nostra nuova casa digitale!'
 		},
 		galleriaPilotta: {
@@ -476,8 +507,8 @@ export const it = {
 			description:
 				'Tavolo interattivo per il Complesso della Pilotta con capacità di zoom per opere d\'arte e dipinti in restauro.',
 			intro:
-				'La nostra soluzione di tavolo interattivo per il museo del Complesso della Pilotta offre ai visitatori un modo immersivo per esplorare la collezione d\'arte. L\'interfaccia multi-touch permette agli utenti di zoomare sui dettagli di ogni dipinto, rivelando lavori di restauro e dettagli nascosti che non sarebbero visibili a occhio nudo.',
-			keyFeatures: 'Caratteristiche Principali',
+				'La nostra soluzione di tavolo interattivo per il museo del Complesso della Pilotta offre ai visitatori un modo immersivo per esplorare la collezione d\'arte. L\'interfaccia multi-touch permette agli utenti di ingrandire i dettagli di ogni dipinto, rivelando lavori di restauro e dettagli nascosti che non sarebbero visibili a occhio nudo.',
+			keyFeatures: 'Caratteristiche principali',
 			features: [
 				'Capacità di zoom ad alta risoluzione per esaminare le opere d\'arte in dettaglio',
 				'Visualizzazione dei dipinti attualmente in restauro',
@@ -489,50 +520,50 @@ export const it = {
 		rimini: {
 			title: 'Visita Rimini con Rimini Xperience',
 			date: '07/07/2022',
-			description: 'Applicazione turistica di Rimini disponibile su Google Play Store.',
+			description: 'Un\'app turistica per Rimini, disponibile su Google Play.',
 			intro:
 				'Rimini Xperience è un\'applicazione turistica mobile progettata per aiutare i visitatori a scoprire la bellissima città di Rimini. L\'app fornisce guide interattive, punti di interesse e raccomandazioni locali per migliorare l\'esperienza turistica.',
-			appFeatures: 'Funzionalità dell\'App',
+			appFeatures: 'Funzionalità dell\'app',
 			features: [
 				'Mappe interattive della città con punti di interesse',
 				'Guide audio per le principali attrazioni',
 				'Raccomandazioni di ristoranti e alloggi locali',
 				'Modalità offline per l\'uso senza connessione internet'
 			],
-			downloadTitle: 'Scarica l\'App',
+			downloadTitle: 'Scarica l\'app',
 			downloadDescription: 'Rimini Xperience è disponibile su Google Play Store.',
 			downloadButton: 'Scaricala su Google Play',
-			collaboration: 'Sviluppato in collaborazione con l\'ente turistico di Rimini.'
+			collaboration: 'App sviluppata in collaborazione con l\'ente turistico di Rimini.'
 		},
 		impeccable: {
-			title: 'Standard Web Che Abbiamo Applicato a Questo Sito',
+			title: 'Standard web che abbiamo applicato a questo sito',
 			date: '28/01/2026',
 			description:
 				'Un approfondimento sugli standard web, le funzionalità CSS e le best practice di sviluppo che abbiamo applicato per migliorare il nostro sito - dall\'accessibilità all\'ottimizzazione delle performance.',
 			intro:
 				'Quando abbiamo lanciato il sito WebDeploy, funzionava ma mancava di rifinitura. Usando Impeccable.style come guida, abbiamo affrontato sistematicamente accessibilità, performance, design responsive e animazioni. Ecco cosa abbiamo applicato.',
-			whatIsImpeccable: 'Un Approccio Sistematico',
+			whatIsImpeccable: 'Un approccio sistematico',
 			whatIsImpeccableDescription:
 				'Impeccable.style organizza le best practice dello sviluppo web in aree specifiche: audit di accessibilità, hardening dell\'interfaccia, design del movimento, adattamento cross-device, ottimizzazione delle performance, normalizzazione del design system e rifinitura finale. Ogni area ci ha insegnato standard e tecniche che ora applichiamo a ogni progetto.',
-			commandsUsed: 'Cosa Abbiamo Implementato',
+			commandsUsed: 'Cosa abbiamo implementato',
 			commands: [
 				{
-					name: 'Standard di Accessibilità',
+					name: 'Standard di accessibilità',
 					description: 'Conformità WCAG e design inclusivo',
-					details: 'Abbiamo implementato link skip-to-content per utenti da tastiera, attributi ARIA appropriati (aria-expanded, aria-haspopup, role="menu"), indicatori :focus-visible visibili, e testo per screen reader sui link esterni. La media query prefers-reduced-motion disabilita le animazioni per chi ne ha bisogno.'
+					details: 'Abbiamo implementato link per saltare al contenuto principale, dedicati a chi naviga con la tastiera, attributi ARIA appropriati (aria-expanded, aria-haspopup, role="menu"), indicatori :focus-visible visibili, e testo per screen reader sui link esterni. La media query prefers-reduced-motion disabilita le animazioni per chi ne ha bisogno.'
 				},
 				{
-					name: 'Resilienza dell\'Interfaccia',
+					name: 'Resilienza dell\'interfaccia',
 					description: 'Gestire i casi limite con eleganza',
 					details: 'Abbiamo aggiunto utility CSS per overflow del testo (line-clamp, truncate), stati di caricamento ed errore per componenti asincroni, e un sistema di logging solo per sviluppo che mantiene pulite le console in produzione preservando la debuggabilità durante lo sviluppo.'
 				},
 				{
-					name: 'Design del Movimento CSS',
+					name: 'Design del movimento CSS',
 					description: 'Animazioni intenzionali con standard web',
-					details: 'Abbiamo usato proprietà CSS custom per curve di easing (ease-out-quart, ease-out-expo), l\'API IntersectionObserver per reveal al scroll, trasformazioni CSS per animazioni performanti, e la proprietà will-change per suggerire l\'accelerazione GPU.'
+					details: 'Abbiamo usato proprietà CSS personalizzate per curve di easing (ease-out-quart, ease-out-expo), l\'API IntersectionObserver per mostrare gli elementi durante lo scorrimento, trasformazioni CSS per animazioni performanti, e la proprietà will-change per suggerire l\'accelerazione GPU.'
 				},
 				{
-					name: 'CSS Responsive e Adattivo',
+					name: 'CSS responsive e adattivo',
 					description: 'Tecniche moderne di layout',
 					details: 'Abbiamo implementato env(safe-area-inset-*) per dispositivi con notch, fogli di stile @media print, meta tag viewport-fit=cover, target touch minimi di 44px secondo le linee guida WCAG, e CSS aspect-ratio per contenitori immagine stabili.'
 				},
@@ -542,26 +573,26 @@ export const it = {
 					details: 'Abbiamo ottimizzato il Largest Contentful Paint con precaricamento font e fetchpriority="high", prevenuto il Cumulative Layout Shift con dimensioni esplicite delle immagini, usato loading="lazy" e decoding="async" per immagini sotto il fold, e applicato CSS containment per ottimizzare il rendering.'
 				},
 				{
-					name: 'Proprietà CSS Custom',
+					name: 'Proprietà CSS personalizzate',
 					description: 'Costruire un design system manutenibile',
-					details: 'Abbiamo creato oltre 50 proprietà CSS custom (design token) per colori, ombre, tipografia e spaziatura. Questo ha eliminato i valori hardcoded, abilitato il theming e reso il codebase più manutenibile. L\'integrazione con @theme di Tailwind CSS v4 ha reso tutto fluido.'
+					details: 'Abbiamo creato oltre 50 proprietà CSS personalizzate (design token) per colori, ombre, tipografia e spaziatura. Questo ha eliminato i valori hardcoded, abilitato il theming e reso il codice più facile da mantenere. L\'integrazione con @theme di Tailwind CSS v4 ha reso tutto fluido.'
 				},
 				{
-					name: 'Font Privacy-First',
+					name: 'Font privacy-first',
 					description: 'Self-hosting per maggiore controllo',
 					details: 'Siamo passati dal CDN Google Fonts a dichiarazioni @font-face self-hosted con subsetting unicode-range appropriato. Questo elimina le richieste a terze parti, migliora la privacy e ci dà pieno controllo sul comportamento di caricamento dei font.'
 				}
 			],
-			results: 'Standard Applicati',
+			results: 'Standard applicati',
 			resultsIntro: 'Attraverso questo processo, abbiamo applicato standard web e best practice a ogni livello del sito:',
 			resultsList: [
-				'WCAG 2.1 AA: Skip link, ruoli ARIA, navigazione da tastiera, indicatori di focus, supporto reduced motion',
-				'Core Web Vitals: Precaricamento font, lazy loading, dimensioni esplicite, CSS containment, hint GPU',
-				'Funzionalità CSS: Proprietà custom, aspect-ratio, env() safe areas, @media print, line-clamp',
-				'API Moderne: IntersectionObserver, Clipboard API, Web Share API, matchMedia per preferenze di movimento',
-				'Privacy: Font self-hosted, nessuna richiesta CDN di terze parti, analytics senza cookie'
+				'WCAG 2.1 AA: skip link, ruoli ARIA, navigazione da tastiera, indicatori di focus, supporto reduced motion',
+				'Core Web Vitals: precaricamento font, lazy loading, dimensioni esplicite, CSS containment, hint GPU',
+				'Funzionalità CSS: proprietà personalizzate, aspect-ratio, env() safe areas, @media print, line-clamp',
+				'API moderne: IntersectionObserver, Clipboard API, Web Share API, matchMedia per preferenze di movimento',
+				'Privacy: font self-hosted, nessuna richiesta CDN di terze parti, analytics senza cookie'
 			],
-			philosophy: 'Il Valore degli Standard',
+			philosophy: 'Il valore degli standard',
 			philosophyDescription:
 				'Gli standard web esistono perché risolvono problemi reali. Gli standard di accessibilità assicurano che tutti possano usare il web. Gli standard di performance migliorano l\'esperienza utente e la SEO. Gli standard CSS forniscono soluzioni manutenibili e portabili. Imparare questi standard - invece di affidarsi alla magia dei framework - ti dà conoscenze trasferibili che funzionano con qualsiasi stack tecnologico.',
 			callToAction: 'Risorse',
@@ -571,7 +602,8 @@ export const it = {
 			visitImpeccable: 'Visita Impeccable.style'
 		},
 		fosdem2026: {
-			title: 'FOSDEM 2026: Regolamentazione e Infrastruttura',
+			title: 'FOSDEM 2026: regolamentazione e infrastruttura',
+			imageAlt: "FOSDEM 2026 all'ULB di Bruxelles",
 			date: '04/02/2026',
 			description:
 				'La nostra esperienza al FOSDEM 2026 a Bruxelles - dalle devroom su CRA e SBOM alla scoperta di progetti open source innovativi come metal-stack.io.',
@@ -579,17 +611,17 @@ export const it = {
 				'La nostra esperienza al FOSDEM 2026 a Bruxelles - dalle devroom su CRA e SBOM alla scoperta di progetti open source innovativi come ',
 			descriptionAfterLink: '.',
 			intro:
-				'Lo scorso weekend abbiamo partecipato al FOSDEM 2026 a Bruxelles, la più grande conferenza free e open source software in Europa. Ospitata all\'Université libre de Bruxelles (ULB), l\'edizione di quest\'anno ha riunito migliaia di sviluppatori, maintainer e appassionati di open source per due giorni di talk, workshop e community building.',
+				'Lo scorso weekend abbiamo partecipato al FOSDEM 2026 a Bruxelles, la più grande conferenza europea dedicata al software libero e open source. Ospitata all\'Université libre de Bruxelles (ULB), l\'edizione di quest\'anno ha riunito migliaia di sviluppatori, maintainer e appassionati di open source per due giorni di interventi, workshop e incontri della comunità.',
 			whatIsFosdem: 'Cos\'è il FOSDEM?',
 			whatIsFosdemDescription:
 				'FOSDEM (Free and Open Source Software Developers\' European Meeting) è un evento annuale organizzato dalla comunità, per la comunità. Senza necessità di registrazione e completamente gratuito, incarna lo spirito dell\'open source. La conferenza presenta centinaia di talk su molteplici track, dallo sviluppo del kernel alle tecnologie web, dalla sicurezza alla documentazione.',
-			craRoom: 'La Devroom CRA',
+			craRoom: 'La devroom CRA',
 			craRoomDescription:
 				'Una delle devroom di quest\'anno era dedicata al Cyber Resilience Act (CRA). Il regolamento europeo sta ridefinendo come il software open source verrà sviluppato, distribuito e mantenuto. I talk hanno coperto le implicazioni pratiche per i maintainer, i requisiti di conformità e come la comunità open source si sta organizzando per affrontare queste nuove sfide preservando la natura collaborativa dello sviluppo FOSS.',
-			sbomRoom: 'SBOM e Sicurezza della Supply Chain',
+			sbomRoom: 'SBOM e sicurezza della supply chain',
 			sbomRoomDescription:
-				'Il track dedicato ai Software Bill of Materials (SBOM) ha affrontato una delle preoccupazioni più pressanti nello sviluppo software moderno: la sicurezza della supply chain. Le sessioni hanno esplorato strumenti per generare e consumare SBOM, l\'integrazione con le pipeline CI/CD e come le organizzazioni possono sfruttare gli SBOM per la gestione delle vulnerabilità.',
-			community: 'La Comunità Open Source',
+				'Il track dedicato ai Software Bill of Materials (SBOM) ha affrontato una delle preoccupazioni più pressanti nello sviluppo software moderno: la sicurezza della supply chain. Le sessioni hanno esplorato strumenti per generare e utilizzare SBOM, l\'integrazione con le pipeline CI/CD e come le organizzazioni possono sfruttare gli SBOM per la gestione delle vulnerabilità.',
+			community: 'La comunità open source',
 			communityDescription:
 				'Ciò che rende il FOSDEM speciale non è solo il contenuto tecnico, ma la comunità stessa. Conversazioni nei corridoi, incontri spontanei e la comprensione condivisa che l\'open source è più del codice - è un movimento collaborativo. Incontrare maintainer di progetti che usiamo quotidianamente, discutere sfide con colleghi che affrontano problemi simili e scoprire nuove soluzioni a vecchi problemi - questo è ciò che ci fa tornare anno dopo anno.',
 			visitFosdem: 'Visita il FOSDEM'
@@ -606,24 +638,24 @@ export const it = {
 		careers: 'Lavora con noi',
 		copyright: 'Copyright © 2026 WebDeploy S.R.L.',
 		registeredOffice: 'Sede legale',
-		privacy: 'Privacy Policy'
+		privacy: 'Informativa sulla privacy'
 	},
 
 	// Privacy Policy
 	privacy: {
-		title: 'Privacy Policy',
+		title: 'Informativa sulla privacy',
 		intro: 'WebDeploy S.R.L. si impegna a proteggere la tua privacy. Questa pagina spiega come gestiamo i tuoi dati quando visiti il nostro sito web.',
-		analyticsTitle: 'Analytics',
+		analyticsTitle: 'Analisi delle visite',
 		analyticsText: 'Utilizziamo Matomo, una piattaforma di analytics self-hosted e orientata alla privacy. La nostra configurazione è progettata per rispettare la tua privacy:',
 		analyticsFeatures: [
 			'Nessun cookie viene impostato sul tuo dispositivo',
 			'Gli indirizzi IP sono anonimizzati',
 			'L\'impostazione Do Not Track del browser è rispettata',
-			'I dati sono memorizzati sui server di Hetzner Online GmbH in Falkenstein, Bavaria'
+			'I dati sono memorizzati sui server di Hetzner Online GmbH a Falkenstein, in Sassonia (Germania)'
 		],
-		optOutTitle: 'Disattiva Analytics',
-		optOutText: 'Anche se utilizziamo un tracciamento rispettoso della privacy, puoi disattivare completamente le analytics:',
-		dataTitle: 'Dati Raccolti',
+		optOutTitle: 'Disattiva l\'analisi delle visite',
+		optOutText: 'Anche se utilizziamo un tracciamento rispettoso della privacy, puoi disattivare completamente l\'analisi delle visite:',
+		dataTitle: 'Dati raccolti',
 		dataText: 'Raccogliamo solo dati anonimi e aggregati per capire come viene utilizzato il nostro sito:',
 		dataItems: [
 			'Pagine visitate e tempo trascorso',
@@ -641,32 +673,53 @@ export const it = {
 			'Quando WebDeploy S.R.L. tratta dati personali per tuo conto in qualità di responsabile del trattamento, lo fa sulla base di un accordo sul trattamento dei dati (DPA) conforme all\'art. 28 GDPR: finalità e durata del trattamento definite, misure di sicurezza tecniche e organizzative, elenco dei sub-responsabili, assistenza per le richieste degli interessati, e cancellazione o restituzione dei dati al termine del servizio. Richiedi il testo del DPA scrivendo a info@webdeploy.it.',
 		optOut: {
 			OptOutComplete: 'Opt-out completato. Le tue visite a questo sito non verranno registrate dallo strumento di Web Analytics.',
-			OptOutCompleteBis: 'Nota che se cancelli i tuoi cookie, cancelli anche il cookie di opt-out, e se cambi computer o browser web, devi fare nuovamente la procedura di opt-out.',
+			OptOutCompleteBis: 'Se elimini i cookie, incluso quello di opt-out, o cambi computer o browser, dovrai ripetere la procedura.',
 			YouMayOptOut2: 'Puoi scegliere di impedire a questo sito web di aggregare e analizzare le azioni che intraprendi qui.',
 			YouMayOptOut3: 'Ciò proteggerà la tua privacy, ma impedirà al proprietario di imparare dalle tue azioni e di creare un\'esperienza migliore per te e per gli altri utenti.',
-			OptOutErrorNoCookies: 'La funzione per l\'opt-out dal monitoraggio richiede che siano abilitati i cookies.',
-			OptOutErrorNotHttps: 'La funzione di esclusione dal monitoraggio (opt-out) potrebbe non funzionare perché questo sito non è stato caricato su HTTPS. Ricarica la pagina per verificare se il tuo stato di rinuncia è cambiato.',
-			YouAreNotOptedOut: 'Al momento le tue visite vengono tracciate.',
-			UncheckToOptOut: 'Togli la spunta a questa casella per escluderti (opt-out).',
-			YouAreOptedOut: 'Al momento le tue visite non vengono tracciate.',
-			CheckToOptIn: 'Metti la spunta a questa casella per abilitarti (opt-in).'
+			OptOutErrorNoCookies: 'Per disattivare il monitoraggio, i cookie devono essere abilitati.',
+			OptOutErrorNotHttps: 'La funzione di esclusione dal monitoraggio (opt-out) potrebbe non funzionare perché questo sito non è stato caricato tramite HTTPS. Ricarica la pagina per verificare se il tuo stato di rinuncia è cambiato.',
+			YouAreNotOptedOut: 'Al momento non hai disattivato il monitoraggio.',
+			UncheckToOptOut: 'Deseleziona la casella per disattivare il monitoraggio.',
+			YouAreOptedOut: 'Al momento hai disattivato il monitoraggio.',
+			CheckToOptIn: 'Seleziona la casella per consentire il monitoraggio.'
 		}
 	},
 
 	// Common
 	common: {
-		email: 'E-Mail',
+		email: 'Email',
 		phone: 'Telefono',
 		learnMore: 'Scopri di più',
 		contactUs: 'Contattaci',
-		requestDemo: 'Richiedi Demo'
+		requestDemo: 'Richiedi una demo',
+		skipToContent: 'Vai al contenuto principale',
+		opensInNewTab: '(si apre in una nuova scheda)',
+		emailUs: 'Scrivi a info@webdeploy.it'
+	},
+
+	// Error page
+	error: {
+		pageTitle: 'Errore',
+		codeLabel: 'CODICE_ERRORE',
+		statusLine: 'STATO: RIPRISTINO_DISPONIBILE',
+		notFoundTitle: 'Pagina non trovata',
+		serverErrorTitle: 'Errore interno del server',
+		forbiddenTitle: 'Accesso negato',
+		genericTitle: 'Si è verificato un errore',
+		notFoundText: 'La pagina che cerchi non esiste o è stata spostata.',
+		serverErrorText: 'I nostri server hanno riscontrato un errore imprevisto. Riprova più tardi.',
+		forbiddenText: 'Non hai i permessi per accedere a questa risorsa.',
+		genericText: 'Si è verificato un errore imprevisto. Riprova.',
+		returnHome: 'Torna alla pagina iniziale',
+		goBack: 'Torna indietro',
+		needHelp: 'Ti serve aiuto? Scrivici a'
 	},
 
 	// Cookie / marketing consent
 	consent: {
 		title: 'Privacy e cookie',
-		body: 'Usiamo Matomo (analytics senza cookie, sempre attivo) e, solo con il tuo consenso, il pixel Meta per misurare le campagne pubblicitarie. Dettagli nella <a href="/privacy" class="text-primary hover:underline">Privacy</a>.',
-		accept: 'Accetta',
-		reject: 'Solo necessari'
+		body: 'Usiamo Matomo (analytics senza cookie, sempre attivo) e, solo con il tuo consenso, il pixel Meta per misurare le campagne pubblicitarie. Dettagli nell\'<a href="/privacy" class="text-primary hover:underline">informativa sulla privacy</a>.',
+		accept: 'Accetta i cookie di marketing',
+		reject: 'Rifiuta i cookie di marketing'
 	}
 };

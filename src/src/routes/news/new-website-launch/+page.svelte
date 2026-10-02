@@ -10,9 +10,7 @@
 	let toastTimeout: ReturnType<typeof setTimeout> | null = null;
 
 	// Share configuration - easy to customize
-	const shareText = 'Read this article:'; // Configurable share text
 	const pageUrl = 'https://webdeploy.it/news/new-website-launch';
-	const pageTitle = 'Welcome to the New WebDeploy Website';
 
 	/**
 	 * Shows a toast notification that auto-dismisses after 3 seconds
@@ -89,14 +87,14 @@
 	 * Gets the article title from document or h1
 	 */
 	function getArticleTitle(): string {
-		if (!browser) return pageTitle;
+		if (!browser) return t('news.websiteLaunch.title');
 
 		// Try to get from h1 first, then document title
 		const h1 = document.querySelector('h1');
 		if (h1 && h1.textContent) {
 			return h1.textContent.trim();
 		}
-		return document.title || pageTitle;
+		return document.title || t('news.websiteLaunch.title');
 	}
 
 	/**
@@ -165,7 +163,7 @@
 			try {
 				await navigator.share({
 					title: articleTitle,
-					text: shareText,
+					text: t('news.shareText'),
 					url: articleUrl
 				});
 				logShare.log('Web Share API used successfully');
@@ -216,7 +214,7 @@
 			href="/news"
 			class="inline-flex items-center gap-2 text-primary font-mono text-sm mb-8 hover:underline"
 		>
-			<span class="material-symbols-outlined text-sm">arrow_back</span>
+			<span class="material-symbols-outlined text-sm" aria-hidden="true">arrow_back</span>
 			&lt; {t('news.backToNews')}
 		</a>
 
@@ -261,7 +259,7 @@
 		<div class="w-full border-4 border-slate-700 mb-8 bg-surface-dark p-8">
 			<img
 				src="/webdeploy-logo.svg"
-				alt={t('news.websiteLaunch.title')}
+				alt={t('news.websiteLaunch.imageAlt')}
 				width="400"
 				height="400"
 				loading="lazy"

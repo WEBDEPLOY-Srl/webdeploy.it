@@ -17,7 +17,7 @@
 	name={t('totem.heroName')}
 	tagline={t('totem.heroTagline')}
 	image="/inwd-kiosk.svg"
-	imageAlt="inWD Kiosk diagram"
+	imageAlt={t('totem.diagramAlt')}
 	actions={[
 		{ text: t('totem.requestDemo'), href: 'mailto:info@webdeploy.it', primary: false },
 		{ text: t('totem.learnMore'), href: '#why-linux', primary: true }
@@ -189,7 +189,7 @@
 			<strong>{t('totem.cta.partnership')}:</strong> {t('totem.cta.poweredBy')}
 			<a href="https://m4ss.net" target="_blank" rel="noopener noreferrer" class="underline">
 				m4ss.net
-				<span class="sr-only">(opens in new tab)</span>
+				<span class="sr-only">{t('common.opensInNewTab')}</span>
 			</a> Sonmi OS
 		</p>
 	</div>

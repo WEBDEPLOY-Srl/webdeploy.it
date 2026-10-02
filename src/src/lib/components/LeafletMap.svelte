@@ -2,10 +2,29 @@
     import { onMount } from "svelte";
     import { browser } from "$app/environment";
     import { logMap } from "$lib/utils/logger";
+    import { t } from "$lib/i18n";
+    import type { Marker } from "leaflet";
 
     let mapContainer: HTMLDivElement;
     let isLoading = $state(true);
     let hasError = $state(false);
+    let marker = $state.raw<Marker | null>(null);
+
+    function popupContent(): string {
+        return `
+				<div class="font-mono text-sm">
+					<strong>WebDeploy S.R.L.</strong><br>
+					Via Puccini, 15<br>
+					${t("contacts.map.popupCity")}
+				</div>
+			`;
+    }
+
+    // The popup HTML is built outside Svelte's template, so refresh it when the locale changes.
+    $effect(() => {
+        const content = popupContent();
+        marker?.setPopupContent(content);
+    });
 
     onMount(async () => {
         if (!browser) return;
@@ -34,20 +53,15 @@
             const customIcon = L.divIcon({
                 className: "custom-marker",
                 html: `<div class="w-8 h-8 bg-primary border-2 border-black flex items-center justify-center text-black font-bold">
-					<span class="material-symbols-outlined text-lg">location_on</span>
+					<span class="material-symbols-outlined text-lg" aria-hidden="true">location_on</span>
 				</div>`,
                 iconSize: [32, 32],
                 iconAnchor: [16, 32],
             });
 
-            L.marker(webdeployCoordinates, { icon: customIcon }).addTo(map)
-                .bindPopup(`
-				<div class="font-mono text-sm">
-					<strong>WebDeploy S.R.L.</strong><br>
-					Via Puccini, 15<br>
-					43123 Parma (PR), Italy
-				</div>
-			`);
+            marker = L.marker(webdeployCoordinates, { icon: customIcon })
+                .addTo(map)
+                .bindPopup(popupContent());
 
             isLoading = false;
             logMap.log("Map initialized successfully");
@@ -75,7 +89,7 @@
             <div
                 class="w-12 h-12 border-2 border-primary border-t-transparent rounded-full animate-spin mb-4"
             ></div>
-            <p class="text-slate-400 font-mono text-sm">Loading map...</p>
+            <p class="text-slate-400 font-mono text-sm">{t("contacts.map.loading")}</p>
         </div>
     {/if}
 
@@ -84,14 +98,15 @@
         <div
             class="absolute inset-0 flex flex-col items-center justify-center bg-surface-dark z-10"
         >
-            <span class="material-symbols-outlined text-4xl text-secondary mb-4"
-                >error</span
+            <span
+                class="material-symbols-outlined text-4xl text-secondary mb-4"
+                aria-hidden="true">error</span
             >
             <p class="text-slate-400 font-mono text-sm mb-2">
-                Unable to load map
+                {t("contacts.map.error")}
             </p>
             <p class="text-slate-500 text-xs">
-                Via Puccini 15, 43123 Parma (PR), Italy
+                {t("contacts.address")}
             </p>
         </div>
     {/if}

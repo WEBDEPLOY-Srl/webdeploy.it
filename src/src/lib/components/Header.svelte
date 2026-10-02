@@ -183,7 +183,7 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <nav class="site-nav hidden lg:flex gap-8" aria-label="Main navigation">
+            <nav class="site-nav hidden lg:flex gap-8" aria-label={t("nav.mainNavigation")}>
                 <!-- Products Dropdown -->
                 <div
                     class="relative dropdown-container"
@@ -210,7 +210,7 @@
                     <div
                         id="products-menu"
                         role="menu"
-                        aria-label="Products submenu"
+                        aria-label={t("nav.productsSubmenu")}
                         class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[200px] transition-[opacity,transform] duration-200 origin-top ease-out-quint {productsDropdownOpen
                             ? 'opacity-100 visible translate-y-0'
                             : 'opacity-0 invisible -translate-y-2'}"
@@ -261,7 +261,7 @@
                     <div
                         id="services-menu"
                         role="menu"
-                        aria-label="Services submenu"
+                        aria-label={t("nav.servicesSubmenu")}
                         class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[250px] transition-[opacity,transform] duration-200 origin-top ease-out-quint {servicesDropdownOpen
                             ? 'opacity-100 visible translate-y-0'
                             : 'opacity-0 invisible -translate-y-2'}"
@@ -312,11 +312,11 @@
                 <button
                     class="site-menu-toggle lg:hidden text-primary border-2 border-primary p-2 hover:bg-primary hover:text-black transition-colors"
                     onclick={toggleMobileMenu}
-                    aria-label="Toggle menu"
+                    aria-label={mobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
                     aria-expanded={mobileMenuOpen}
                     aria-controls="mobile-menu"
                 >
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-outlined" aria-hidden="true">
                         {mobileMenuOpen ? "close" : "menu"}
                     </span>
                 </button>
@@ -329,7 +329,7 @@
         <nav
             id="mobile-menu"
             class="site-mobile-nav lg:hidden bg-surface-dark border-t-2 border-primary/30 overflow-hidden"
-            aria-label="Mobile navigation"
+            aria-label={t("nav.mobileNavigation")}
             transition:slide={{ duration: 250, easing: quintOut }}
         >
             <div class="px-4 py-4 space-y-1">

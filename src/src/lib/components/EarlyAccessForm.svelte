@@ -131,7 +131,7 @@
 					bind:value={email}
 					required
 					autocomplete="email"
-					placeholder="nome@azienda.it"
+					placeholder={t('earlyAccess.form.emailPlaceholder')}
 					aria-invalid={status === 'error' && errorKind === 'validation' && !email}
 					aria-describedby={status === 'error' ? 'ea-form-error' : undefined}
 					class="w-full bg-background-dark border-2 border-border-default text-white px-4 py-3 font-mono placeholder:text-slate-600 focus:border-primary focus:outline-none transition-colors"

@@ -19,22 +19,27 @@
 		CheckToOptIn: string;
 	};
 
+	const settings = {
+		showIntro: true,
+		divId: 'matomo-opt-out',
+		useSecureCookies: true,
+		cookiePath: null as string | null,
+		cookieDomain: null as string | null,
+		cookieSameSite: 'Lax'
+	};
+
+	let widgetReady = $state(false);
+
+	// Re-render the widget when the locale changes; its HTML lives outside the Svelte template.
+	$effect(() => {
+		const strings = tObj<OptOutSettings>('privacy.optOut');
+		if (!widgetReady || !strings) return;
+		(window as any).showOptOutContent((window as any).MatomoConsent.hasConsent());
+	});
+
 	// Initialize Matomo opt-out widget
 	onMount(() => {
 		if (!browser) return;
-
-		const optOutStrings = tObj<OptOutSettings>('privacy.optOut');
-		if (!optOutStrings) return;
-
-		const settings = {
-			showIntro: true,
-			divId: 'matomo-opt-out',
-			useSecureCookies: true,
-			cookiePath: null as string | null,
-			cookieDomain: null as string | null,
-			cookieSameSite: 'Lax',
-			...optOutStrings
-		};
 
 		// Define MatomoConsent on window
 		(window as any).MatomoConsent = {
@@ -114,6 +119,9 @@
 		function showContent(consent: boolean, errorMessage: string | null = null) {
 			const errorBlock = '<p class="text-red-500 font-bold">';
 			const div = document.getElementById(settings.divId);
+			// Read at call time so the checkbox handlers also use the current locale.
+			const strings = tObj<OptOutSettings>('privacy.optOut');
+			if (!strings) return;
 
 			if (!div) {
 				logPrivacy.log('Opt-out div not found');
@@ -121,11 +129,11 @@
 			}
 
 			if (!navigator || !navigator.cookieEnabled) {
-				div.innerHTML = errorBlock + settings.OptOutErrorNoCookies + '</p>';
+				div.innerHTML = errorBlock + strings.OptOutErrorNoCookies + '</p>';
 				return;
 			}
 			if (location.protocol !== 'https:') {
-				div.innerHTML = errorBlock + settings.OptOutErrorNotHttps + '</p>';
+				div.innerHTML = errorBlock + strings.OptOutErrorNotHttps + '</p>';
 				return;
 			}
 			if (errorMessage !== null) {
@@ -136,27 +144,27 @@
 			let content = '';
 			if (consent) {
 				if (settings.showIntro) {
-					content += '<p>' + settings.YouMayOptOut2 + ' ' + settings.YouMayOptOut3 + '</p>';
+					content += '<p>' + strings.YouMayOptOut2 + ' ' + strings.YouMayOptOut3 + '</p>';
 				}
 				content +=
 					'<input onclick="window.MatomoConsent.consentRevoked();window.showOptOutContent(false);" id="trackVisits" type="checkbox" checked="checked" />';
 				content +=
 					'<label for="trackVisits"><strong><span>' +
-					settings.YouAreNotOptedOut +
+					strings.YouAreNotOptedOut +
 					' ' +
-					settings.UncheckToOptOut +
+					strings.UncheckToOptOut +
 					'</span></strong></label>';
 			} else {
 				if (settings.showIntro) {
-					content += '<p>' + settings.OptOutComplete + ' ' + settings.OptOutCompleteBis + '</p>';
+					content += '<p>' + strings.OptOutComplete + ' ' + strings.OptOutCompleteBis + '</p>';
 				}
 				content +=
 					'<input onclick="window.MatomoConsent.consentGiven();window.showOptOutContent(true);" id="trackVisits" type="checkbox" />';
 				content +=
 					'<label for="trackVisits"><strong><span>' +
-					settings.YouAreOptedOut +
+					strings.YouAreOptedOut +
 					' ' +
-					settings.CheckToOptIn +
+					strings.CheckToOptIn +
 					'</span></strong></label>';
 			}
 			div.innerHTML = content;
@@ -172,7 +180,7 @@
 			settings.cookieDomain,
 			settings.cookieSameSite
 		);
-		showContent((window as any).MatomoConsent.hasConsent());
+		widgetReady = true;
 
 		logPrivacy.log('Matomo opt-out widget initialized');
 	});
@@ -199,7 +207,7 @@
 			<!-- Analytics Section -->
 			<div class="card-retro bg-surface-dark p-8">
 				<h2 class="text-2xl font-display uppercase text-primary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined">analytics</span>
+					<span class="material-symbols-outlined" aria-hidden="true">analytics</span>
 					{t('privacy.analyticsTitle')}
 				</h2>
 
@@ -218,7 +226,7 @@
 			<!-- Opt-out Section -->
 			<div class="card-retro bg-surface-dark p-8">
 				<h2 class="text-2xl font-display uppercase text-secondary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined">visibility_off</span>
+					<span class="material-symbols-outlined" aria-hidden="true">visibility_off</span>
 					{t('privacy.optOutTitle')}
 				</h2>
 
@@ -231,7 +239,7 @@
 			<!-- Data Collection Section -->
 			<div class="card-retro bg-surface-dark p-8">
 				<h2 class="text-2xl font-display uppercase text-primary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined">database</span>
+					<span class="material-symbols-outlined" aria-hidden="true">database</span>
 					{t('privacy.dataTitle')}
 				</h2>
 
@@ -250,7 +258,7 @@
 			<!-- Marketing Section -->
 			<div class="card-retro bg-surface-dark p-8">
 				<h2 class="text-2xl font-display uppercase text-secondary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined">ads_click</span>
+					<span class="material-symbols-outlined" aria-hidden="true">ads_click</span>
 					{t('privacy.marketingTitle')}
 				</h2>
 
@@ -260,7 +268,7 @@
 			<!-- DPA Section -->
 			<div id="dpa" class="card-retro bg-surface-dark p-8 scroll-mt-24">
 				<h2 class="text-2xl font-display uppercase text-secondary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined">contract</span>
+					<span class="material-symbols-outlined" aria-hidden="true">contract</span>
 					{t('privacy.dpaTitle')}
 				</h2>
 
@@ -270,7 +278,7 @@
 			<!-- Contact Section -->
 			<div class="card-retro bg-surface-dark p-8">
 				<h2 class="text-2xl font-display uppercase text-primary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined">mail</span>
+					<span class="material-symbols-outlined" aria-hidden="true">mail</span>
 					{t('privacy.contactTitle')}
 				</h2>
 

@@ -18,7 +18,7 @@
 			href="/news"
 			class="inline-flex items-center gap-2 text-primary font-mono text-sm mb-8 hover:underline"
 		>
-			<span class="material-symbols-outlined text-sm">arrow_back</span>
+			<span class="material-symbols-outlined text-sm" aria-hidden="true">arrow_back</span>
 			&lt; {t('news.backToNews')}
 		</a>
 
@@ -81,7 +81,8 @@
 						rel="noopener noreferrer"
 						class="btn-retro-primary inline-block py-2 px-6 font-bold uppercase"
 					>
-						{t('news.rimini.downloadButton')} →
+						{t('news.rimini.downloadButton')} <span aria-hidden="true">→</span>
+						<span class="sr-only">{t('common.opensInNewTab')}</span>
 					</a>
 				</div>
 

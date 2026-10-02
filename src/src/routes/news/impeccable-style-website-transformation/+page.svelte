@@ -10,9 +10,7 @@
 	let toastTimeout: ReturnType<typeof setTimeout> | null = null;
 
 	// Share configuration
-	const shareText = 'Read this article:';
 	const pageUrl = 'https://webdeploy.it/news/impeccable-style-website-transformation';
-	const pageTitle = 'How Impeccable.style Transformed Our Website';
 
 	/**
 	 * Shows a toast notification that auto-dismisses after 3 seconds
@@ -85,13 +83,13 @@
 	 * Gets the article title from document or h1
 	 */
 	function getArticleTitle(): string {
-		if (!browser) return pageTitle;
+		if (!browser) return t('news.impeccable.title');
 
 		const h1 = document.querySelector('h1');
 		if (h1 && h1.textContent) {
 			return h1.textContent.trim();
 		}
-		return document.title || pageTitle;
+		return document.title || t('news.impeccable.title');
 	}
 
 	/**
@@ -148,7 +146,7 @@
 			try {
 				await navigator.share({
 					title: articleTitle,
-					text: shareText,
+					text: t('news.shareText'),
 					url: articleUrl
 				});
 				logShare.log('Web Share API used successfully');
@@ -202,7 +200,7 @@
 			href="/news"
 			class="inline-flex items-center gap-2 text-primary font-mono text-sm mb-8 hover:underline"
 		>
-			<span class="material-symbols-outlined text-sm">arrow_back</span>
+			<span class="material-symbols-outlined text-sm" aria-hidden="true">arrow_back</span>
 			&lt; {t('news.backToNews')}
 		</a>
 
@@ -333,7 +331,7 @@
 						>
 							{t('news.impeccable.visitImpeccable')}
 							<span class="text-sm" aria-hidden="true">↗</span>
-							<span class="sr-only">(opens in new tab)</span>
+							<span class="sr-only">{t('common.opensInNewTab')}</span>
 						</a>
 					</div>
 				</div>
