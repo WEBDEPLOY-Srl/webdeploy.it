@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.24.2] - 2026-10-02
+
+### Changed
+- Copy review of every English and Italian text: consistent "WebDeploy" brand
+  spelling, Italian sentence-case headings, natural Italian in place of literal
+  translations and avoidable anglicisms, gender-neutral forms addressing the
+  reader, and grammar fixes in English ("opt out", "reserved for", missing
+  articles).
+- The Italian kiosk page is now a faithful translation of the English one
+  (Sonmi OS by m4ss.net, Linux instead of Windows, IaC management) instead of a
+  different product description.
+- Clearer consent banner buttons and HQ scene labels.
+
+### Fixed
+- Hetzner's Falkenstein data centre is in Saxony, not Bavaria.
+- Text that stayed in English on the Italian site: error page, skip link,
+  navigation and menu labels, language switcher, map loading/error messages and
+  address, image descriptions, share text, new-tab notices and the early-access
+  email placeholder.
+- The privacy opt-out messages and the open-source article's stack list now
+  follow a language switch instead of keeping the first language.
+- Decorative icons are hidden from screen readers.
+
 ## [1.24.1] - 2026-10-02
 
 ### Changed

@@ -5,7 +5,7 @@
 
 <Seo
 	title={t('services.title')}
-	description={t('services.inwd.description')}
+	description={t('services.metaDescription')}
 	image="/inwd-infra.svg"
 />
 
@@ -29,7 +29,7 @@
 
 				<img
 					src="/inwd-infra.svg"
-					alt="inwd infrastructure diagram"
+					alt={t('services.inwd.diagramAlt')}
 					width="800"
 					height="400"
 					loading="lazy"

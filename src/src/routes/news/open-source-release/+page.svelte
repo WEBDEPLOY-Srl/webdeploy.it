@@ -8,11 +8,9 @@
 	let toastVisible = $state(false);
 	let toastTimeout: ReturnType<typeof setTimeout> | null = null;
 
-	const shareText = 'Read this article:';
 	const pageUrl = 'https://webdeploy.it/news/open-source-release';
-	const pageTitle = 'WebDeploy.it Is Now Open Source';
 
-	const stack = tObj<string[]>('news.openSourceRelease.stack');
+	const stack = $derived(tObj<string[]>('news.openSourceRelease.stack') ?? []);
 
 	function showToast(message: string) {
 		if (toastTimeout) clearTimeout(toastTimeout);
@@ -65,10 +63,10 @@
 	}
 
 	function getArticleTitle(): string {
-		if (!browser) return pageTitle;
+		if (!browser) return t('news.openSourceRelease.title');
 		const h1 = document.querySelector('h1');
 		if (h1 && h1.textContent) return h1.textContent.trim();
-		return document.title || pageTitle;
+		return document.title || t('news.openSourceRelease.title');
 	}
 
 	function openSharePopup(url: string, name: string, width: number, height: number): Window | null {
@@ -108,7 +106,7 @@
 		const articleTitle = getArticleTitle();
 		if (browser && navigator.share) {
 			try {
-				await navigator.share({ title: articleTitle, text: shareText, url: articleUrl });
+				await navigator.share({ title: articleTitle, text: t('news.shareText'), url: articleUrl });
 				logShare.log('Web Share API used successfully');
 			} catch (err: unknown) {
 				if (err instanceof Error && err.name === 'AbortError') {
@@ -148,7 +146,7 @@
 			href="/news"
 			class="inline-flex items-center gap-2 text-primary font-mono text-sm mb-8 hover:underline"
 		>
-			<span class="material-symbols-outlined text-sm">arrow_back</span>
+			<span class="material-symbols-outlined text-sm" aria-hidden="true">arrow_back</span>
 			&lt; {t('news.backToNews')}
 		</a>
 
@@ -190,7 +188,7 @@
 		<div class="w-full border-4 border-slate-700 mb-8 bg-surface-dark">
 			<img
 				src="/open-source-release.jpg"
-				alt="webdeploy.it is now open source under AGPL-3.0"
+				alt={t('news.openSourceRelease.imageAlt')}
 				width="1080"
 				height="1350"
 				loading="eager"
@@ -263,7 +261,7 @@
 						>
 							{t('news.openSourceRelease.visitRepo')}
 							<span class="text-sm" aria-hidden="true">↗</span>
-							<span class="sr-only">(opens in new tab)</span>
+							<span class="sr-only">{t('common.opensInNewTab')}</span>
 						</a>
 					</div>
 				</div>

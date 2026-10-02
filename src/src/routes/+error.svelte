@@ -1,10 +1,23 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { t } from '$lib/i18n';
+
+	// Raw error messages are not localized, so show the translated status copy instead.
+	const statusKey = $derived(
+		$page.status === 404
+			? 'notFound'
+			: $page.status === 500
+				? 'serverError'
+				: $page.status === 403
+					? 'forbidden'
+					: 'generic'
+	);
+	const statusTitle = $derived(t(`error.${statusKey}Title`));
+	const statusText = $derived(t(`error.${statusKey}Text`));
 </script>
 
 <svelte:head>
-	<title>Error {$page.status} - WebDeploy</title>
+	<title>{t('error.pageTitle')} {$page.status} - WebDeploy</title>
 </svelte:head>
 
 <div class="min-h-[70vh] flex items-center justify-center py-16 px-4">
@@ -20,40 +33,24 @@
 		<div class="card-retro bg-surface-dark p-8 mb-8">
 			<div class="font-mono text-left">
 				<p class="text-primary mb-2">
-					<span aria-hidden="true">&gt;</span> ERROR_CODE: {$page.status}
+					<span aria-hidden="true">&gt;</span> {t('error.codeLabel')}: {$page.status}
 				</p>
 				<p class="text-slate-400 mb-4">
-					<span aria-hidden="true">&gt;</span> {$page.error?.message || 'Page not found'}
+					<span aria-hidden="true">&gt;</span> {statusTitle}
 				</p>
 				<p class="text-secondary">
-					<span aria-hidden="true">&gt;</span> STATUS: SYSTEM_RECOVERY_AVAILABLE
+					<span aria-hidden="true">&gt;</span> {t('error.statusLine')}
 				</p>
 			</div>
 		</div>
 
 		<!-- Error Message -->
 		<h1 class="text-3xl sm:text-4xl font-display uppercase text-white mb-4">
-			{#if $page.status === 404}
-				Page Not Found
-			{:else if $page.status === 500}
-				Internal Server Error
-			{:else if $page.status === 403}
-				Access Forbidden
-			{:else}
-				Something Went Wrong
-			{/if}
+			{statusTitle}
 		</h1>
 
 		<p class="text-slate-400 mb-8 font-mono max-w-md mx-auto">
-			{#if $page.status === 404}
-				The page you're looking for doesn't exist or has been moved.
-			{:else if $page.status === 500}
-				Our servers encountered an unexpected error. Please try again later.
-			{:else if $page.status === 403}
-				You don't have permission to access this resource.
-			{:else}
-				An unexpected error occurred. Please try again.
-			{/if}
+			{statusText}
 		</p>
 
 		<!-- Action Buttons -->
@@ -62,19 +59,19 @@
 				href="/"
 				class="btn-retro-primary py-3 px-8 font-bold uppercase tracking-widest"
 			>
-				<span aria-hidden="true">&gt;</span> Return Home
+				<span aria-hidden="true">&gt;</span> {t('error.returnHome')}
 			</a>
 			<button
 				onclick={() => history.back()}
 				class="btn-retro-secondary py-3 px-8 font-bold uppercase tracking-widest"
 			>
-				<span aria-hidden="true">&lt;</span> Go Back
+				<span aria-hidden="true">&lt;</span> {t('error.goBack')}
 			</button>
 		</div>
 
 		<!-- Additional Help -->
 		<p class="mt-12 text-slate-500 text-sm font-mono">
-			Need help? Contact us at
+			{t('error.needHelp')}
 			<a href="mailto:info@webdeploy.it" class="text-primary hover:underline">
 				info@webdeploy.it
 			</a>

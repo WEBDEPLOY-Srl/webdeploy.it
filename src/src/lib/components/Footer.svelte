@@ -25,7 +25,7 @@
 					<a
 						href="mailto:info@webdeploy.it"
 						class="text-slate-500 hover:text-primary transition-colors border border-slate-700 p-3 hover:border-primary min-w-[44px] min-h-[44px] flex items-center justify-center"
-						aria-label="Email us at info@webdeploy.it"
+						aria-label={t('common.emailUs')}
 					>
 						<span class="material-symbols-outlined" aria-hidden="true">alternate_email</span>
 					</a>
