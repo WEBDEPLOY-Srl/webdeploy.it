@@ -2,6 +2,7 @@
 	import { t } from '$lib/i18n';
 	import Hero from '$lib/components/Hero.svelte';
 	import FeatureCard from '$lib/components/FeatureCard.svelte';
+	import HqStage from '$lib/components/HqStage.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 </script>
 
@@ -12,15 +13,16 @@
 		name={t('home.heroName')}
 		text={t('home.heroText')}
 		tagline={t('home.heroTagline')}
+		subtitle={t('home.heroSubtitle')}
 		eyebrow={t('home.heroEyebrow')}
-		image="/webdeploy-logo.svg"
-		imageAlt={t('home.heroImageAlt')}
 		readable={true}
 		actions={[
 			{ text: t('home.servicesBtn'), href: '/services', primary: true },
 			{ text: t('home.manifestoBtn'), href: '/developer-manifesto', primary: false }
 		]}
 	/>
+
+	<HqStage />
 
 	<section class="home-section home-services" aria-labelledby="home-services-title">
 		<div class="home-container">

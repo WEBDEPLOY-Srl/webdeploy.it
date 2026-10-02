@@ -5,6 +5,7 @@
 		name: string;
 		text?: string;
 		tagline: string;
+		subtitle?: string;
 		eyebrow?: string;
 		image?: string;
 		imageAlt?: string;
@@ -20,6 +21,7 @@
 		name,
 		text,
 		tagline,
+		subtitle,
 		eyebrow,
 		image,
 		imageAlt = '',
@@ -41,6 +43,9 @@
 						<span class="readable-hero__title-accent">{text}</span>
 					{/if}
 				</h1>
+				{#if subtitle}
+					<p class="readable-hero__subtitle">{subtitle}</p>
+				{/if}
 				<p class="readable-hero__tagline">{tagline}</p>
 				{#if actions.length > 0}
 					<div class="readable-hero__actions">
@@ -200,6 +205,14 @@
 
 	.readable-hero__title-accent {
 		color: var(--color-secondary) !important;
+	}
+
+	.readable-hero__subtitle {
+		margin: 1.25rem 0 0;
+		color: var(--color-primary, #00f0ff);
+		font-family: 'VT323', monospace;
+		font-size: clamp(1.5rem, 2.6vw, 2rem);
+		letter-spacing: 0.02em;
 	}
 
 	.readable-hero__tagline {

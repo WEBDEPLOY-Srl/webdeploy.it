@@ -17,6 +17,7 @@ export const it = {
 	home: {
 		heroName: 'webdeploy',
 		heroText: 'developing greatness',
+		heroSubtitle: 'A look into the Future<void>',
 		heroEyebrow: 'Webdeploy / open source',
 		heroTagline: 'Software e infrastruttura open source per team che vogliono sistemi chiari e affidabili.',
 		heroImageAlt: 'Logo di Webdeploy',
@@ -30,6 +31,9 @@ export const it = {
 		aboutEyebrow: 'Il nostro approccio',
 		aboutTitle: 'Strumenti aperti. Scelte chiare.',
 		aboutDescription: 'Usiamo strumenti open source e processi trasparenti, per aiutarti a capire e controllare la tecnologia su cui lavori.',
+		hqTitle: 'Webdeploy HQ, dal vivo',
+		hqFrameTitle: 'Webdeploy HQ interattivo: bar al neon e scrivanie degli sviluppatori, in 2D o 3D',
+		hqHint: "Premi T o il pulsante 2D/3D per entrare · M per l'audio · C per la camera libera in 3D",
 		aboutImageAlt: 'Illustrazione della sede di Webdeploy',
 		aboutLink: 'Leggi il manifesto dello sviluppatore',
 		ctaEyebrow: 'Inizia da qui',
