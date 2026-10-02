@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.24.0] - 2026-10-02
+
+### Added
+- Interactive Webdeploy HQ scene on the homepage, directly under the hero: a
+  live, looping Three.js bar that switches between the flat line-art view and a
+  3D view (T or the 2D/3D button), with optional sound (M) and a free camera in
+  3D (C). It runs as a self-contained page under `/hq/`, embedded in an iframe
+  so its renderer, audio and key bindings stay isolated from the site. Visitors
+  who prefer reduced motion see a still poster instead.
+- "A look into the Future<void>" subtitle under the hero heading, in English and
+  Italian.
+
 ## [1.23.1] - 2026-09-10
 
 ### Changed
