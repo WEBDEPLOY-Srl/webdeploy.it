@@ -310,7 +310,7 @@
 
                 <!-- Mobile menu button -->
                 <button
-                    class="site-menu-toggle lg:hidden text-primary border-2 border-primary p-2 hover:bg-primary hover:text-black transition-colors"
+                    class="site-menu-toggle header-control lg:hidden"
                     onclick={toggleMobileMenu}
                     aria-label={mobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
                     aria-expanded={mobileMenuOpen}

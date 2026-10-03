@@ -32,14 +32,13 @@
 		<div class="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
 			<!-- What you get -->
 			<div class="lg:col-span-2 card-retro bg-surface-dark p-8">
-				<h2 class="text-xl font-display uppercase text-primary mb-6 flex items-center gap-2">
-					<span aria-hidden="true">🛡️</span>
+				<h2 class="text-xl font-display uppercase text-primary mb-6">
 					{t('earlyAccess.benefitsTitle')}
 				</h2>
 				<ul class="space-y-3">
 					{#each tObj<string[]>('earlyAccess.benefits') ?? [] as benefit}
 						<li class="text-slate-400 flex items-start gap-2 leading-relaxed">
-							<span class="text-primary shrink-0">&#10003;</span>
+							<span class="text-primary shrink-0">•</span>
 							{benefit}
 						</li>
 					{/each}

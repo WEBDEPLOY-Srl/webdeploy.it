@@ -27,8 +27,7 @@
 			<div class="space-y-12">
 				<!-- Developer Experience First -->
 				<div class="card-retro bg-surface-dark p-8">
-					<h3 class="text-xl font-display uppercase text-primary mb-4 flex items-center gap-2">
-						<span>🚀</span>
+					<h3 class="text-xl font-display uppercase text-primary mb-4">
 						{t('manifesto.devExp.title')}
 					</h3>
 					<p class="text-slate-400 leading-relaxed">{t('manifesto.devExp.description')}</p>
@@ -36,8 +35,7 @@
 
 				<!-- Open Source Foundation -->
 				<div class="card-retro bg-surface-dark p-8">
-					<h3 class="text-xl font-display uppercase text-primary mb-4 flex items-center gap-2">
-						<span>🌐</span>
+					<h3 class="text-xl font-display uppercase text-primary mb-4">
 						{t('manifesto.openSource.title')}
 					</h3>
 					<p class="text-slate-400 leading-relaxed">{t('manifesto.openSource.description')}</p>
@@ -45,8 +43,7 @@
 
 				<!-- Work-Life Balance -->
 				<div class="card-retro bg-surface-dark p-8">
-					<h3 class="text-xl font-display uppercase text-primary mb-4 flex items-center gap-2">
-						<span>⚖️</span>
+					<h3 class="text-xl font-display uppercase text-primary mb-4">
 						{t('manifesto.workLife.title')}
 					</h3>
 					<p class="text-slate-400 leading-relaxed mb-6">{t('manifesto.workLife.description')}</p>
@@ -74,8 +71,7 @@
 			<div class="grid md:grid-cols-2 gap-8">
 				<!-- Quality -->
 				<div class="card-retro bg-surface-dark p-6">
-					<h3 class="text-lg font-display uppercase text-primary mb-3 flex items-center gap-2">
-						<span>🛠️</span>
+					<h3 class="text-lg font-display uppercase text-primary mb-3">
 						{t('manifesto.quality.title')}
 					</h3>
 					<p class="text-slate-400 text-sm leading-relaxed">{t('manifesto.quality.description')}</p>
@@ -83,8 +79,7 @@
 
 				<!-- Documentation -->
 				<div class="card-retro bg-surface-dark p-6">
-					<h3 class="text-lg font-display uppercase text-primary mb-3 flex items-center gap-2">
-						<span>📚</span>
+					<h3 class="text-lg font-display uppercase text-primary mb-3">
 						{t('manifesto.docs.title')}
 					</h3>
 					<p class="text-slate-400 text-sm leading-relaxed">{t('manifesto.docs.description')}</p>
@@ -92,8 +87,7 @@
 
 				<!-- Tools -->
 				<div class="card-retro bg-surface-dark p-6">
-					<h3 class="text-lg font-display uppercase text-secondary mb-3 flex items-center gap-2">
-						<span>🔧</span>
+					<h3 class="text-lg font-display uppercase text-secondary mb-3">
 						{t('manifesto.tools.title')}
 					</h3>
 					<p class="text-slate-400 text-sm leading-relaxed">{t('manifesto.tools.description')}</p>
@@ -101,8 +95,7 @@
 
 				<!-- Community -->
 				<div class="card-retro bg-surface-dark p-6">
-					<h3 class="text-lg font-display uppercase text-secondary mb-3 flex items-center gap-2">
-						<span>🤝</span>
+					<h3 class="text-lg font-display uppercase text-secondary mb-3">
 						{t('manifesto.community.title')}
 					</h3>
 					<p class="text-slate-400 text-sm leading-relaxed">{t('manifesto.community.description')}</p>
@@ -119,8 +112,7 @@
 			<div class="grid md:grid-cols-2 gap-8">
 				<!-- Purpose -->
 				<div class="card-retro bg-surface-dark p-6">
-					<h3 class="text-lg font-display uppercase text-primary mb-3 flex items-center gap-2">
-						<span>🎯</span>
+					<h3 class="text-lg font-display uppercase text-primary mb-3">
 						{t('manifesto.purpose.title')}
 					</h3>
 					<p class="text-slate-400 text-sm leading-relaxed">{t('manifesto.purpose.description')}</p>
@@ -128,8 +120,7 @@
 
 				<!-- Iterative -->
 				<div class="card-retro bg-surface-dark p-6">
-					<h3 class="text-lg font-display uppercase text-primary mb-3 flex items-center gap-2">
-						<span>🔄</span>
+					<h3 class="text-lg font-display uppercase text-primary mb-3">
 						{t('manifesto.iterative.title')}
 					</h3>
 					<p class="text-slate-400 text-sm leading-relaxed">{t('manifesto.iterative.description')}</p>
@@ -137,8 +128,7 @@
 
 				<!-- Learning -->
 				<div class="card-retro bg-surface-dark p-6">
-					<h3 class="text-lg font-display uppercase text-secondary mb-3 flex items-center gap-2">
-						<span>🧠</span>
+					<h3 class="text-lg font-display uppercase text-secondary mb-3">
 						{t('manifesto.learning.title')}
 					</h3>
 					<p class="text-slate-400 text-sm leading-relaxed">{t('manifesto.learning.description')}</p>
@@ -146,8 +136,7 @@
 
 				<!-- Growth -->
 				<div class="card-retro bg-surface-dark p-6">
-					<h3 class="text-lg font-display uppercase text-secondary mb-3 flex items-center gap-2">
-						<span>🌱</span>
+					<h3 class="text-lg font-display uppercase text-secondary mb-3">
 						{t('manifesto.growth.title')}
 					</h3>
 					<p class="text-slate-400 text-sm leading-relaxed">{t('manifesto.growth.description')}</p>
@@ -162,7 +151,7 @@
 				href="/contacts"
 				class="btn-retro-primary inline-block text-lg font-bold py-3 px-8 uppercase tracking-widest"
 			>
-				{t('manifesto.getInTouch')} →
+				{t('manifesto.getInTouch')} <span aria-hidden="true">→</span>
 			</a>
 		</section>
 	</div>

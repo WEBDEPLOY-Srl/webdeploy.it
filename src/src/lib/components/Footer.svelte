@@ -7,29 +7,19 @@
 		<div class="site-footer__content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 sm:gap-12 mb-12">
 			<!-- Brand -->
 			<div class="col-span-1 sm:col-span-2 lg:col-span-2">
-				<div class="flex items-center gap-2 mb-6 group">
-					<span
-						class="material-symbols-outlined text-primary text-3xl group-hover:rotate-12 transition-transform"
-						aria-hidden="true"
-						>rocket_launch</span
-					>
-					<span class="text-2xl font-display font-bold text-white uppercase tracking-widest"
-						>WebDeploy</span
-					>
-				</div>
+				<p class="text-2xl font-display font-bold text-white uppercase tracking-widest mb-6">
+					WebDeploy
+				</p>
 				<p class="site-footer__description text-slate-500 text-sm font-mono mb-6 max-w-xs">
 					<span aria-hidden="true">//</span> {t('footer.tagline')}<br />
 					<span aria-hidden="true">&gt;</span> {t('footer.description')}
 				</p>
-				<div class="flex gap-4">
-					<a
-						href="mailto:info@webdeploy.it"
-						class="text-slate-500 hover:text-primary transition-colors border border-slate-700 p-3 hover:border-primary min-w-[44px] min-h-[44px] flex items-center justify-center"
-						aria-label={t('common.emailUs')}
-					>
-						<span class="material-symbols-outlined" aria-hidden="true">alternate_email</span>
-					</a>
-				</div>
+				<a
+					href="mailto:info@webdeploy.it"
+					class="inline-flex items-center min-h-[44px] px-3 text-sm font-mono text-slate-500 hover:text-primary transition-colors border border-slate-700 hover:border-primary"
+				>
+					info@webdeploy.it
+				</a>
 			</div>
 
 			<!-- Product -->

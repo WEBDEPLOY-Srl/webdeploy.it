@@ -22,8 +22,7 @@
 		<div class="grid lg:grid-cols-2 gap-12 mb-16">
 			<!-- Business Inquiries -->
 			<div class="card-retro bg-surface-dark p-8">
-				<h2 class="text-2xl font-display uppercase text-primary mb-6 flex items-center gap-2">
-					<span aria-hidden="true">💼</span>
+				<h2 class="text-2xl font-display uppercase text-primary mb-6">
 					{t('contacts.business.title')}
 				</h2>
 
@@ -51,8 +50,7 @@
 
 			<!-- Careers -->
 			<div class="card-retro bg-surface-dark p-8">
-				<h2 class="text-2xl font-display uppercase text-secondary mb-6 flex items-center gap-2">
-					<span aria-hidden="true">🚀</span>
+				<h2 class="text-2xl font-display uppercase text-secondary mb-6">
 					{t('contacts.careers.title')}
 				</h2>
 

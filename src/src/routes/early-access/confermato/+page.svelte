@@ -28,7 +28,6 @@
 <div class="py-16 lg:py-24">
 	<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="text-center mb-12">
-			<div class="text-6xl mb-6" aria-hidden="true">✅</div>
 			<h1 class="text-4xl sm:text-5xl font-display uppercase text-white mb-4">
 				<span class="text-primary">&gt;</span>
 				{t('earlyAccess.confirmed.title')}
@@ -45,7 +44,7 @@
 			<ul class="space-y-3">
 				{#each tObj<string[]>('earlyAccess.confirmed.next') ?? [] as step}
 					<li class="text-slate-400 flex items-start gap-2 leading-relaxed">
-						<span class="text-primary shrink-0">&rarr;</span>
+						<span class="text-primary shrink-0" aria-hidden="true">&rarr;</span>
 						{step}
 					</li>
 				{/each}

@@ -191,9 +191,8 @@
 		<!-- Back link -->
 		<a
 			href="/news"
-			class="inline-flex items-center gap-2 text-primary font-mono text-sm mb-8 hover:underline"
+			class="inline-block text-primary font-mono text-sm mb-8 hover:underline"
 		>
-			<span class="material-symbols-outlined text-sm" aria-hidden="true">arrow_back</span>
 			&lt; {t('news.backToNews')}
 		</a>
 

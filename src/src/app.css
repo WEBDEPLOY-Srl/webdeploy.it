@@ -166,6 +166,39 @@ body {
                     linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
 }
 
+/* Bordered header controls (language switcher, menu toggle) share one box so
+   they line up at every breakpoint. Kept in the components layer so display
+   utilities such as lg:hidden still win. */
+@layer components {
+  .header-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: background-color 150ms, color 150ms;
+  }
+
+  .header-control:hover {
+    background-color: var(--color-primary);
+    color: black;
+  }
+
+  .header-control .material-symbols-outlined {
+    font-size: 1.5rem;
+  }
+}
+
 /* Homepage reading mode keeps the site's palette and display face while making
    navigation, supporting copy, and controls easier to scan. */
 .home-preview {
@@ -274,23 +307,11 @@ body {
   gap: 0.75rem;
 }
 
-.home-preview .language-switcher,
-.home-preview .site-menu-toggle {
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-}
-
-.home-preview .language-switcher {
-  padding-inline: 0.625rem;
+.home-preview .header-control {
   border-width: 1px;
   font-family: var(--font-reading);
   font-size: 0.8125rem;
-  font-weight: 700;
   letter-spacing: 0.04em;
-}
-
-.home-preview .site-menu-toggle {
-  border-width: 1px;
 }
 
 .home-preview .site-mobile-nav {

@@ -206,8 +206,7 @@
 
 			<!-- Analytics Section -->
 			<div class="card-retro bg-surface-dark p-8">
-				<h2 class="text-2xl font-display uppercase text-primary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined" aria-hidden="true">analytics</span>
+				<h2 class="text-2xl font-display uppercase text-primary mb-6">
 					{t('privacy.analyticsTitle')}
 				</h2>
 
@@ -216,7 +215,7 @@
 				<ul class="space-y-2 mb-6">
 					{#each tObj<string[]>('privacy.analyticsFeatures') ?? [] as feature}
 						<li class="text-slate-400 flex items-start gap-2">
-							<span class="text-primary">&#10003;</span>
+							<span class="text-primary">•</span>
 							{feature}
 						</li>
 					{/each}
@@ -225,8 +224,7 @@
 
 			<!-- Opt-out Section -->
 			<div class="card-retro bg-surface-dark p-8">
-				<h2 class="text-2xl font-display uppercase text-secondary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined" aria-hidden="true">visibility_off</span>
+				<h2 class="text-2xl font-display uppercase text-secondary mb-6">
 					{t('privacy.optOutTitle')}
 				</h2>
 
@@ -238,8 +236,7 @@
 
 			<!-- Data Collection Section -->
 			<div class="card-retro bg-surface-dark p-8">
-				<h2 class="text-2xl font-display uppercase text-primary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined" aria-hidden="true">database</span>
+				<h2 class="text-2xl font-display uppercase text-primary mb-6">
 					{t('privacy.dataTitle')}
 				</h2>
 
@@ -257,8 +254,7 @@
 
 			<!-- Marketing Section -->
 			<div class="card-retro bg-surface-dark p-8">
-				<h2 class="text-2xl font-display uppercase text-secondary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined" aria-hidden="true">ads_click</span>
+				<h2 class="text-2xl font-display uppercase text-secondary mb-6">
 					{t('privacy.marketingTitle')}
 				</h2>
 
@@ -267,8 +263,7 @@
 
 			<!-- DPA Section -->
 			<div id="dpa" class="card-retro bg-surface-dark p-8 scroll-mt-24">
-				<h2 class="text-2xl font-display uppercase text-secondary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined" aria-hidden="true">contract</span>
+				<h2 class="text-2xl font-display uppercase text-secondary mb-6">
 					{t('privacy.dpaTitle')}
 				</h2>
 
@@ -277,8 +272,7 @@
 
 			<!-- Contact Section -->
 			<div class="card-retro bg-surface-dark p-8">
-				<h2 class="text-2xl font-display uppercase text-primary mb-6 flex items-center gap-2">
-					<span class="material-symbols-outlined" aria-hidden="true">mail</span>
+				<h2 class="text-2xl font-display uppercase text-primary mb-6">
 					{t('privacy.contactTitle')}
 				</h2>
 
