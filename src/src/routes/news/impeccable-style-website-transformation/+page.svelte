@@ -198,9 +198,8 @@
 		<!-- Back link -->
 		<a
 			href="/news"
-			class="inline-flex items-center gap-2 text-primary font-mono text-sm mb-8 hover:underline"
+			class="inline-block text-primary font-mono text-sm mb-8 hover:underline"
 		>
-			<span class="material-symbols-outlined text-sm" aria-hidden="true">arrow_back</span>
 			&lt; {t('news.backToNews')}
 		</a>
 
@@ -297,7 +296,7 @@
 				<ul class="space-y-2 text-slate-400 mb-8">
 					{#each tObj<string[]>('news.impeccable.resultsList') || [] as result}
 						<li class="flex items-start gap-2">
-							<span class="text-primary">✓</span>
+							<span class="text-primary">•</span>
 							{result}
 						</li>
 					{/each}

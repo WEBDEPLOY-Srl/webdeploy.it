@@ -98,10 +98,6 @@
         <div
             class="absolute inset-0 flex flex-col items-center justify-center bg-surface-dark z-10"
         >
-            <span
-                class="material-symbols-outlined text-4xl text-secondary mb-4"
-                aria-hidden="true">error</span
-            >
             <p class="text-slate-400 font-mono text-sm mb-2">
                 {t("contacts.map.error")}
             </p>

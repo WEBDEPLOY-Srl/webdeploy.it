@@ -9,7 +9,7 @@ export const it = {
 		encryptedStorage: 'Archiviazione cifrata dei dati',
 		linuxMigration: 'Migrazione delle workstation a Linux',
 		managedInfra: 'Infrastruttura gestita',
-		manifesto: 'Manifesto dello sviluppatore',
+		manifesto: 'Manifesto per chi sviluppa',
 		contacts: 'Contatti',
 		mainNavigation: 'Navigazione principale',
 		mobileNavigation: 'Navigazione mobile',
@@ -28,7 +28,7 @@ export const it = {
 		heroEyebrow: 'WebDeploy / open source',
 		heroTagline: 'Software e infrastruttura open source per team che vogliono sistemi chiari e affidabili.',
 		heroImageAlt: 'Logo di WebDeploy',
-		manifestoBtn: 'Manifesto dello sviluppatore',
+		manifestoBtn: 'Manifesto per chi sviluppa',
 		systemOnline: 'Sistema attivo',
 		servicesBtn: 'Scopri i servizi',
 		servicesEyebrow: 'Cosa facciamo',
@@ -42,7 +42,7 @@ export const it = {
 		hqFrameTitle: 'Sede virtuale interattiva di WebDeploy: bar al neon e scrivanie degli sviluppatori, in 2D o 3D',
 		hqHint: "Premi T o il pulsante 2D/3D per entrare · M per l'audio · C per muoverti liberamente nella scena 3D",
 		aboutImageAlt: 'Illustrazione della sede di WebDeploy',
-		aboutLink: 'Leggi il manifesto dello sviluppatore',
+		aboutLink: 'Leggi il manifesto per chi sviluppa',
 		ctaEyebrow: 'Inizia da qui',
 		ctaTitle: 'Iniziamo con una conversazione',
 		ctaDescription: 'Raccontaci a cosa stai lavorando e dove ti serve un partner affidabile.',
@@ -280,73 +280,73 @@ export const it = {
 
 	// Developer Manifesto
 	manifesto: {
-		title: 'Manifesto dello sviluppatore',
-		coreBeliefs: 'I nostri valori fondamentali',
+		title: 'Manifesto per chi sviluppa',
+		coreBeliefs: 'Da qui partiamo',
 		devExp: {
-			title: "L'esperienza degli sviluppatori prima di tutto",
+			title: 'Basta lottare con gli strumenti',
 			description:
-				'Crediamo che sviluppatori felici creino software eccezionale. Quando gli sviluppatori hanno gli strumenti giusti, documentazione chiara e workflow senza attriti, producono il loro miglior lavoro. Tutto ciò che costruiamo inizia con la domanda: «Come possiamo migliorare la vita dello sviluppatore?»'
+				'Costruiamo software e infrastruttura per chi sviluppa. Docs chiare, strumenti utili, meno ostacoli nel workflow. Il tuo stack deve aiutarti a lavorare.'
 		},
 		openSource: {
-			title: "L'open source è il nostro fondamento",
+			title: 'Il FOSS è il punto di partenza',
 			description:
-				"Il software open source promuove innovazione, trasparenza e collaborazione. Scegliamo l'open source perché rappresenta libertà, comunità e l'avanzamento collettivo della tecnologia. Il nostro impegno verso il FOSS guida ogni decisione tecnica che prendiamo."
+				'Scegliamo il FOSS per la libertà di leggere, modificare e condividere il codice. Il costo è solo una parte del discorso. Quella libertà guida le nostre scelte tecniche.'
 		},
 		workLife: {
-			title: 'Un nuovo equilibrio tra lavoro e vita privata',
+			title: 'Il burnout non è una feature',
 			description:
-				'Rifiutiamo il mito che un grande software richieda di sacrificare la vita personale. La vera produttività viene da pratiche sostenibili, non dal burnout.',
+				'Fare buon software non dovrebbe costarti la vita fuori dal lavoro. Vogliamo un modo di lavorare che possiamo reggere nel tempo.',
 			items: [
-				'Lavora dove rendi di più - ufficio, casa, caffetteria o una spiaggia a Bali',
-				'Lavora quando sei al meglio - che tu preferisca la mattina o la notte, ci adattiamo al tuo ritmo',
-				'Ma gestisciti, coder! - la libertà comporta responsabilità e autodisciplina'
+				'Scegli il posto in cui lavori meglio: ufficio, casa o altrove.',
+				'Lavora negli orari in cui ti trovi meglio. Ci adattiamo al tuo ritmo.',
+				'Gestisci il tuo lavoro. La libertà comporta responsabilità.'
 			],
-			note: 'Questa non è flessibilità ingenua - è fiducia matura in professionisti che capiscono che consegnare lavoro di qualità conta più che timbrare il cartellino.'
+			note: 'Ci fidiamo di te. Conta il lavoro fatto bene, più delle ore sul cartellino.'
 		},
-		techPhilosophy: 'La nostra filosofia tecnica',
+		techPhilosophy: 'Come costruiamo',
 		quality: {
-			title: 'Qualità prima della velocità',
+			title: 'Pensa alla prossima modifica',
 			description:
-				"Costruiamo del software che dura. I lavori frettolosi creano debito tecnico, utenti frustrati e sviluppatori stressati. Investiamo tempo fin dall'inizio per risparmiare innumerevoli ore dopo."
+				'Costruiamo software che duri. Il codice scritto di fretta lascia debito tecnico a chi deve modificarlo dopo. Investiamo tempo fin dall\'inizio.'
 		},
 		docs: {
-			title: 'Documentazione come codice',
+			title: 'Docs as code',
 			description:
-				"Se non è documentato, non esiste. Una documentazione chiara e completa non è un'aggiunta dell'ultimo momento - è parte integrante di ogni funzionalità che rilasciamo."
+				'La documentazione fa parte di ogni feature che rilasciamo. RTFM funziona solo se abbiamo scritto un manuale che vale la pena leggere.'
 		},
 		tools: {
-			title: 'Strumenti al servizio degli sviluppatori',
+			title: 'Automatizza il lavoro ripetitivo',
 			description:
-				"Investiamo in strumenti per sviluppatori, automazione e infrastruttura che elimina compiti ripetitivi e permette agli sviluppatori di concentrarsi sulla risoluzione di problemi reali."
+				'Investiamo in tooling, automazione e infrastruttura per togliere di mezzo il lavoro ripetitivo. Se continui a fare la stessa cosa a mano, probabilmente dovrebbe farla uno script.'
 		},
 		community: {
-			title: 'Comunità prima della competizione',
+			title: 'Contribuiamo al FOSS',
 			description:
-				"Contribuiamo all'ecosistema open source che rende possibile il nostro lavoro. La conoscenza condivisa è conoscenza moltiplicata."
+				'Il nostro lavoro dipende dall\'open source. Contribuiamo all\'ecosistema e condividiamo quello che sappiamo.'
 		},
 		howWeWork: 'Come lavoriamo',
 		purpose: {
-			title: 'Sviluppo orientato allo scopo',
+			title: 'Prima il problema, poi il codice',
 			description:
-				'Ogni riga di codice ha uno scopo. Costruiamo funzionalità di cui gli utenti hanno realmente bisogno, non metriche che fanno bella figura nelle riunioni.'
+				'Costruiamo feature che servono a chi le usa. Il codice deve risolvere un problema, non riempire una presentazione.'
 		},
 		iterative: {
-			title: 'Eccellenza iterativa',
+			title: 'Rilascia. Impara. Ripeti.',
 			description:
-				'Non lasciare che la ricerca della perfezione impedisca di fare progressi. Con il CI/CD rilasciamo spesso, raccogliamo feedback e miglioriamo a ogni iterazione.'
+				'Usiamo CI/CD per rilasciare spesso, raccogliere feedback e migliorare. Il software migliora quando chi lo usa può dirci cosa non funziona.'
 		},
 		learning: {
-			title: 'Apprendimento continuo',
+			title: 'Trova il tempo per imparare',
 			description:
-				"La tecnologia evolve rapidamente. Dedichiamo tempo all'apprendimento, alla sperimentazione e al rimanere aggiornati con le best practice del settore."
+				'Dedichiamo tempo a imparare, sperimentare e capire gli strumenti che usiamo.'
 		},
 		growth: {
-			title: 'Crescita sostenibile',
+			title: 'Cresciamo a un ritmo che reggiamo',
 			description:
-				'Cresciamo a un ritmo che mantiene i nostri valori. Scalare velocemente a spese della cultura o della qualità del codice non è successo - è una scorciatoia verso il fallimento.'
+				'Non sacrifichiamo il nostro modo di lavorare o la qualità del codice per crescere più in fretta. Un\'azienda più grande con software peggiore è un pessimo upgrade.'
 		},
-		cta: 'Vuoi lavorare con sviluppatori che danno priorità alla tua esperienza?',
-		getInTouch: 'Contattaci'
+		cta: 'Stai costruendo qualcosa? Raccontaci dove lo stack ti complica il lavoro.',
+		getInTouch: 'Parliamone'
 	},
 
 	// Contacts

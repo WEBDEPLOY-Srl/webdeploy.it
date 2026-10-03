@@ -166,6 +166,156 @@ body {
                     linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
 }
 
+/* Bordered header controls (language switcher, menu toggle) share one box so
+   they line up at every breakpoint. Kept in the components layer so display
+   utilities such as xl:hidden still win. */
+@layer components {
+  .header-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    font-family: var(--font-reading);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: background-color 150ms, color 150ms;
+  }
+
+  .header-control:hover {
+    background-color: var(--color-primary);
+    color: black;
+  }
+
+  .header-control .material-symbols-outlined {
+    font-size: 1.5rem;
+  }
+}
+
+/* Site header: one style on every page (formerly the homepage reading mode). */
+.site-header {
+  --home-rule: rgba(148, 163, 184, 0.34);
+  border-bottom: 1px solid var(--home-rule);
+  background-color: rgba(5, 10, 16, 0.98);
+  box-shadow: none;
+}
+
+.site-header__container {
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .site-header__container {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-header__container {
+    padding-inline: 2rem;
+  }
+}
+
+.site-header__inner {
+  height: 4.75rem;
+}
+
+.site-logo {
+  gap: 0.625rem;
+  min-width: 0;
+}
+
+.site-logo > div {
+  padding: 0.1875rem;
+  border-width: 1px;
+}
+
+.site-logo__wordmark {
+  font-size: 1.875rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.site-nav {
+  gap: 1.5rem;
+}
+
+.site-nav > a,
+.site-nav button {
+  min-height: 2.75rem;
+  font-family: var(--font-reading);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--color-text-body);
+}
+
+.site-nav > a:hover,
+.site-nav button:hover {
+  color: var(--color-secondary);
+}
+
+.site-nav .dropdown-menu {
+  border-width: 1px;
+  border-color: var(--home-rule);
+  box-shadow: none;
+}
+
+.site-nav .dropdown-menu a {
+  font-family: var(--font-reading);
+  font-size: 0.9375rem;
+  color: var(--color-text-body);
+}
+
+.site-nav .dropdown-menu a:hover,
+.site-mobile-nav a:hover {
+  color: var(--color-primary);
+}
+
+.site-header__controls {
+  gap: 0.75rem;
+}
+
+.site-mobile-nav {
+  border-top: 1px solid var(--home-rule);
+}
+
+.site-mobile-nav a {
+  min-height: 2.75rem;
+  padding-block: 0.75rem;
+  font-family: var(--font-reading);
+  font-size: 1rem;
+  color: var(--color-text-body);
+}
+
+@media (max-width: 360px) {
+  .site-header__container {
+    padding-inline: 0.75rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .site-header__inner {
+    height: 4.5rem;
+  }
+
+  .site-logo__wordmark {
+    font-size: 1.625rem;
+  }
+
+  .site-header__controls {
+    gap: 0.5rem;
+  }
+}
+
 /* Homepage reading mode keeps the site's palette and display face while making
    navigation, supporting copy, and controls easier to scan. */
 .home-preview {
@@ -181,128 +331,8 @@ body {
   display: none;
 }
 
-.home-preview .site-header {
-  border-bottom: 1px solid var(--home-rule);
-  background-color: rgba(5, 10, 16, 0.98);
-  box-shadow: none;
-}
-
-.home-preview .site-header__container {
-  padding-inline: 1rem;
-}
-
-@media (min-width: 640px) {
-  .home-preview .site-header__container {
-    padding-inline: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .home-preview .site-header__container {
-    padding-inline: 2rem;
-  }
-}
-
-.home-preview .site-header__inner {
-  height: 4.75rem;
-}
-
-.home-preview .site-logo {
-  gap: 0.625rem;
-  min-width: 0;
-}
-
-.home-preview .site-logo > div {
-  padding: 0.1875rem;
-  border-width: 1px;
-}
-
-.home-preview .site-logo__wordmark {
-  font-size: 1.875rem;
-  line-height: 1;
-  letter-spacing: 0.04em;
-}
-
-.home-preview .site-logo .animate-pulse {
-  animation: none;
-}
-
-.home-preview .site-nav {
-  gap: 1.5rem;
-}
-
-.home-preview .site-nav > a,
-.home-preview .site-nav button {
-  min-height: 2.75rem;
-  font-family: var(--font-reading);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: normal;
-  text-transform: none;
-  color: var(--color-text-body);
-}
-
-.home-preview .site-nav > a:hover,
-.home-preview .site-nav button:hover {
-  color: var(--color-secondary);
-}
-
-.home-preview .site-nav .nav-prompt,
-.home-preview .site-mobile-nav .nav-prompt {
-  display: none;
-}
-
-.home-preview .site-nav .dropdown-menu {
-  border-width: 1px;
-  border-color: var(--home-rule);
-  box-shadow: none;
-}
-
-.home-preview .site-nav .dropdown-menu a {
-  font-family: var(--font-reading);
-  font-size: 0.9375rem;
-  color: var(--color-text-body);
-}
-
-.home-preview .site-nav .dropdown-menu a:hover,
-.home-preview .site-mobile-nav a:hover,
 .home-preview .site-footer a:hover {
   color: var(--color-primary);
-}
-
-.home-preview .site-header__controls {
-  gap: 0.75rem;
-}
-
-.home-preview .language-switcher,
-.home-preview .site-menu-toggle {
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-}
-
-.home-preview .language-switcher {
-  padding-inline: 0.625rem;
-  border-width: 1px;
-  font-family: var(--font-reading);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-.home-preview .site-menu-toggle {
-  border-width: 1px;
-}
-
-.home-preview .site-mobile-nav {
-  border-top: 1px solid var(--home-rule);
-}
-
-.home-preview .site-mobile-nav a {
-  min-height: 2.75rem;
-  padding-block: 0.75rem;
-  font-family: var(--font-reading);
-  font-size: 1rem;
-  color: var(--color-text-body);
 }
 
 .home-preview .site-footer {
@@ -363,42 +393,6 @@ body {
   min-height: 2.75rem;
   font-family: var(--font-reading);
   font-size: 0.875rem;
-}
-
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .home-preview .site-nav {
-    display: none !important;
-  }
-
-  .home-preview .site-menu-toggle {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .home-preview .site-mobile-nav {
-    display: block !important;
-  }
-}
-
-@media (max-width: 360px) {
-  .home-preview .site-header__container {
-    padding-inline: 0.75rem;
-  }
-}
-
-@media (max-width: 639px) {
-  .home-preview .site-header__inner {
-    height: 4.5rem;
-  }
-
-  .home-preview .site-logo__wordmark {
-    font-size: 1.625rem;
-  }
-
-  .home-preview .site-header__controls {
-    gap: 0.5rem;
-  }
 }
 
 /* CRT scanlines effect */
@@ -730,7 +724,7 @@ textarea:focus-visible {
    it resolves to the submenu, so the container never sees a mouseleave.
    It inherits the submenu's `visibility: hidden` while closed, so it is inert
    until the menu opens.
-   Height = 0.5rem (the `mt-2` gap) + 2px (the submenu's own `border-2`, which
+   Height = 0.5rem (the `mt-2` gap) + 1px (the submenu's own 1px border, which
    sits between the gap and the padding box the bridge is positioned against).
    It must not grow past that, or the bridge would cover the trigger's bottom
    edge and swallow its clicks. */
@@ -740,7 +734,7 @@ textarea:focus-visible {
   bottom: 100%;
   left: 0;
   right: 0;
-  height: calc(0.5rem + 2px);
+  height: calc(0.5rem + 1px);
 }
 
 /* ==========================================

@@ -22,10 +22,7 @@
 		<!-- inwd Section -->
 		<section id="inwd" class="mb-20 scroll-mt-24">
 			<div class="card-retro bg-surface-dark p-8 lg:p-12">
-				<div class="flex items-center gap-4 mb-6">
-					<span class="text-4xl" aria-hidden="true">🏗️</span>
-					<h2 class="text-3xl font-display uppercase text-white">{t('services.inwd.title')}</h2>
-				</div>
+				<h2 class="text-3xl font-display uppercase text-white mb-6">{t('services.inwd.title')}</h2>
 
 				<img
 					src="/inwd-infra.svg"
@@ -46,7 +43,7 @@
 				<ul class="space-y-2 mb-8">
 					{#each tObj<string[]>('services.inwd.features') || [] as feature}
 						<li class="text-slate-400 font-mono text-sm flex items-start gap-2">
-							<span class="text-primary" aria-hidden="true">✅</span>
+							<span class="text-primary" aria-hidden="true">•</span>
 							{feature}
 						</li>
 					{/each}
@@ -55,8 +52,7 @@
 				<div class="grid md:grid-cols-2 gap-8">
 					<!-- GitOps -->
 					<div class="border-2 border-primary/30 p-6">
-						<h4 class="text-lg font-display uppercase text-primary mb-4 flex items-center gap-2">
-							<span aria-hidden="true">🚀</span>
+						<h4 class="text-lg font-display uppercase text-primary mb-4">
 							{t('services.inwd.gitops.title')}
 						</h4>
 						<ul class="space-y-2">
@@ -68,8 +64,7 @@
 
 					<!-- Security -->
 					<div class="border-2 border-primary/30 p-6">
-						<h4 class="text-lg font-display uppercase text-primary mb-4 flex items-center gap-2">
-							<span aria-hidden="true">🔒</span>
+						<h4 class="text-lg font-display uppercase text-primary mb-4">
 							{t('services.inwd.security.title')}
 						</h4>
 						<ul class="space-y-2">
@@ -81,8 +76,7 @@
 
 					<!-- Observability -->
 					<div class="border-2 border-secondary/30 p-6">
-						<h4 class="text-lg font-display uppercase text-secondary mb-4 flex items-center gap-2">
-							<span aria-hidden="true">📊</span>
+						<h4 class="text-lg font-display uppercase text-secondary mb-4">
 							{t('services.inwd.observability.title')}
 						</h4>
 						<ul class="space-y-2">
@@ -94,8 +88,7 @@
 
 					<!-- Multi-Cloud -->
 					<div class="border-2 border-secondary/30 p-6">
-						<h4 class="text-lg font-display uppercase text-secondary mb-4 flex items-center gap-2">
-							<span aria-hidden="true">🔄</span>
+						<h4 class="text-lg font-display uppercase text-secondary mb-4">
 							{t('services.inwd.multiCloud.title')}
 						</h4>
 						<ul class="space-y-2">
@@ -111,10 +104,7 @@
 		<!-- Linux Migration Section -->
 		<section id="linux" class="mb-20 scroll-mt-24">
 			<div class="card-retro bg-surface-dark p-8 lg:p-12">
-				<div class="flex items-center gap-4 mb-6">
-					<span class="text-4xl" aria-hidden="true">🐧</span>
-					<h2 class="text-3xl font-display uppercase text-white">{t('services.linux.title')}</h2>
-				</div>
+				<h2 class="text-3xl font-display uppercase text-white mb-6">{t('services.linux.title')}</h2>
 
 				<p class="text-xl font-mono text-primary mb-4">{t('services.linux.subtitle')}</p>
 				<p class="text-slate-400 mb-8 leading-relaxed">{t('services.linux.description')}</p>
@@ -122,8 +112,7 @@
 				<div class="grid md:grid-cols-3 gap-8">
 					<!-- Assessment -->
 					<div class="border-2 border-primary/30 p-6">
-						<h4 class="text-lg font-display uppercase text-primary mb-4 flex items-center gap-2">
-							<span aria-hidden="true">📋</span>
+						<h4 class="text-lg font-display uppercase text-primary mb-4">
 							{t('services.linux.assessment.title')}
 						</h4>
 						<ul class="space-y-2">
@@ -135,8 +124,7 @@
 
 					<!-- Transition -->
 					<div class="border-2 border-primary/30 p-6">
-						<h4 class="text-lg font-display uppercase text-primary mb-4 flex items-center gap-2">
-							<span aria-hidden="true">🔄</span>
+						<h4 class="text-lg font-display uppercase text-primary mb-4">
 							{t('services.linux.transition.title')}
 						</h4>
 						<ul class="space-y-2">
@@ -148,8 +136,7 @@
 
 					<!-- Training -->
 					<div class="border-2 border-secondary/30 p-6">
-						<h4 class="text-lg font-display uppercase text-secondary mb-4 flex items-center gap-2">
-							<span aria-hidden="true">🎓</span>
+						<h4 class="text-lg font-display uppercase text-secondary mb-4">
 							{t('services.linux.training.title')}
 						</h4>
 						<ul class="space-y-2">
@@ -165,10 +152,7 @@
 		<!-- Kiosk Section -->
 		<section id="kiosk" class="mb-20 scroll-mt-24">
 			<div class="card-retro bg-surface-dark p-8 lg:p-12">
-				<div class="flex items-center gap-4 mb-6">
-					<span class="text-4xl" aria-hidden="true">🖥️</span>
-					<h2 class="text-3xl font-display uppercase text-white">{t('services.kiosk.title')}</h2>
-				</div>
+				<h2 class="text-3xl font-display uppercase text-white mb-6">{t('services.kiosk.title')}</h2>
 
 				<p class="text-xl font-mono text-primary mb-4">{t('services.kiosk.subtitle')}</p>
 				<p class="text-slate-400 mb-8 leading-relaxed">{t('services.kiosk.description')}</p>
@@ -177,7 +161,7 @@
 					href="/totem"
 					class="btn-retro-primary inline-block text-lg font-bold py-3 px-8 uppercase tracking-widest"
 				>
-					{t('services.kiosk.learnMore')} →
+					{t('services.kiosk.learnMore')} <span aria-hidden="true">→</span>
 				</a>
 			</div>
 		</section>
@@ -185,12 +169,7 @@
 		<!-- Consulting Section -->
 		<section id="consulting" class="mb-20 scroll-mt-24">
 			<div class="card-retro bg-surface-dark p-8 lg:p-12">
-				<div class="flex items-center gap-4 mb-6">
-					<span class="text-4xl" aria-hidden="true">💡</span>
-					<h2 class="text-3xl font-display uppercase text-white">
-						{t('services.consulting.title')}
-					</h2>
-				</div>
+				<h2 class="text-3xl font-display uppercase text-white mb-6">{t('services.consulting.title')}</h2>
 
 				<p class="text-xl font-mono text-secondary mb-8">{t('services.consulting.subtitle')}</p>
 

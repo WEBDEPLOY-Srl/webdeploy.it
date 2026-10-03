@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.24.5] - 2026-10-03
+
+### Changed
+- Rewrote the developer manifesto in English and Italian: direct, concrete
+  statements written by developers for developers instead of generic
+  values-page phrasing. Same sections and commitments; the Italian title is now
+  "Manifesto per chi sviluppa", also in the navigation.
+
+## [1.24.4] - 2026-10-03
+
+### Changed
+- Every page now uses the homepage header: same height, logo, wordmark, nav
+  typography and 1px-bordered controls, with the full nav from 1280px up and
+  the menu toggle below.
+
+## [1.24.3] - 2026-10-03
+
+### Changed
+- Removed the decorative emoji and icon glyphs from headings, lists and the
+  footer across the site; lists use plain bullets. Functional icons (menu
+  toggle, submenu chevrons, map pin) and link arrows stay.
+- The footer shows the contact address as a visible link instead of an icon.
+- Header controls (language switcher and mobile menu toggle) share one 44×44
+  size and style on desktop and mobile.
+
 ## [1.24.2] - 2026-10-02
 
 ### Changed

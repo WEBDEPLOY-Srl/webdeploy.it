@@ -31,21 +31,18 @@
 			<FeatureCard
 				title={t('totem.features.openSource.title')}
 				details={t('totem.features.openSource.details')}
-				icon="🐧"
 				variant="primary"
 				animationDelay={0}
 			/>
 			<FeatureCard
 				title={t('totem.features.windowsFree.title')}
 				details={t('totem.features.windowsFree.details')}
-				icon="🚫"
 				variant="primary"
 				animationDelay={100}
 			/>
 			<FeatureCard
 				title={t('totem.features.developer.title')}
 				details={t('totem.features.developer.details')}
-				icon="🛠️"
 				variant="secondary"
 				animationDelay={200}
 			/>
@@ -63,8 +60,7 @@
 		<div class="grid md:grid-cols-3 gap-8">
 			<!-- Freedom -->
 			<div class="card-retro bg-background-dark p-8 scroll-animate" use:scrollReveal={{ delay: 0 }}>
-				<h3 class="text-xl font-display uppercase text-primary mb-4 flex items-center gap-2">
-					<span aria-hidden="true">🔓</span>
+				<h3 class="text-xl font-display uppercase text-primary mb-4">
 					{t('totem.whyLinux.freedom.title')}
 				</h3>
 				<ul class="space-y-3">
@@ -79,8 +75,7 @@
 
 			<!-- Security -->
 			<div class="card-retro bg-background-dark p-8 scroll-animate" use:scrollReveal={{ delay: 100 }}>
-				<h3 class="text-xl font-display uppercase text-primary mb-4 flex items-center gap-2">
-					<span aria-hidden="true">🔒</span>
+				<h3 class="text-xl font-display uppercase text-primary mb-4">
 					{t('totem.whyLinux.security.title')}
 				</h3>
 				<ul class="space-y-3">
@@ -95,8 +90,7 @@
 
 			<!-- Performance -->
 			<div class="card-retro bg-background-dark p-8 scroll-animate" use:scrollReveal={{ delay: 200 }}>
-				<h3 class="text-xl font-display uppercase text-secondary mb-4 flex items-center gap-2">
-					<span aria-hidden="true">⚡</span>
+				<h3 class="text-xl font-display uppercase text-secondary mb-4">
 					{t('totem.whyLinux.performance.title')}
 				</h3>
 				<ul class="space-y-3">
@@ -135,7 +129,7 @@
 				<ul class="space-y-3">
 					{#each tObj<string[]>('totem.iac.features') || [] as feature}
 						<li class="text-slate-400 text-sm flex items-start gap-2">
-							<span class="text-secondary">✅</span>
+							<span class="text-secondary">•</span>
 							{feature}
 						</li>
 					{/each}
@@ -156,10 +150,7 @@
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 			{#each tObj<string[]>('totem.applications.items') || [] as item}
 				<div class="bg-background-dark border-2 border-primary/30 p-6 hover:border-primary transition-colors">
-					<p class="text-slate-400 flex items-start gap-2">
-						<span class="text-primary">✔️</span>
-						{item}
-					</p>
+					<p class="text-slate-400">{item}</p>
 				</div>
 			{/each}
 		</div>

@@ -47,17 +47,17 @@
 	</article>
 {:else}
 	<div class="card-retro bg-surface-dark p-8 group scroll-animate" use:scrollReveal={{ delay: animationDelay }}>
-		<div
-			class="h-12 w-12 border-2 {borderColor} flex items-center justify-center {textColor} mb-6 {hoverBg} group-hover:text-black transition-colors {shadowClass}"
-		>
-			{#if iconSrc}
-				<img src={iconSrc} alt="" width="28" height="28" loading="lazy" decoding="async" class="w-7 h-7" />
-			{:else if icon}
-				<span class="text-2xl">{icon}</span>
-			{:else}
-				<span class="material-symbols-outlined text-2xl" aria-hidden="true">bolt</span>
-			{/if}
-		</div>
+		{#if iconSrc || icon}
+			<div
+				class="h-12 w-12 border-2 {borderColor} flex items-center justify-center {textColor} mb-6 {hoverBg} group-hover:text-black transition-colors {shadowClass}"
+			>
+				{#if iconSrc}
+					<img src={iconSrc} alt="" width="28" height="28" loading="lazy" decoding="async" class="w-7 h-7" />
+				{:else}
+					<span class="text-2xl" aria-hidden="true">{icon}</span>
+				{/if}
+			</div>
+		{/if}
 		<h3 class="text-xl font-bold font-display text-white mb-3 uppercase tracking-wide">{title}</h3>
 		<p class="text-slate-400 text-sm leading-relaxed">{details}</p>
 	</div>
