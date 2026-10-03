@@ -280,73 +280,73 @@ export const en = {
 
 	// Developer Manifesto
 	manifesto: {
-		title: 'Developer Manifesto',
-		coreBeliefs: 'Our Core Beliefs',
+		title: 'Developer manifesto',
+		coreBeliefs: 'What we stand for',
 		devExp: {
-			title: 'Developer Experience First',
+			title: 'Stop fighting your tools',
 			description:
-				"We believe that happy developers create exceptional software. When developers have the right tools, clear documentation, and friction-free workflows, they produce their best work. Everything we build starts with the question: \"How can we make the developer's life better?\""
+				'We build software and infrastructure for developers. Clear docs, useful tools, fewer obstacles in your workflow. Your stack should help you get work done.'
 		},
 		openSource: {
-			title: 'Open Source is Our Foundation',
+			title: 'FOSS is the starting point',
 			description:
-				'Open source software empowers innovation, transparency, and collaboration. We choose open source not just for cost savings, but because it represents freedom, community, and the collective advancement of technology. Our commitment to FOSS drives every technical decision we make.'
+				'We choose FOSS for the freedom to inspect, modify and share software. Cost is only part of it. That freedom guides our technical decisions.'
 		},
 		workLife: {
-			title: 'Work-Life Balance, Redefined',
+			title: 'Burnout is not a feature',
 			description:
-				'We reject the myth that great software requires sacrificing your personal life. True productivity comes from sustainable practices, not burnout.',
+				'Good software shouldn\'t cost you your life outside work. We want a way of working we can keep up.',
 			items: [
-				'Work wherever you feel productive - office, home, coffee shop, or a beach in Bali',
-				"Work whenever you're at your best - morning person or night owl, we adapt to your rhythm",
-				'But manage yourself, coder! - freedom comes with responsibility and self-discipline'
+				'Work where you get things done: at the office, at home, or elsewhere.',
+				'Work when you\'re at your best. We adapt to your rhythm.',
+				'Manage your own work. Freedom comes with responsibility.'
 			],
-			note: "This isn't naive flexibility - it's mature trust in professionals who understand that delivering quality work matters more than clocking hours."
+			note: 'We trust you. Good work matters more than hours on the clock.'
 		},
-		techPhilosophy: 'Our Technical Philosophy',
+		techPhilosophy: 'How we build',
 		quality: {
-			title: 'Quality Over Speed',
+			title: 'Think about the next change',
 			description:
-				'We build software that lasts. Rush jobs create technical debt, frustrated users, and stressed developers. We invest time upfront to save countless hours later.'
+				'We build software to last. Rushing the code leaves technical debt for the next change. We put the work in upfront.'
 		},
 		docs: {
-			title: 'Documentation as Code',
+			title: 'Docs as code',
 			description:
-				"If it's not documented, it doesn't exist. Clear, comprehensive documentation is not an afterthought - it's an integral part of every feature we ship."
+				'Documentation is part of every feature we ship. RTFM only works if we\'ve written a manual worth reading.'
 		},
 		tools: {
-			title: 'Tools That Empower',
+			title: 'Automate the repetitive work',
 			description:
-				'We invest in developer tooling, automation, and infrastructure that eliminates repetitive tasks and lets developers focus on solving real problems.'
+				'We invest in tooling, automation and infrastructure to get repetitive tasks out of the way. If you keep doing the same thing by hand, a script should probably be doing it.'
 		},
 		community: {
-			title: 'Community Over Competition',
+			title: 'Give back to FOSS',
 			description:
-				'We contribute back to the open source ecosystem that enables our work. Knowledge shared is knowledge multiplied.'
+				'Our work depends on open source. We contribute back and share what we know.'
 		},
-		howWeWork: 'How We Work',
+		howWeWork: 'How we work',
 		purpose: {
-			title: 'Purpose-Driven Development',
+			title: 'Solve a problem. Then write code.',
 			description:
-				'Every line of code serves a purpose. We build features users actually need, not vanity metrics that look good in meetings.'
+				'We build features people need. Code has to earn its place by solving a problem, not by making a slide deck look busy.'
 		},
 		iterative: {
-			title: 'Iterative Excellence',
+			title: 'Ship. Learn. Repeat.',
 			description:
-				"Don't let the perfect be the enemy of the good. With CI/CD we release frequently, gather feedback, and improve with every iteration."
+				'We use CI/CD to release often, get feedback and improve. Software gets better when people can use it and tell us where it falls short.'
 		},
 		learning: {
-			title: 'Continuous Learning',
+			title: 'Make time to learn',
 			description:
-				'Technology evolves rapidly. We allocate time for learning, experimentation, and staying current with industry best practices.'
+				'We make time to learn, experiment and understand the tools we use.'
 		},
 		growth: {
-			title: 'Sustainable Growth',
+			title: 'Grow at a pace we can sustain',
 			description:
-				'We grow at a pace that maintains our values. Scaling fast at the expense of culture or code quality is not success - it\'s a shortcut to failure.'
+				'We won\'t trade how we work or the quality of our code for faster growth. A bigger company with worse software is a bad upgrade.'
 		},
-		cta: 'Ready to work with developers who prioritize your experience?',
-		getInTouch: 'Get in touch'
+		cta: 'Building something? Tell us where the stack gets in your way.',
+		getInTouch: 'Talk to us'
 	},
 
 	// Contacts
