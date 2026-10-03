@@ -154,18 +154,18 @@
 </script>
 
 <header
-    class="site-header sticky top-0 z-40 w-full bg-background-dark/95 border-b-2 border-primary/30 backdrop-blur-sm"
+    class="site-header sticky top-0 z-40 w-full backdrop-blur-sm"
 >
-    <div class="site-header__container max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="site-header__inner flex items-center justify-between h-20">
+    <div class="site-header__container max-w-7xl mx-auto">
+        <div class="site-header__inner flex items-center justify-between">
             <!-- Logo -->
             <a
                 href="/"
-                class="site-logo flex items-center gap-3 group"
+                class="site-logo flex items-center group"
                 onclick={closeMobileMenu}
             >
                 <div
-                    class="flex items-center justify-center border-2 border-primary p-1 group-hover:bg-primary transition-colors"
+                    class="flex items-center justify-center border border-primary group-hover:bg-primary transition-colors"
                 >
                     <img
                         src="/webdeploy-icon.png"
@@ -176,14 +176,14 @@
                     />
                 </div>
                 <span
-                    class="site-logo__wordmark text-3xl font-display font-bold tracking-widest text-white uppercase group-hover:text-primary transition-colors"
+                    class="site-logo__wordmark font-display font-bold text-white uppercase group-hover:text-primary transition-colors"
                 >
-                    WebDeploy<span class="animate-pulse">_</span>
+                    WebDeploy_
                 </span>
             </a>
 
             <!-- Desktop Navigation -->
-            <nav class="site-nav hidden lg:flex gap-8" aria-label={t("nav.mainNavigation")}>
+            <nav class="site-nav hidden xl:flex" aria-label={t("nav.mainNavigation")}>
                 <!-- Products Dropdown -->
                 <div
                     class="relative dropdown-container"
@@ -193,14 +193,13 @@
                     onfocusout={closeDropdownsOnFocusOut}
                 >
                     <button
-                        class="text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-secondary transition-all flex items-center gap-1 min-h-[44px]"
+                        class="transition-all flex items-center gap-1"
                         aria-expanded={productsDropdownOpen}
                         aria-haspopup="true"
                         aria-controls="products-menu"
                         onclick={() => toggleDropdown("products")}
                         onkeydown={(e) => handleDropdownKeydown(e, "products")}
                     >
-                        <span class="nav-prompt" aria-hidden="true">&gt;</span>
                         {t("nav.products")}
                         <span
                             class="material-symbols-outlined text-sm"
@@ -211,14 +210,14 @@
                         id="products-menu"
                         role="menu"
                         aria-label={t("nav.productsSubmenu")}
-                        class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[200px] transition-[opacity,transform] duration-200 origin-top ease-out-quint {productsDropdownOpen
+                        class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark min-w-[200px] transition-[opacity,transform] duration-200 origin-top ease-out-quint {productsDropdownOpen
                             ? 'opacity-100 visible translate-y-0'
                             : 'opacity-0 invisible -translate-y-2'}"
                     >
                         <a
                             href="/totem"
                             role="menuitem"
-                            class="block px-4 py-3 text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 border-b border-slate-700 min-h-[44px] flex items-center"
+                            class="block px-4 py-3 hover:bg-primary/10 border-b border-slate-700 min-h-[44px] flex items-center"
                             onclick={closeAllDropdowns}
                             onkeydown={handleMenuItemKeydown}
                         >
@@ -229,9 +228,8 @@
 
                 <a
                     href="/news"
-                    class="text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-secondary hover:underline decoration-2 underline-offset-4 transition-all min-h-[44px] flex items-center"
+                    class="hover:underline decoration-2 underline-offset-4 transition-all flex items-center"
                 >
-                    <span class="nav-prompt" aria-hidden="true">&gt;</span>
                     {t("nav.news")}
                 </a>
 
@@ -244,14 +242,13 @@
                     onfocusout={closeDropdownsOnFocusOut}
                 >
                     <button
-                        class="text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-secondary transition-all flex items-center gap-1 min-h-[44px]"
+                        class="transition-all flex items-center gap-1"
                         aria-expanded={servicesDropdownOpen}
                         aria-haspopup="true"
                         aria-controls="services-menu"
                         onclick={() => toggleDropdown("services")}
                         onkeydown={(e) => handleDropdownKeydown(e, "services")}
                     >
-                        <span class="nav-prompt" aria-hidden="true">&gt;</span>
                         {t("nav.services")}
                         <span
                             class="material-symbols-outlined text-sm"
@@ -262,14 +259,14 @@
                         id="services-menu"
                         role="menu"
                         aria-label={t("nav.servicesSubmenu")}
-                        class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark border-2 border-primary/30 min-w-[250px] transition-[opacity,transform] duration-200 origin-top ease-out-quint {servicesDropdownOpen
+                        class="dropdown-menu absolute top-full left-0 mt-2 bg-surface-dark min-w-[250px] transition-[opacity,transform] duration-200 origin-top ease-out-quint {servicesDropdownOpen
                             ? 'opacity-100 visible translate-y-0'
                             : 'opacity-0 invisible -translate-y-2'}"
                     >
                         <a
                             href="/services#inwd"
                             role="menuitem"
-                            class="block px-4 py-3 text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 border-b border-slate-700 min-h-[44px] flex items-center"
+                            class="block px-4 py-3 hover:bg-primary/10 border-b border-slate-700 min-h-[44px] flex items-center"
                             onclick={closeAllDropdowns}
                             onkeydown={handleMenuItemKeydown}
                         >
@@ -278,7 +275,7 @@
                         <a
                             href="/services#linux"
                             role="menuitem"
-                            class="block px-4 py-3 text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 border-b border-slate-700 min-h-[44px] flex items-center"
+                            class="block px-4 py-3 hover:bg-primary/10 border-b border-slate-700 min-h-[44px] flex items-center"
                             onclick={closeAllDropdowns}
                             onkeydown={handleMenuItemKeydown}
                         >
@@ -289,28 +286,26 @@
 
                 <a
                     href="/developer-manifesto"
-                    class="text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-secondary hover:underline decoration-2 underline-offset-4 transition-all min-h-[44px] flex items-center"
+                    class="hover:underline decoration-2 underline-offset-4 transition-all flex items-center"
                 >
-                    <span class="nav-prompt" aria-hidden="true">&gt;</span>
                     {t("nav.manifesto")}
                 </a>
 
                 <a
                     href="/contacts"
-                    class="text-sm font-bold uppercase tracking-widest text-slate-400 hover:text-secondary hover:underline decoration-2 underline-offset-4 transition-all min-h-[44px] flex items-center"
+                    class="hover:underline decoration-2 underline-offset-4 transition-all flex items-center"
                 >
-                    <span class="nav-prompt" aria-hidden="true">&gt;</span>
                     {t("nav.contacts")}
                 </a>
             </nav>
 
             <!-- Right side: Language switcher + Mobile menu -->
-            <div class="site-header__controls flex items-center gap-4">
+            <div class="site-header__controls flex items-center">
                 <LanguageSwitcher />
 
                 <!-- Mobile menu button -->
                 <button
-                    class="site-menu-toggle header-control lg:hidden"
+                    class="site-menu-toggle header-control xl:hidden"
                     onclick={toggleMobileMenu}
                     aria-label={mobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
                     aria-expanded={mobileMenuOpen}
@@ -328,51 +323,45 @@
     {#if mobileMenuOpen}
         <nav
             id="mobile-menu"
-            class="site-mobile-nav lg:hidden bg-surface-dark border-t-2 border-primary/30 overflow-hidden"
+            class="site-mobile-nav xl:hidden bg-surface-dark overflow-hidden"
             aria-label={t("nav.mobileNavigation")}
             transition:slide={{ duration: 250, easing: quintOut }}
         >
             <div class="px-4 py-4 space-y-1">
                 <a
                     href="/totem"
-                    class="block px-4 py-4 min-h-[48px] text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center"
+                    class="block px-4 hover:bg-primary/10 flex items-center"
                     onclick={closeMobileMenu}
                 >
-                    <span class="nav-prompt" aria-hidden="true">&gt;</span>&nbsp;{t("nav.kiosk")}
+                    {t("nav.kiosk")}
                 </a>
                 <a
                     href="/news"
-                    class="block px-4 py-4 min-h-[48px] text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center"
+                    class="block px-4 hover:bg-primary/10 flex items-center"
                     onclick={closeMobileMenu}
                 >
-                    <span class="nav-prompt" aria-hidden="true">&gt;</span>&nbsp;{t("nav.news")}
+                    {t("nav.news")}
                 </a>
                 <a
                     href="/services"
-                    class="block px-4 py-4 min-h-[48px] text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center"
+                    class="block px-4 hover:bg-primary/10 flex items-center"
                     onclick={closeMobileMenu}
                 >
-                    <span class="nav-prompt" aria-hidden="true">&gt;</span>&nbsp;{t(
-                        "nav.services",
-                    )}
+                    {t("nav.services")}
                 </a>
                 <a
                     href="/developer-manifesto"
-                    class="block px-4 py-4 min-h-[48px] text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center"
+                    class="block px-4 hover:bg-primary/10 flex items-center"
                     onclick={closeMobileMenu}
                 >
-                    <span class="nav-prompt" aria-hidden="true">&gt;</span>&nbsp;{t(
-                        "nav.manifesto",
-                    )}
+                    {t("nav.manifesto")}
                 </a>
                 <a
                     href="/contacts"
-                    class="block px-4 py-4 min-h-[48px] text-sm font-mono text-slate-400 hover:text-primary hover:bg-primary/10 flex items-center"
+                    class="block px-4 hover:bg-primary/10 flex items-center"
                     onclick={closeMobileMenu}
                 >
-                    <span class="nav-prompt" aria-hidden="true">&gt;</span>&nbsp;{t(
-                        "nav.contacts",
-                    )}
+                    {t("nav.contacts")}
                 </a>
             </div>
         </nav>
