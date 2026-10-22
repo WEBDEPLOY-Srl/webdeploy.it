@@ -687,7 +687,7 @@ export const en = {
 				'Put WAF rules for the known exploit vectors in front of the site: Cloudflare has deployed them for all plans'
 			],
 			mitigationNote:
-				'For systems that cannot be patched quickly, the UK NCSC advises taking them offline until they can be.',
+				'Where an immediate update is not feasible, CERT-EU, the cybersecurity service of the EU institutions, recommends isolating internet-facing systems from public networks until the fix is applied and verified.',
 			sourcesTitle: 'Sources and further reading',
 			sources: [
 				{ label: 'PHP security advisory (php.net)', url: 'https://www.php.net/archive/2026.php#2026-10-21-5' },
