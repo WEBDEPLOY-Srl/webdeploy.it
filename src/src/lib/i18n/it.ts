@@ -625,6 +625,54 @@ export const it = {
 			communityDescription:
 				'Ciò che rende il FOSDEM speciale non è solo il contenuto tecnico, ma la comunità stessa. Conversazioni nei corridoi, incontri spontanei e la comprensione condivisa che l\'open source è più del codice - è un movimento collaborativo. Incontrare maintainer di progetti che usiamo quotidianamente, discutere sfide con colleghi che affrontano problemi simili e scoprire nuove soluzioni a vecchi problemi - questo è ciò che ci fa tornare anno dopo anno.',
 			visitFosdem: 'Visita il FOSDEM'
+		},
+		php2shell: {
+			title: 'PHP2Shell: vulnerabilità critiche in PHP, aggiornate subito',
+			imageAlt:
+				'Finestra di terminale con l\'avviso per CVE-2026-109618 e CVE-2026-109619',
+			date: '22/10/2026',
+			description:
+				'Due vulnerabilità critiche di PHP, CVE-2026-109618 e CVE-2026-109619, consentono l\'esecuzione di codice da remoto senza autenticazione e sono già sfruttate. Stiamo aggiornando i sistemi che gestiamo.',
+			intro:
+				'Il 21 ottobre 2026 il progetto PHP ha rilasciato aggiornamenti di sicurezza per due vulnerabilità critiche, soprannominate PHP2Shell. I dettagli sono trapelati online il giorno prima della divulgazione coordinata e i primi tentativi di sfruttamento sono stati osservati prima ancora che le patch fossero pubbliche. Qualsiasi server che usa PHP per rispondere a richieste web va considerato esposto finché non viene aggiornato.',
+			whatTitle: 'Cos\'è PHP2Shell',
+			whatDescription:
+				'PHP2Shell indica due bug distinti nel motore di PHP, entrambi classificati come critici (CVSS v4.0 9.2). Può bastare una sola richiesta HTTP non autenticata per eseguire codice sul server con i privilegi del processo web, prima ancora che parta il codice dell\'applicazione: non servono credenziali, plugin o applicazioni vulnerabili.',
+			cves: [
+				'CVE-2026-109618: esecuzione di codice da remoto tramite corruzione della memoria, quando PHP esaurisce la memoria mentre i dati della richiesta sono inizializzati solo in parte.',
+				'CVE-2026-109619: esecuzione di codice da remoto tramite uno stato globale che sopravvive dopo che la sua memoria è stata liberata; può anche esporre la memoria del processo PHP.'
+			],
+			affectedTitle: 'Chi è coinvolto',
+			affectedDescription:
+				'Tutte le installazioni PHP che servono richieste web, qualunque sia l\'applicazione: WordPress, Laravel, Symfony, PrestaShop o codice sviluppato su misura.',
+			affectedList: [
+				'Apache con mod_php, la configurazione più esposta',
+				'PHP-FPM e php-cgi dietro Nginx o Apache',
+				'FrankenPHP e LiteSpeed',
+				'PHP 8.1 e versioni precedenti, non più supportate: nessun rilascio ufficiale, solo backport minimi in sorgente per 7.4, 8.0 e 8.1 o pacchetti dei fornitori'
+			],
+			fixedTitle: 'Versioni corrette',
+			fixedDescription:
+				'Aggiornate PHP a una di queste versioni, oppure al pacchetto corretto pubblicato dalla vostra distribuzione Linux o dal vostro fornitore LTS:',
+			fixedList: [
+				'PHP 8.5.12',
+				'PHP 8.4.27',
+				'PHP 8.3.36',
+				'PHP 8.2.35 (il supporto a PHP 8.2 termina il 31 dicembre 2026)'
+			],
+			customersTitle: 'Cosa stiamo facendo per i nostri clienti',
+			customersDescription:
+				'Stiamo aggiornando PHP su tutti i server e i servizi di hosting che gestiamo. L\'intervento richiede una breve finestra di manutenzione urgente: stiamo contattando direttamente ogni cliente per concordarne i tempi.',
+			customersList: [
+				'Aggiornamento a una versione di PHP corretta o al pacchetto aggiornato della distribuzione',
+				'Riavvio dei servizi e verifica del corretto funzionamento di ogni sito e applicazione',
+				'Analisi dei log del web server alla ricerca di tentativi di sfruttamento',
+				'Per i sistemi con versioni di PHP non più supportate, un piano di aggiornamento concordato con il cliente'
+			],
+			selfManagedTitle: 'Se gestite i vostri server in autonomia',
+			selfManagedDescription:
+				'Aggiornate subito. Se un sistema non può essere aggiornato immediatamente, l\'NCSC britannico consiglia di metterlo offline finché non sarà possibile farlo. Le regole WAF, come quelle già distribuite da Cloudflare, riducono l\'esposizione agli exploit noti ma non sostituiscono l\'aggiornamento. Se vi serve supporto, contattateci.',
+			visitAdvisory: 'Leggi l\'annuncio di PHP'
 		}
 	},
 

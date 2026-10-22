@@ -22,6 +22,14 @@
 		<!-- News Grid -->
 		<div class="grid md:grid-cols-2 gap-8">
 			<NewsCard
+				title={t('news.php2shell.title')}
+				date={t('news.php2shell.date')}
+				image="/news-php2shell.svg"
+				href="/news/php2shell-cve-2026-109618-109619"
+				description={t('news.php2shell.description')}
+			/>
+
+			<NewsCard
 				title={t('news.openSourceRelease.title')}
 				date={t('news.openSourceRelease.date')}
 				image="/open-source-release.jpg"

@@ -623,6 +623,54 @@ export const en = {
 			communityDescription:
 				'What makes FOSDEM special is not just the technical content, but the community itself. Hallway conversations, spontaneous meetups, and the shared understanding that open source is more than code - it\'s a collaborative movement. Meeting maintainers of projects we use daily, discussing challenges with peers facing similar issues, and discovering new solutions to old problems - this is what keeps us coming back year after year.',
 			visitFosdem: 'Visit FOSDEM'
+		},
+		php2shell: {
+			title: 'PHP2Shell: critical PHP vulnerabilities, update now',
+			imageAlt:
+				'Terminal window warning about CVE-2026-109618 and CVE-2026-109619',
+			date: '22/10/2026',
+			description:
+				'Two critical PHP flaws, CVE-2026-109618 and CVE-2026-109619, allow unauthenticated remote code execution and are already being exploited. We are patching the systems we manage.',
+			intro:
+				'On 21 October 2026 the PHP project released security updates for two critical vulnerabilities, nicknamed PHP2Shell. Details leaked online the day before the coordinated disclosure, and exploitation attempts were seen before the patches were public. Treat any server that runs PHP to serve web requests as exposed until it is updated.',
+			whatTitle: 'What PHP2Shell is',
+			whatDescription:
+				'PHP2Shell is two separate bugs in the PHP engine, both rated critical (CVSS v4.0 9.2). A single unauthenticated HTTP request can be enough to run code on the server with the privileges of the web worker, before any application code runs: no login, plugin or vulnerable application is needed.',
+			cves: [
+				'CVE-2026-109618: remote code execution through memory corruption when PHP runs out of memory while request data is only partly initialised.',
+				'CVE-2026-109619: remote code execution through global state that survives after its memory has been freed; it can also leak memory from the PHP worker process.'
+			],
+			affectedTitle: 'Who is affected',
+			affectedDescription:
+				'Every PHP installation that serves web requests, whatever runs on top of it: WordPress, Laravel, Symfony, PrestaShop or custom code.',
+			affectedList: [
+				'Apache with mod_php, the most exposed setup',
+				'PHP-FPM and php-cgi behind Nginx or Apache',
+				'FrankenPHP and LiteSpeed',
+				'PHP 8.1 and earlier, which are end of life: no official release, only minimal source backports for 7.4, 8.0 and 8.1 or vendor packages'
+			],
+			fixedTitle: 'Fixed versions',
+			fixedDescription:
+				'Update PHP to one of these releases, or to the patched package from your Linux distribution or LTS vendor:',
+			fixedList: [
+				'PHP 8.5.12',
+				'PHP 8.4.27',
+				'PHP 8.3.36',
+				'PHP 8.2.35 (PHP 8.2 reaches end of life on 31 December 2026)'
+			],
+			customersTitle: 'What we are doing for our customers',
+			customersDescription:
+				'We are updating PHP on every server and hosting service we manage. The work needs a short, urgent maintenance window, and we are contacting each customer directly to agree on the timing.',
+			customersList: [
+				'Update to a fixed PHP release or to the patched distribution package',
+				'Service restart and checks that each site and application still works',
+				'Review of web server logs for signs of exploitation attempts',
+				'For systems on unsupported PHP versions, an upgrade plan agreed with the customer'
+			],
+			selfManagedTitle: 'If you manage your own servers',
+			selfManagedDescription:
+				'Update now. If a system cannot be patched right away, the UK NCSC advises taking it offline until it can be. WAF rules, such as those Cloudflare has deployed, reduce exposure to known exploits but do not replace the update. If you need help, contact us.',
+			visitAdvisory: 'Read the PHP announcement'
 		}
 	},
 
