@@ -635,7 +635,7 @@ export const en = {
 				'On 21 October 2026 the PHP project released security updates for two critical vulnerabilities, nicknamed PHP2Shell. Details leaked online the day before the coordinated disclosure, and security vendors report exploitation attempts in the wild. Treat any server that runs PHP to serve web requests as exposed until it is updated.',
 			whatTitle: 'What PHP2Shell is',
 			whatDescription:
-				'PHP2Shell is two separate bugs in the PHP engine, both rated critical (CVSS v4.0 9.2). A single unauthenticated HTTP request can be enough to run code on the server with the privileges of the web worker, before any application code runs: no login, plugin or vulnerable application is needed.',
+				'PHP2Shell is the name for two separate bugs in the PHP engine, both rated critical (CVSS v4.0 9.2). A single unauthenticated HTTP request can be enough to run code on the server with the privileges of the web worker, before any application code runs: no login, plugin or vulnerable application is needed.',
 			cves: [
 				'CVE-2026-109618: remote code execution through memory corruption when PHP runs out of memory while request data is only partly initialised.',
 				'CVE-2026-109619: remote code execution through global state that survives after its memory has been freed; it can also leak memory from the PHP worker process.'
