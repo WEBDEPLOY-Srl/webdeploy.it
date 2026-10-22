@@ -631,7 +631,7 @@ export const it = {
 		php2shell: {
 			title: 'PHP2Shell: RCE senza login nel core di PHP, patcha subito',
 			imageAlt:
-				'Finestra di terminale con l\'avviso per CVE-2026-109618 e CVE-2026-109619',
+				'Illustrazione ad acquerello: un elefante gigante rattoppato si nasconde tra rack di server coperti di rampicanti con spie rosse accese, mentre un giovane elfo lo indica tenendo per mano una compagna',
 			date: '22/10/2026',
 			description:
 				'CVE-2026-109618 e CVE-2026-109619: due bug nel motore di PHP danno esecuzione di codice sul server con una sola richiesta HTTP, senza login. WordPress, Drupal, Magento e quasi tutto lo stack PHP sono esposti. Versioni fixate, backport per PHP 7 e mitigazioni.',

@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   link for the link sticker. On a computer it copies the link and explains that
   Stories are created from the phone app.
 - The share buttons are one shared component instead of a copy in every post.
+- The PHP2Shell post uses an illustrated featured image (elephant hiding
+  among server racks) instead of the terminal graphic.
 
 ## [1.26.2] - 2026-10-22
 
