@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { locale } from '$lib/stores/locale.svelte';
+	import { locale, availableLocales } from '$lib/stores/locale.svelte';
 
 	interface Props {
 		title: string;
@@ -47,7 +47,9 @@
 	<meta property="og:image" content={fullImageUrl} />
 	<meta property="og:site_name" content={siteName} />
 	<meta property="og:locale" content={ogLocale} />
-	<meta property="og:locale:alternate" content={alternateLocale} />
+	{#if availableLocales.length > 1}
+		<meta property="og:locale:alternate" content={alternateLocale} />
+	{/if}
 
 	{#if type === 'article' && publishedTime}
 		<meta property="article:published_time" content={publishedTime} />

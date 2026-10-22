@@ -3,6 +3,14 @@ import { logI18n } from '$lib/utils/logger';
 
 export type Locale = 'en' | 'it';
 
+// Italian is archived: its translations stay in it.ts, but the site serves English only.
+// Add 'it' back here to re-enable it.
+export const availableLocales: readonly Locale[] = ['en'];
+
+function isAvailable(value: string | null): value is Locale {
+	return availableLocales.includes(value as Locale);
+}
+
 const COOKIE_NAME = 'nf_lang';
 const COOKIE_EXPIRY = new Date('2030-01-01');
 
@@ -22,13 +30,13 @@ function detectLocale(): Locale {
 
 	// 1. Check cookie first
 	const cookieLocale = getCookie(COOKIE_NAME);
-	if (cookieLocale === 'en' || cookieLocale === 'it') {
+	if (isAvailable(cookieLocale)) {
 		return cookieLocale;
 	}
 
 	// 2. Check browser language
 	const browserLang = navigator.language.toLowerCase();
-	if (browserLang.startsWith('it')) {
+	if (browserLang.startsWith('it') && isAvailable('it')) {
 		return 'it';
 	}
 
@@ -46,6 +54,7 @@ class LocaleStore {
 	}
 
 	setLocale(locale: Locale) {
+		if (!isAvailable(locale)) return;
 		this.current = locale;
 		setCookie(COOKIE_NAME, locale);
 		logI18n.log(`Locale changed to: ${locale}`);
