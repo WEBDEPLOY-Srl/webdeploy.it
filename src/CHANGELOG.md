@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.26.0] - 2026-10-22
+
+### Changed
+- The Italian version of the site is archived: the site is served in English
+  only and the language switcher is hidden. Italian translations stay in
+  `it.ts`; adding `'it'` back to `availableLocales` re-enables them.
+
+## [1.25.1] - 2026-10-22
+
+### Changed
+- The PHP2Shell news post now covers the popular software affected, the
+  official source backports for PHP 7.4, 8.0 and 8.1, temporary mitigations
+  and links to the PHP, GitHub and CERT-EU advisories. It no longer describes
+  our own maintenance work. The Italian copy is rewritten in the site's
+  direct, developer-to-developer voice.
+
+## [1.25.0] - 2026-10-22
+
+### Added
+- News post in English and Italian on PHP2Shell (CVE-2026-109618 and
+  CVE-2026-109619): what the two critical PHP vulnerabilities are, who is
+  affected, the fixed PHP releases and the urgent maintenance we are running
+  for customers.
+
 ## [1.24.5] - 2026-10-03
 
 ### Changed

@@ -35,9 +35,15 @@
   <!-- News -->
   <url>
     <loc>https://webdeploy.it/news</loc>
-    <lastmod>2026-04-17</lastmod>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://webdeploy.it/news/php2shell-cve-2026-109618-109619</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://webdeploy.it/news/open-source-release</loc>

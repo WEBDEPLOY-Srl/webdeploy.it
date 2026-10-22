@@ -1,6 +1,7 @@
 <script lang="ts">
     import { t, locale } from "$lib/i18n";
     import LanguageSwitcher from "./LanguageSwitcher.svelte";
+    import { availableLocales } from "$lib/stores/locale.svelte";
     import { slide } from "svelte/transition";
     import { quintOut } from "svelte/easing";
     import { onDestroy, tick } from "svelte";
@@ -301,7 +302,9 @@
 
             <!-- Right side: Language switcher + Mobile menu -->
             <div class="site-header__controls flex items-center">
-                <LanguageSwitcher />
+                {#if availableLocales.length > 1}
+                    <LanguageSwitcher />
+                {/if}
 
                 <!-- Mobile menu button -->
                 <button

@@ -623,6 +623,81 @@ export const en = {
 			communityDescription:
 				'What makes FOSDEM special is not just the technical content, but the community itself. Hallway conversations, spontaneous meetups, and the shared understanding that open source is more than code - it\'s a collaborative movement. Meeting maintainers of projects we use daily, discussing challenges with peers facing similar issues, and discovering new solutions to old problems - this is what keeps us coming back year after year.',
 			visitFosdem: 'Visit FOSDEM'
+		},
+		php2shell: {
+			title: 'PHP2Shell: critical PHP vulnerabilities, update now',
+			imageAlt:
+				'Terminal window warning about CVE-2026-109618 and CVE-2026-109619',
+			date: '22/10/2026',
+			description:
+				'Two critical PHP flaws, CVE-2026-109618 and CVE-2026-109619, allow unauthenticated remote code execution on WordPress, Drupal, Magento and almost any other PHP site. What is affected, which versions fix it and what to do with PHP 7.',
+			intro:
+				'On 21 October 2026 the PHP project released security updates for two critical vulnerabilities, nicknamed PHP2Shell. Details leaked online the day before the coordinated disclosure, and security vendors report exploitation attempts in the wild. Treat any server that runs PHP to serve web requests as exposed until it is updated.',
+			whatTitle: 'What PHP2Shell is',
+			whatDescription:
+				'PHP2Shell is two separate bugs in the PHP engine, both rated critical (CVSS v4.0 9.2). A single unauthenticated HTTP request can be enough to run code on the server with the privileges of the web worker, before any application code runs: no login, plugin or vulnerable application is needed.',
+			cves: [
+				'CVE-2026-109618: remote code execution through memory corruption when PHP runs out of memory while request data is only partly initialised.',
+				'CVE-2026-109619: remote code execution through global state that survives after its memory has been freed; it can also leak memory from the PHP worker process.'
+			],
+			appsTitle: 'Popular software affected',
+			appsDescription:
+				'The flaw is in PHP itself, so every application running on a vulnerable PHP version is exposed. Researchers have reported unauthenticated code execution against:',
+			appsList: [
+				'CMS: WordPress, Drupal, Joomla, MediaWiki',
+				'E-commerce: Magento (Adobe Commerce)',
+				'Collaboration and webmail: Nextcloud, Roundcube',
+				'Administration and billing: phpMyAdmin, WHMCS',
+				'Frameworks: Laravel, Symfony and the applications built on them'
+			],
+			appsNote:
+				'Updating WordPress, Drupal, Nextcloud or any other application does not fix the problem: PHP has to be updated on the server.',
+			runtimesTitle: 'Affected setups',
+			runtimesList: [
+				'Apache with mod_php, the most exposed setup',
+				'PHP-FPM and php-cgi behind Nginx or Apache',
+				'FrankenPHP and LiteSpeed'
+			],
+			fixedTitle: 'Fixed versions',
+			fixedDescription:
+				'Update PHP to one of these releases, or to the patched package from your Linux distribution:',
+			fixedList: [
+				'PHP 8.5.12',
+				'PHP 8.4.27',
+				'PHP 8.3.36',
+				'PHP 8.2.35 (PHP 8.2 reaches end of life on 31 December 2026)'
+			],
+			legacyTitle: 'PHP 7.4, 8.0 and 8.1',
+			legacyDescription:
+				'These branches are end of life and will not get an official release. The PHP security team has still published minimal source backports of the fix, for those who build PHP from source:',
+			legacyLinks: [
+				{ label: 'PHP 7.4', url: 'https://github.com/php/php-src/tree/PHP-7.4-CVE-2026-109618-109619' },
+				{ label: 'PHP 8.0', url: 'https://github.com/php/php-src/tree/PHP-8.0-CVE-2026-109618-109619' },
+				{ label: 'PHP 8.1', url: 'https://github.com/php/php-src/tree/PHP-8.1-CVE-2026-109618-109619' }
+			],
+			legacyNote:
+				'If you use distribution packages, check your vendor\'s advisories or an extended support provider for patched builds. PHP 5.4 to 7.3 get no fix at all: the only way out is upgrading to a supported version.',
+			mitigationTitle: 'If you cannot update right away',
+			mitigationDescription:
+				'The PHP advisory lists temporary measures that reduce exposure. They do not make an unpatched server safe:',
+			mitigationList: [
+				'Set session.upload_progress.enabled = 0 in php.ini or in the FPM pool (not with ini_set() or .user.ini) and restart every worker',
+				'Lower post_max_size to 8M, or 32M if uploads are needed, keeping upload_max_filesize below it',
+				'On PHP 8.5, set fatal_error_backtraces = 0',
+				'Put WAF rules for the known exploit vectors in front of the site: Cloudflare has deployed them for all plans'
+			],
+			mitigationNote:
+				'For systems that cannot be patched quickly, the UK NCSC advises taking them offline until they can be.',
+			sourcesTitle: 'Sources and further reading',
+			sources: [
+				{ label: 'PHP security advisory (php.net)', url: 'https://www.php.net/archive/2026.php#2026-10-21-5' },
+				{ label: 'GHSA-w8hw-w9fx-j79w: CVE-2026-109618', url: 'https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w' },
+				{ label: 'GHSA-6wmf-4rv5-p3rp: CVE-2026-109619', url: 'https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp' },
+				{ label: 'CERT-EU security advisory 2026-018', url: 'https://cert.europa.eu/publications/security-advisories/2026-018/' },
+				{ label: 'PHP2Shell research site', url: 'https://www.php2shell.com/' },
+				{ label: 'watchTowr: PHP2Shell FAQ', url: 'https://watchtowr.com/intelligence/php-cve-2026-109618-faq/' }
+			],
+			visitAdvisory: 'Read the PHP advisory'
 		}
 	},
 
