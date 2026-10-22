@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The PHP2Shell news post now covers the popular software affected, the
   official source backports for PHP 7.4, 8.0 and 8.1, temporary mitigations
   and links to the PHP, GitHub and CERT-EU advisories. It no longer describes
-  our own maintenance work. Refined the Italian copy.
+  our own maintenance work. The Italian copy is rewritten in the site's
+  direct, developer-to-developer voice.
 
 ## [1.25.0] - 2026-10-22
 
