@@ -119,6 +119,18 @@
 	}
 
 	/**
+	 * Adds Matomo campaign parameters, so visits from Instagram are attributed even
+	 * when the in-app browser sends no referrer: campaign news-<slug>, keyword = placement.
+	 */
+	function campaignUrl(articleUrl: string, keyword: string): string {
+		const tagged = new URL(articleUrl);
+		const slug = tagged.pathname.split('/').filter(Boolean).pop() ?? 'news';
+		tagged.searchParams.set('mtm_campaign', `news-${slug}`);
+		tagged.searchParams.set('mtm_kwd', keyword);
+		return tagged.toString();
+	}
+
+	/**
 	 * Opens a centered popup window for sharing
 	 */
 	function openSharePopup(shareUrl: string, name: string, width: number, height: number): Window | null {
@@ -167,14 +179,15 @@
 	 * On a computer it only copies the link.
 	 */
 	async function shareOnInstagram() {
-		const articleUrl = getArticleUrl();
-
 		if (!isMobileDevice()) {
+			const articleUrl = campaignUrl(getArticleUrl(), 'instagram');
 			logShare.log('Instagram share on desktop: copying link only');
 			const copied = await copyToClipboard(articleUrl);
 			showToast(copied ? t('news.instagramDesktop') : t('news.copyFailed'));
 			return;
 		}
+
+		const articleUrl = campaignUrl(getArticleUrl(), 'instagram-story');
 
 		// Start the copy inside the click, before the share sheet takes focus
 		const copying = copyToClipboard(articleUrl);
