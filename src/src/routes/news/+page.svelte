@@ -24,7 +24,7 @@
 			<NewsCard
 				title={t('news.php2shell.title')}
 				date={t('news.php2shell.date')}
-				image="/news-php2shell.svg"
+				image="/news-php2shell.webp"
 				href="/news/php2shell-cve-2026-109618-109619"
 				description={t('news.php2shell.description')}
 			/>

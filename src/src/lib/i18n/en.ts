@@ -432,6 +432,8 @@ export const en = {
 		shareOnInstagram: 'Share on Instagram',
 		linkCopied: 'Link copied. You can paste it into your Instagram Story.',
 		copyFailed: 'Unable to copy the link. Please copy it from the address bar.',
+		instagramStoryLinkCopied: 'Link copied: paste it into your story with the link sticker.',
+		instagramDesktop: 'Link copied. Instagram Stories can only be created from the phone app.',
 		shareText: 'Read this article:',
 		popupBlocked: 'Popup blocked. Opening in new tab instead.',
 		openSourceRelease: {
@@ -627,7 +629,7 @@ export const en = {
 		php2shell: {
 			title: 'PHP2Shell: critical PHP vulnerabilities, update now',
 			imageAlt:
-				'Terminal window warning about CVE-2026-109618 and CVE-2026-109619',
+				'Watercolour illustration: a giant patched-up elephant hides among overgrown server racks with red warning lights, while a young elf points at it and holds a companion\'s hand',
 			date: '22/10/2026',
 			description:
 				'Two critical PHP flaws, CVE-2026-109618 and CVE-2026-109619, allow unauthenticated remote code execution on WordPress, Drupal, Magento and almost any other PHP site. What is affected, which versions fix it and what to do with PHP 7.',
