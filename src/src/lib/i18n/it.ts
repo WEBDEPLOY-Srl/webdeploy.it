@@ -689,7 +689,7 @@ export const it = {
 				'Regole WAF sui vettori noti davanti al sito: Cloudflare le ha già attivate su tutti i piani, free compreso'
 			],
 			mitigationNote:
-				'Se un host non si può patchare a breve, l\'NCSC britannico consiglia di toglierlo dalla rete finché non è aggiornato.',
+				'Se non puoi aggiornare subito, CERT-EU, il servizio di cybersicurezza delle istituzioni europee, raccomanda di isolare dalla rete pubblica i sistemi esposti su internet finché il fix non è applicato e verificato.',
 			sourcesTitle: 'RTFM: fonti e advisory',
 			sources: [
 				{ label: 'Advisory di sicurezza PHP (php.net)', url: 'https://www.php.net/archive/2026.php#2026-10-21-5' },
