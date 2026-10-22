@@ -632,47 +632,74 @@ export const it = {
 				'Finestra di terminale con l\'avviso per CVE-2026-109618 e CVE-2026-109619',
 			date: '22/10/2026',
 			description:
-				'Due vulnerabilità critiche di PHP, CVE-2026-109618 e CVE-2026-109619, consentono l\'esecuzione di codice da remoto senza autenticazione e sono già sfruttate. Stiamo aggiornando i sistemi che gestiamo.',
+				'Due vulnerabilità critiche di PHP, CVE-2026-109618 e CVE-2026-109619, consentono l\'esecuzione di codice da remoto senza autenticazione su WordPress, Drupal, Magento e quasi ogni altro sito PHP. Quali software sono coinvolti, quali versioni risolvono il problema e cosa fare con PHP 7.',
 			intro:
-				'Il 21 ottobre 2026 il progetto PHP ha rilasciato aggiornamenti di sicurezza per due vulnerabilità critiche, soprannominate PHP2Shell. I dettagli sono trapelati online il giorno prima della divulgazione coordinata e i primi tentativi di sfruttamento sono stati osservati prima ancora che le patch fossero pubbliche. Qualsiasi server che usa PHP per rispondere a richieste web va considerato esposto finché non viene aggiornato.',
+				'Il 21 ottobre 2026 il progetto PHP ha rilasciato aggiornamenti di sicurezza per due vulnerabilità critiche, soprannominate PHP2Shell. I dettagli sono trapelati online il giorno prima della divulgazione coordinata e diversi fornitori di soluzioni di sicurezza segnalano tentativi di sfruttamento in corso. Qualsiasi server che usa PHP per rispondere a richieste web va considerato esposto finché non viene aggiornato.',
 			whatTitle: 'Cos\'è PHP2Shell',
 			whatDescription:
-				'PHP2Shell indica due bug distinti nel motore di PHP, entrambi classificati come critici (CVSS v4.0 9.2). Può bastare una sola richiesta HTTP non autenticata per eseguire codice sul server con i privilegi del processo web, prima ancora che parta il codice dell\'applicazione: non servono credenziali, plugin o applicazioni vulnerabili.',
+				'PHP2Shell indica due bug distinti nel motore di PHP, entrambi classificati come critici (CVSS v4.0 9.2). Può bastare una sola richiesta HTTP non autenticata per eseguire codice sul server con i privilegi del processo web, prima ancora che venga eseguito il codice dell\'applicazione: non servono credenziali, plugin o applicazioni vulnerabili.',
 			cves: [
 				'CVE-2026-109618: esecuzione di codice da remoto tramite corruzione della memoria, quando PHP esaurisce la memoria mentre i dati della richiesta sono inizializzati solo in parte.',
-				'CVE-2026-109619: esecuzione di codice da remoto tramite uno stato globale che sopravvive dopo che la sua memoria è stata liberata; può anche esporre la memoria del processo PHP.'
+				'CVE-2026-109619: esecuzione di codice da remoto tramite uno stato globale che persiste dopo la liberazione della memoria associata; può anche esporre la memoria del processo PHP.'
 			],
-			affectedTitle: 'Chi è coinvolto',
-			affectedDescription:
-				'Tutte le installazioni PHP che servono richieste web, qualunque sia l\'applicazione: WordPress, Laravel, Symfony, PrestaShop o codice sviluppato su misura.',
-			affectedList: [
+			appsTitle: 'Software coinvolti',
+			appsDescription:
+				'La falla è in PHP stesso, quindi è esposta ogni applicazione eseguita su una versione vulnerabile. I ricercatori hanno dimostrato l\'esecuzione di codice senza autenticazione su:',
+			appsList: [
+				'CMS: WordPress, Drupal, Joomla, MediaWiki',
+				'E-commerce: Magento (Adobe Commerce)',
+				'Collaborazione e webmail: Nextcloud, Roundcube',
+				'Amministrazione e fatturazione: phpMyAdmin, WHMCS',
+				'Framework: Laravel, Symfony e le applicazioni basate su questi framework'
+			],
+			appsNote:
+				'Aggiornare WordPress, Drupal, Nextcloud o qualsiasi altra applicazione non risolve il problema: va aggiornato PHP sul server.',
+			runtimesTitle: 'Configurazioni coinvolte',
+			runtimesList: [
 				'Apache con mod_php, la configurazione più esposta',
 				'PHP-FPM e php-cgi dietro Nginx o Apache',
-				'FrankenPHP e LiteSpeed',
-				'PHP 8.1 e versioni precedenti, non più supportate: nessun rilascio ufficiale, solo backport minimi in sorgente per 7.4, 8.0 e 8.1 o pacchetti dei fornitori'
+				'FrankenPHP e LiteSpeed'
 			],
-			fixedTitle: 'Versioni corrette',
+			fixedTitle: 'Versioni con le correzioni',
 			fixedDescription:
-				'Aggiornate PHP a una di queste versioni, oppure al pacchetto corretto pubblicato dalla vostra distribuzione Linux o dal vostro fornitore LTS:',
+				'Aggiornate PHP a una di queste versioni oppure installate il pacchetto della vostra distribuzione Linux che include le patch:',
 			fixedList: [
 				'PHP 8.5.12',
 				'PHP 8.4.27',
 				'PHP 8.3.36',
 				'PHP 8.2.35 (il supporto a PHP 8.2 termina il 31 dicembre 2026)'
 			],
-			customersTitle: 'Cosa stiamo facendo per i nostri clienti',
-			customersDescription:
-				'Stiamo aggiornando PHP su tutti i server e i servizi di hosting che gestiamo. L\'intervento richiede una breve finestra di manutenzione urgente: stiamo contattando direttamente ogni cliente per concordarne i tempi.',
-			customersList: [
-				'Aggiornamento a una versione di PHP corretta o al pacchetto aggiornato della distribuzione',
-				'Riavvio dei servizi e verifica del corretto funzionamento di ogni sito e applicazione',
-				'Analisi dei log del web server alla ricerca di tentativi di sfruttamento',
-				'Per i sistemi con versioni di PHP non più supportate, un piano di aggiornamento concordato con il cliente'
+			legacyTitle: 'PHP 7.4, 8.0 e 8.1',
+			legacyDescription:
+				'Questi rami non sono più supportati e non riceveranno un rilascio ufficiale. Il team di sicurezza di PHP ha comunque pubblicato backport minimi della correzione sotto forma di codice sorgente, per chi compila PHP in autonomia:',
+			legacyLinks: [
+				{ label: 'PHP 7.4', url: 'https://github.com/php/php-src/tree/PHP-7.4-CVE-2026-109618-109619' },
+				{ label: 'PHP 8.0', url: 'https://github.com/php/php-src/tree/PHP-8.0-CVE-2026-109618-109619' },
+				{ label: 'PHP 8.1', url: 'https://github.com/php/php-src/tree/PHP-8.1-CVE-2026-109618-109619' }
 			],
-			selfManagedTitle: 'Se gestite i vostri server in autonomia',
-			selfManagedDescription:
-				'Aggiornate subito. Se un sistema non può essere aggiornato immediatamente, l\'NCSC britannico consiglia di metterlo offline finché non sarà possibile farlo. Le regole WAF, come quelle già distribuite da Cloudflare, riducono l\'esposizione agli exploit noti ma non sostituiscono l\'aggiornamento. Se vi serve supporto, contattateci.',
-			visitAdvisory: 'Leggi l\'annuncio di PHP'
+			legacyNote:
+				'Se usate i pacchetti della distribuzione, consultate gli advisory del vostro fornitore o di un servizio di supporto esteso per ottenere build con le patch. Da PHP 5.4 a 7.3 non esiste alcuna correzione: l\'unica soluzione è passare a una versione supportata.',
+			mitigationTitle: 'Se non potete aggiornare subito',
+			mitigationDescription:
+				'L\'advisory di PHP indica misure temporanee che riducono l\'esposizione, ma non rendono sicuro un server non aggiornato:',
+			mitigationList: [
+				'Impostate session.upload_progress.enabled = 0 in php.ini o nel pool FPM (non con ini_set() o .user.ini) e riavviate tutti i worker',
+				'Riducete post_max_size a 8M, o a 32M se sono necessari gli upload, mantenendo upload_max_filesize a un valore inferiore',
+				'Su PHP 8.5, impostate fatal_error_backtraces = 0',
+				'Proteggete il sito con regole WAF per i vettori di attacco noti: Cloudflare le ha già attivate per tutti i piani'
+			],
+			mitigationNote:
+				'Se non potete aggiornare i sistemi in tempi brevi, l\'NCSC britannico consiglia di metterli offline finché non sarà possibile aggiornarli.',
+			sourcesTitle: 'Fonti e approfondimenti',
+			sources: [
+				{ label: 'Advisory di sicurezza PHP (php.net)', url: 'https://www.php.net/archive/2026.php#2026-10-21-5' },
+				{ label: 'GHSA-w8hw-w9fx-j79w: CVE-2026-109618', url: 'https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w' },
+				{ label: 'GHSA-6wmf-4rv5-p3rp: CVE-2026-109619', url: 'https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp' },
+				{ label: 'Advisory di sicurezza CERT-EU 2026-018', url: 'https://cert.europa.eu/publications/security-advisories/2026-018/' },
+				{ label: 'Sito della ricerca PHP2Shell', url: 'https://www.php2shell.com/' },
+				{ label: 'watchTowr: PHP2Shell FAQ', url: 'https://watchtowr.com/intelligence/php-cve-2026-109618-faq/' }
+			],
+			visitAdvisory: 'Leggi l\'advisory di PHP'
 		}
 	},
 
