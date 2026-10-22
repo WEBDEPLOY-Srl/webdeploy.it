@@ -4,7 +4,8 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import CrtEffects from '$lib/components/CrtEffects.svelte';
 	import CookieConsent from '$lib/components/CookieConsent.svelte';
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
+	import { afterNavigate } from '$app/navigation';
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import { locale } from '$lib/stores/locale.svelte';
@@ -33,7 +34,7 @@
 		_paq.push(['disableCookies']);
 		_paq.push(['setDoNotTrack', true]);
 
-		_paq.push(['trackPageView']);
+		// Page views are tracked in afterNavigate, which also runs for the first load
 		_paq.push(['enableLinkTracking']);
 
 		const u = 'https://analytics.inwd.org/';
@@ -47,17 +48,33 @@
 
 		logAnalytics.log('Matomo initialized (cookieless mode)');
 
+		// Contact intent: email and phone link clicks, wherever they appear (contacts page, footer)
+		const onContactClick = (event: MouseEvent) => {
+			const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="mailto:"], a[href^="tel:"]');
+			if (!link) return;
+			const channel = link.protocol === 'tel:' ? 'phone' : 'email';
+			window._paq?.push(['trackEvent', 'Contact', channel, location.pathname]);
+			logAnalytics.log('Contact event tracked:', channel);
+		};
+		document.addEventListener('click', onContactClick);
+
 		// Meta Pixel loads only if the visitor granted marketing consent previously.
 		if (consent.marketing === 'granted') loadMetaPixel();
+
+		return () => document.removeEventListener('click', onContactClick);
 	});
 
-	// Track page views on navigation
-	$effect(() => {
-		if (browser && window._paq) {
-			window._paq.push(['setCustomUrl', $page.url.pathname]);
-			window._paq.push(['trackPageView']);
-			logAnalytics.log('Page view tracked:', $page.url.pathname);
-		}
+	// Track page views, including the first load. The full URL keeps campaign
+	// parameters (mtm_*); tick() waits for the new page's <title>.
+	afterNavigate(async ({ from }) => {
+		if (!browser) return;
+		await tick();
+		const _paq = (window._paq = window._paq || []);
+		if (from?.url) _paq.push(['setReferrerUrl', from.url.href]);
+		_paq.push(['setCustomUrl', location.href]);
+		_paq.push(['setDocumentTitle', document.title]);
+		_paq.push(['trackPageView']);
+		logAnalytics.log('Page view tracked:', location.pathname);
 	});
 </script>
 

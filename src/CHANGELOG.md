@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.28.0] - 2026-10-22
+
+### Added
+- Links copied by the Instagram button carry Matomo campaign parameters
+  (`mtm_campaign=news-<slug>`, `mtm_kwd=instagram-story` on phones,
+  `instagram` on computers), so Instagram visits are attributed even when the
+  in-app browser sends no referrer.
+- Clicks on email and phone links are tracked as Matomo events
+  (category `Contact`, action `email` or `phone`), for a contact goal.
+
+### Fixed
+- The first page load was tracked twice, once without its campaign
+  parameters. Page views are now tracked once per navigation with the full URL,
+  the previous page as referrer and the new page's title (in-site navigation
+  recorded the previous page's title).
+
 ## [1.27.0] - 2026-10-22
 
 ### Changed
