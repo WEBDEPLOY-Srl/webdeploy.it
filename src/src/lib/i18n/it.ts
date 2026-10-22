@@ -434,6 +434,8 @@ export const it = {
 		shareOnInstagram: 'Condividi su Instagram',
 		linkCopied: 'Link copiato. Puoi incollarlo nella tua Storia Instagram.',
 		copyFailed: 'Impossibile copiare il link. Copialo dalla barra degli indirizzi.',
+		instagramStoryLinkCopied: 'Link copiato: incollalo nella storia con lo sticker link.',
+		instagramDesktop: 'Link copiato. Le storie di Instagram si creano solo dall\'app sul telefono.',
 		shareText: 'Leggi questo articolo:',
 		popupBlocked: 'Popup bloccato. Apertura in una nuova scheda.',
 		openSourceRelease: {

@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.27.0] - 2026-10-22
+
+### Changed
+- The Instagram button on news posts now opens the phone's share sheet with a
+  1080×1920 story card (featured image, date and title) and copies the article
+  link for the link sticker. On a computer it copies the link and explains that
+  Stories are created from the phone app.
+- The share buttons are one shared component instead of a copy in every post.
+
 ## [1.26.2] - 2026-10-22
 
 ### Changed

@@ -432,6 +432,8 @@ export const en = {
 		shareOnInstagram: 'Share on Instagram',
 		linkCopied: 'Link copied. You can paste it into your Instagram Story.',
 		copyFailed: 'Unable to copy the link. Please copy it from the address bar.',
+		instagramStoryLinkCopied: 'Link copied: paste it into your story with the link sticker.',
+		instagramDesktop: 'Link copied. Instagram Stories can only be created from the phone app.',
 		shareText: 'Read this article:',
 		popupBlocked: 'Popup blocked. Opening in new tab instead.',
 		openSourceRelease: {
