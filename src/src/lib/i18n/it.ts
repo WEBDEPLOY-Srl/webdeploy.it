@@ -715,7 +715,44 @@ export const it = {
 		careers: 'Lavora con noi',
 		copyright: 'Copyright © 2026 WebDeploy S.R.L.',
 		registeredOffice: 'Sede legale',
+		security: 'Sicurezza',
 		privacy: 'Informativa sulla privacy'
+	},
+
+	// Pagina Sicurezza
+	security: {
+		title: 'Sicurezza',
+		heading: 'La sicurezza in WEBDEPLOY',
+		metaDescription:
+			'Chi è responsabile della sicurezza delle informazioni in WEBDEPLOY SRL e come segnalare una vulnerabilità.',
+		responsibleTitle: 'Chi è responsabile',
+		responsibleText:
+			"Federico Bologni, Amministratore Unico di WEBDEPLOY SRL, è responsabile della sicurezza delle informazioni, compresi l'hardening dell'infrastruttura, la gestione delle vulnerabilità, la risposta agli incidenti e la divulgazione coordinata dei problemi di sicurezza.",
+		reportingTitle: 'Segnalare una vulnerabilità',
+		reportingIntro:
+			'Se ritieni di aver trovato una vulnerabilità di sicurezza nei nostri siti, servizi o infrastruttura, segnalala via email a',
+		includeTitle: 'Indica per favore:',
+		includeItems: [
+			'Una descrizione del problema e del sistema, URL o componente interessato',
+			'I passaggi per riprodurlo, oppure una proof of concept',
+			"L'impatto che ritieni abbia",
+			'Come possiamo contattarti e se desideri essere citato'
+		],
+		acknowledgement:
+			'Ci impegniamo a confermare la ricezione di ogni segnalazione entro 5 giorni lavorativi e a tenerti aggiornato mentre analizziamo e correggiamo il problema.',
+		disclosure:
+			'Ti chiediamo di non rendere pubblico il problema, né di comunicarlo ad altri, finché non abbiamo rilasciato una correzione e concordato con te una data di divulgazione.',
+		safeHarbour:
+			"Non intraprenderemo né sosterremo azioni legali contro chi ci segnala una vulnerabilità in buona fede, si impegna ragionevolmente a evitare violazioni della privacy, distruzione di dati e interruzioni del servizio, accede solo ai dati necessari a dimostrare il problema e ci concede un tempo ragionevole per correggerlo prima di qualsiasi divulgazione.",
+		approachTitle: 'Il nostro approccio',
+		approachItems: [
+			'Una configurazione di hardening di base sui server che gestiamo, con firewall e fail2ban',
+			'Aggiornamenti regolari di sistema operativo e pacchetti sui server che gestiamo',
+			'Backup cifrati e fuori sede con BorgBackup',
+			'Rilevamento delle intrusioni con Suricata sugli host gestiti',
+			'Seguiamo i bollettini di sicurezza di CERT-EU ed ENISA'
+		],
+		companyLabel: 'Dati societari'
 	},
 
 	// Privacy Policy

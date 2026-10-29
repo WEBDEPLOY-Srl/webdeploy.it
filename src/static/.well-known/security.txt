@@ -1,0 +1,5 @@
+Contact: mailto:security@webdeploy.it
+Expires: 2027-10-29T00:00:00.000Z
+Preferred-Languages: en, it
+Canonical: https://webdeploy.it/.well-known/security.txt
+Policy: https://webdeploy.it/security

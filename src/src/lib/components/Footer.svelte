@@ -101,6 +101,13 @@
 							>{t('footer.privacy')}</a
 						>
 					</li>
+					<li>
+						<a
+							href="/security"
+							class="block py-2 hover:text-primary hover:underline decoration-dashed underline-offset-4 min-h-[44px] flex items-center"
+							>{t('footer.security')}</a
+						>
+					</li>
 				</ul>
 			</div>
 		</div>

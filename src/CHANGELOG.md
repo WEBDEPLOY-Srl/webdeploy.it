@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.37.0] - 2026-10-29
+
+### Added
+- A public Security page at `/security`: who is responsible for information
+  security at WEBDEPLOY SRL, how to report a vulnerability (email, what to
+  include, 5-working-day acknowledgement, no public disclosure before a fix,
+  good-faith safe harbour), our approach, and company details. Linked from the
+  footer and listed in the sitemap.
+- `/.well-known/security.txt` (RFC 9116) pointing to the Security page.
+
 ## [1.28.0] - 2026-10-22
 
 ### Added

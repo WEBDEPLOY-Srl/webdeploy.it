@@ -713,7 +713,44 @@ export const en = {
 		careers: 'Careers',
 		copyright: 'Copyright © 2026 WebDeploy S.R.L.',
 		registeredOffice: 'Registered office',
+		security: 'Security',
 		privacy: 'Privacy Policy'
+	},
+
+	// Security page
+	security: {
+		title: 'Security',
+		heading: 'Security at WEBDEPLOY',
+		metaDescription:
+			'Who is responsible for information security at WEBDEPLOY SRL, and how to report a vulnerability.',
+		responsibleTitle: 'Who is responsible',
+		responsibleText:
+			'Federico Bologni, Amministratore Unico of WEBDEPLOY SRL, is responsible for information security, including infrastructure hardening, vulnerability management, incident response, and the coordinated disclosure of security issues.',
+		reportingTitle: 'Reporting a vulnerability',
+		reportingIntro:
+			'If you believe you have found a security vulnerability in our websites, services or infrastructure, please report it by email to',
+		includeTitle: 'Please include:',
+		includeItems: [
+			'A description of the issue and the affected system, URL or component',
+			'Steps to reproduce it, or a proof of concept',
+			'The impact you believe it has',
+			'How we can contact you, and whether you would like to be credited'
+		],
+		acknowledgement:
+			'We aim to acknowledge every report within 5 working days and to keep you informed while we investigate and fix the issue.',
+		disclosure:
+			'Please do not disclose the issue publicly, or to anyone else, until we have released a fix and agreed a disclosure date with you.',
+		safeHarbour:
+			'We will not pursue or support legal action against anyone who reports a vulnerability to us in good faith, makes a reasonable effort to avoid privacy violations, data destruction and service disruption, accesses only the data needed to demonstrate the issue, and gives us reasonable time to fix it before any disclosure.',
+		approachTitle: 'Our approach',
+		approachItems: [
+			'A hardening baseline on the servers we manage, with a firewall and fail2ban',
+			'Regular operating system and package patching on the servers we manage',
+			'Encrypted, off-site backups with BorgBackup',
+			'Intrusion detection with Suricata on managed hosts',
+			'We follow security advisories from CERT-EU and ENISA'
+		],
+		companyLabel: 'Company details'
 	},
 
 	// Privacy Policy
