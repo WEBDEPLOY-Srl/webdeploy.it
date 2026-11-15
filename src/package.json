@@ -50,5 +50,8 @@
 		"@tailwindcss/vite": "^4.1.18",
 		"leaflet": "^1.9.4",
 		"tailwindcss": "^4.1.18"
+	},
+	"overrides": {
+		"minimatch": "^11.0.8"
 	}
 }

@@ -34,6 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   semantically identical.
 - `.woodpecker/.build.yml` waits for `check.yml`, so an image is only built and pushed from a commit that
   passed it, and pins its `alpine` and `curl` images by digest. It still runs for pushes to `main` only.
+- `package.json` pins `minimatch` to 11 through `overrides`: `typescript-eslint` pulled in a release with a
+  moderate advisory, and `npm audit` again reports no high or moderate advisory.
 - The Meta Pixel bootstrap is typed (`MetaPixel` in `app.d.ts`) instead of cast to `any`.
 
 ## [1.44.0] - 2026-11-15
