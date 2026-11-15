@@ -22,9 +22,6 @@
 }
 
 /* Text glow effects */
-.crt-glow {
-	text-shadow: 0 0 2px rgba(0, 240, 255, 0.7);
-}
 
 .title-glow {
 	text-shadow: 2px 2px 0px #ff00ff;

@@ -24,7 +24,3 @@ section {
 }
 
 /* Content visibility for below-fold sections */
-.content-visibility-auto {
-	content-visibility: auto;
-	contain-intrinsic-size: auto 500px;
-}

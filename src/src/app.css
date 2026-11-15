@@ -12,11 +12,9 @@
 @import './styles/sections.css';
 @import './styles/buttons.css';
 @import './styles/components.css';
-@import './styles/animations.css';
+@import './styles/selection.css';
 @import './styles/focus.css';
-@import './styles/text.css';
 @import './styles/accessibility.css';
-@import './styles/utilities.css';
 @import './styles/performance.css';
 @import './styles/responsive.css';
 @import './styles/print.css';

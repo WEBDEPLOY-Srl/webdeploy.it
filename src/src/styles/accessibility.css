@@ -45,10 +45,6 @@
 	}
 
 	/* Disable specific animations */
-	.animate-pulse,
-	.cursor-blink {
-		animation: none !important;
-	}
 
 	/* Remove transform transitions on hover */
 	.btn-retro-primary:hover,
@@ -57,12 +53,6 @@
 	}
 
 	/* Show entrance animations immediately */
-	.animate-fade-in-up,
-	.animate-fade-in {
-		opacity: 1 !important;
-		transform: none !important;
-		animation: none !important;
-	}
 }
 
 /* ==========================================

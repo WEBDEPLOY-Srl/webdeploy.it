@@ -18,7 +18,6 @@
 	.btn-retro-primary,
 	.btn-retro-secondary,
 	.btn-cta-primary,
-	.btn-cta-secondary,
 	nav {
 		display: none !important;
 	}
@@ -39,8 +38,7 @@
 	.text-primary,
 	.text-secondary,
 	.text-white,
-	.text-slate-400,
-	.text-slate-500 {
+	.text-slate-400 {
 		color: black !important;
 	}
 
@@ -51,8 +49,7 @@
 	}
 
 	/* Remove text effects */
-	.title-glow,
-	.crt-glow {
+	.title-glow {
 		text-shadow: none !important;
 	}
 
