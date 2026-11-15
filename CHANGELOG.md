@@ -18,6 +18,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   finds no serious or critical WCAG 2.0 to 2.2 A/AA violation; header menus work by keyboard and the
   mobile menu opens and closes; no request reaches Meta before consent and a refusal survives a reload.
   Third-party hosts are stubbed.
+- `.woodpecker/check.yml`: a verification workflow on every push (and manual run) that needs no secrets,
+  volumes or Docker socket: `reuse lint`, `nginx -t`, `npm ci`, lint, type check, unit tests, build,
+  `npm audit --audit-level=high` and the Playwright suite in the official Playwright image. All images
+  are pinned by digest.
+- `ACCESSIBILITY.md`: the WCAG 2.2 AA target, how it is tested, known limits and how to report a problem.
 
 ### Fixed
 - The company line on the security page used `slate-500`, below the WCAG AA contrast ratio on the page
@@ -27,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - JSON-LD structured data is serialised by one helper (`$lib/utils/jsonLd.ts`) that escapes `<` and the
   JavaScript line separators; the site-wide Organization data is now built from an object. Output is
   semantically identical.
+- `.woodpecker/.build.yml` waits for `check.yml`, so an image is only built and pushed from a commit that
+  passed it, and pins its `alpine` and `curl` images by digest. It still runs for pushes to `main` only.
 - The Meta Pixel bootstrap is typed (`MetaPixel` in `app.d.ts`) instead of cast to `any`.
 
 ## [1.44.0] - 2026-11-15
