@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- JSON-LD structured data is serialised by one helper (`$lib/utils/jsonLd.ts`) that escapes `<` and the
+  JavaScript line separators; the site-wide Organization data is now built from an object. Output is
+  semantically identical.
+
 ## [1.44.0] - 2026-11-15
 
 ### Changed
