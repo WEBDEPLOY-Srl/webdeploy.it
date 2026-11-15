@@ -10,10 +10,50 @@
 	const FRAME_W = 1113;
 	const FRAME_H = 1414;
 	const screens: Screen[] = [
-		{ key: 'left', w: 480, h: 282, quad: [[51, 554], [366, 570], [367, 732], [50, 763]] },
-		{ key: 'center', w: 480, h: 250, quad: [[387, 570], [697, 571], [697, 732], [387, 731]] },
-		{ key: 'right', w: 480, h: 278, quad: [[717, 571], [1024, 555], [1023, 762], [717, 733]] },
-		{ key: 'top', w: 480, h: 283, quad: [[723, 365], [995, 300], [1012, 500], [737, 529]] }
+		{
+			key: 'left',
+			w: 480,
+			h: 282,
+			quad: [
+				[51, 554],
+				[366, 570],
+				[367, 732],
+				[50, 763]
+			]
+		},
+		{
+			key: 'center',
+			w: 480,
+			h: 250,
+			quad: [
+				[387, 570],
+				[697, 571],
+				[697, 732],
+				[387, 731]
+			]
+		},
+		{
+			key: 'right',
+			w: 480,
+			h: 278,
+			quad: [
+				[717, 571],
+				[1024, 555],
+				[1023, 762],
+				[717, 733]
+			]
+		},
+		{
+			key: 'top',
+			w: 480,
+			h: 283,
+			quad: [
+				[723, 365],
+				[995, 300],
+				[1012, 500],
+				[737, 529]
+			]
+		}
 	];
 
 	// Grows each opening a few pixels so the screen content tucks under the bezel.
@@ -29,13 +69,19 @@
 	// Projective transform from a w×h box onto the quad, as a CSS matrix3d.
 	function toMatrix(w: number, h: number, quad: Screen['quad']): string {
 		const [[x0, y0], [x1, y1], [x2, y2], [x3, y3]] = grow(quad);
-		const dx1 = x1 - x2, dx2 = x3 - x2, dx3 = x0 - x1 + x2 - x3;
-		const dy1 = y1 - y2, dy2 = y3 - y2, dy3 = y0 - y1 + y2 - y3;
+		const dx1 = x1 - x2,
+			dx2 = x3 - x2,
+			dx3 = x0 - x1 + x2 - x3;
+		const dy1 = y1 - y2,
+			dy2 = y3 - y2,
+			dy3 = y0 - y1 + y2 - y3;
 		const den = dx1 * dy2 - dx2 * dy1;
 		const g = (dx3 * dy2 - dx2 * dy3) / den;
 		const k = (dx1 * dy3 - dx3 * dy1) / den;
-		const a = x1 - x0 + g * x1, b = x3 - x0 + k * x3;
-		const d = y1 - y0 + g * y1, e = y3 - y0 + k * y3;
+		const a = x1 - x0 + g * x1,
+			b = x3 - x0 + k * x3;
+		const d = y1 - y0 + g * y1,
+			e = y3 - y0 + k * y3;
 		const m = [a / w, d / w, 0, g / w, b / h, e / h, 0, k / h, 0, 0, 1, 0, x0, y0, 0, 1];
 		return `matrix3d(${m.map((n) => +n.toFixed(6)).join(',')})`;
 	}
@@ -132,7 +178,10 @@
 
 <div class="ws-demo" role="group" aria-label={t('services.linux.testMachine.demo.label')}>
 	<div class="ws-demo__device" bind:this={device} style="aspect-ratio: {FRAME_W} / {FRAME_H}">
-		<div class="ws-demo__stage" style="transform: scale({scale}); visibility: {scale ? 'visible' : 'hidden'}">
+		<div
+			class="ws-demo__stage"
+			style="transform: scale({scale}); visibility: {scale ? 'visible' : 'hidden'}"
+		>
 			{#each screens as s (s.key)}
 				<div
 					class="ws-screen ws-screen--{s.key}"
@@ -148,7 +197,7 @@
 								</div>
 								<div class="mail__list">
 									{#each [1, 1, 0, 1, 0, 0, 1, 0] as unread, i (i)}
-										<div class="mail__row" class:unread={unread}>
+										<div class="mail__row" class:unread>
 											<i></i><b style="width: {38 + ((i * 17) % 40)}%"></b>
 										</div>
 									{/each}
@@ -183,8 +232,12 @@
 										test-label.pdf <em>{t('services.linux.testMachine.demo.completed')}</em>
 									</div>
 								{/if}
-								<div class="queue__job">invoice-2026-114.pdf <em>{t('services.linux.testMachine.demo.completed')}</em></div>
-								<div class="queue__job">delivery-note.odt <em>{t('services.linux.testMachine.demo.completed')}</em></div>
+								<div class="queue__job">
+									invoice-2026-114.pdf <em>{t('services.linux.testMachine.demo.completed')}</em>
+								</div>
+								<div class="queue__job">
+									delivery-note.odt <em>{t('services.linux.testMachine.demo.completed')}</em>
+								</div>
 							</div>
 						</div>
 					{:else}
@@ -193,7 +246,9 @@
 								<div class="win win--float">
 									<div class="win__title">Dolphin</div>
 									<div class="files">
-										<div class="files__side"><span class="active">Home</span><span>Documents</span><span>Network</span></div>
+										<div class="files__side">
+											<span class="active">Home</span><span>Documents</span><span>Network</span>
+										</div>
 										<div class="files__grid">
 											{#each ['Documents', 'Invoices', 'Labels', 'Scans', 'Templates', 'Shared'] as f (f)}
 												<span><i></i>{f}</span>
@@ -214,7 +269,9 @@
 									<div class="win__title">LibreOffice Writer</div>
 									<div class="writer">
 										<div class="writer__tools"></div>
-										<div class="writer__page"><b></b><i></i><i></i><i></i><i class="short"></i></div>
+										<div class="writer__page">
+											<b></b><i></i><i></i><i></i><i class="short"></i>
+										</div>
 									</div>
 								</div>
 							{/if}
@@ -223,7 +280,9 @@
 								<div class="kickoff">
 									<div class="kickoff__search"></div>
 									{#each apps as a (a.app)}
-										<div class="kickoff__item" class:hl={highlighted === a.app}><i></i>{a.name}</div>
+										<div class="kickoff__item" class:hl={highlighted === a.app}>
+											<i></i>{a.name}
+										</div>
 									{/each}
 								</div>
 							{/if}
@@ -260,7 +319,11 @@
 		/>
 	</div>
 
-	<div class="ws-demo__controls" role="group" aria-label={t('services.linux.testMachine.demo.controls')}>
+	<div
+		class="ws-demo__controls"
+		role="group"
+		aria-label={t('services.linux.testMachine.demo.controls')}
+	>
 		{#each apps as a (a.app)}
 			<button type="button" aria-pressed={selected === a.app} onclick={() => open(a.app)}>
 				{t(`services.linux.testMachine.demo.${a.app}`)}
@@ -268,7 +331,9 @@
 		{/each}
 		<button type="button" onclick={printLabel}>{t('services.linux.testMachine.demo.print')}</button>
 	</div>
-	<p class="sr-only" role="status">{notice ? t('services.linux.testMachine.demo.noticeTitle') : ''}</p>
+	<p class="sr-only" role="status">
+		{notice ? t('services.linux.testMachine.demo.noticeTitle') : ''}
+	</p>
 </div>
 
 <style>
@@ -290,7 +355,8 @@
 		display: block;
 		width: 100%;
 		height: auto;
-		filter: drop-shadow(0 0 1px rgba(0, 240, 255, 0.55)) drop-shadow(0 1.5rem 2rem rgba(0, 0, 0, 0.6));
+		filter: drop-shadow(0 0 1px rgba(0, 240, 255, 0.55))
+			drop-shadow(0 1.5rem 2rem rgba(0, 0, 0, 0.6));
 		pointer-events: none;
 	}
 
@@ -698,7 +764,9 @@
 		font-family: var(--font-mono);
 		font-size: 0.8125rem;
 		cursor: pointer;
-		transition: border-color 150ms, color 150ms;
+		transition:
+			border-color 150ms,
+			color 150ms;
 	}
 
 	.ws-demo__controls button:hover,

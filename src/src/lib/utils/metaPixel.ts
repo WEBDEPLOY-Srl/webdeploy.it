@@ -22,24 +22,23 @@ export function loadMetaPixel(): void {
 	}
 	loaded = true;
 
-	// Official Meta Pixel bootstrap (fbevents.js), typed loosely on purpose.
-	/* eslint-disable @typescript-eslint/no-explicit-any */
-	const w = window as any;
-	if (!w.fbq) {
-		const n: any = (w.fbq = function (...args: unknown[]) {
-			n.callMethod ? n.callMethod.apply(n, args) : n.queue.push(args);
-		});
-		if (!w._fbq) w._fbq = n;
-		n.push = n;
-		n.loaded = true;
-		n.version = '2.0';
-		n.queue = [];
+	// Official Meta Pixel bootstrap (fbevents.js).
+	if (!window.fbq) {
+		const fbq: MetaPixel = Object.assign(
+			(...args: unknown[]) => {
+				if (fbq.callMethod) fbq.callMethod(...args);
+				else fbq.queue.push(args);
+			},
+			{ queue: [] as unknown[][], loaded: true, version: '2.0' }
+		) as MetaPixel;
+		fbq.push = fbq;
+		window.fbq = fbq;
+		window._fbq ??= fbq;
 		const s = document.createElement('script');
 		s.async = true;
 		s.src = 'https://connect.facebook.net/en_US/fbevents.js';
 		document.head.appendChild(s);
 	}
-	/* eslint-enable @typescript-eslint/no-explicit-any */
 
 	window.fbq?.('init', PIXEL_ID);
 	window.fbq?.('track', 'PageView');

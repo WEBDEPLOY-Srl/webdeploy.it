@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { locale, availableLocales } from '$lib/stores/locale.svelte';
+	import { jsonLdScript } from '$lib/utils/jsonLd';
 
 	interface Props {
 		title: string;
@@ -58,8 +59,6 @@
 					}
 				: undefined)
 	);
-	// `<` is escaped so page text can never close the script element.
-	let pageLdJson = $derived(pageLd ? JSON.stringify(pageLd).replace(/</g, '\\u003c') : '');
 	let ogLocale = $derived(locale.current === 'it' ? 'it_IT' : 'en_US');
 	let alternateLocale = $derived(locale.current === 'it' ? 'en_US' : 'it_IT');
 </script>
@@ -108,10 +107,14 @@
 		<meta name="robots" content="noindex, follow" />
 	{:else}
 		<meta name="robots" content="index, follow" />
-		<meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
+		<meta
+			name="googlebot"
+			content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+		/>
 	{/if}
 
-	{#if pageLdJson}
-		{@html `<script type="application/ld+json">${pageLdJson}</script>`}
+	{#if pageLd}
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -- serialised and escaped by jsonLdScript -->
+		{@html jsonLdScript(pageLd)}
 	{/if}
 </svelte:head>

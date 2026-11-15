@@ -89,7 +89,12 @@ function drawGrid(ctx: CanvasRenderingContext2D) {
  * date, title, short URL) and returns it as a PNG file ready for Web Share.
  * The lower part is left empty for Instagram's link sticker.
  */
-export async function createStoryImage({ title, date, image, url }: StoryImageOptions): Promise<File> {
+export async function createStoryImage({
+	title,
+	date,
+	image,
+	url
+}: StoryImageOptions): Promise<File> {
 	const started = performance.now();
 	await Promise.all([
 		document.fonts.load('96px "VT323"'),
@@ -155,6 +160,8 @@ export async function createStoryImage({ title, date, image, url }: StoryImageOp
 	if (!blob) throw new Error('Canvas export failed');
 
 	const slug = url.split('/').filter(Boolean).pop() ?? 'news';
-	logShare.log(`Story image created in ${Math.round(performance.now() - started)} ms (${blob.size} bytes)`);
+	logShare.log(
+		`Story image created in ${Math.round(performance.now() - started)} ms (${blob.size} bytes)`
+	);
 	return new File([blob], `webdeploy-${slug}-story.png`, { type: 'image/png' });
 }

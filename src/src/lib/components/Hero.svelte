@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { t } from '$lib/i18n';
 	import TiltedArt from '$lib/components/TiltedArt.svelte';
 
 	interface Props {
@@ -75,13 +74,7 @@
 			</div>
 		{:else if image}
 			<div class="readable-hero__art">
-				<TiltedArt
-					src={image}
-					alt={imageAlt}
-					width={imageWidth}
-					height={imageHeight}
-					eager
-				/>
+				<TiltedArt src={image} alt={imageAlt} width={imageWidth} height={imageHeight} eager />
 			</div>
 		{/if}
 	</div>

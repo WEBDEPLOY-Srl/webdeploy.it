@@ -34,8 +34,12 @@
 			</div>
 
 			<div class="contacts-column">
-				<h2 class="contacts-column__title contacts-column__title--careers">{t('contacts.careers.title')}</h2>
-				<a href="mailto:careers@webdeploy.it" class="btn-action btn-action--secondary">careers@webdeploy.it</a>
+				<h2 class="contacts-column__title contacts-column__title--careers">
+					{t('contacts.careers.title')}
+				</h2>
+				<a href="mailto:careers@webdeploy.it" class="btn-action btn-action--secondary"
+					>careers@webdeploy.it</a
+				>
 				<p class="section-lead">{t('contacts.careers.description')}</p>
 				<p class="contacts-note">{t('contacts.careers.perks')}</p>
 			</div>

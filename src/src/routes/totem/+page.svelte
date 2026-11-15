@@ -120,7 +120,8 @@
 
 			<p class="mt-8 text-black font-mono">
 				<strong>{t('totem.cta.email')}:</strong> info@webdeploy.it<br />
-				<strong>{t('totem.cta.partnership')}:</strong> {t('totem.cta.poweredBy')}
+				<strong>{t('totem.cta.partnership')}:</strong>
+				{t('totem.cta.poweredBy')}
 				<a href="https://m4ss.net" target="_blank" rel="noopener noreferrer" class="underline">
 					m4ss.net
 					<span class="sr-only">{t('common.opensInNewTab')}</span>

@@ -46,6 +46,10 @@ Run from `src/`:
 | `npm run build` | Build the static site into `src/build/` |
 | `npm run preview` | Serve the production build locally |
 | `npm run check` | Type check and Svelte diagnostics (`svelte-check`) |
+| `npm run lint` | Prettier format check and ESLint |
+| `npm run format` | Rewrite files with Prettier |
+| `npm run test:unit` | Unit tests (Vitest) |
+| `npm run test:e2e` | Browser smoke tests (Playwright); run `npm run build` first |
 
 To build and run the production image (nginx serving the static build) on <http://localhost:8080>, run from the repository root, not `src/`:
 
@@ -90,6 +94,11 @@ it can run anywhere. `docker-compose.prod.yml` shows how to run it by hand.
 
 Report vulnerabilities privately to <security@webdeploy.it>, see [SECURITY.md](./SECURITY.md) and
 <https://webdeploy.it/security>.
+
+## Accessibility
+
+The site targets WCAG 2.2 AA and is checked automatically on every push; see
+[ACCESSIBILITY.md](./ACCESSIBILITY.md) for how it is tested, the known limits and how to report a problem.
 
 ## License
 

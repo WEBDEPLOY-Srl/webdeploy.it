@@ -25,17 +25,21 @@ export const it = {
 		heroName: 'webdeploy',
 		heroText: 'developing greatness',
 		metaTitle: 'Infrastruttura open source, Linux e backup cifrati',
-		metaDescription: 'WEBDEPLOY gestisce infrastruttura open source per team che vogliono sistemi affidabili: server gestiti con inWD, migrazione a Linux, backup cifrati e chioschi.',
+		metaDescription:
+			'WEBDEPLOY gestisce infrastruttura open source per team che vogliono sistemi affidabili: server gestiti con inWD, migrazione a Linux, backup cifrati e chioschi.',
 		heroSubtitle: 'A look into the Future<void>',
-		heroTagline: 'Software e infrastruttura open source per team che vogliono sistemi chiari e affidabili.',
+		heroTagline:
+			'Software e infrastruttura open source per team che vogliono sistemi chiari e affidabili.',
 		manifestoBtn: 'Manifesto per chi sviluppa',
 		servicesBtn: 'Scopri i servizi',
 		servicesEyebrow: 'Cosa facciamo',
 		servicesTitle: 'Tecnologia aperta. Supporto concreto.',
-		servicesDescription: 'Supporto diretto per Linux, dati privati e infrastrutture che puoi comprendere.',
+		servicesDescription:
+			'Supporto diretto per Linux, dati privati e infrastrutture che puoi comprendere.',
 		aboutEyebrow: 'Il nostro approccio',
 		aboutTitle: 'Strumenti aperti. Scelte chiare.',
-		aboutDescription: 'Usiamo strumenti open source e processi trasparenti, per aiutarti a capire e controllare la tecnologia su cui fai affidamento.',
+		aboutDescription:
+			'Usiamo strumenti open source e processi trasparenti, per aiutarti a capire e controllare la tecnologia su cui fai affidamento.',
 		licenceLink: 'Licenza',
 		toolGroups: {
 			company: 'Per gestire l’azienda',
@@ -58,7 +62,8 @@ export const it = {
 					'Registrata in inWD e gestita da remoto dopo il passaggio'
 				],
 				linkLabel: 'Migrazione a Linux',
-				imageAlt: 'Scrivania nera con quattro monitor, uno su un braccio rialzato, tastiera e mouse, e un PC tower con luci rosse sotto'
+				imageAlt:
+					'Scrivania nera con quattro monitor, uno su un braccio rialzato, tastiera e mouse, e un PC tower con luci rosse sotto'
 			},
 			privacy: {
 				title: 'Archiviazione cifrata dei backup',
@@ -86,7 +91,8 @@ export const it = {
 					'Report: una traccia di cosa è gestito, cosa ha richiesto attenzione e cosa è cambiato'
 				],
 				linkLabel: 'Infrastruttura curata',
-				imageAlt: 'Emblema Trunk / Rack di inWD: un tronco spezzato con tre unità rack e rametti con foglie alle radici'
+				imageAlt:
+					'Emblema Trunk / Rack di inWD: un tronco spezzato con tre unità rack e rametti con foglie alle radici'
 			}
 		}
 	},
@@ -102,7 +108,8 @@ export const it = {
 			title: 'Migrazione di postazioni a Linux',
 			metaDescription:
 				'Come WEBDEPLOY porta le postazioni da Windows a Linux: elenchi di software e dispositivi concordati con te, test concordati, una postazione di prova, poi gestione inWD.',
-			imageAlt: 'Emblema inWD Host gestito: un rack di tre server con spie di stato, ricoperto di foglie e vegetazione',
+			imageAlt:
+				'Emblema inWD Host gestito: un rack di tre server con spie di stato, ricoperto di foglie e vegetazione',
 			subtitle: 'Da Windows a Linux, verificato prima che qualcuno cambi',
 			description:
 				'Una migrazione funziona solo se tutto ciò che il tuo team usa funziona ancora il giorno del passaggio. Per questo, prima di cambiare qualsiasi macchina, concordiamo con te cosa deve funzionare e come lo verificheremo.',
@@ -112,7 +119,7 @@ export const it = {
 				body: 'Insieme a te scriviamo due elenchi: una distinta del software (SBoM) con ogni programma usato dal tuo team, e una distinta delle periferiche come stampanti, scanner, etichettatrici, lettori di tessere e tavolette di firma. Per ogni voce troviamo la versione Linux, un sostituto o un modo per continuare a usarla.',
 				examplesLabel: 'Voci di esempio',
 				examples: [
-					{ item: 'Documenti d\'ufficio', result: 'LibreOffice, provato sui tuoi file' },
+					{ item: "Documenti d'ufficio", result: 'LibreOffice, provato sui tuoi file' },
 					{ item: 'Posta e calendario', result: 'Thunderbird, con i tuoi account' },
 					{ item: 'Applicazioni web', result: 'Firefox, ogni accesso verificato' },
 					{ item: 'Etichettatrice', result: 'Driver Linux, etichette di prova stampate' },
@@ -141,7 +148,7 @@ export const it = {
 					files: 'Apri i file',
 					browser: 'Apri il browser',
 					office: 'Scrivi un documento',
-					print: 'Stampa un\'etichetta di prova',
+					print: "Stampa un'etichetta di prova",
 					printQueue: 'Coda di stampa',
 					printer: 'Etichettatrice',
 					ready: 'Pronta',
@@ -150,15 +157,17 @@ export const it = {
 					noticeBody: 'Etichettatrice · test-label.pdf'
 				},
 				imageCaption:
-					"Nella foto: la nostra postazione, una configurazione molto ampia. La postazione di prova che ricevi è configurata come le macchine che il tuo team userà davvero.",
-				imageAlt: 'Scrivania nera con quattro monitor, uno su un braccio rialzato, tastiera e mouse, e un PC tower con luci rosse sotto'
+					'Nella foto: la nostra postazione, una configurazione molto ampia. La postazione di prova che ricevi è configurata come le macchine che il tuo team userà davvero.',
+				imageAlt:
+					'Scrivania nera con quattro monitor, uno su un braccio rialzato, tastiera e mouse, e un PC tower con luci rosse sotto'
 			},
 			support: {
 				title: 'Manutenzione dopo il passaggio',
 				subtitle: 'Registrata in inWD',
 				body: 'Dopo il passaggio ogni postazione viene registrata in inWD, il nostro servizio gestito, come avviene per un server. Una volta registrata, la aggiorniamo e risolviamo i problemi da remoto dal pannello inWD su console.inwd.org, senza che nessuno debba portarci le macchine.',
 				link: 'Scopri inWD',
-				imageAlt: 'Emblema inWD Tronco / Rack: un tronco spezzato con tre unità rack, rametti con foglie alle radici'
+				imageAlt:
+					'Emblema inWD Tronco / Rack: un tronco spezzato con tre unità rack, rametti con foglie alle radici'
 			}
 		},
 		backup: {
@@ -220,7 +229,8 @@ export const it = {
 		diagramAlt: 'Totem nero verticale con codice verde sullo schermo',
 		metaDescription:
 			"inWD Kiosk: un totem interattivo da interno su Linux open source. Mostra l'app o il sito che scegli ed è aggiornato e assistito da remoto da WEBDEPLOY.",
-		heroTagline: 'Totem interattivo da interno su Linux open source, aggiornato e assistito da remoto',
+		heroTagline:
+			'Totem interattivo da interno su Linux open source, aggiornato e assistito da remoto',
 		requestDemo: 'Parliamone',
 		learnMore: 'Cosa è incluso',
 		demo: {
@@ -297,7 +307,7 @@ export const it = {
 		technology: {
 			title: 'Basato su S451 di M4SS',
 			description:
-				"Il totem usa S451, una tecnologia di M4SS Srl progettata per dispositivi Industrial IoT. M4SS ha sviluppato internamente know-how, procedure e software per generare una distribuzione Linux, chiamata M4SS Linux Embedded Machine. S451 è già impiegata in diversi settori industriali, a cui ora si aggiungono i totem interattivi.",
+				'Il totem usa S451, una tecnologia di M4SS Srl progettata per dispositivi Industrial IoT. M4SS ha sviluppato internamente know-how, procedure e software per generare una distribuzione Linux, chiamata M4SS Linux Embedded Machine. S451 è già impiegata in diversi settori industriali, a cui ora si aggiungono i totem interattivi.',
 			listTitle: 'La stessa tecnologia ci permette di realizzare sistemi per:',
 			features: [
 				'Acquisizione dati da macchine e sensori',
@@ -324,7 +334,7 @@ export const it = {
 			description: "Il totem mostra l'applicazione che scegli, per esempio:",
 			items: [
 				'Orari di apertura e informazioni per i visitatori',
-				"Mappe e indicazioni dentro un edificio",
+				'Mappe e indicazioni dentro un edificio',
 				'Programmi di eventi',
 				'Una web app o un sito che già gestisci'
 			]
@@ -400,8 +410,7 @@ export const it = {
 		},
 		learning: {
 			title: 'Trova il tempo per imparare',
-			description:
-				'Dedichiamo tempo a imparare, sperimentare e capire gli strumenti che usiamo.'
+			description: 'Dedichiamo tempo a imparare, sperimentare e capire gli strumenti che usiamo.'
 		},
 		growth: {
 			title: 'Cresciamo a un ritmo che reggiamo',
@@ -433,14 +442,16 @@ export const it = {
 			title: 'Unisciti al nostro team',
 			description:
 				"Lavora con noi, non per noi. Cerchiamo sviluppatori che condividono la nostra passione per l'open source, l'esperienza degli sviluppatori e le pratiche di lavoro sostenibili.",
-			perks: 'Lavoro da remoto • Orari flessibili • Open source • Equilibrio tra lavoro e vita privata'
+			perks:
+				'Lavoro da remoto • Orari flessibili • Open source • Equilibrio tra lavoro e vita privata'
 		}
 	},
 
 	// News
 	news: {
 		title: 'Notizie',
-		metaDescription: 'Notizie da WEBDEPLOY: avvisi di sicurezza, eventi open source e aggiornamenti sui nostri servizi Linux, infrastruttura e backup.',
+		metaDescription:
+			'Notizie da WEBDEPLOY: avvisi di sicurezza, eventi open source e aggiornamenti sui nostri servizi Linux, infrastruttura e backup.',
 		readMore: 'Leggi di più',
 		backToNews: 'Notizie',
 		contactUs: 'Contattaci',
@@ -450,7 +461,7 @@ export const it = {
 		linkCopied: 'Link copiato. Puoi incollarlo nella tua Storia Instagram.',
 		copyFailed: 'Impossibile copiare il link. Copialo dalla barra degli indirizzi.',
 		instagramStoryLinkCopied: 'Link copiato: incollalo nella storia con lo sticker link.',
-		instagramDesktop: 'Link copiato. Le storie di Instagram si creano solo dall\'app sul telefono.',
+		instagramDesktop: "Link copiato. Le storie di Instagram si creano solo dall'app sul telefono.",
 		shareText: 'Leggi questo articolo:',
 		popupBlocked: 'Popup bloccato. Apertura in una nuova scheda.',
 		fosdem2026: {
@@ -464,7 +475,7 @@ export const it = {
 			descriptionAfterLink: '.',
 			intro:
 				"Lo scorso weekend abbiamo partecipato al FOSDEM 2026 a Bruxelles, la più grande conferenza europea dedicata al software libero e open source. Ospitata all'Université libre de Bruxelles (ULB), l'edizione di quest'anno ha riunito migliaia di sviluppatori, maintainer e appassionati di open source per due giorni di interventi, workshop e incontri della comunità.",
-			whatIsFosdem: 'Cos\'è il FOSDEM?',
+			whatIsFosdem: "Cos'è il FOSDEM?",
 			whatIsFosdemDescription:
 				"FOSDEM (Free and Open Source Software Developers' European Meeting) è un evento annuale organizzato dalla comunità, per la comunità. Senza necessità di registrazione e completamente gratuito, incarna lo spirito dell'open source. La conferenza presenta centinaia di talk su molteplici track, dallo sviluppo del kernel alle tecnologie web, dalla sicurezza alla documentazione.",
 			craRoom: 'La devroom CRA',
@@ -480,7 +491,8 @@ export const it = {
 		},
 		php2shell: {
 			title: 'PHP2Shell: RCE senza login nel core di PHP, patcha subito',
-			metaDescription: 'PHP2Shell (CVE-2026-109618 e CVE-2026-109619): vulnerabilità critiche di PHP che permettono l\'esecuzione di codice da remoto. Versioni colpite e come aggiornare.',
+			metaDescription:
+				"PHP2Shell (CVE-2026-109618 e CVE-2026-109619): vulnerabilità critiche di PHP che permettono l'esecuzione di codice da remoto. Versioni colpite e come aggiornare.",
 			imageAlt:
 				'Illustrazione ad acquerello: un elefante gigante rattoppato si nasconde tra rack di server coperti di rampicanti con spie rosse accese, mentre un giovane elfo lo indica tenendo per mano una compagna',
 			date: '22/10/2026',
@@ -526,9 +538,18 @@ export const it = {
 			legacyDescription:
 				'Rami EOL, quindi nessuna release ufficiale. Il security team di PHP ha però pubblicato backport minimali del fix nel repository php-src. Se compili PHP da sorgente, li trovi qui:',
 			legacyLinks: [
-				{ label: 'PHP 7.4', url: 'https://github.com/php/php-src/tree/PHP-7.4-CVE-2026-109618-109619' },
-				{ label: 'PHP 8.0', url: 'https://github.com/php/php-src/tree/PHP-8.0-CVE-2026-109618-109619' },
-				{ label: 'PHP 8.1', url: 'https://github.com/php/php-src/tree/PHP-8.1-CVE-2026-109618-109619' }
+				{
+					label: 'PHP 7.4',
+					url: 'https://github.com/php/php-src/tree/PHP-7.4-CVE-2026-109618-109619'
+				},
+				{
+					label: 'PHP 8.0',
+					url: 'https://github.com/php/php-src/tree/PHP-8.0-CVE-2026-109618-109619'
+				},
+				{
+					label: 'PHP 8.1',
+					url: 'https://github.com/php/php-src/tree/PHP-8.1-CVE-2026-109618-109619'
+				}
 			],
 			legacyNote:
 				"Se usi i pacchetti della distro, controlla gli advisory del vendor o di un provider di extended support per avere build patchate. Da PHP 5.4 a 7.3 non c'è nessun fix: l'unica via è migrare a una versione supportata.",
@@ -545,14 +566,29 @@ export const it = {
 				'Se non puoi aggiornare subito, CERT-EU, il servizio di cybersicurezza delle istituzioni europee, raccomanda di isolare dalla rete pubblica i sistemi esposti su internet finché il fix non è applicato e verificato.',
 			sourcesTitle: 'RTFM: fonti e advisory',
 			sources: [
-				{ label: 'Advisory di sicurezza PHP (php.net)', url: 'https://www.php.net/archive/2026.php#2026-10-21-5' },
-				{ label: 'GHSA-w8hw-w9fx-j79w: CVE-2026-109618', url: 'https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w' },
-				{ label: 'GHSA-6wmf-4rv5-p3rp: CVE-2026-109619', url: 'https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp' },
-				{ label: 'CERT-EU security advisory 2026-018', url: 'https://cert.europa.eu/publications/security-advisories/2026-018/' },
+				{
+					label: 'Advisory di sicurezza PHP (php.net)',
+					url: 'https://www.php.net/archive/2026.php#2026-10-21-5'
+				},
+				{
+					label: 'GHSA-w8hw-w9fx-j79w: CVE-2026-109618',
+					url: 'https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w'
+				},
+				{
+					label: 'GHSA-6wmf-4rv5-p3rp: CVE-2026-109619',
+					url: 'https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp'
+				},
+				{
+					label: 'CERT-EU security advisory 2026-018',
+					url: 'https://cert.europa.eu/publications/security-advisories/2026-018/'
+				},
 				{ label: 'Il sito della ricerca PHP2Shell', url: 'https://www.php2shell.com/' },
-				{ label: 'watchTowr: PHP2Shell FAQ', url: 'https://watchtowr.com/intelligence/php-cve-2026-109618-faq/' }
+				{
+					label: 'watchTowr: PHP2Shell FAQ',
+					url: 'https://watchtowr.com/intelligence/php-cve-2026-109618-faq/'
+				}
 			],
-			visitAdvisory: 'Leggi l\'advisory di PHP'
+			visitAdvisory: "Leggi l'advisory di PHP"
 		}
 	},
 
@@ -596,7 +632,7 @@ export const it = {
 		disclosure:
 			'Ti chiediamo di non rendere pubblico il problema, né di comunicarlo ad altri, finché non abbiamo rilasciato una correzione e concordato con te una data di divulgazione.',
 		safeHarbour:
-			"Non intraprenderemo né sosterremo azioni legali contro chi ci segnala una vulnerabilità in buona fede, si impegna ragionevolmente a evitare violazioni della privacy, distruzione di dati e interruzioni del servizio, accede solo ai dati necessari a dimostrare il problema e ci concede un tempo ragionevole per correggerlo prima di qualsiasi divulgazione.",
+			'Non intraprenderemo né sosterremo azioni legali contro chi ci segnala una vulnerabilità in buona fede, si impegna ragionevolmente a evitare violazioni della privacy, distruzione di dati e interruzioni del servizio, accede solo ai dati necessari a dimostrare il problema e ci concede un tempo ragionevole per correggerlo prima di qualsiasi divulgazione.',
 		approachTitle: 'Il nostro approccio',
 		approachItems: [
 			'Una configurazione di hardening di base sui server che gestiamo, con firewall e fail2ban',
@@ -611,19 +647,23 @@ export const it = {
 	// Privacy Policy
 	privacy: {
 		title: 'Informativa sulla privacy',
-		intro: 'WEBDEPLOY S.R.L. si impegna a proteggere la tua privacy. Questa pagina spiega come gestiamo i tuoi dati quando visiti il nostro sito web.',
+		intro:
+			'WEBDEPLOY S.R.L. si impegna a proteggere la tua privacy. Questa pagina spiega come gestiamo i tuoi dati quando visiti il nostro sito web.',
 		analyticsTitle: 'Analisi delle visite',
-		analyticsText: 'Utilizziamo Matomo, una piattaforma di analytics self-hosted e orientata alla privacy. La nostra configurazione è progettata per rispettare la tua privacy:',
+		analyticsText:
+			'Utilizziamo Matomo, una piattaforma di analytics self-hosted e orientata alla privacy. La nostra configurazione è progettata per rispettare la tua privacy:',
 		analyticsFeatures: [
 			'Nessun cookie viene impostato sul tuo dispositivo',
 			'Gli indirizzi IP sono anonimizzati',
 			"L'impostazione Do Not Track del browser è rispettata",
 			'I dati sono memorizzati sui server di Hetzner Online GmbH a Falkenstein, in Sassonia (Germania)'
 		],
-		optOutTitle: 'Disattiva l\'analisi delle visite',
-		optOutText: 'Anche se utilizziamo un tracciamento rispettoso della privacy, puoi disattivare completamente l\'analisi delle visite:',
+		optOutTitle: "Disattiva l'analisi delle visite",
+		optOutText:
+			"Anche se utilizziamo un tracciamento rispettoso della privacy, puoi disattivare completamente l'analisi delle visite:",
 		dataTitle: 'Dati raccolti',
-		dataText: 'Raccogliamo solo dati anonimi e aggregati per capire come viene utilizzato il nostro sito:',
+		dataText:
+			'Raccogliamo solo dati anonimi e aggregati per capire come viene utilizzato il nostro sito:',
 		dataItems: [
 			'Pagine visitate e tempo trascorso',
 			'Sito web di provenienza',
@@ -639,12 +679,17 @@ export const it = {
 		dpaText:
 			"Quando WEBDEPLOY S.R.L. tratta dati personali per tuo conto in qualità di responsabile del trattamento, lo fa sulla base di un accordo sul trattamento dei dati (DPA) conforme all'art. 28 GDPR: finalità e durata del trattamento definite, misure di sicurezza tecniche e organizzative, elenco dei sub-responsabili, assistenza per le richieste degli interessati, e cancellazione o restituzione dei dati al termine del servizio. Richiedi il testo del DPA scrivendo a info@webdeploy.it.",
 		optOut: {
-			OptOutComplete: 'Opt-out completato. Le tue visite a questo sito non verranno registrate dallo strumento di Web Analytics.',
-			OptOutCompleteBis: 'Se elimini i cookie, incluso quello di opt-out, o cambi computer o browser, dovrai ripetere la procedura.',
-			YouMayOptOut2: 'Puoi scegliere di impedire a questo sito web di aggregare e analizzare le azioni che intraprendi qui.',
-			YouMayOptOut3: 'Ciò proteggerà la tua privacy, ma impedirà al proprietario di imparare dalle tue azioni e di creare un\'esperienza migliore per te e per gli altri utenti.',
+			OptOutComplete:
+				'Opt-out completato. Le tue visite a questo sito non verranno registrate dallo strumento di Web Analytics.',
+			OptOutCompleteBis:
+				'Se elimini i cookie, incluso quello di opt-out, o cambi computer o browser, dovrai ripetere la procedura.',
+			YouMayOptOut2:
+				'Puoi scegliere di impedire a questo sito web di aggregare e analizzare le azioni che intraprendi qui.',
+			YouMayOptOut3:
+				"Ciò proteggerà la tua privacy, ma impedirà al proprietario di imparare dalle tue azioni e di creare un'esperienza migliore per te e per gli altri utenti.",
 			OptOutErrorNoCookies: 'Per disattivare il monitoraggio, i cookie devono essere abilitati.',
-			OptOutErrorNotHttps: 'La funzione di esclusione dal monitoraggio (opt-out) potrebbe non funzionare perché questo sito non è stato caricato tramite HTTPS. Ricarica la pagina per verificare se il tuo stato di rinuncia è cambiato.',
+			OptOutErrorNotHttps:
+				'La funzione di esclusione dal monitoraggio (opt-out) potrebbe non funzionare perché questo sito non è stato caricato tramite HTTPS. Ricarica la pagina per verificare se il tuo stato di rinuncia è cambiato.',
 			YouAreNotOptedOut: 'Al momento non hai disattivato il monitoraggio.',
 			UncheckToOptOut: 'Deseleziona la casella per disattivare il monitoraggio.',
 			YouAreOptedOut: 'Al momento hai disattivato il monitoraggio.',
@@ -656,7 +701,7 @@ export const it = {
 	common: {
 		phone: 'Telefono',
 		skipToContent: 'Vai al contenuto principale',
-		opensInNewTab: '(si apre in una nuova scheda)',
+		opensInNewTab: '(si apre in una nuova scheda)'
 	},
 
 	// Error page

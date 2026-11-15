@@ -12,9 +12,32 @@
 	import { t } from '$lib/i18n';
 	import { consent } from '$lib/stores/consent.svelte';
 	import { loadMetaPixel } from '$lib/utils/metaPixel';
+	import { jsonLdScript } from '$lib/utils/jsonLd';
 	import { logI18n, logAnalytics } from '$lib/utils/logger';
 
 	let { children } = $props();
+
+	const organization = {
+		'@context': 'https://schema.org',
+		'@type': 'Organization',
+		name: 'WEBDEPLOY S.R.L.',
+		alternateName: 'WEBDEPLOY',
+		url: 'https://webdeploy.it',
+		logo: 'https://webdeploy.it/webdeploy-logo.svg',
+		description:
+			'Open source infrastructure and DevOps solutions. Linux migration, managed infrastructure, and interactive kiosk solutions.',
+		address: {
+			'@type': 'PostalAddress',
+			addressLocality: 'Parma',
+			addressCountry: 'IT'
+		},
+		email: 'info@webdeploy.it',
+		serviceType: ['DevOps', 'Linux Migration', 'Managed Infrastructure', 'Interactive Kiosk'],
+		areaServed: {
+			'@type': 'Country',
+			name: 'Italy'
+		}
+	};
 
 	// Update html lang attribute when locale changes
 	$effect(() => {
@@ -50,7 +73,9 @@
 
 		// Contact intent: email and phone link clicks, wherever they appear (contacts page, footer)
 		const onContactClick = (event: MouseEvent) => {
-			const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="mailto:"], a[href^="tel:"]');
+			const link = (event.target as Element | null)?.closest<HTMLAnchorElement>(
+				'a[href^="mailto:"], a[href^="tel:"]'
+			);
 			if (!link) return;
 			const channel = link.protocol === 'tel:' ? 'phone' : 'email';
 			window._paq?.push(['trackEvent', 'Contact', channel, location.pathname]);
@@ -98,28 +123,8 @@
 	/>
 
 	<!-- JSON-LD Structured Data -->
-	{@html `<script type="application/ld+json">
-	{
-		"@context": "https://schema.org",
-		"@type": "Organization",
-		"name": "WEBDEPLOY S.R.L.",
-		"alternateName": "WEBDEPLOY",
-		"url": "https://webdeploy.it",
-		"logo": "https://webdeploy.it/webdeploy-logo.svg",
-		"description": "Open source infrastructure and DevOps solutions. Linux migration, managed infrastructure, and interactive kiosk solutions.",
-		"address": {
-			"@type": "PostalAddress",
-			"addressLocality": "Parma",
-			"addressCountry": "IT"
-		},
-		"email": "info@webdeploy.it",
-		"serviceType": ["DevOps", "Linux Migration", "Managed Infrastructure", "Interactive Kiosk"],
-		"areaServed": {
-			"@type": "Country",
-			"name": "Italy"
-		}
-	}
-	</script>`}
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -- serialised and escaped by jsonLdScript -->
+	{@html jsonLdScript(organization)}
 </svelte:head>
 
 <div

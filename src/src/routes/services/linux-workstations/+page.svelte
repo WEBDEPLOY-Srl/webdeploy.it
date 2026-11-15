@@ -57,7 +57,9 @@
 				<p class="section-lead">{t('services.linux.inventory.body')}</p>
 			</div>
 			<figure class="home-service__art inventory">
-				<figcaption class="inventory__label">{t('services.linux.inventory.examplesLabel')}</figcaption>
+				<figcaption class="inventory__label">
+					{t('services.linux.inventory.examplesLabel')}
+				</figcaption>
 				<dl class="inventory__list">
 					{#each tObj<Example[]>('services.linux.inventory.examples') ?? [] as row (row.item)}
 						<div class="inventory__row">
@@ -95,7 +97,9 @@
 			</div>
 			<figure class="home-service__art">
 				<WorkstationDemo />
-				<figcaption class="home-service__credit">{t('services.linux.testMachine.imageCaption')}</figcaption>
+				<figcaption class="home-service__credit">
+					{t('services.linux.testMachine.imageCaption')}
+				</figcaption>
 			</figure>
 		</div>
 	</section>

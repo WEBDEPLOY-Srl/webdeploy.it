@@ -36,7 +36,8 @@ transparent and so that forks can keep to the same style.
   "01 / 02 / 03" stage numbering and similar decorative themes.
 - **Accessibility and browsers.** Keyboard operation, visible focus and reduced-motion support are
   required. Changes are checked in Firefox and Chromium.
-- **Checks.** `npm run check` (in `src/`) must report no errors or warnings and `npm run build` must pass.
+- **Blame.** `git config blame.ignoreRevsFile .git-blame-ignore-revs` hides the mechanical formatting commits from `git blame`.
+- **Checks.** In `src/`, `npm run lint`, `npm run check`, `npm run test:unit` and, after `npm run build`, `npm run test:e2e` must pass without warnings.
 - **Commits.** [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `docs:`,
   `chore:`, `refactor:`, `test:`, `perf:`, `ci:` or `build:`, an imperative lowercase subject of at most
   72 characters with no trailing period.

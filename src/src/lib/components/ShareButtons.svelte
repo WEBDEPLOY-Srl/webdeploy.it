@@ -31,7 +31,9 @@
 		if (!browser) return false;
 		const ua = navigator.userAgent;
 		// iPadOS reports itself as Macintosh
-		return /Android|iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+		return (
+			/Android|iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)
+		);
 	}
 
 	onMount(() => {
@@ -133,7 +135,12 @@
 	/**
 	 * Opens a centered popup window for sharing
 	 */
-	function openSharePopup(shareUrl: string, name: string, width: number, height: number): Window | null {
+	function openSharePopup(
+		shareUrl: string,
+		name: string,
+		width: number,
+		height: number
+	): Window | null {
 		if (!browser) return null;
 
 		const left = Math.round((window.innerWidth - width) / 2 + window.screenX);

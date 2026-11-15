@@ -16,7 +16,9 @@
 	<section class="home-section manifesto-intro" aria-labelledby="manifesto-title">
 		<div class="page-container">
 			<p class="section-eyebrow">{t('manifesto.eyebrow')}</p>
-			<h1 id="manifesto-title" class="section-title manifesto-intro__title">{t('manifesto.title')}</h1>
+			<h1 id="manifesto-title" class="section-title manifesto-intro__title">
+				{t('manifesto.title')}
+			</h1>
 		</div>
 	</section>
 

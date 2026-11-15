@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.45.0] - 2026-11-15
+
+### Added
+- ESLint (TypeScript and Svelte rules) and Prettier (tabs, single quotes) with `npm run lint` and
+  `npm run format`.
+- Vitest unit tests (`npm run test:unit`): translation parity between English and Italian, existence of
+  every translation key used in the source (keys built with a template literal must match at least one
+  existing key), sitemap completeness and well-formedness, and JSON-LD
+  escaping.
+- Playwright smoke tests (`npm run test:e2e`) in Firefox and Chromium against the production build:
+  every sitemap page returns 200 with one `h1`, a title, a canonical link and a clean console; axe-core
+  finds no serious or critical WCAG 2.0 to 2.2 A/AA violation; header menus work by keyboard and the
+  mobile menu opens and closes; no request reaches Meta before consent and a refusal survives a reload.
+  Third-party hosts are stubbed.
+- `.woodpecker/check.yml`: a verification workflow on every push that needs no secrets,
+  volumes or Docker socket: `reuse lint`, `nginx -t`, `npm ci`, lint, type check, unit tests, build,
+  `npm audit --audit-level=high` and the Playwright suite in the official Playwright image. All images
+  are pinned by digest.
+- `ACCESSIBILITY.md`: the WCAG 2.2 AA target, how it is tested, known limits and how to report a problem.
+
+### Fixed
+- The company line on the security page used `slate-500`, below the WCAG AA contrast ratio on the page
+  background; it now uses `slate-400`.
+
+### Changed
+- JSON-LD structured data is serialised by one helper (`$lib/utils/jsonLd.ts`) that escapes `<` and the
+  JavaScript line separators; the site-wide Organization data is now built from an object. Output is
+  semantically identical.
+- `.woodpecker/.build.yml` waits for `check.yml`, so an image is only built and pushed from a commit that
+  passed it, and pins its `alpine` and `curl` images by digest. It runs for pushes to `main` only; its manual trigger is removed.
+- `package.json` pins `minimatch` to 11 through `overrides`: `typescript-eslint` pulled in a release with a
+  moderate advisory, and `npm audit` again reports no high or moderate advisory.
+- The Meta Pixel bootstrap is typed (`MetaPixel` in `app.d.ts`) instead of cast to `any`.
+
 ## [1.44.0] - 2026-11-15
 
 ### Changed
