@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - ESLint (TypeScript and Svelte rules) and Prettier (tabs, single quotes) with `npm run lint` and
   `npm run format`.
+- Vitest unit tests (`npm run test:unit`): translation parity between English and Italian, existence of
+  every translation key used in the source, sitemap completeness and well-formedness, and JSON-LD
+  escaping.
 
 ### Changed
 - JSON-LD structured data is serialised by one helper (`$lib/utils/jsonLd.ts`) that escapes `<` and the
