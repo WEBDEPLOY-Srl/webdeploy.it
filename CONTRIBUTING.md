@@ -37,7 +37,7 @@ transparent and so that forks can keep to the same style.
 - **Accessibility and browsers.** Keyboard operation, visible focus and reduced-motion support are
   required. Changes are checked in Firefox and Chromium.
 - **Blame.** `git config blame.ignoreRevsFile .git-blame-ignore-revs` hides the mechanical formatting commits from `git blame`.
-- **Checks.** In `src/`, `npm run lint`, `npm run check` and `npm run test:unit` must pass without warnings and `npm run build` must pass.
+- **Checks.** In `src/`, `npm run lint`, `npm run check`, `npm run test:unit` and, after `npm run build`, `npm run test:e2e` must pass without warnings.
 - **Commits.** [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `docs:`,
   `chore:`, `refactor:`, `test:`, `perf:`, `ci:` or `build:`, an imperative lowercase subject of at most
   72 characters with no trailing period.

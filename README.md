@@ -49,6 +49,7 @@ Run from `src/`:
 | `npm run lint` | Prettier format check and ESLint |
 | `npm run format` | Rewrite files with Prettier |
 | `npm run test:unit` | Unit tests (Vitest) |
+| `npm run test:e2e` | Browser smoke tests (Playwright); run `npm run build` first |
 
 To build and run the production image (nginx serving the static build) on <http://localhost:8080>, run from the repository root, not `src/`:
 

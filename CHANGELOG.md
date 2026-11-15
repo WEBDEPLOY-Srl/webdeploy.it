@@ -13,6 +13,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Vitest unit tests (`npm run test:unit`): translation parity between English and Italian, existence of
   every translation key used in the source, sitemap completeness and well-formedness, and JSON-LD
   escaping.
+- Playwright smoke tests (`npm run test:e2e`) in Firefox and Chromium against the production build:
+  every sitemap page returns 200 with one `h1`, a title, a canonical link and a clean console; axe-core
+  finds no serious or critical WCAG 2.0 to 2.2 A/AA violation; header menus work by keyboard and the
+  mobile menu opens and closes; no request reaches Meta before consent and a refusal survives a reload.
+  Third-party hosts are stubbed.
+
+### Fixed
+- The company line on the security page used `slate-500`, below the WCAG AA contrast ratio on the page
+  background; it now uses `slate-400`.
 
 ### Changed
 - JSON-LD structured data is serialised by one helper (`$lib/utils/jsonLd.ts`) that escapes `<` and the
