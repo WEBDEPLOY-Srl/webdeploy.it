@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { t, locale } from "$lib/i18n";
+    import { t } from "$lib/i18n";
     import LanguageSwitcher from "./LanguageSwitcher.svelte";
     import { availableLocales } from "$lib/stores/locale.svelte";
     import { slide } from "svelte/transition";

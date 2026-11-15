@@ -7,10 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- ESLint (TypeScript and Svelte rules) and Prettier (tabs, single quotes) with `npm run lint` and
+  `npm run format`.
+
 ### Changed
 - JSON-LD structured data is serialised by one helper (`$lib/utils/jsonLd.ts`) that escapes `<` and the
   JavaScript line separators; the site-wide Organization data is now built from an object. Output is
   semantically identical.
+- The Meta Pixel bootstrap is typed (`MetaPixel` in `app.d.ts`) instead of cast to `any`.
 
 ## [1.44.0] - 2026-11-15
 

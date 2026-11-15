@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { t } from '$lib/i18n';
 	import TiltedArt from '$lib/components/TiltedArt.svelte';
 
 	interface Props {

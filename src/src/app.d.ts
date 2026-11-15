@@ -9,11 +9,22 @@ declare global {
 		// interface Platform {}
 	}
 
+	/** The Meta Pixel queue function, as installed by the fbevents.js bootstrap. */
+	interface MetaPixel {
+		(...args: unknown[]): void;
+		/** Set by fbevents.js once it has loaded; until then calls are queued. */
+		callMethod?: (...args: unknown[]) => void;
+		queue: unknown[][];
+		push: MetaPixel;
+		loaded: boolean;
+		version: string;
+	}
+
 	// Matomo analytics + Meta Pixel (consent-gated)
 	interface Window {
 		_paq: Array<Array<string | number | boolean>>;
-		fbq?: (...args: unknown[]) => void;
-		_fbq?: unknown;
+		fbq?: MetaPixel;
+		_fbq?: MetaPixel;
 	}
 }
 

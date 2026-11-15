@@ -25,6 +25,7 @@
 		>
 			<div class="flex-1">
 				<p class="text-sm font-display uppercase text-primary mb-1">{t('consent.title')}</p>
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -- repository-owned translation containing a link -->
 				<p class="text-sm text-slate-400 leading-relaxed">{@html t('consent.body')}</p>
 			</div>
 			<div class="flex gap-3 shrink-0">
