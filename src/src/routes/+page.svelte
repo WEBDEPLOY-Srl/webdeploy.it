@@ -66,7 +66,8 @@
 			href: '/services/linux-workstations',
 			// Rendered as the interactive WorkstationDemo; these fields describe its frame image.
 			src: '/images/linux-workstation-frame.webp',
-			srcset: '/images/linux-workstation-frame-800.webp 800w, /images/linux-workstation-frame.webp 1113w',
+			srcset:
+				'/images/linux-workstation-frame-800.webp 800w, /images/linux-workstation-frame.webp 1113w',
 			width: 1113,
 			height: 1414,
 			side: 'right',
@@ -113,7 +114,11 @@
 				{ name: 'Planka', url: 'https://planka.app' },
 				{ name: 'AFFiNE', url: 'https://affine.pro', icon: siAffine },
 				{ name: 'Nextcloud', url: 'https://nextcloud.com', icon: siNextcloud },
-				{ name: 'Collabora Online', url: 'https://www.collaboraonline.com', icon: siCollaboraonline },
+				{
+					name: 'Collabora Online',
+					url: 'https://www.collaboraonline.com',
+					icon: siCollaboraonline
+				},
 				{ name: 'Penpot', url: 'https://penpot.app', icon: siPenpot },
 				{ name: 'Matrix', url: 'https://matrix.org', icon: siMatrix },
 				{ name: 'FluffyChat', url: 'https://fluffychat.im' },
@@ -210,7 +215,9 @@
 		>
 			<div class="page-container home-service__layout">
 				<div class="home-service__copy">
-					<h3 id="home-service-{service.key}-title">{t(`home.serviceSections.${service.key}.title`)}</h3>
+					<h3 id="home-service-{service.key}-title">
+						{t(`home.serviceSections.${service.key}.title`)}
+					</h3>
 					<p class="home-service__subtitle">{t(`home.serviceSections.${service.key}.subtitle`)}</p>
 					<p class="section-lead">{t(`home.serviceSections.${service.key}.lead`)}</p>
 					<ul class="section-points">
@@ -226,17 +233,17 @@
 					{#if service.key === 'linux'}
 						<WorkstationDemo />
 					{:else}
-					<img
-						class="home-service__image home-service__image--{service.style}"
-						src={service.src}
-						srcset={service.srcset}
-						sizes={service.srcset ? '(min-width: 64rem) 40vw, 100vw' : undefined}
-						alt={t(`home.serviceSections.${service.key}.imageAlt`)}
-						width={service.width}
-						height={service.height}
-						loading="lazy"
-						decoding="async"
-					/>
+						<img
+							class="home-service__image home-service__image--{service.style}"
+							src={service.src}
+							srcset={service.srcset}
+							sizes={service.srcset ? '(min-width: 64rem) 40vw, 100vw' : undefined}
+							alt={t(`home.serviceSections.${service.key}.imageAlt`)}
+							width={service.width}
+							height={service.height}
+							loading="lazy"
+							decoding="async"
+						/>
 					{/if}
 					{#if service.licence}
 						<figcaption class="home-service__credit">
@@ -266,7 +273,12 @@
 						<ul class="home-tools__grid" aria-labelledby="home-tools-{group.key}">
 							{#each group.tools as tool (tool.name)}
 								<li>
-									<a class="home-tools__tile" href={tool.url} target="_blank" rel="noopener noreferrer">
+									<a
+										class="home-tools__tile"
+										href={tool.url}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
 										{#if tool.icon}
 											<svg viewBox={tool.icon.viewBox ?? '0 0 24 24'} aria-hidden="true">
 												<path d={tool.icon.path} transform={tool.icon.transform} />

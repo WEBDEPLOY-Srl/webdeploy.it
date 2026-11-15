@@ -26,10 +26,7 @@ const GRAVITY = 0.0022; // px per ms²
 const BREAK_DELAY = 450; // lets the window swing forward before it shatters
 const FADE_BEFORE_GROUND = 0.8; // share of the drop after which a pixel has vanished
 
-export function pixelWindowBreak(
-	canvas: HTMLCanvasElement,
-	options: { threshold?: number } = {}
-) {
+export function pixelWindowBreak(canvas: HTMLCanvasElement, options: { threshold?: number } = {}) {
 	const { threshold = 0.35 } = options;
 	const figure = canvas.closest('figure');
 	const image = canvas.parentElement?.querySelector('img');

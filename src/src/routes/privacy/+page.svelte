@@ -106,10 +106,7 @@
 					(this.cookieIsSecure ? ';secure' : '') +
 					';SameSite=' +
 					this.cookieSameSite;
-				if (
-					(!msToExpire || msToExpire >= 0) &&
-					this.getCookie(cookieName) !== String(value)
-				) {
+				if ((!msToExpire || msToExpire >= 0) && this.getCookie(cookieName) !== String(value)) {
 					logPrivacy.log('Error setting cookie: ' + cookieName);
 				}
 			}

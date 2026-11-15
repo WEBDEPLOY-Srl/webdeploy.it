@@ -29,10 +29,18 @@
 				<p class="text-sm text-slate-400 leading-relaxed">{@html t('consent.body')}</p>
 			</div>
 			<div class="flex gap-3 shrink-0">
-				<button type="button" onclick={reject} class="btn-retro-secondary px-4 py-2 text-sm font-mono">
+				<button
+					type="button"
+					onclick={reject}
+					class="btn-retro-secondary px-4 py-2 text-sm font-mono"
+				>
 					{t('consent.reject')}
 				</button>
-				<button type="button" onclick={accept} class="btn-retro-primary px-4 py-2 text-sm font-mono">
+				<button
+					type="button"
+					onclick={accept}
+					class="btn-retro-primary px-4 py-2 text-sm font-mono"
+				>
 					{t('consent.accept')}
 				</button>
 			</div>

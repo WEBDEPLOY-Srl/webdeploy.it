@@ -33,13 +33,16 @@
 		<div class="card-retro bg-surface-dark p-8 mb-8">
 			<div class="font-mono text-left">
 				<p class="text-primary mb-2">
-					<span aria-hidden="true">&gt;</span> {t('error.codeLabel')}: {$page.status}
+					<span aria-hidden="true">&gt;</span>
+					{t('error.codeLabel')}: {$page.status}
 				</p>
 				<p class="text-slate-400 mb-4">
-					<span aria-hidden="true">&gt;</span> {statusTitle}
+					<span aria-hidden="true">&gt;</span>
+					{statusTitle}
 				</p>
 				<p class="text-secondary">
-					<span aria-hidden="true">&gt;</span> {t('error.statusLine')}
+					<span aria-hidden="true">&gt;</span>
+					{t('error.statusLine')}
 				</p>
 			</div>
 		</div>
@@ -55,17 +58,16 @@
 
 		<!-- Action Buttons -->
 		<div class="flex flex-col sm:flex-row gap-4 justify-center">
-			<a
-				href="/"
-				class="btn-retro-primary py-3 px-8 font-bold uppercase tracking-widest"
-			>
-				<span aria-hidden="true">&gt;</span> {t('error.returnHome')}
+			<a href="/" class="btn-retro-primary py-3 px-8 font-bold uppercase tracking-widest">
+				<span aria-hidden="true">&gt;</span>
+				{t('error.returnHome')}
 			</a>
 			<button
 				onclick={() => history.back()}
 				class="btn-retro-secondary py-3 px-8 font-bold uppercase tracking-widest"
 			>
-				<span aria-hidden="true">&lt;</span> {t('error.goBack')}
+				<span aria-hidden="true">&lt;</span>
+				{t('error.goBack')}
 			</button>
 		</div>
 

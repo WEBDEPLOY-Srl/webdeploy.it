@@ -34,7 +34,8 @@
 					{t('security.reportingIntro')}
 					<a
 						href="mailto:security@webdeploy.it"
-						class="text-primary underline underline-offset-4 hover:text-white">security@webdeploy.it</a
+						class="text-primary underline underline-offset-4 hover:text-white"
+						>security@webdeploy.it</a
 					>.
 				</p>
 
@@ -69,7 +70,10 @@
 			</section>
 
 			<!-- Company details -->
-			<section class="text-center text-sm font-mono text-slate-500" aria-label={t('security.companyLabel')}>
+			<section
+				class="text-center text-sm font-mono text-slate-500"
+				aria-label={t('security.companyLabel')}
+			>
 				<p>WEBDEPLOY SRL · P.IVA 02993340344 · Parma, Italy</p>
 			</section>
 		</div>

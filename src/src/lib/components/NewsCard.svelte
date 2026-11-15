@@ -34,7 +34,9 @@
 			</div>
 		</div>
 		<div class="p-6">
-			<h2 class="text-xl font-display font-bold text-white mb-3 uppercase tracking-wide group-hover:text-primary transition-colors line-clamp-2">
+			<h2
+				class="text-xl font-display font-bold text-white mb-3 uppercase tracking-wide group-hover:text-primary transition-colors line-clamp-2"
+			>
 				{title}
 			</h2>
 			{#if description}

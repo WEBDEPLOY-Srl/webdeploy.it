@@ -73,7 +73,9 @@
 
 		// Contact intent: email and phone link clicks, wherever they appear (contacts page, footer)
 		const onContactClick = (event: MouseEvent) => {
-			const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="mailto:"], a[href^="tel:"]');
+			const link = (event.target as Element | null)?.closest<HTMLAnchorElement>(
+				'a[href^="mailto:"], a[href^="tel:"]'
+			);
 			if (!link) return;
 			const channel = link.protocol === 'tel:' ? 'phone' : 'email';
 			window._paq?.push(['trackEvent', 'Contact', channel, location.pathname]);

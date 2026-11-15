@@ -25,17 +25,21 @@ export const en = {
 		heroName: 'webdeploy',
 		heroText: 'developing greatness',
 		metaTitle: 'Open source infrastructure, Linux and encrypted backups',
-		metaDescription: 'WEBDEPLOY runs open source infrastructure for teams that want dependable systems: managed servers with inWD, Linux migration, encrypted backups and kiosks.',
+		metaDescription:
+			'WEBDEPLOY runs open source infrastructure for teams that want dependable systems: managed servers with inWD, Linux migration, encrypted backups and kiosks.',
 		heroSubtitle: 'A look into the Future<void>',
-		heroTagline: 'Work and operate with open source software and infrastructure for teams that want clear, dependable systems.',
+		heroTagline:
+			'Work and operate with open source software and infrastructure for teams that want clear, dependable systems.',
 		manifestoBtn: 'Developer Manifesto',
 		servicesBtn: 'Explore services',
 		servicesEyebrow: 'What we do',
 		servicesTitle: 'Open technology. Practical support.',
-		servicesDescription: 'Straightforward support for Linux, private data, and infrastructure you can understand.',
+		servicesDescription:
+			'Straightforward support for Linux, private data, and infrastructure you can understand.',
 		aboutEyebrow: 'Our approach',
 		aboutTitle: 'Open tools. Clear choices.',
-		aboutDescription: 'We use open-source tools and transparent processes, so you can understand and control the technology you rely on.',
+		aboutDescription:
+			'We use open-source tools and transparent processes, so you can understand and control the technology you rely on.',
 		licenceLink: 'Licence',
 		toolGroups: {
 			company: 'Running the company',
@@ -58,7 +62,8 @@ export const en = {
 					'Enrolled in inWD and maintained remotely after the switch'
 				],
 				linkLabel: 'Linux migration',
-				imageAlt: 'Black desk with four monitors, one on a raised arm, a keyboard and mouse, and a tower PC glowing red underneath'
+				imageAlt:
+					'Black desk with four monitors, one on a raised arm, a keyboard and mouse, and a tower PC glowing red underneath'
 			},
 			privacy: {
 				title: 'Encrypted backup storage',
@@ -86,7 +91,8 @@ export const en = {
 					'Reporting: a record of what is managed, what received attention, and what changed'
 				],
 				linkLabel: 'Infrastructure, tended',
-				imageAlt: 'inWD Trunk / Rack emblem: a broken tree trunk with three server rack units, leafy sprigs at its roots'
+				imageAlt:
+					'inWD Trunk / Rack emblem: a broken tree trunk with three server rack units, leafy sprigs at its roots'
 			}
 		}
 	},
@@ -102,7 +108,8 @@ export const en = {
 			title: 'Linux Workstation Migration',
 			metaDescription:
 				'How WEBDEPLOY moves workstations from Windows to Linux: software and device lists agreed with you, agreed tests, a test workstation, then inWD management.',
-			imageAlt: 'inWD Managed Host emblem: a three-unit server rack with status lights, overgrown with leaves and foliage',
+			imageAlt:
+				'inWD Managed Host emblem: a three-unit server rack with status lights, overgrown with leaves and foliage',
 			subtitle: 'From Windows to Linux, checked before anyone switches',
 			description:
 				'A migration works only if everything your team uses still works on the day they switch. So before any machine changes, we agree with you what has to work and how we will prove it.',
@@ -150,15 +157,17 @@ export const en = {
 					noticeBody: 'Label printer · test-label.pdf'
 				},
 				imageCaption:
-					"Pictured: our own workstation, a large setup. The test workstation you get is set up like the machines your team will actually use.",
-				imageAlt: 'Black desk with four monitors, one on a raised arm, a keyboard and mouse, and a tower PC glowing red underneath'
+					'Pictured: our own workstation, a large setup. The test workstation you get is set up like the machines your team will actually use.',
+				imageAlt:
+					'Black desk with four monitors, one on a raised arm, a keyboard and mouse, and a tower PC glowing red underneath'
 			},
 			support: {
 				title: 'Maintained after the switch',
 				subtitle: 'Enrolled in inWD',
 				body: 'After the switch each workstation is enrolled in inWD, our managed service, the same way a server is. Once enrolled, we keep it updated and fix problems remotely from the inWD panel at console.inwd.org, so nobody has to bring machines to us.',
 				link: 'About inWD',
-				imageAlt: 'inWD Trunk / Rack emblem: a broken tree trunk with three server rack units, leafy sprigs at its roots'
+				imageAlt:
+					'inWD Trunk / Rack emblem: a broken tree trunk with three server rack units, leafy sprigs at its roots'
 			}
 		},
 		backup: {
@@ -226,7 +235,7 @@ export const en = {
 		demo: {
 			label: 'Interactive kiosk demo',
 			caption:
-				"The interface on this kiosk is a demo. We can run the one you already use, or design and build the one you need.",
+				'The interface on this kiosk is a demo. We can run the one you already use, or design and build the one you need.',
 			switchLabel: 'Kiosk system',
 			windows: 'Windows kiosk',
 			inwd: 'inWD™ Kiosk',
@@ -384,8 +393,7 @@ export const en = {
 		},
 		community: {
 			title: 'Give back to FOSS',
-			description:
-				'Our work depends on open source. We contribute back and share what we know.'
+			description: 'Our work depends on open source. We contribute back and share what we know.'
 		},
 		howWeWork: 'How we work',
 		purpose: {
@@ -400,8 +408,7 @@ export const en = {
 		},
 		learning: {
 			title: 'Make time to learn',
-			description:
-				'We make time to learn, experiment and understand the tools we use.'
+			description: 'We make time to learn, experiment and understand the tools we use.'
 		},
 		growth: {
 			title: 'Grow at a pace we can sustain',
@@ -440,7 +447,8 @@ export const en = {
 	// News
 	news: {
 		title: 'News',
-		metaDescription: 'News from WEBDEPLOY: security advisories, open source events and updates on our Linux, infrastructure and backup services.',
+		metaDescription:
+			'News from WEBDEPLOY: security advisories, open source events and updates on our Linux, infrastructure and backup services.',
 		readMore: 'Read more',
 		backToNews: 'News',
 		contactUs: 'Contact Us',
@@ -480,7 +488,8 @@ export const en = {
 		},
 		php2shell: {
 			title: 'PHP2Shell: critical PHP vulnerabilities, update now',
-			metaDescription: 'PHP2Shell (CVE-2026-109618 and CVE-2026-109619): critical PHP vulnerabilities allow remote code execution. Which versions are affected and how to update.',
+			metaDescription:
+				'PHP2Shell (CVE-2026-109618 and CVE-2026-109619): critical PHP vulnerabilities allow remote code execution. Which versions are affected and how to update.',
 			imageAlt:
 				"Watercolour illustration: a giant patched-up elephant hides among overgrown server racks with red warning lights, while a young elf points at it and holds a companion's hand",
 			date: '22/10/2026',
@@ -526,9 +535,18 @@ export const en = {
 			legacyDescription:
 				'These branches are end of life and will not get an official release. The PHP security team has still published minimal source backports of the fix, for those who build PHP from source:',
 			legacyLinks: [
-				{ label: 'PHP 7.4', url: 'https://github.com/php/php-src/tree/PHP-7.4-CVE-2026-109618-109619' },
-				{ label: 'PHP 8.0', url: 'https://github.com/php/php-src/tree/PHP-8.0-CVE-2026-109618-109619' },
-				{ label: 'PHP 8.1', url: 'https://github.com/php/php-src/tree/PHP-8.1-CVE-2026-109618-109619' }
+				{
+					label: 'PHP 7.4',
+					url: 'https://github.com/php/php-src/tree/PHP-7.4-CVE-2026-109618-109619'
+				},
+				{
+					label: 'PHP 8.0',
+					url: 'https://github.com/php/php-src/tree/PHP-8.0-CVE-2026-109618-109619'
+				},
+				{
+					label: 'PHP 8.1',
+					url: 'https://github.com/php/php-src/tree/PHP-8.1-CVE-2026-109618-109619'
+				}
 			],
 			legacyNote:
 				"If you use distribution packages, check your vendor's advisories or an extended support provider for patched builds. PHP 5.4 to 7.3 get no fix at all: the only way out is upgrading to a supported version.",
@@ -545,12 +563,27 @@ export const en = {
 				'Where an immediate update is not feasible, CERT-EU, the cybersecurity service of the EU institutions, recommends isolating internet-facing systems from public networks until the fix is applied and verified.',
 			sourcesTitle: 'Sources and further reading',
 			sources: [
-				{ label: 'PHP security advisory (php.net)', url: 'https://www.php.net/archive/2026.php#2026-10-21-5' },
-				{ label: 'GHSA-w8hw-w9fx-j79w: CVE-2026-109618', url: 'https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w' },
-				{ label: 'GHSA-6wmf-4rv5-p3rp: CVE-2026-109619', url: 'https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp' },
-				{ label: 'CERT-EU security advisory 2026-018', url: 'https://cert.europa.eu/publications/security-advisories/2026-018/' },
+				{
+					label: 'PHP security advisory (php.net)',
+					url: 'https://www.php.net/archive/2026.php#2026-10-21-5'
+				},
+				{
+					label: 'GHSA-w8hw-w9fx-j79w: CVE-2026-109618',
+					url: 'https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w'
+				},
+				{
+					label: 'GHSA-6wmf-4rv5-p3rp: CVE-2026-109619',
+					url: 'https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp'
+				},
+				{
+					label: 'CERT-EU security advisory 2026-018',
+					url: 'https://cert.europa.eu/publications/security-advisories/2026-018/'
+				},
 				{ label: 'PHP2Shell research site', url: 'https://www.php2shell.com/' },
-				{ label: 'watchTowr: PHP2Shell FAQ', url: 'https://watchtowr.com/intelligence/php-cve-2026-109618-faq/' }
+				{
+					label: 'watchTowr: PHP2Shell FAQ',
+					url: 'https://watchtowr.com/intelligence/php-cve-2026-109618-faq/'
+				}
 			],
 			visitAdvisory: 'Read the PHP advisory'
 		}
@@ -611,9 +644,11 @@ export const en = {
 	// Privacy Policy
 	privacy: {
 		title: 'Privacy Policy',
-		intro: 'WEBDEPLOY S.R.L. is committed to protecting your privacy. This page explains how we handle your data when you visit our website.',
+		intro:
+			'WEBDEPLOY S.R.L. is committed to protecting your privacy. This page explains how we handle your data when you visit our website.',
 		analyticsTitle: 'Analytics',
-		analyticsText: 'We use Matomo, a privacy-focused, self-hosted analytics platform. Our configuration is designed to respect your privacy:',
+		analyticsText:
+			'We use Matomo, a privacy-focused, self-hosted analytics platform. Our configuration is designed to respect your privacy:',
 		analyticsFeatures: [
 			'No cookies are set on your device',
 			'IP addresses are anonymized',
@@ -621,7 +656,8 @@ export const en = {
 			'Data is stored on Hetzner Online GmbH servers in Falkenstein, Saxony (Germany)'
 		],
 		optOutTitle: 'Opt out of analytics',
-		optOutText: 'Even though we use privacy-friendly tracking, you can opt out of analytics entirely:',
+		optOutText:
+			'Even though we use privacy-friendly tracking, you can opt out of analytics entirely:',
 		dataTitle: 'Data We Collect',
 		dataText: 'We only collect anonymous, aggregated data to understand how our website is used:',
 		dataItems: [
@@ -639,12 +675,17 @@ export const en = {
 		dpaText:
 			'When WEBDEPLOY S.R.L. processes personal data on your behalf as a processor, it does so under a Data Processing Agreement (DPA) compliant with Art. 28 GDPR: defined purpose and duration, technical and organizational security measures, a list of sub-processors, assistance with data-subject requests, and deletion or return of the data at the end of the service. Request the DPA text by writing to info@webdeploy.it.',
 		optOut: {
-			OptOutComplete: 'Opt-out complete; your visits to this website will not be recorded by the Web Analytics tool.',
-			OptOutCompleteBis: 'If you clear your cookies, delete the opt-out cookie, or change computers or browsers, you will need to opt out again.',
-			YouMayOptOut2: 'You may choose to prevent this website from aggregating and analyzing the actions you take here.',
-			YouMayOptOut3: 'Doing so will protect your privacy, but will also prevent the owner from learning from your actions and creating a better experience for you and other users.',
+			OptOutComplete:
+				'Opt-out complete; your visits to this website will not be recorded by the Web Analytics tool.',
+			OptOutCompleteBis:
+				'If you clear your cookies, delete the opt-out cookie, or change computers or browsers, you will need to opt out again.',
+			YouMayOptOut2:
+				'You may choose to prevent this website from aggregating and analyzing the actions you take here.',
+			YouMayOptOut3:
+				'Doing so will protect your privacy, but will also prevent the owner from learning from your actions and creating a better experience for you and other users.',
 			OptOutErrorNoCookies: 'The tracking opt-out feature requires cookies to be enabled.',
-			OptOutErrorNotHttps: 'The tracking opt-out feature may not work because this site was not loaded over HTTPS. Please reload the page to check if your opt-out status changed.',
+			OptOutErrorNotHttps:
+				'The tracking opt-out feature may not work because this site was not loaded over HTTPS. Please reload the page to check if your opt-out status changed.',
 			YouAreNotOptedOut: 'You are not opted out.',
 			UncheckToOptOut: 'Uncheck this box to opt out.',
 			YouAreOptedOut: 'You are currently opted out.',
@@ -656,7 +697,7 @@ export const en = {
 	common: {
 		phone: 'Phone',
 		skipToContent: 'Skip to main content',
-		opensInNewTab: '(opens in a new tab)',
+		opensInNewTab: '(opens in a new tab)'
 	},
 
 	// Error page

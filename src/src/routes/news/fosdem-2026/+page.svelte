@@ -15,10 +15,7 @@
 <div class="py-16 lg:py-24">
 	<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 		<!-- Back link -->
-		<a
-			href="/news"
-			class="inline-block text-primary font-mono text-sm mb-8 hover:underline"
-		>
+		<a href="/news" class="inline-block text-primary font-mono text-sm mb-8 hover:underline">
 			&lt; {t('news.backToNews')}
 		</a>
 
@@ -64,7 +61,8 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						class="text-primary underline underline-offset-2"
-					>metal-stack.io<span class="sr-only"> {t('common.opensInNewTab')}</span></a>{t('news.fosdem2026.descriptionAfterLink')}
+						>metal-stack.io<span class="sr-only"> {t('common.opensInNewTab')}</span></a
+					>{t('news.fosdem2026.descriptionAfterLink')}
 				</p>
 
 				<p class="text-slate-400 leading-relaxed mb-8">

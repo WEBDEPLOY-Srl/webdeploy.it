@@ -74,13 +74,7 @@
 			</div>
 		{:else if image}
 			<div class="readable-hero__art">
-				<TiltedArt
-					src={image}
-					alt={imageAlt}
-					width={imageWidth}
-					height={imageHeight}
-					eager
-				/>
+				<TiltedArt src={image} alt={imageAlt} width={imageWidth} height={imageHeight} eager />
 			</div>
 		{/if}
 	</div>

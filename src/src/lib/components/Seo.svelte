@@ -107,7 +107,10 @@
 		<meta name="robots" content="noindex, follow" />
 	{:else}
 		<meta name="robots" content="index, follow" />
-		<meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
+		<meta
+			name="googlebot"
+			content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1"
+		/>
 	{/if}
 
 	{#if pageLd}

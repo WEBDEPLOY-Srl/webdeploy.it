@@ -4,15 +4,19 @@
 
 <footer class="site-footer bg-surface-dark border-t-2 border-primary/20 pt-12 sm:pt-16 pb-8">
 	<div class="site-footer__container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="site-footer__content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 sm:gap-12 mb-12">
+		<div
+			class="site-footer__content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 sm:gap-12 mb-12"
+		>
 			<!-- Brand -->
 			<div class="col-span-1 sm:col-span-2 lg:col-span-2">
 				<p class="text-2xl font-display font-bold text-white uppercase tracking-widest mb-6">
 					WEBDEPLOY™
 				</p>
 				<p class="site-footer__description text-slate-400 text-sm font-mono mb-6 max-w-xs">
-					<span aria-hidden="true">//</span> {t('footer.tagline')}<br />
-					<span aria-hidden="true">&gt;</span> {t('footer.description')}
+					<span aria-hidden="true">//</span>
+					{t('footer.tagline')}<br />
+					<span aria-hidden="true">&gt;</span>
+					{t('footer.description')}
 				</p>
 				<a
 					href="mailto:info@webdeploy.it"
