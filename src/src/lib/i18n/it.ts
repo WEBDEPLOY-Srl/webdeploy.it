@@ -707,8 +707,6 @@ export const it = {
 	// Error page
 	error: {
 		pageTitle: 'Errore',
-		codeLabel: 'CODICE_ERRORE',
-		statusLine: 'STATO: RIPRISTINO_DISPONIBILE',
 		notFoundTitle: 'Pagina non trovata',
 		serverErrorTitle: 'Errore interno del server',
 		forbiddenTitle: 'Accesso negato',

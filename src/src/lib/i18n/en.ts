@@ -703,8 +703,6 @@ export const en = {
 	// Error page
 	error: {
 		pageTitle: 'Error',
-		codeLabel: 'ERROR_CODE',
-		statusLine: 'STATUS: SYSTEM_RECOVERY_AVAILABLE',
 		notFoundTitle: 'Page Not Found',
 		serverErrorTitle: 'Internal Server Error',
 		forbiddenTitle: 'Access Forbidden',
