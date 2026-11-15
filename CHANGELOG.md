@@ -51,6 +51,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The pages use `$app/state` instead of the deprecated `$app/stores`.
 - The language cookie is now written with `SameSite=Lax` and, on HTTPS, `Secure`.
 
+- The FOSDEM article is shared with a landscape 1200×630 image cut from the existing photo, without
+  metadata, instead of the portrait photo.
+- The global stylesheet is split into section files under `src/styles/` (imported in the original order,
+  so the cascade is unchanged), and about thirty unused or re-declared rules are gone: animation, delay
+  and easing helpers, border and shadow helpers that Tailwind already generates, the homepage service
+  directory layout, an unused secondary call-to-action button and unused touch-target helpers. The
+  built layout stylesheet shrank from 46.2 KB to 42.0 KB.
+
 ### Removed
 - The nginx `/50x.html` error page, which never existed in the build.
 

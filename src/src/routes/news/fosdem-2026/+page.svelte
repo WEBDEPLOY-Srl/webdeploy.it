@@ -7,7 +7,7 @@
 <Seo
 	title={t('news.fosdem2026.title')}
 	description={t('news.fosdem2026.description')}
-	image="/fosdem-2026.jpg"
+	image="/images/og/fosdem-2026.jpg"
 	type="article"
 	publishedTime="2026-02-04"
 />
