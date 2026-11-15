@@ -54,7 +54,11 @@ async function stubExternalHosts(page: Page, traffic: ExternalTraffic, unexpecte
 	);
 }
 
-export const test = base.extend<{ traffic: ExternalTraffic; consoleProblems: string[] }>({
+export const test = base.extend<{
+	traffic: ExternalTraffic;
+	consoleProblems: string[];
+	cspViolations: string[];
+}>({
 	traffic: async ({ page }, use) => {
 		const traffic: ExternalTraffic = { all: [], meta: [] };
 		const unexpected: string[] = [];
@@ -62,6 +66,32 @@ export const test = base.extend<{ traffic: ExternalTraffic; consoleProblems: str
 		await use(traffic);
 		expect(unexpected, 'requests to hosts the suite does not stub').toEqual([]);
 	},
+
+	// Every Content-Security-Policy violation the page reports, in every test. The
+	// browser fires `securitypolicyviolation` for each blocked script, style, image,
+	// request or form, so a policy that is too tight fails here, and so does code that
+	// starts using something the policy does not allow. A test that provokes one on
+	// purpose must empty the array itself.
+	cspViolations: [
+		async ({ page }, use) => {
+			const violations: string[] = [];
+			await page.exposeBinding('reportCspViolation', (_source, detail: string) => {
+				violations.push(detail);
+			});
+			await page.addInitScript(() => {
+				document.addEventListener('securitypolicyviolation', (event) => {
+					const report = (window as unknown as Record<string, (detail: string) => void>)
+						.reportCspViolation;
+					report(
+						`${event.effectiveDirective}: blocked ${event.blockedURI || 'inline'} at ${event.sourceFile || location.pathname}:${event.lineNumber}`
+					);
+				});
+			});
+			await use(violations);
+			expect(violations, 'Content-Security-Policy violations').toEqual([]);
+		},
+		{ auto: true }
+	],
 
 	// Warnings and errors the page prints, plus uncaught exceptions. Reading the
 	// fixture in a test is what turns the collection on.
