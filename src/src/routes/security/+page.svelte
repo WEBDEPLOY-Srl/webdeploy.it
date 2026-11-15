@@ -71,7 +71,7 @@
 
 			<!-- Company details -->
 			<section
-				class="text-center text-sm font-mono text-slate-500"
+				class="text-center text-sm font-mono text-slate-400"
 				aria-label={t('security.companyLabel')}
 			>
 				<p>WEBDEPLOY SRL · P.IVA 02993340344 · Parma, Italy</p>
