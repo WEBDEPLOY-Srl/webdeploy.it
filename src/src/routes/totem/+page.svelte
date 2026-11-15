@@ -3,6 +3,7 @@
 	import Hero from '$lib/components/Hero.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 	import KioskDemo from '$lib/components/KioskDemo.svelte';
+	import { site } from '$lib/config/site';
 
 	const features = ['linux', 'security', 'noLockIn'];
 	const included = ['hardware', 'software', 'branding'];
@@ -20,7 +21,7 @@
 		tagline={t('totem.heroTagline')}
 		actions={[
 			{ text: t('totem.learnMore'), href: '#why-linux', primary: true },
-			{ text: t('totem.requestDemo'), href: 'mailto:info@webdeploy.it', primary: false }
+			{ text: t('totem.requestDemo'), href: `mailto:${site.contact.email}`, primary: false }
 		]}
 	>
 		{#snippet visual()}
@@ -112,14 +113,15 @@
 				{t('totem.cta.description')}
 			</p>
 			<a
-				href="mailto:info@webdeploy.it"
+				href="mailto:{site.contact.email}"
 				class="btn-cta-primary inline-block text-lg font-bold py-4 px-10 uppercase tracking-widest"
 			>
 				{t('totem.cta.button')}
 			</a>
 
 			<p class="mt-8 text-black font-mono">
-				<strong>{t('totem.cta.email')}:</strong> info@webdeploy.it<br />
+				<strong>{t('totem.cta.email')}:</strong>
+				{site.contact.email}<br />
 				<strong>{t('totem.cta.partnership')}:</strong>
 				{t('totem.cta.poweredBy')}
 				<a href="https://m4ss.net" target="_blank" rel="noopener noreferrer" class="underline">

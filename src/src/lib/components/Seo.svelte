@@ -1,7 +1,9 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { locale, availableLocales } from '$lib/stores/locale.svelte';
 	import { jsonLdScript } from '$lib/utils/jsonLd';
+	import { site, siteUrl } from '$lib/config/site';
+	import { publisherJsonLd } from '$lib/utils/structuredData';
 
 	interface Props {
 		title: string;
@@ -19,7 +21,7 @@
 	let {
 		title,
 		description,
-		image = '/images/og/default.jpg',
+		image = site.defaultShareImage,
 		type = 'website',
 		publishedTime,
 		modifiedTime,
@@ -27,19 +29,12 @@
 		jsonLd
 	}: Props = $props();
 
-	const siteUrl = 'https://webdeploy.it';
-	const siteName = 'WEBDEPLOY';
+	const siteName = site.name;
+	const publisher = publisherJsonLd();
 
-	let canonicalUrl = $derived(`${siteUrl}${$page.url.pathname}`);
-	let fullImageUrl = $derived(image.startsWith('http') ? image : `${siteUrl}${image}`);
+	let canonicalUrl = $derived(siteUrl(page.url.pathname));
+	let fullImageUrl = $derived(image.startsWith('http') ? image : siteUrl(image));
 	let fullTitle = $derived(`${title} - ${siteName}`);
-
-	const publisher = {
-		'@type': 'Organization',
-		name: 'WEBDEPLOY S.R.L.',
-		url: siteUrl,
-		logo: `${siteUrl}/webdeploy-logo.svg`
-	};
 
 	// Articles describe themselves; other pages pass their own data.
 	let pageLd = $derived(

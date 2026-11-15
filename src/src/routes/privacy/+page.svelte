@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { t, tObj } from '$lib/i18n';
 	import Seo from '$lib/components/Seo.svelte';
+	import { site } from '$lib/config/site';
 	import MatomoOptOut from '$lib/components/MatomoOptOut.svelte';
 </script>
 
@@ -97,8 +98,8 @@
 
 				<p class="text-slate-400 mb-4 leading-relaxed">{t('privacy.contactText')}</p>
 
-				<a href="mailto:info@webdeploy.it" class="text-primary hover:underline font-mono">
-					info@webdeploy.it
+				<a href="mailto:{site.contact.email}" class="text-primary hover:underline font-mono">
+					{site.contact.email}
 				</a>
 			</div>
 		</div>

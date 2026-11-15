@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
 	import Seo from '$lib/components/Seo.svelte';
+	import { siteUrl } from '$lib/config/site';
+	import { publisherJsonLd } from '$lib/utils/structuredData';
 	import ContactBand from '$lib/components/ContactBand.svelte';
 
 	const sections = ['encrypted', 'open', 'access', 'restore'] as const;
@@ -16,8 +18,8 @@
 		name: t('services.backup.title'),
 		description: t('services.backup.metaDescription'),
 		serviceType: 'Encrypted backup',
-		url: 'https://webdeploy.it/services/backup',
-		provider: { '@type': 'Organization', name: 'WEBDEPLOY S.R.L.', url: 'https://webdeploy.it' }
+		url: siteUrl('/services/backup'),
+		provider: publisherJsonLd()
 	}}
 />
 

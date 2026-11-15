@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { t } from '$lib/i18n';
+	import { site } from '$lib/config/site';
 
 	// Raw error messages are not localized, so show the translated status copy instead.
 	const statusKey = $derived(
@@ -55,8 +56,8 @@
 		<!-- Additional Help -->
 		<p class="mt-12 text-slate-400 text-sm font-mono">
 			{t('error.needHelp')}
-			<a href="mailto:info@webdeploy.it" class="text-primary hover:underline">
-				info@webdeploy.it
+			<a href="mailto:{site.contact.email}" class="text-primary hover:underline">
+				{site.contact.email}
 			</a>
 		</p>
 	</div>

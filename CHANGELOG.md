@@ -41,6 +41,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   page loads tiles from OpenStreetMap, which sees the visitor's IP address.
 - The error page no longer uses a terminal panel; it shows the status, a title, a sentence and two buttons.
 
+- Site facts (URL, names, contacts, address, analytics identifiers) live in one place,
+  `$lib/config/site.ts`; the footer columns are data in `$lib/config/footer.ts`; the Matomo bootstrap moved
+  from the root layout to `$lib/utils/matomo.ts`. Unit tests keep them in step with the translations and
+  with the Content-Security-Policy hosts.
+- The site-wide Organization structured data is built from that data and now carries a street address,
+  contact points, an `@id` and the source repository as `sameAs`; the service pages embed the same
+  publisher.
+- The pages use `$app/state` instead of the deprecated `$app/stores`.
+- The language cookie is now written with `SameSite=Lax` and, on HTTPS, `Secure`.
+
 ### Removed
 - The nginx `/50x.html` error page, which never existed in the build.
 

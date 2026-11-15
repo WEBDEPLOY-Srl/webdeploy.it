@@ -1,4 +1,5 @@
 import { browser } from '$app/environment';
+import { site } from '$lib/config/site';
 import { logAnalytics, logPrivacy } from '$lib/utils/logger';
 
 /**
@@ -6,12 +7,11 @@ import { logAnalytics, logPrivacy } from '$lib/utils/logger';
  *
  * Loads only after explicit marketing opt-in (see $lib/stores/consent). The
  * pixel/dataset id is PUBLIC (it is visible in the fbevents init call in every
- * browser that loads the pixel), so it is a plain constant here — same pattern
- * as the hard-coded Matomo siteId in +layout.svelte. Not a secret.
+ * browser that loads the pixel), so it lives in the site config. Not a secret.
  *
  * Note: this is the web pixel/dataset id, not any Meta App id.
  */
-const PIXEL_ID = '1041037201718407';
+const PIXEL_ID = site.analytics.metaPixelId;
 let loaded = false;
 let revoked = false;
 

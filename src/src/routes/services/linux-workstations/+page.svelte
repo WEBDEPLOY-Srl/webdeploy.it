@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { t, tObj } from '$lib/i18n';
 	import Seo from '$lib/components/Seo.svelte';
+	import { siteUrl } from '$lib/config/site';
+	import { publisherJsonLd } from '$lib/utils/structuredData';
 	import ContactBand from '$lib/components/ContactBand.svelte';
 	import WorkstationDemo from '$lib/components/WorkstationDemo.svelte';
 
@@ -17,8 +19,8 @@
 		name: t('services.linux.title'),
 		description: t('services.linux.metaDescription'),
 		serviceType: 'Linux workstation migration',
-		url: 'https://webdeploy.it/services/linux-workstations',
-		provider: { '@type': 'Organization', name: 'WEBDEPLOY S.R.L.', url: 'https://webdeploy.it' }
+		url: siteUrl('/services/linux-workstations'),
+		provider: publisherJsonLd()
 	}}
 />
 
