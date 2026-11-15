@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { t } from '$lib/i18n';
+	import { consent } from '$lib/stores/consent.svelte';
 </script>
 
 <footer class="site-footer bg-surface-dark border-t-2 border-primary/20 pt-12 sm:pt-16 pb-8">
@@ -132,6 +133,14 @@
 							href="/security"
 							class="block py-2 hover:text-primary hover:underline decoration-dashed underline-offset-4 min-h-[44px] flex items-center"
 							>{t('footer.security')}</a
+						>
+					</li>
+					<li>
+						<button
+							type="button"
+							onclick={() => consent.reopen()}
+							class="block py-2 hover:text-primary hover:underline decoration-dashed underline-offset-4 min-h-[44px] flex items-center text-left"
+							>{t('footer.cookieSettings')}</button
 						>
 					</li>
 				</ul>

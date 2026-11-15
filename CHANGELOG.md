@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   helpers (`$lib/utils/matomoOptOut.ts`) and an end-to-end test of the opt-out in both browsers.
 
 ### Changed
+- Visitors can change their marketing choice at any time: a "Cookie settings" control in every page
+  footer reopens the consent banner (focus moves into it and returns on close; Escape closes it).
+  Withdrawing consent stops the Meta pixel and removes its `_fbp` and `_fbc` cookies. The banner is a
+  named landmark with a real heading.
+- The privacy policy now says where to change the choice (it wrongly told visitors to clear their
+  cookies, although the choice is kept in local storage) and discloses that the map on the contacts
+  page loads tiles from OpenStreetMap, which sees the visitor's IP address.
 - The error page no longer uses a terminal panel; it shows the status, a title, a sentence and two buttons.
 
 ### Removed

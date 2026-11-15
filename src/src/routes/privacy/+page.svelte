@@ -67,6 +67,8 @@
 						</li>
 					{/each}
 				</ul>
+
+				<p class="text-slate-400 mt-6 leading-relaxed">{t('privacy.mapText')}</p>
 			</div>
 
 			<!-- Marketing Section -->
