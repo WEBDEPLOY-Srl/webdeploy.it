@@ -6,6 +6,9 @@ const PIXEL_PNG = Buffer.from(
 	'base64'
 );
 
+/** Stands in for the site under https:// where a test needs a secure context (see optout.spec.ts). */
+export const SECURE_TEST_HOST = 'webdeploy.test';
+
 const META_HOST = /(^|\.)(facebook\.com|facebook\.net)$/;
 
 export interface ExternalTraffic {
@@ -22,7 +25,7 @@ export interface ExternalTraffic {
  */
 async function stubExternalHosts(page: Page, traffic: ExternalTraffic, unexpected: string[]) {
 	await page.route(
-		(url) => url.hostname !== '127.0.0.1',
+		(url) => url.hostname !== '127.0.0.1' && url.hostname !== SECURE_TEST_HOST,
 		async (route) => {
 			const url = new URL(route.request().url());
 			traffic.all.push(url.href);

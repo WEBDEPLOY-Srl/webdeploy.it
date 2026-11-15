@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Unknown URLs now get the site's own error page: the build emits `404.html` as the static fallback
+  and nginx serves it with status 404.
+- The Matomo opt-out on the privacy page is a Svelte component with typed, unit-tested cookie
+  helpers (`$lib/utils/matomoOptOut.ts`) and an end-to-end test of the opt-out in both browsers.
+
+### Changed
+- The error page no longer uses a terminal panel; it shows the status, a title, a sentence and two buttons.
+
+### Removed
+- The nginx `/50x.html` error page, which never existed in the build.
+
 ## [1.45.0] - 2026-11-15
 
 ### Added

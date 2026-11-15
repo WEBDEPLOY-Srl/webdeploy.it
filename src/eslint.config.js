@@ -33,14 +33,6 @@ export default defineConfig(
 		}
 	},
 	{
-		// Matomo opt-out widget, rewritten as typed Svelte in release 3 (R3-T2).
-		files: ['src/routes/privacy/+page.svelte'],
-		rules: {
-			'@typescript-eslint/no-explicit-any': 'off',
-			'svelte/prefer-svelte-reactivity': 'off'
-		}
-	},
-	{
 		files: ['**/*.svelte', '**/*.svelte.ts', '**/*.svelte.js'],
 		languageOptions: {
 			parserOptions: {
