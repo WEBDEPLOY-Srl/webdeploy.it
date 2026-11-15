@@ -3,9 +3,8 @@
 # commit. The image is built and pushed by `.build.yml`, which waits for this
 # workflow and only runs for main.
 #
-# Pull requests are not run: the repository takes issues only. The triggers are
-# `push` and `manual` (the two events `.build.yml` runs on), so a hand-started
-# build of main is gated by this workflow too.
+# Pull requests are not run: the repository takes issues only, so the only
+# trigger is `push`.
 #
 # Steps run one after another in a shared workspace. Every Node step uses the
 # Playwright image, so dependencies are installed once, for the platform they
@@ -17,7 +16,7 @@
 # The nginx image is the one the Dockerfile ships; keep the two in step.
 
 when:
-  - event: [push, manual]
+  - event: push
 
 steps:
   - name: reuse
