@@ -95,6 +95,11 @@ it can run anywhere. `docker-compose.prod.yml` shows how to run it by hand.
 Report vulnerabilities privately to <security@webdeploy.it>, see [SECURITY.md](./SECURITY.md) and
 <https://webdeploy.it/security>.
 
+## Accessibility
+
+The site targets WCAG 2.2 AA and is checked automatically on every push; see
+[ACCESSIBILITY.md](./ACCESSIBILITY.md) for how it is tested, the known limits and how to report a problem.
+
 ## License
 
 The source code is licensed under the [GNU Affero General Public License v3.0 only](./LICENSE.md)
