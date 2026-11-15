@@ -1,0 +1,899 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [1.44.0] - 2026-11-15
+
+### Changed
+- Dependencies updated within their ranges (SvelteKit 2.70, Svelte 5.57, Vite 7.3.8, Tailwind CSS 4.3);
+  `npm audit` no longer reports any high or moderate advisory.
+- Container image builds on Node.js 26 (LTS) and nginx 1.31 on Alpine, both pinned by tag and digest.
+- `.dockerignore` keeps host `node_modules`, `build` and `.svelte-kit` out of the image build.
+- `package.json` declares `engines` (Node.js 24 or newer), `license` and `repository`; `.nvmrc` added.
+- README rewritten: purpose, screenshot, canonical repository and GitHub mirror, requirements, quick
+  start, scripts, structure, translations, deployment and licence.
+- CONTRIBUTING states that contributions are accepted as issues only and documents the maintainers'
+  conventions; the pull request template is removed and issue templates now disable blank issues and
+  link to the security contact.
+- New `SECURITY.md`; the Code of Conduct reporting address is `info@webdeploy.it`.
+- `CHANGELOG.md` moved to the repository root; passages naming the internal host and its deployment
+  repository were reworded in the changelog, `docker-compose.prod.yml` and `.woodpecker/.build.yml`.
+
+### Added
+- Licence scope stated explicitly: code under `AGPL-3.0-only`; WEBDEPLOY and inWD names and logos,
+  photographs, customer imagery and written content stay © WEBDEPLOY S.R.L., all rights reserved.
+  Per-file licensing in `REUSE.toml` with the texts in `LICENSES/` (`reuse lint` passes).
+- `THIRD-PARTY-NOTICES.md` for fonts, libraries, map data and third-party logos, and the SIL Open
+  Font License texts for Space Mono and VT323 next to the font files.
+- "Source code" link in the footer (`footer.source`, English and Italian).
+
+### Fixed
+- `fosdem-2026.jpg` no longer carries EXIF metadata (GPS position, capture time, device model). It was
+  converted to sRGB and re-encoded at 1200x1600 (305 KB instead of 598 KB); the article image
+  now declares its real dimensions and `NewsCard` images declare `width` and `height`.
+- The `news-writer` skill no longer says the site has no tracking, and names the right translation
+  files and the English-only setting.
+- The contact map is now removed when leaving the page (`onMount` returned a Promise, so its cleanup
+  never ran) and no longer initialises after the page has been left.
+- `npm run check` reports no errors or warnings: `_paq` type widened, `toUTCString()` replaces the
+  non-standard `toGMTString()`, and the header dropdown wrappers carry an explicit role.
+
+### Removed
+- Dead code: the unused `FeatureCard` component and `scrollReveal` action with their `.scroll-animate`
+  styles, the unused non-readable branch and `readable` prop of `Hero`, `trackMetaEvent`,
+  `isMetaPixelLoaded`, `getTranslations` and the unused `favicon.svg` asset.
+- 85 unused translation keys in both languages (the archived news posts, `home.hq*` and a few
+  `nav.*` and `common.*` entries).
+- 43 unreferenced static files (about 4.6 MB): unused icons, illustrations, archived news images and
+  an unused kiosk render.
+- Internal and generated material from the public tree: `archive/`, `docs/superpowers/`, `ig.pen`
+  and `graphify-out/` (now git-ignored), with the graphify merge driver in `.gitattributes`.
+- Unused `static/tux.svg`.
+- Unused `@sveltejs/adapter-auto`; `@types/leaflet` moved to development dependencies.
+
+## [1.43.0] - 2026-11-15
+
+### Changed
+- Kiosk page (`/totem`) is now a product page written from WEBDEPLOY's own kiosk product document
+  and the M4SS public pages: what inWD Kiosk is (an indoor interactive kiosk on open source Linux),
+  what it includes (hardware, software, white-label branding), the S451 technology by M4SS it runs
+  on, how updates and support work, what it can show, and a "Start with a conversation" call to
+  action. This replaces the wording of 1.42.1.
+- The technology credit now reads "S451 by m4ss.net" and the interactive demo footer names the
+  M4SS Linux Embedded Machine system.
+- The inWD role is stated as the site already describes it: kiosks are enrolled in inWD for remote
+  configuration, OTA updates and monitoring, with a link to inwd.org. No response-time promise is made
+  for vulnerabilities; they are prioritised by severity.
+- Section headings and layout are unchanged apart from the retitled sections. Italian copy updated to
+  match.
+
+### Removed
+- The Sonmi OS name, the Infrastructure as Code and GitOps claims, and the written Linux-versus-Windows
+  arguments, none of which the product document or M4SS pages support. The interactive demo keeps its
+  Windows kiosk / inWD Kiosk switch.
+
+## [1.42.1] - 2026-11-15
+
+### Changed
+- Kiosk page (`/totem`): replaced claims the site cannot back up with statements about what inWD™ Kiosk
+  is and does. Removed the savings, uptime, security and performance superlatives, the clean-energy and
+  EFF/FSF lines about the partner, and the "growing number of businesses" call to action. Section
+  headings, layout and structure are unchanged. Italian copy updated to match.
+
+## [1.42.0] - 2026-11-14
+
+### Removed
+- The `/services` overview page and its copy. The Services menu now opens a submenu and goes straight
+  to each service page.
+- The "All services" back link on the single service pages and the unused overview share image.
+
+### Changed
+- The mobile menu's Services entry is a disclosure button listing the service pages instead of a
+  link to `/services`.
+- The Services submenu (desktop and mobile) and the footer now include Open Source Consulting, which
+  was only reachable from the overview.
+- The homepage "Explore services" button jumps to the homepage services section (`/#services`).
+- `/services` and `/services/` redirect (301) to `/#services` in `nginx.conf`.
+
+## [1.41.0] - 2026-11-14
+
+### Removed
+- The `/early-access` page and its confirmation page, the sign-up form, the unused Google Ads
+  conversion helper and the NIS2/CRA gap-analysis PDF. Their copy made compliance and availability
+  claims we no longer make.
+- `/early-access`, `/early-access/` and `/early-access/confermato` now redirect (302, temporary) to
+  `/contacts`; the retired PDF URL answers 410 Gone. Both are handled in `nginx.conf`.
+
+## [1.40.0] - 2026-11-14
+
+### Added
+- Merged the public Security page at `/security` and `/.well-known/security.txt` (RFC 9116) from
+  `main` (previously released there as 1.37.0). The page covers who is responsible for information
+  security, how to report a vulnerability, and company details; it is linked from the footer and
+  listed in the generated sitemap.
+
+## [1.39.1] - 2026-11-14
+
+### Fixed
+- Links inside running text (privacy policy, DPA, licence and partner links) are underlined, so they no
+  longer rely on colour alone to stand out (WCAG 1.4.1).
+- The "Share:" label on news articles meets the 4.5:1 contrast minimum (WCAG 1.4.3).
+- The map marker on the contacts page has an accessible name (WCAG 4.1.2).
+- The second section on the contacts and backup pages no longer repeats the page title as a landmark
+  label, so landmarks are unique.
+
+## [1.39.0] - 2026-11-14
+
+### Added
+- The sitemap is generated at build time from the page files, so new pages appear without editing it;
+  it lists all 13 public pages, including the three service pages that the hand-written one missed.
+- 1200 × 630 share images for the homepage, `/services`, Linux workstations, backups and consulting,
+  replacing the SVG logo that social networks do not display.
+- schema.org `Service` data on the three service pages and `NewsArticle` data on news posts.
+- Linux workstation migration and encrypted backups links in the footer.
+
+### Changed
+- Search titles and descriptions: a descriptive homepage title, and descriptions of a useful length
+  for the homepage, news, kiosk, early access and the PHP2Shell article.
+- Heading order: footer and news card headings are `h2`, so no page skips a heading level.
+- Small grey text in the footer, early-access form, map, error and confirmation pages meets WCAG AA
+  contrast.
+- The early-access confirmation page is kept out of search results and the sitemap.
+
+### Removed
+- The hand-written `static/sitemap.xml`.
+
+## [1.38.1] - 2026-11-14
+
+### Changed
+- The Developer Manifesto reads as an essay in the homepage style: three groups with a sticky heading
+  and open items, the work-life list with square bullets, and the magenta contact band at the end.
+- The Contacts page uses the homepage style: business and careers as open columns with their email as
+  the main button, address and phone as a labelled list, and the map full width with a thin border.
+
+## [1.38.0] - 2026-11-14
+
+### Added
+- `/services/backup` explains inWD's encrypted backups: BorgBackup encryption before data leaves the
+  customer's machines, open source with no lock-in, access decided with the customer, and a restore
+  tested every month, with a call to action to inwd.org.
+- A Backups row on `/services` and an "Encrypted Backups" entry in the header Services menu.
+
+### Changed
+- The homepage backup section links to `/services/backup` instead of the contacts page.
+
+## [1.37.0] - 2026-11-14
+
+### Added
+- One page per service: `/services/linux-workstations` and `/services/consulting`.
+- The Linux workstation page explains how a migration runs: software and peripheral bills of
+  materials written with the customer, tests agreed for every item, a test workstation before the
+  switch, and enrollment in inWD afterwards, managed from console.inwd.org.
+- An interactive KDE Plasma workstation demo on the four-monitor workstation cutout, on the
+  homepage, `/services` and the Linux workstation page: open Dolphin, Firefox or LibreOffice Writer
+  from the launcher, and print a test label that shows up in the print queue.
+- The inWD Managed Host emblem, recoloured like the Trunk / Rack, illustrates the top of the Linux
+  workstation page.
+- A caption under the kiosk demo saying its interface is a demo and that we run the customer's own
+  interface or build the one they need.
+
+### Changed
+- `/services` is an overview with one row per service, in the homepage layout; inWD links to
+  inwd.org and the kiosk to `/totem`.
+- The header services menu, homepage service sections and early-access confirmation link to the new
+  pages and to inwd.org instead of `/services#` anchors.
+- The homepage Linux section describes the same migration steps as the new page.
+- The magenta contact band is a shared component used by the homepage and the services pages.
+
+### Removed
+- The long inWD section on the services page, now covered by inwd.org.
+- Unconfirmed claims from the Linux migration copy: a zero data loss guarantee, a 30-day intensive
+  support period, phased rollout and training.
+
+## [1.36.5] - 2026-11-14
+
+### Changed
+- The Sonmi OS partnership copy on the kiosk page now says both companies endorse EFF and FSF instead of
+  supporting them, since neither holds an active paid membership.
+
+## [1.36.4] - 2026-10-29
+
+### Reverted
+- The 1.36.3 recolouring of the homepage Linux workstation desk; the original
+  cut-out with its faint cyan edge light is back.
+
+## [1.36.3] - 2026-10-29
+
+### Changed
+- The homepage Linux workstation desk is recoloured like the inWD emblems:
+  dark ink in cyan over a magenta offset shadow, without the edge light.
+
+## [1.36.2] - 2026-10-29
+
+### Added
+- inWD's Living Ring (monitoring) emblem from the inwd.org design board,
+  recoloured in cyan over a magenta offset shadow, in the Observability &
+  Monitoring card of the services page.
+
+## [1.36.1] - 2026-10-29
+
+### Changed
+- The homepage inWD section now shows the Trunk / Rack emblem from the
+  inwd.org design board, recoloured like the BorgBackup logo (cyan ink over a
+  magenta offset shadow), replacing the inwd.org watercolour hero painting.
+
+### Removed
+- The inwd.org hero painting images.
+
+## [1.36.0] - 2026-10-29
+
+### Changed
+- The company name is written WEBDEPLOY everywhere, and the product name is
+  unified as inWD (previously also INWD and inwd).
+- Visible uses of the WEBDEPLOY and inWD marks carry ™; alt text, page
+  metadata and the legal name WEBDEPLOY S.R.L. stay unmarked. In the hero
+  title the sign renders as a small superscript.
+
+### Added
+- A footer notice: "WEBDEPLOY™ and inWD™ are trademarks of WEBDEPLOY S.R.L."
+
+## [1.35.1] - 2026-10-29
+
+### Changed
+- The BorgBackup logo on the homepage no longer has a border, and its
+  attribution notices write the company name as WEBDEPLOY.
+
+## [1.35.0] - 2026-10-29
+
+### Changed
+- The homepage encrypted storage section is now "Encrypted backup storage"
+  and shows the official BorgBackup logo, recoloured to the WebDeploy cyan and
+  magenta. A caption credits The Borg Collective, states the BSD 3-Clause
+  licence and the recolouring, notes there is no affiliation, and links to the
+  full licence text; the same notices are in the SVG source.
+- Homepage service images are plain figures again; the tilted-art wrapper is
+  no longer used there.
+
+### Removed
+- The Borg cube artwork, its cloud extension and generator script.
+
+## [1.34.10] - 2026-10-29
+
+### Changed
+- The homepage "Start with a conversation" section now uses the same magenta
+  call-to-action band as the inWD Kiosk page, with the black offset-shadow
+  contact button; the "Start here" eyebrow is gone.
+
+## [1.34.9] - 2026-10-29
+
+### Changed
+- The homepage INWD section now shows the original inwd.org hero painting,
+  upright and without the herbs around its edges, replacing the pixel-art
+  forest.
+
+### Removed
+- The INWD pixel-art forest images, the herbs overlay and its generator.
+
+## [1.34.8] - 2026-10-28
+
+### Changed
+- The homepage Linux workstations section now shows a cut-out of a
+  multi-monitor Linux workstation, upright and without animation, replacing
+  the Tux pixel art and its shattering pixel window.
+
+### Removed
+- The Tux Neon Sunset Hideout images.
+
+## [1.34.7] - 2026-10-27
+
+### Changed
+- The INWD art's dense foliage band is replaced by light pixel herbs and
+  leaves growing over its edges: grass tufts and flowers along the bottom,
+  sprigs at the sides and leaves at the top corners, in the artwork's moss
+  greens and pinks. Generated by `scripts/herb-edge.py`.
+
+### Removed
+- The pixelated inwd.org leaf-edge backdrop.
+
+## [1.34.6] - 2026-10-27
+
+### Changed
+- The left corner cloud around the encrypted storage art now uses the same
+  bottom-row texture as the right one.
+
+## [1.34.5] - 2026-10-27
+
+### Fixed
+- The right corner cloud around the encrypted storage art no longer repeats a
+  band of lit cloud tops; its lower part reflects the cloud bodies along the
+  image's bottom edge, matching the left one.
+
+## [1.34.4] - 2026-10-27
+
+### Changed
+- The two big corner clouds around the encrypted storage art are now filled
+  with the artwork's own cloud pixels instead of flat shading.
+
+## [1.34.3] - 2026-10-26
+
+### Changed
+- The encrypted storage art's bottom corners now each grow one big
+  sunset-lit cumulus, shaded from the artwork's own cloud colours, in place
+  of rows of small puffs.
+
+## [1.34.2] - 2026-10-26
+
+### Changed
+- The encrypted storage art now continues past its edges: pixel clouds grow
+  out of every cloud that touches a border, coloured from the artwork and
+  tilting with it, replacing the generic floating clouds. Generated by
+  `scripts/cloud-edge.py`.
+
+## [1.34.1] - 2026-10-26
+
+### Changed
+- Homepage service art backdrops: none behind the Linux workstations art,
+  sunset-lit pixel clouds behind the encrypted storage art, and pixelated
+  leaves from the inwd.org leaf edge behind the INWD art, replacing the
+  sparse pixels.
+
+## [1.34.0] - 2026-10-26
+
+### Added
+- Interactive kiosk demo in the inWD Kiosk hero: the kiosk frame with a live
+  screen. A switch in the kiosk's base flips between a Windows kiosk stuck on
+  a never-ending forced update and the inWD Kiosk app, which visitors can tap
+  through (opening hours, floor guide, today's events).
+
+### Changed
+- The inWD Kiosk hero no longer shows the tilted photo with the pixel
+  backdrop.
+
+### Removed
+- The retro grid background behind every page.
+
+## [1.33.1] - 2026-10-26
+
+### Changed
+- Restored the original magenta "Ready to ditch Windows kiosks?" call-to-action
+  band on the inWD Kiosk page.
+
+## [1.33.0] - 2026-10-26
+
+### Changed
+- Redesigned the inWD Kiosk page in the homepage style: readable hero with
+  the kiosk photo hung at an angle over the pixel backdrop, left-aligned
+  section titles, square cyan bullet lists, bordered panels and tiles in place
+  of the retro cards, and a contact section with a solid action button in
+  place of the magenta call-to-action band.
+
+### Added
+- Shared page section styles in the global stylesheet (container, eyebrow,
+  section title, lead, bullet list, action button) and a `TiltedArt`
+  component for angled artwork with the pixel backdrop and the optional
+  shattering pixel window; the homepage now uses both.
+
+## [1.32.5] - 2026-10-26
+
+### Changed
+- Homepage section calls to action (service links and the developer
+  manifesto link) are now solid action buttons, sharing one style with the
+  contact button.
+
+## [1.32.4] - 2026-10-26
+
+### Added
+- BorgWarehouse, Sentry and linkding in the homepage open source tool grid,
+  each linked to its project site or repository.
+
+## [1.32.3] - 2026-10-26
+
+### Added
+- FuriLabs in the homepage open source tool grid, with its wordmark traced
+  from the official logo and linked to furilabs.com.
+
+## [1.32.2] - 2026-10-26
+
+### Changed
+- Homepage open source tool grid: added KDE Plasma and Wayland, and every
+  tile now links to the project's website or repository in a new tab.
+
+## [1.32.1] - 2026-10-26
+
+### Changed
+- Homepage open source tool grid: removed Cal.com; added Thunderbird,
+  Firefox, Arch Linux and FluffyChat to running the company, and Linux,
+  Let’s Encrypt and SuperTokens to infrastructure.
+
+## [1.32.0] - 2026-10-26
+
+### Added
+- The homepage "Our approach" section now shows a grid of the open source
+  tools WebDeploy runs, grouped into running the company, infrastructure,
+  and managed services, replacing the headquarters illustration. Logos come
+  from Simple Icons (CC0), inlined at build time; tools without one show a
+  pixel initial.
+
+## [1.31.7] - 2026-10-26
+
+### Changed
+- Restored the homepage INWD section title to "INWD managed infrastructure".
+
+## [1.31.6] - 2026-10-26
+
+### Changed
+- Rewrote the homepage INWD section from the inwd.org wording: managed
+  monitoring, maintenance, and reporting for the servers and applications
+  customers already run, with no migration.
+
+## [1.31.5] - 2026-10-26
+
+### Changed
+- The homepage encrypted storage section now states that backups use
+  BorgBackup, deduplicated and encrypted before they leave the client's
+  machines.
+
+## [1.31.4] - 2026-10-26
+
+### Changed
+- Softened the pixel backdrop behind the homepage service illustrations: a
+  tighter field that fades out closer to the art.
+
+## [1.31.3] - 2026-10-26
+
+### Changed
+- Replaced the blurred glow behind the homepage service illustrations with a
+  sparse field of cyan and magenta pixels that thins out away from the art.
+
+## [1.31.2] - 2026-10-26
+
+### Changed
+- Only the Linux workstations section keeps the shattering pixel window; the
+  encrypted storage and inwd illustrations are shown at rest without motion.
+- Homepage service sections use only the logo colours: magenta subtitles,
+  cyan bullets and links, replacing the per-illustration accents.
+
+## [1.31.1] - 2026-10-26
+
+### Changed
+- The shattered pixel window on the homepage service art now fades out while
+  falling instead of piling up and being garbage collected, so each image is
+  clean in about 1.6 seconds.
+
+## [1.31.0] - 2026-10-26
+
+### Added
+- Homepage service sections now hang each illustration at an angle inside a
+  pixel window drawn in the logo colours (cyan border, magenta centre cross).
+  When a section scrolls into view the image swings forward, the window
+  shatters, its pixels fall into heaps and are then garbage collected
+  (marked, then swept away). Visitors who prefer reduced motion see the end
+  state immediately.
+
+### Changed
+- Service section illustrations are served at full resolution with 800 px
+  variants for small screens, and each section takes its accent colour from
+  its artwork.
+
+## [1.30.3] - 2026-10-26
+
+### Changed
+- Replaced the inwd infrastructure diagram in the homepage inwd section with
+  the inwd Sunset pixel-art illustration (WebP), with descriptive alt text.
+  The services page keeps the diagram.
+
+## [1.30.2] - 2026-10-26
+
+### Changed
+- Replaced the privacy icon in the homepage encrypted storage section with the
+  Borg Cube over a Pixel Sunset illustration (WebP), with descriptive alt text.
+  All three homepage service sections now share one full-width image layout.
+
+## [1.30.1] - 2026-10-26
+
+### Changed
+- Replaced the Linux icon in the homepage Linux workstations section with the
+  Tux Neon Sunset Hideout pixel-art illustration (WebP, 200 KB), shown full
+  width like the inwd diagram and with descriptive alt text.
+
+## [1.30.0] - 2026-10-26
+
+### Changed
+- Replaced the Material Symbols icon font with the free, MIT-licensed
+  Pixelarticons set (self-hosted woff2, license shipped alongside): header
+  dropdown chevrons, mobile menu toggle, map marker, and the LinkedIn and
+  Instagram share buttons.
+
+### Removed
+- Material Symbols Outlined font (300 KB).
+
+## [1.29.5] - 2026-10-24
+
+### Changed
+- Replaced the homepage hero background with the Post-Apocalyptic Neon Café
+  Workshop artwork (WebP, 180 KB) and removed the previous Neon Ruin Café image.
+
+## [1.29.4] - 2026-10-24
+
+### Changed
+- Reverted the kiosk call-to-action styling on the homepage service sections,
+  restoring the 1.29.2 appearance.
+
+## [1.29.3] - 2026-10-24
+
+### Changed
+- Restyled the homepage service sections after the kiosk page call to action:
+  magenta band with cyan edge bars, black display titles, bold monospace
+  text, and the black shadowed call-to-action button.
+
+## [1.29.2] - 2026-10-24
+
+### Changed
+- Let the homepage "What we do" title and description use the full container
+  width so each fits on one line on desktop.
+- Promoted each homepage service's category to its section title, moved the
+  former heading to a subtitle, and removed the section numbers.
+
+## [1.29.1] - 2026-10-24
+
+### Removed
+- Removed the homepage "Break free" section with the Tux window breakout
+  animation, along with the three.js dependency.
+
+## [1.29.0] - 2026-10-24
+
+### Added
+- Homepage three.js animation after the hero: Tux breaks through a glass
+  window and waddles away smiling. three.js loads only when the stage scrolls
+  into view, pauses off screen, shows a still frame with a play button under
+  reduced motion, and falls back to the Tux illustration without WebGL.
+
+### Changed
+- Split the homepage "What we do" block into an introduction followed by
+  separate sections for Linux workstations, encrypted storage, and inwd
+  managed infrastructure, each with its own points and link.
+
+## [1.28.7] - 2026-10-24
+
+### Changed
+- Simplified the shared header brand to show only the logo, keeping its
+  accessible name and home link.
+
+## [1.28.6] - 2026-10-24
+
+### Changed
+- Replaced the homepage hero background with the supplied Neon Ruin Café
+  artwork featuring the INWD robot.
+
+## [1.28.5] - 2026-10-24
+
+### Changed
+- Replaced the kiosk featured illustration with a lighting-corrected version of
+  the supplied product photograph, with portrait sizing and updated sharing metadata.
+- Kept only FOSDEM 2026 and PHP2Shell news active; moved the other five article
+  sources into `archive/news` and removed their listing and sitemap entries.
+
+## [1.28.4] - 2026-10-24
+
+### Changed
+- Enlarged the header logo and removed the wordmark's trailing underscore.
+- Updated the homepage hero description and removed the small hero labels.
+- Reorganized the homepage services into an introduction and service rows.
+- Disabled the homepage circuit background while keeping the scene backdrop.
+- Moved Interactive WebDeploy HQ into `archive/interactive-hq`, outside the
+  published website, with restoration instructions.
+
+## [1.28.3] - 2026-10-24
+
+### Changed
+- Used the supplied wasteland scene as an immersive homepage background while
+  preserving WebDeploy's cyan/magenta palette and original typography.
+- Replaced the homepage grid with a circuit-board pattern of chips, traces,
+  and connection points.
+
+## [1.28.2] - 2026-10-24
+
+### Changed
+- Restored the homepage's original cyan/magenta palette, VT323 and Space Mono
+  typography, hero, service cards, and dark sections around the supplied INWD scene.
+- Removed the experimental amber/cream theme and its additional fonts.
+
+## [1.28.1] - 2026-10-24
+
+### Changed
+- Restyled the homepage as a WebDeploy workshop in the INWD world, using the
+  supplied wasteland bar artwork, warm amber accents, and a service directory.
+- Kept the interactive HQ available through a direct link from the homepage.
+
+## [1.28.0] - 2026-10-22
+
+### Added
+- Links copied by the Instagram button carry Matomo campaign parameters
+  (`mtm_campaign=news-<slug>`, `mtm_kwd=instagram-story` on phones,
+  `instagram` on computers), so Instagram visits are attributed even when the
+  in-app browser sends no referrer.
+- Clicks on email and phone links are tracked as Matomo events
+  (category `Contact`, action `email` or `phone`), for a contact goal.
+
+### Fixed
+- The first page load was tracked twice, once without its campaign
+  parameters. Page views are now tracked once per navigation with the full URL,
+  the previous page as referrer and the new page's title (in-site navigation
+  recorded the previous page's title).
+
+## [1.27.0] - 2026-10-22
+
+### Changed
+- The Instagram button on news posts now opens the phone's share sheet with a
+  1080×1920 story card (featured image, date and title) and copies the article
+  link for the link sticker. On a computer it copies the link and explains that
+  Stories are created from the phone app.
+- The share buttons are one shared component instead of a copy in every post.
+- The PHP2Shell post uses an illustrated featured image (elephant hiding
+  among server racks) instead of the terminal graphic.
+
+## [1.26.2] - 2026-10-22
+
+### Changed
+- Clearer wording in the PHP2Shell news post: "PHP2Shell is the name for two
+  separate bugs".
+
+## [1.26.1] - 2026-10-22
+
+### Changed
+- The PHP2Shell news post cites the CERT-EU recommendation for systems that
+  cannot be patched right away, instead of the UK NCSC.
+
+## [1.26.0] - 2026-10-22
+
+### Changed
+- The Italian version of the site is archived: the site is served in English
+  only and the language switcher is hidden. Italian translations stay in
+  `it.ts`; adding `'it'` back to `availableLocales` re-enables them.
+
+## [1.25.1] - 2026-10-22
+
+### Changed
+- The PHP2Shell news post now covers the popular software affected, the
+  official source backports for PHP 7.4, 8.0 and 8.1, temporary mitigations
+  and links to the PHP, GitHub and CERT-EU advisories. It no longer describes
+  our own maintenance work. The Italian copy is rewritten in the site's
+  direct, developer-to-developer voice.
+
+## [1.25.0] - 2026-10-22
+
+### Added
+- News post in English and Italian on PHP2Shell (CVE-2026-109618 and
+  CVE-2026-109619): what the two critical PHP vulnerabilities are, who is
+  affected, the fixed PHP releases and the urgent maintenance we are running
+  for customers.
+
+## [1.24.5] - 2026-10-03
+
+### Changed
+- Rewrote the developer manifesto in English and Italian: direct, concrete
+  statements written by developers for developers instead of generic
+  values-page phrasing. Same sections and commitments; the Italian title is now
+  "Manifesto per chi sviluppa", also in the navigation.
+
+## [1.24.4] - 2026-10-03
+
+### Changed
+- Every page now uses the homepage header: same height, logo, wordmark, nav
+  typography and 1px-bordered controls, with the full nav from 1280px up and
+  the menu toggle below.
+
+## [1.24.3] - 2026-10-03
+
+### Changed
+- Removed the decorative emoji and icon glyphs from headings, lists and the
+  footer across the site; lists use plain bullets. Functional icons (menu
+  toggle, submenu chevrons, map pin) and link arrows stay.
+- The footer shows the contact address as a visible link instead of an icon.
+- Header controls (language switcher and mobile menu toggle) share one 44×44
+  size and style on desktop and mobile.
+
+## [1.24.2] - 2026-10-02
+
+### Changed
+- Copy review of every English and Italian text: consistent "WebDeploy" brand
+  spelling, Italian sentence-case headings, natural Italian in place of literal
+  translations and avoidable anglicisms, gender-neutral forms addressing the
+  reader, and grammar fixes in English ("opt out", "reserved for", missing
+  articles).
+- The Italian kiosk page is now a faithful translation of the English one
+  (Sonmi OS by m4ss.net, Linux instead of Windows, IaC management) instead of a
+  different product description.
+- Clearer consent banner buttons and HQ scene labels.
+
+### Fixed
+- Hetzner's Falkenstein data centre is in Saxony, not Bavaria.
+- Text that stayed in English on the Italian site: error page, skip link,
+  navigation and menu labels, language switcher, map loading/error messages and
+  address, image descriptions, share text, new-tab notices and the early-access
+  email placeholder.
+- The privacy opt-out messages and the open-source article's stack list now
+  follow a language switch instead of keeping the first language.
+- Decorative icons are hidden from screen readers.
+
+## [1.24.1] - 2026-10-02
+
+### Changed
+- The HQ scene no longer shows the "LIVE · PARMA" clock in the top-right
+  corner of the 3D view, so neither view carries HUD text.
+
+## [1.24.0] - 2026-10-02
+
+### Added
+- Interactive Webdeploy HQ scene on the homepage, directly under the hero: a
+  live, looping Three.js bar that switches between the flat line-art view and a
+  3D view (T or the 2D/3D button), with optional sound (M) and a free camera in
+  3D (C). It runs as a self-contained page under `/hq/`, embedded in an iframe
+  so its renderer, audio and key bindings stay isolated from the site. Visitors
+  who prefer reduced motion see a still poster instead.
+- "A look into the Future<void>" subtitle under the hero heading, in English and
+  Italian.
+
+## [1.23.1] - 2026-09-10
+
+### Changed
+- Restored the original Space Mono and VT323 typography and the
+  cyan/magenta “developing greatness” heading while retaining the simplified
+  homepage layout.
+
+## [1.23.0] - 2026-09-10
+
+### Changed
+- Homepage readability refresh preserving the dark retro identity, with clearer
+  typography and English/Italian copy, simplified hero/services/contact hierarchy,
+  and calmer home-page navigation/footer. Scoped home preview opt-in means other
+  pages keep the original style.
+
+### Fixed
+- Keyboard focus enters header submenus immediately when opened with ArrowDown;
+  visibility no longer waits for the menu animation.
+
+## [1.22.3] - 2026-08-20
+
+### Changed
+- The site now runs on a different production host. Nothing about the
+  application changed: the same image, the same nginx config, the same 106
+  files under `/usr/share/nginx/html`, verified byte-identical on both hosts
+  before the DNS record moved. The deployment is managed separately from now
+  on, so `docker-compose.prod.yml` is no longer what runs in production.
+- CI **builds once and tags twice.** `docker-compose.build.yml` declared a
+  second `version_tag` service that `extends: frontend` and differed only in
+  its image tag; compose treats that as two builds of the same context, so
+  `:latest` and `:<version>` were separate images with no guarantee of being
+  the same bytes. The pipeline now builds `:<version>` and applies `:latest`
+  with `docker tag`, which makes the version tag actually name what is running.
+- Manual pipeline runs are pinned to `main`. Woodpecker's `manual` event
+  carries no branch restriction of its own, so a hand-triggered build from any
+  branch would have pushed that branch to `:latest` — the tag the live site
+  pulls.
+
+## [1.22.2] - 2026-08-13
+
+### Fixed
+- Header submenus were unreachable with the pointer: the 8px gap between a
+  nav trigger and its submenu belonged to no element inside
+  `.dropdown-container`, so crossing it fired the container's `mouseleave` and
+  dismissed the menu before the cursor arrived. A transparent bridge
+  (`.dropdown-menu::before`) now spans that gap, plus a 150ms grace period
+  before closing.
+- Keyboard access to the same submenus: `ArrowDown` on a trigger looked for the
+  menu *inside* the button, so it never focused anything. It now opens the
+  submenu and moves focus to the first item; `Escape` returns focus to the
+  trigger, and moving focus out of a dropdown closes it.
+- Tapping a nav trigger on a touch device at `lg` width did nothing — the
+  tap's compatibility hover event opened the submenu and the click that
+  followed toggled it straight back shut. Hover now opens only for non-touch
+  pointers, and a press outside closes an open submenu.
+
+## [1.22.1] - 2026-07-15
+
+### Changed
+- Early-access page copy: retire the campaign slogan in favour of the
+  site-wide "developing greatness" tagline, describe the subtitle as
+  audit-ready evidence, and update the guide's reading-time claim
+  (25 minutes, page count dropped). Refresh the served gap-analysis PDF
+  to the current edition (supplier playbook, board one-pager, coverage
+  table, same brand line).
+
+## [1.22.0] - 2026-07-15
+
+### Added
+- Serve the NIS2/CRA gap-analysis guide (PDF, Italian) at
+  `/uploads/nis2-cra-gap-analysis.pdf` — the document delivered to
+  early-access subscribers after double opt-in.
+
+## [1.21.1] - 2026-07-13
+
+### Fixed
+- Meta pixel pointed at the wrong id (an app id) instead of the web dataset id,
+  so browser events never landed ("event never received"). Point `metaPixel.ts`
+  at the correct web dataset id.
+
+## [1.21.0] - 2026-07-13
+
+### Added
+- Consent-gated Meta (Facebook/Instagram) pixel for the ad campaigns: a
+  `CookieConsent` banner (IT/EN) gates all marketing scripts behind explicit
+  opt-in; the pixel (`metaPixel.ts`) loads only after consent and fires
+  `PageView`, `ViewContent` on `/early-access`, and `Lead` on form submit.
+  Consent is persisted in `localStorage` (`consent.svelte` store). Matomo stays
+  cookieless and always-on. Added a Marketing section to the Privacy page
+  disclosing the pixel.
+
+## [1.20.1] - 2026-07-13
+
+### Changed
+- The early-access Google Ads conversion now fires on form submit (on
+  `/early-access`, where the gclid is freshest) instead of on
+  `/early-access/confermato`: the confirmation redirect isn't controllable, so
+  submit is the conversion signal. `/confermato` keeps the confirmed-signup
+  analytics goal. Still gated/no-op until the Google Ads tag is set.
+
+## [1.20.0] - 2026-07-11
+
+### Added
+- Early-access funnel for the NIS2/CRA campaign: `/early-access` landing page
+  with `EarlyAccessForm` (email, name, company, role, GDPR consent, honeypot,
+  UTM capture) that POSTs to a lead-capture webhook, and a
+  `/early-access/confermato` thank-you page that fires the confirmed-signup
+  analytics goal and the Google Ads conversion (gated, inert until the tag is
+  configured).
+- Data Processing Agreement (DPA) section on the Privacy page (`/privacy#dpa`),
+  linked from the early-access consent copy. English and Italian.
+
+## [1.19.1] - 2026-06-12
+
+### Fixed
+- Moving dots in the header illustrations (data packets and orbiting
+  satellites) could drift off their guide lines in some browsers; they now
+  use SMIL `animateMotion`, which follows path geometry exactly. Dots park on
+  their lines when animations are unavailable and are hidden under
+  `prefers-reduced-motion`.
+
+## [1.19.0] - 2026-06-12
+
+### Changed
+- Redesigned the four page-header illustrations (`webdeploy-logo.svg`,
+  `inwd-kiosk.svg`, `inwd-infra.svg`, `news-impeccable.svg`): richer scenes,
+  layered neon glows, CRT vignette and scanlines, and retro hard offset
+  shadows matching the site's design language.
+- Replaced SMIL animations with CSS animations that honor
+  `prefers-reduced-motion`, with a fully-rendered static fallback.
+- Added accessibility metadata (`role="img"`, `<title>`, `<desc>`) and
+  per-file namespaced ids to every header illustration.
+
+### Fixed
+- Geometry issues in the header illustrations: connection lines now terminate
+  on their target nodes, the infrastructure diagram no longer routes a link
+  through a server rack, and the logo terminal fits inside its hexagonal
+  frame.
+
+## [1.18.0] - 2026-04-17
+
+### Added
+- News post announcing the open-source release of webdeploy.it, available in
+  English and Italian at `/news/open-source-release`, linked from the news
+  index and referenced in the sitemap.
+
+## [1.17.1] - 2026-04-17
+
+### Added
+- README notes explaining the tech-stack choices: SvelteKit and Tailwind CSS
+  were picked for their LLM-friendly documentation; Leaflet was picked for its
+  small footprint and first-class OpenStreetMap integration.
+
+## [1.17.0] - 2026-04-17
+
+### Added
+- Public open-source release of the webdeploy.it website source code under the
+  GNU Affero General Public License v3.0.

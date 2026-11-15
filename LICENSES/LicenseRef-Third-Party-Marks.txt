@@ -1,0 +1,8 @@
+Third-party names and logos
+
+This material depicts names, logos or marks that belong to their respective
+owners. It appears only to identify the products or organisations concerned.
+It is not licensed by WEBDEPLOY S.R.L., it is not covered by the licence of this
+repository, and its use here does not imply any affiliation with or
+endorsement by those owners. Any use of it remains subject to the terms of
+its owners. See THIRD-PARTY-NOTICES.md for the list and sources.

@@ -1,0 +1,23 @@
+WEBDEPLOY S.R.L. — all rights reserved
+
+This notice applies to the WEBDEPLOY and inWD names and logos, photographs,
+customer imagery, illustrations and the written content of the website
+(for example the translation files and article texts).
+
+Copyright (c) WEBDEPLOY S.R.L. All rights reserved.
+
+No licence is granted to copy, modify, publish or distribute this material
+beyond what the law allows by default. The GNU Affero General Public License
+that covers the source code of this repository does NOT extend to it.
+
+If you fork or reuse this repository, you must replace this material with your
+own before publishing the result, and you may not use the WEBDEPLOY or inWD
+names or logos in a way that suggests the result is, or is endorsed by,
+WEBDEPLOY S.R.L.
+
+Copies of this repository obtained before this notice was added were published
+under a blanket AGPL-3.0 statement. Those copies keep the grant they were
+received under; this notice applies to copies obtained from the revision that
+introduced it onward.
+
+For permission requests, write to info@webdeploy.it.

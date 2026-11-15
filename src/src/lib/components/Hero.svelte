@@ -1,0 +1,238 @@
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+	import { t } from '$lib/i18n';
+	import TiltedArt from '$lib/components/TiltedArt.svelte';
+
+	interface Props {
+		name: string;
+		text?: string;
+		tagline: string;
+		subtitle?: string;
+		eyebrow?: string;
+		image?: string;
+		imageAlt?: string;
+		imageWidth?: number;
+		imageHeight?: number;
+		/** Custom visual, shown in place of the image. */
+		visual?: Snippet;
+		actions?: Array<{
+			text: string;
+			href: string;
+			primary?: boolean;
+		}>;
+	}
+
+	let {
+		name,
+		text,
+		tagline,
+		subtitle,
+		eyebrow,
+		image,
+		imageAlt = '',
+		imageWidth = 400,
+		imageHeight = 400,
+		visual,
+		actions = []
+	}: Props = $props();
+</script>
+
+<section class="readable-hero">
+	<div class="readable-hero__content">
+		<div class="readable-hero__copy">
+			{#if eyebrow}
+				<p class="readable-hero__eyebrow">{eyebrow}</p>
+			{/if}
+			<h1 class="readable-hero__title">
+				<!-- Trademark signs drop to a small superscript at display size. -->
+				<span
+					>{#each name.split('™') as part, index (index)}{#if index > 0}<sup
+								class="readable-hero__mark">™</sup
+							>{/if}{part}{/each}</span
+				>
+				{#if text}
+					<span class="readable-hero__title-accent">{text}</span>
+				{/if}
+			</h1>
+			{#if subtitle}
+				<p class="readable-hero__subtitle">{subtitle}</p>
+			{/if}
+			<p class="readable-hero__tagline">{tagline}</p>
+			{#if actions.length > 0}
+				<div class="readable-hero__actions">
+					{#each actions as action}
+						<a href={action.href} class:readable-hero__primary={action.primary}>
+							{action.text}
+						</a>
+					{/each}
+				</div>
+			{/if}
+		</div>
+
+		{#if visual}
+			<div class="readable-hero__visual">
+				{@render visual()}
+			</div>
+		{:else if image}
+			<div class="readable-hero__art">
+				<TiltedArt
+					src={image}
+					alt={imageAlt}
+					width={imageWidth}
+					height={imageHeight}
+					eager
+				/>
+			</div>
+		{/if}
+	</div>
+</section>
+
+<style>
+	.readable-hero {
+		padding: clamp(4.5rem, 8vw, 7.5rem) 0 clamp(4rem, 7vw, 6.5rem);
+	}
+
+	.readable-hero__content {
+		width: 100%;
+		max-width: 80rem;
+		margin-inline: auto;
+		padding-inline: 1rem;
+		display: grid;
+		gap: clamp(2.5rem, 7vw, 7rem);
+		align-items: center;
+	}
+
+	.readable-hero__copy {
+		max-width: 38rem;
+	}
+
+	.readable-hero__eyebrow {
+		margin: 0 0 1.25rem;
+		color: var(--color-primary);
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		line-height: 1.5;
+		text-transform: uppercase;
+	}
+
+	.readable-hero__title {
+		margin: 0;
+		color: white;
+		font-family: var(--font-display);
+		font-size: 60px;
+		font-weight: 400;
+		line-height: 0.9;
+		text-transform: uppercase;
+		text-shadow: 2px 2px var(--color-secondary);
+	}
+
+	.readable-hero__title span {
+		display: block;
+		color: var(--color-primary);
+	}
+
+	.readable-hero__mark {
+		display: inline;
+		margin-left: 0.04em;
+		font-size: 0.32em;
+		line-height: 0;
+		vertical-align: 1.1em;
+	}
+
+	.readable-hero__title-accent {
+		color: var(--color-secondary) !important;
+	}
+
+	.readable-hero__subtitle {
+		margin: 1.25rem 0 0;
+		color: var(--color-primary, #00f0ff);
+		font-family: 'VT323', monospace;
+		font-size: clamp(1.5rem, 2.6vw, 2rem);
+		letter-spacing: 0.02em;
+	}
+
+	.readable-hero__tagline {
+		max-width: 34rem;
+		margin: 2rem 0 0;
+		color: var(--color-text-body);
+		font-family: var(--font-reading, system-ui, sans-serif);
+		font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+		line-height: 1.7;
+	}
+
+	.readable-hero__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.875rem 1.5rem;
+		margin-top: 2rem;
+	}
+
+	.readable-hero__actions a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 2.75rem;
+		padding: 0.625rem 1rem;
+		color: var(--color-text-body);
+		font-family: var(--font-mono);
+		font-size: 0.875rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		line-height: 1.25;
+		text-decoration: none;
+	}
+
+	.readable-hero__actions a:hover {
+		color: white;
+		text-decoration: underline;
+		text-underline-offset: 0.25rem;
+	}
+
+	.readable-hero__actions a:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 3px;
+	}
+
+	.readable-hero__actions .readable-hero__primary {
+		background: var(--color-primary);
+		color: #050a10;
+	}
+
+	.readable-hero__actions .readable-hero__primary:hover {
+		background: white;
+		color: #050a10;
+		text-decoration: none;
+	}
+
+	.readable-hero__art {
+		width: min(100%, 22rem);
+		justify-self: center;
+	}
+
+	.readable-hero__visual {
+		justify-self: center;
+	}
+
+	@media (min-width: 40rem) {
+		.readable-hero__content {
+			padding-inline: 1.5rem;
+		}
+
+		.readable-hero__art {
+			justify-self: end;
+		}
+
+		.readable-hero__title {
+			font-size: 72px;
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.readable-hero__content {
+			grid-template-columns: minmax(0, 1.15fr) minmax(15rem, 0.85fr);
+			padding-inline: 2rem;
+		}
+	}
+</style>

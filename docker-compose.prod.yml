@@ -1,0 +1,10 @@
+# Standalone production run of the built image.
+#
+# NOTE: the live deployment is managed separately and does not use this file.
+# It is here for running the same image by hand somewhere else.
+services:
+  frontend:
+    image: git.webdeploy.it/webdeploy/webdeploy.it:latest
+    restart: always
+    ports:
+      - 127.0.0.1:8000:80
