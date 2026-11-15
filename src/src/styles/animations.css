@@ -1,0 +1,102 @@
+/* ==========================================
+   ANIMATIONS: Keyframes & Utilities
+   ========================================== */
+
+/* Cursor blink animation */
+@keyframes blink {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+}
+
+.cursor-blink {
+	animation: blink 1s step-end infinite;
+}
+
+/* Fade in and slide up */
+@keyframes fade-in-up {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Fade in only */
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* Slide down for menus */
+@keyframes slide-down {
+	from {
+		opacity: 0;
+		transform: translateY(-8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Animation utility classes */
+.animate-fade-in-up {
+	animation: fade-in-up 0.5s var(--ease-out-quart) forwards;
+	opacity: 0;
+}
+
+.animate-fade-in {
+	animation: fade-in 0.4s var(--ease-out-quart) forwards;
+	opacity: 0;
+}
+
+/* Stagger delay utilities */
+.delay-1 {
+	animation-delay: 0ms;
+}
+.delay-2 {
+	animation-delay: 100ms;
+}
+.delay-3 {
+	animation-delay: 200ms;
+}
+.delay-4 {
+	animation-delay: 300ms;
+}
+.delay-5 {
+	animation-delay: 400ms;
+}
+.delay-6 {
+	animation-delay: 500ms;
+}
+
+/* Easing utility classes */
+.ease-out-quart {
+	transition-timing-function: var(--ease-out-quart);
+}
+
+.ease-out-quint {
+	transition-timing-function: var(--ease-out-quint);
+}
+
+.ease-out-expo {
+	transition-timing-function: var(--ease-out-expo);
+}
+
+/* Selection colors */
+::selection {
+	background-color: var(--color-secondary);
+	color: white;
+}

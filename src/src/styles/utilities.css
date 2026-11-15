@@ -1,0 +1,51 @@
+/* ==========================================
+   UTILITIES: Shadow classes
+   ========================================== */
+
+.shadow-retro-primary-soft {
+	box-shadow: var(--shadow-retro-primary-soft);
+}
+
+.shadow-retro-secondary-soft {
+	box-shadow: var(--shadow-retro-secondary-soft);
+}
+
+.shadow-retro-primary {
+	box-shadow: var(--shadow-retro-primary);
+}
+
+.shadow-retro-secondary {
+	box-shadow: var(--shadow-retro-secondary);
+}
+
+/* ==========================================
+   UTILITIES: Border colors
+   ========================================== */
+
+.border-default {
+	border-color: var(--color-border-default);
+}
+
+.border-muted {
+	border-color: var(--color-border-muted);
+}
+
+.border-strong {
+	border-color: var(--color-border-strong);
+}
+
+.border-primary-soft {
+	border-color: var(--color-border-primary-soft);
+}
+
+.border-primary-accent {
+	border-color: var(--color-border-primary);
+}
+
+.border-secondary-soft {
+	border-color: var(--color-border-secondary-soft);
+}
+
+.border-secondary-accent {
+	border-color: var(--color-border-secondary);
+}

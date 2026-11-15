@@ -1,0 +1,30 @@
+/* ==========================================
+   PERFORMANCE: CSS Containment
+   ========================================== */
+
+/* Contain sections for better paint performance */
+section {
+	contain: layout style;
+}
+
+/* Promote interactive elements for smooth animations */
+.btn-retro-primary,
+.btn-retro-secondary,
+.btn-cta-primary,
+.card-retro {
+	will-change: transform, box-shadow;
+}
+
+/* Remove will-change after animation completes (reduces memory) */
+.btn-retro-primary:not(:hover),
+.btn-retro-secondary:not(:hover),
+.btn-cta-primary:not(:hover),
+.card-retro:not(:hover) {
+	will-change: auto;
+}
+
+/* Content visibility for below-fold sections */
+.content-visibility-auto {
+	content-visibility: auto;
+	contain-intrinsic-size: auto 500px;
+}

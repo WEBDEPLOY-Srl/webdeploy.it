@@ -1,0 +1,79 @@
+/* ==========================================
+   RESPONSIVE: Safe area insets (notched devices)
+   ========================================== */
+
+/* Support for iPhone X+ and other notched devices */
+@supports (padding: env(safe-area-inset-bottom)) {
+	body {
+		padding-left: env(safe-area-inset-left);
+		padding-right: env(safe-area-inset-right);
+	}
+
+	/* Ensure sticky header respects notch */
+	header {
+		padding-left: max(1rem, env(safe-area-inset-left));
+		padding-right: max(1rem, env(safe-area-inset-right));
+	}
+
+	/* Footer padding for home indicator */
+	footer {
+		padding-bottom: max(2rem, env(safe-area-inset-bottom));
+	}
+}
+
+/* ==========================================
+   RESPONSIVE: Landscape orientation
+   ========================================== */
+
+@media (orientation: landscape) and (max-height: 500px) {
+	/* Reduce vertical padding in landscape on small screens */
+	.py-16 {
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+	}
+
+	.py-20 {
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+	}
+
+	.py-24 {
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+	}
+
+	/* Smaller hero text in landscape */
+	.text-6xl {
+		font-size: 2.5rem;
+	}
+
+	.text-7xl {
+		font-size: 3rem;
+	}
+}
+
+/* ==========================================
+   RESPONSIVE: Touch-friendly utilities
+   ========================================== */
+
+/* Minimum touch target for footer/small links */
+.touch-target {
+	min-height: 44px;
+	min-width: 44px;
+	display: inline-flex;
+	align-items: center;
+}
+
+/* Increase tap area without changing visual size */
+.tap-area-expand {
+	position: relative;
+}
+
+.tap-area-expand::before {
+	content: '';
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	bottom: -8px;
+	left: -8px;
+}
