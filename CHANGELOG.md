@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.45.0] - 2026-11-15
+
 ### Added
 - ESLint (TypeScript and Svelte rules) and Prettier (tabs, single quotes) with `npm run lint` and
   `npm run format`.
