@@ -74,13 +74,41 @@ describe('translation keys used in the source', () => {
 		.filter((file) => !file.startsWith('lib/i18n/'));
 
 	// t('a.b'), tObj('a.b') and tObj<Type>('a.b') with a plain string literal.
-	// Template literals with ${} are built at run time and cannot be checked here.
 	const call = /\b(?:t|tObj)(?:<[^>()]*>)?\(\s*(['"])([A-Za-z0-9_.]+)\1/g;
+	// t(`a.${x}.b`): the key is built at run time, so only its shape can be checked.
+	const templateCall = /\b(?:t|tObj)(?:<[^>()]*>)?\(\s*`([^`]*\$\{[^`]*)`/g;
 
 	const used = new Map<string, string>();
+	const templates = new Map<string, string>();
 	for (const file of files) {
 		const text = readFileSync(`${sourceRoot}/${file}`, 'utf8');
 		for (const match of text.matchAll(call)) used.set(match[2], file);
+		for (const match of text.matchAll(templateCall)) templates.set(match[1], file);
+	}
+
+	/** Every path in a tree, intermediate objects and lists included. */
+	function paths(value: unknown, prefix = '', out: string[] = []) {
+		if (value && typeof value === 'object') {
+			for (const [key, child] of Object.entries(value)) {
+				const path = prefix ? `${prefix}.${key}` : key;
+				out.push(path);
+				paths(child, path, out);
+			}
+		}
+		return out;
+	}
+
+	/**
+	 * A template such as `home.${key}.title` becomes a pattern in which each
+	 * interpolation matches one run of non-dot characters, so `error.${s}Text`
+	 * matches `error.notFoundText`.
+	 */
+	function templatePattern(template: string) {
+		const escaped = template
+			.split(/\$\{[^}]*\}/)
+			.map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+			.join('[^.]+');
+		return new RegExp(`^${escaped}$`);
 	}
 
 	const lookup = (tree: unknown, key: string) =>
@@ -95,6 +123,7 @@ describe('translation keys used in the source', () => {
 	it('finds the translation calls it is meant to check', () => {
 		expect(files.length).toBeGreaterThan(20);
 		expect(used.size).toBeGreaterThan(100);
+		expect(templates.size).toBeGreaterThan(10);
 	});
 
 	it.each([
@@ -105,5 +134,19 @@ describe('translation keys used in the source', () => {
 			.filter(([key]) => lookup(tree, key) === undefined)
 			.map(([key, file]) => `${key} (used in ${file})`);
 		expect(missing).toEqual([]);
+	});
+
+	it.each([
+		['en', en],
+		['it', itTranslations]
+	] as const)('every template key matches at least one key in %s', (_name, tree) => {
+		const known = paths(tree);
+		const unmatched = [...templates]
+			.filter(([template]) => {
+				const pattern = templatePattern(template);
+				return !known.some((path) => pattern.test(path));
+			})
+			.map(([template, file]) => `\`${template}\` (used in ${file})`);
+		expect(unmatched).toEqual([]);
 	});
 });

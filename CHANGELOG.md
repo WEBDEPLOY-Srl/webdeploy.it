@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ESLint (TypeScript and Svelte rules) and Prettier (tabs, single quotes) with `npm run lint` and
   `npm run format`.
 - Vitest unit tests (`npm run test:unit`): translation parity between English and Italian, existence of
-  every translation key used in the source, sitemap completeness and well-formedness, and JSON-LD
+  every translation key used in the source (keys built with a template literal must match at least one
+  existing key), sitemap completeness and well-formedness, and JSON-LD
   escaping.
 - Playwright smoke tests (`npm run test:e2e`) in Firefox and Chromium against the production build:
   every sitemap page returns 200 with one `h1`, a title, a canonical link and a clean console; axe-core
