@@ -1,21 +1,21 @@
 <script lang="ts">
 	import '../app.css';
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import CrtEffects from '$lib/components/CrtEffects.svelte';
-	import CookieConsent from '$lib/components/CookieConsent.svelte';
+	import Header from '#lib/components/Header.svelte';
+	import Footer from '#lib/components/Footer.svelte';
+	import CrtEffects from '#lib/components/CrtEffects.svelte';
+	import CookieConsent from '#lib/components/CookieConsent.svelte';
 	import { onMount, tick } from 'svelte';
 	import { afterNavigate } from '$app/navigation';
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import { page } from '$app/state';
-	import { locale } from '$lib/stores/locale.svelte';
-	import { t } from '$lib/i18n';
-	import { consent } from '$lib/stores/consent.svelte';
-	import { loadMetaPixel } from '$lib/utils/metaPixel';
-	import { jsonLdScript } from '$lib/utils/jsonLd';
-	import { organizationJsonLd } from '$lib/utils/structuredData';
-	import { initMatomo, trackPageView } from '$lib/utils/matomo';
-	import { logI18n } from '$lib/utils/logger';
+	import { locale } from '#lib/stores/locale.svelte.ts';
+	import { t } from '#lib/i18n/index.ts';
+	import { consent } from '#lib/stores/consent.svelte.ts';
+	import { loadMetaPixel } from '#lib/utils/metaPixel.ts';
+	import { jsonLdScript } from '#lib/utils/jsonLd.ts';
+	import { organizationJsonLd } from '#lib/utils/structuredData.ts';
+	import { initMatomo, trackPageView } from '#lib/utils/matomo.ts';
+	import { logI18n } from '#lib/utils/logger.ts';
 
 	let { children } = $props();
 
@@ -35,7 +35,8 @@
 	});
 
 	// The first load counts as a page view too. tick() waits for the new page's <title>.
-	afterNavigate(async ({ from }) => {
+	afterNavigate(async ({ from, shallow, type }) => {
+		if (shallow && type === 'goto') return;
 		if (!browser) return;
 		await tick();
 		trackPageView(from?.url);

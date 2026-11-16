@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { t, tObj } from '$lib/i18n';
-	import Seo from '$lib/components/Seo.svelte';
-	import ContactBand from '$lib/components/ContactBand.svelte';
+	import { t, tObj } from '#lib/i18n/index.ts';
+	import Seo from '#lib/components/Seo.svelte';
+	import ContactBand from '#lib/components/ContactBand.svelte';
 
 	const groups = [
 		{ key: 'coreBeliefs', items: ['devExp', 'openSource', 'workLife'], band: false },

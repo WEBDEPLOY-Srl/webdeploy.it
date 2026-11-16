@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { t, tObj } from '$lib/i18n';
-	import Hero from '$lib/components/Hero.svelte';
-	import Seo from '$lib/components/Seo.svelte';
-	import ContactBand from '$lib/components/ContactBand.svelte';
-	import WorkstationDemo from '$lib/components/WorkstationDemo.svelte';
+	import { t, tObj } from '#lib/i18n/index.ts';
+	import Hero from '#lib/components/Hero.svelte';
+	import Seo from '#lib/components/Seo.svelte';
+	import ContactBand from '#lib/components/ContactBand.svelte';
+	import WorkstationDemo from '#lib/components/WorkstationDemo.svelte';
 	import {
 		siActualbudget,
 		siAffine,
@@ -42,9 +42,9 @@
 		siWayland,
 		siWireguard
 	} from 'simple-icons';
-	import { borgwarehouseLogo } from '$lib/assets/borgwarehouseLogo';
-	import { furilabsLogo } from '$lib/assets/furilabsLogo';
-	import { linkdingLogo } from '$lib/assets/linkdingLogo';
+	import { borgwarehouseLogo } from '#lib/assets/borgwarehouseLogo.ts';
+	import { furilabsLogo } from '#lib/assets/furilabsLogo.ts';
+	import { linkdingLogo } from '#lib/assets/linkdingLogo.ts';
 
 	// `side` is where the art sits on wide screens. A `cutout` is a transparent image that needs
 	// an edge light; a `logo` or `icon` is shown smaller and unframed.

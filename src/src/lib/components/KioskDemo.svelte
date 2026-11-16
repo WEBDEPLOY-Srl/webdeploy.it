@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { t, tObj } from '$lib/i18n';
+	import { t, tObj } from '#lib/i18n/index.ts';
 
 	type Mode = 'inwd' | 'windows';
 	type View = 'home' | 'hours' | 'map' | 'events';

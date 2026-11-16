@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { t, tObj } from '$lib/i18n';
-	import Seo from '$lib/components/Seo.svelte';
-	import { site } from '$lib/config/site';
-	import MatomoOptOut from '$lib/components/MatomoOptOut.svelte';
+	import { t, tObj } from '#lib/i18n/index.ts';
+	import Seo from '#lib/components/Seo.svelte';
+	import { site } from '#lib/config/site.ts';
+	import MatomoOptOut from '#lib/components/MatomoOptOut.svelte';
 </script>
 
 <Seo title={t('privacy.title')} description={t('privacy.intro')} />

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { site } from '$lib/config/site';
+import { site } from '#lib/config/site.ts';
 import { organizationJsonLd, publisherJsonLd } from './structuredData';
 import { serialiseJsonLd } from './jsonLd';
 

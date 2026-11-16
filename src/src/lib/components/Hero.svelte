@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import TiltedArt from '$lib/components/TiltedArt.svelte';
+	import TiltedArt from '#lib/components/TiltedArt.svelte';
 
 	interface Props {
 		name: string;

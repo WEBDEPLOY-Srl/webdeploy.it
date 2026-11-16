@@ -59,7 +59,7 @@ docker run --rm -p 127.0.0.1:8080:80 webdeploy.it
 ```
 
 The image sends its own security headers, including a Content-Security-Policy built from the policy
-SvelteKit writes into each page (`src/svelte.config.js`, `src/scripts/nginx-csp.mjs`). The header, cache
+SvelteKit writes into each page (`src/vite.config.ts`, `src/scripts/nginx-csp.mjs`). The header, cache
 and 404 tests only make sense against nginx, so run them against the container:
 
 ```sh

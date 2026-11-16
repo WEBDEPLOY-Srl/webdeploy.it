@@ -1,4 +1,4 @@
-import { logShare } from '$lib/utils/logger';
+import { logShare } from '#lib/utils/logger.ts';
 
 const WIDTH = 1080;
 const HEIGHT = 1920;
