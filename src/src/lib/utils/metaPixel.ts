@@ -52,6 +52,7 @@ export function loadMetaPixel(): void {
 		document.head.appendChild(s);
 	}
 
+	window.fbq?.('set', 'autoConfig', false, PIXEL_ID);
 	window.fbq?.('init', PIXEL_ID);
 	window.fbq?.('track', 'PageView');
 	logAnalytics.log('Meta Pixel loaded', PIXEL_ID);

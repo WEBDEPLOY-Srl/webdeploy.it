@@ -4,6 +4,13 @@
 	import Seo from '#lib/components/Seo.svelte';
 
 	onMount(() => {
+		let fromListmonk: boolean;
+		try {
+			fromListmonk = new URL(document.referrer).origin === 'https://newsletter.webdeploy.it';
+		} catch {
+			return;
+		}
+		if (!fromListmonk) return;
 		(window._paq = window._paq || []).push(['trackEvent', 'Newsletter', 'newsletter_confirmed']);
 	});
 </script>

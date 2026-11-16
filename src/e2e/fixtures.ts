@@ -1,4 +1,5 @@
 import { expect, test as base, type Page, type Request } from '@playwright/test';
+import { createHash } from 'node:crypto';
 
 /** 1×1 transparent PNG, stands in for a map tile. */
 const PIXEL_PNG = Buffer.from(
@@ -16,6 +17,8 @@ export interface ExternalTraffic {
 	all: string[];
 	/** The subset that went to a Meta host. */
 	meta: string[];
+	/** Meta Pixel tracking endpoints, captured and never sent to the real host. */
+	metaRequests: string[];
 	listmonk: Array<{ method: string; url: string; body: string | null }>;
 }
 
@@ -31,6 +34,9 @@ async function stubExternalHosts(page: Page, traffic: ExternalTraffic, unexpecte
 			const url = new URL(route.request().url());
 			traffic.all.push(url.href);
 			if (META_HOST.test(url.hostname)) traffic.meta.push(url.href);
+			if (url.hostname === 'www.facebook.com' && url.pathname === '/tr') {
+				traffic.metaRequests.push(url.href);
+			}
 
 			if (url.hostname === 'analytics.inwd.org') {
 				if (url.pathname.endsWith('.js')) {
@@ -51,14 +57,22 @@ async function stubExternalHosts(page: Page, traffic: ExternalTraffic, unexpecte
 					body: route.request().postData()
 				});
 				if (url.pathname === '/api/public/captcha/altcha') {
+					const salt = 'abc?expires=1893456000';
+					const origin = route.request().headers().origin ?? 'http://127.0.0.1:4173';
 					return route.fulfill({
 						status: 200,
 						contentType: 'application/json',
+						headers: {
+							'access-control-allow-origin': origin,
+							'access-control-allow-methods': 'GET',
+							vary: 'Origin'
+						},
 						body: JSON.stringify({
 							algorithm: 'SHA-256',
-							challenge: '0'.repeat(64),
-							salt: 'test',
-							signature: 'test'
+							challenge: createHash('sha256').update(`${salt}1234`).digest('hex'),
+							maxnumber: 2048,
+							salt,
+							signature: 'offline-signature'
 						})
 					});
 				}
@@ -81,7 +95,7 @@ export const test = base.extend<{
 	cspViolations: string[];
 }>({
 	traffic: async ({ page }, use) => {
-		const traffic: ExternalTraffic = { all: [], meta: [], listmonk: [] };
+		const traffic: ExternalTraffic = { all: [], meta: [], metaRequests: [], listmonk: [] };
 		const unexpected: string[] = [];
 		await stubExternalHosts(page, traffic, unexpected);
 		await use(traffic);

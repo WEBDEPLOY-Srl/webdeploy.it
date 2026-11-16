@@ -18,35 +18,69 @@
 	interface AltchaWidget extends HTMLElement {
 		verify: () => Promise<VerificationResult | null>;
 		getState: () => string;
+		reset: () => void;
 	}
 
 	let form: HTMLFormElement;
 	let newsBox: HTMLInputElement;
 	let marketingBox: HTMLInputElement;
 	let widget: AltchaWidget;
+	let ready = $state(false);
+	let submitAttempted = $state(false);
 	let noListError = $state(true);
 	let verificationError = $state(false);
 	let submitting = $state(false);
 
 	onMount(() => {
 		updateListValidity();
+		let cancelled = false;
+		const onPageShow = (event: PageTransitionEvent) => {
+			if (!event.persisted) return;
+			submitting = false;
+			verificationError = false;
+			submitAttempted = false;
+			newsBox.checked = false;
+			marketingBox.checked = false;
+			widget.reset();
+			form.querySelector('input[name="altcha"]')?.remove();
+			updateListValidity();
+		};
+		window.addEventListener('pageshow', onPageShow);
+
 		void Promise.all([
 			import('altcha/external'),
 			import('altcha/altcha.css'),
 			import('altcha/workers/sha?worker')
-		]).then(([, , workerModule]) => {
-			const altcha = (
-				globalThis as typeof globalThis & {
-					$altcha?: { algorithms: { set: (name: string, factory: () => Worker) => void } };
-				}
-			).$altcha;
-			if (altcha) altcha.algorithms.set('SHA-256', () => new workerModule.default());
-		});
+		])
+			.then(async ([, , workerModule]) => {
+				await customElements.whenDefined('altcha-widget');
+				const altcha = (
+					globalThis as typeof globalThis & {
+						$altcha?: { algorithms: { set: (name: string, factory: () => Worker) => void } };
+					}
+				).$altcha;
+				if (!altcha) throw new Error('ALTCHA algorithm registry did not initialize');
+				altcha.algorithms.set('SHA-256', () => new workerModule.default());
+				if (!cancelled) ready = true;
+			})
+			.catch(() => {
+				if (!cancelled) verificationError = true;
+			});
+
+		return () => {
+			cancelled = true;
+			window.removeEventListener('pageshow', onPageShow);
+		};
 	});
 
 	function updateListValidity() {
 		noListError = !newsBox?.checked && !marketingBox?.checked;
 		newsBox?.setCustomValidity(noListError ? t('newsletter.requiredError') : '');
+	}
+
+	function revealListError() {
+		submitAttempted = true;
+		updateListValidity();
 	}
 
 	async function submit(event: SubmitEvent) {
@@ -85,6 +119,7 @@
 	action={ACTION}
 	method="post"
 	accept-charset="UTF-8"
+	autocomplete="off"
 	class="newsletter-form"
 	onsubmit={submit}
 >
@@ -96,7 +131,9 @@
 				type="checkbox"
 				name="l"
 				value={LISTS.news}
+				autocomplete="off"
 				onchange={updateListValidity}
+				oninvalid={revealListError}
 			/>
 			<span><strong>{t('newsletter.generalLabel')}.</strong> {t('newsletter.generalText')}</span>
 		</label>
@@ -106,13 +143,14 @@
 				type="checkbox"
 				name="l"
 				value={LISTS.marketing}
+				autocomplete="off"
 				onchange={updateListValidity}
 			/>
 			<span><strong>{t('newsletter.marketingLabel')}.</strong> {t('newsletter.marketingText')}</span
 			>
 		</label>
-		<p id="newsletter-list-error" class="form-error" role="alert" aria-live="polite">
-			{noListError ? t('newsletter.requiredError') : ''}
+		<p id="newsletter-list-error" class="form-error" role="alert">
+			{submitAttempted && noListError ? t('newsletter.requiredError') : ''}
 		</p>
 	</fieldset>
 
@@ -134,6 +172,7 @@
 		bind:this={widget}
 		challenge={CHALLENGE}
 		auto="off"
+		configuration={JSON.stringify({ humanInteractionSignature: false })}
 		display="invisible"
 		name="altcha"
 	></altcha-widget>
@@ -141,7 +180,7 @@
 	{#if verificationError}
 		<p class="form-error" role="alert">{t('newsletter.verificationError')}</p>
 	{/if}
-	<button class="newsletter-submit" type="submit" disabled={submitting}>
+	<button class="newsletter-submit" type="submit" disabled={!ready || submitting}>
 		{submitting ? t('newsletter.submitting') : t('newsletter.submit')}
 	</button>
 	<p class="newsletter-note">

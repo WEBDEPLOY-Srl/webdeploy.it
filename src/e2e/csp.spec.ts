@@ -44,10 +44,22 @@ test('newsletter challenge and hosted form have only the required CSP destinatio
 	const policy = await page
 		.locator('meta[http-equiv="content-security-policy"]')
 		.getAttribute('content');
-	expect(policy).toContain('connect-src');
-	expect(policy).toContain('https://newsletter.webdeploy.it');
-	expect(policy).toContain('form-action');
-	expect(policy).toMatch(/form-action[^;]*https:\/\/newsletter\.webdeploy\.it/);
+	const directives = Object.fromEntries(
+		(policy ?? '').split('; ').map((directive) => {
+			const [name, ...values] = directive.split(' ');
+			return [name, values];
+		})
+	);
+	expect(directives['connect-src']).toEqual([
+		"'self'",
+		'https://analytics.inwd.org',
+		'https://newsletter.webdeploy.it',
+		'https://www.facebook.com',
+		'https://connect.facebook.net'
+	]);
+	expect(directives['form-action']).toEqual(["'self'", 'https://newsletter.webdeploy.it']);
+	expect(directives).not.toHaveProperty('worker-src');
+	expect(policy).not.toMatch(/blob:|wasm-unsafe-eval|unsafe-eval/);
 	expect(cspViolations).toEqual([]);
 });
 

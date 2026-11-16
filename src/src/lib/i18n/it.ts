@@ -672,7 +672,7 @@ export const it = {
 			"Anche se utilizziamo un tracciamento rispettoso della privacy, puoi disattivare completamente l'analisi delle visite:",
 		dataTitle: 'Dati raccolti',
 		dataText:
-			'I dati di analytics sono configurati senza cookie e in forma aggregata. Alcune funzioni del sito trattano anche dati personali, come descritto qui sotto:',
+			'Utilizziamo Matomo senza cookie. Conserva registrazioni per singola visita: pagine e durata, provenienza, browser e dimensioni dello schermo, e Paese ricavato dall’indirizzo IP anonimizzato. Altre funzioni del sito trattano dati personali come descritto qui sotto:',
 		mapText:
 			'La mappa nella pagina dei contatti carica le proprie tessere da OpenStreetMap (tile.openstreetmap.org, gestito dalla OpenStreetMap Foundation). Per mostrare la mappa, il tuo browser invia a quel server il tuo indirizzo IP e i dati del browser; noi non riceviamo questi dati.',
 		dataItems: [
@@ -685,7 +685,7 @@ export const it = {
 		contactText: 'Per qualsiasi domanda relativa alla privacy, contattaci a:',
 		marketingTitle: 'Marketing e pubblicità',
 		marketingText:
-			'Con il tuo consenso esplicito usiamo il pixel di Meta (Facebook/Instagram) per misurare l\'efficacia delle campagne pubblicitarie e per il retargeting. Il pixel imposta cookie e viene caricato solo dopo il consenso, che puoi modificare o revocare in qualsiasi momento con il link "Impostazioni cookie" nel piè di pagina di ogni pagina. La revoca ferma il pixel e ne rimuove i cookie. Senza consenso, nessuno script pubblicitario viene caricato.',
+			'Con il tuo consenso esplicito carichiamo il Pixel di Meta (Facebook/Instagram) per misurare le campagne pubblicitarie e per il retargeting. Le richieste del pixel possono comunicare gli URL delle pagine e i relativi parametri, la provenienza, dati su browser e dispositivo e gli identificativi dei cookie Meta. Puoi modificare o revocare il consenso in qualsiasi momento con Impostazioni cookie nel piè di pagina; la revoca ferma il pixel e ne rimuove i cookie. Senza consenso non carichiamo script pubblicitari.',
 		newsletterTitle: 'Newsletter',
 		newsletterDraft: 'Bozza da sottoporre al legale. Questa informativa non è stata approvata.',
 		newsletterItems: [
@@ -693,13 +693,13 @@ export const it = {
 			'Dati trattati: indirizzo email, liste selezionate, data e ora di iscrizione e conferma, indirizzo IP registrato quando si utilizza il link di conferma e dati relativi ai mancati recapiti. Il log del server web relativo alla richiesta di iscrizione include l’indirizzo IP per un massimo di 90 giorni.',
 			'Finalità e basi giuridiche: due finalità distinte, ciascuna basata sul consenso prestato per la relativa lista: inviare notizie e avvisi WEBDEPLOY oppure informazioni sui servizi e sulle offerte WEBDEPLOY. Le registrazioni delle iscrizioni e le relative date sono utilizzate come prova del consenso.',
 			'Conferma: dopo l’iscrizione, Listmonk invia un’email per chiedere di confermare l’indirizzo. Non inviamo newsletter senza conferma. Una sola email può chiedere la conferma per entrambe le liste selezionate.',
-			'Email: la lista delle notizie riceve un’email introduttiva circa una settimana dopo la conferma e un’email quando pubblichiamo un articolo. La lista di servizi e offerte riceve messaggi sui servizi e sulle offerte WEBDEPLOY. Dopo la conferma entrambe le liste ricevono un’email di benvenuto. Non garantiamo una frequenza fissa.',
-			'Misurazione delle email: il monitoraggio delle aperture e dei clic è disattivato. I link possono contenere parametri di campagna misurati con Matomo senza cookie. Per ogni tentativo di iscrizione viene registrato un evento Matomo newsletter_submit_initiated; il legale deve confermare se questo evento richiede il consenso.',
+			'Email: dopo la conferma, ogni iscritto riceve una sola email di benvenuto. Chi sceglie la lista delle notizie riceve anche un’email introduttiva circa una settimana dopo la conferma di quella lista e un’email per ogni articolo pubblicato. La lista di servizi e offerte riceve messaggi sui servizi e sulle offerte WEBDEPLOY. La frequenza delle notizie segue le pubblicazioni; non promettiamo una cadenza fissa.',
+			'Misurazione delle email: il monitoraggio delle aperture e dei clic è disattivato. I link possono contenere parametri di campagna misurati con Matomo senza cookie, che conserva dati per singola visita. Dopo il controllo ALTCHA, Matomo registra newsletter_submit_initiated senza indirizzo email né lista scelta. Il legale deve confermare se questo evento richiede il consenso.',
 			'Luogo dei servizi: la newsletter è gestita con Listmonk self-hosted e automazioni ospitate da Hetzner a Helsinki, in Finlandia. L’invio avviene tramite un server email Hetzner a Falkenstein, in Germania. Il provider email scelto dal destinatario potrebbe trattare i dati fuori dall’UE.',
-			'Conservazione nel sistema operativo: le iscrizioni non confermate sono cancellate dopo 30 giorni. L’iscrizione a una lista revocata viene cancellata entro 24 ore; l’indirizzo email viene cancellato quando non rimangono altre iscrizioni. I dati relativi a mancati recapiti e reclami sono cancellati con le stesse modalità; non conserviamo un elenco separato di esclusione.',
+			'Conservazione nel sistema in esercizio: le iscrizioni non confermate sono cancellate dopo 30 giorni. L’iscrizione a una lista revocata viene cancellata entro 24 ore; l’indirizzo email viene cancellato quando non rimangono altre iscrizioni. I dati relativi a mancati recapiti e reclami sono cancellati con le stesse modalità; non conserviamo un elenco separato di esclusione.',
 			'Una copia temporanea di ripristino dei vecchi dati early-access cancellati è conservata in una posizione server accessibile solo a root per non più di 30 giorni dalla cancellazione, poi viene eliminata.',
 			'Backup: i backup cifrati possono conservare i dati cancellati fino a circa sette mesi, in base al numero di archivi configurato e al limite massimo di età.',
-			'I tuoi diritti: puoi disiscriverti da ciascuna lista tramite il link presente in ogni email, gestire le iscrizioni, chiedere l’esportazione o la cancellazione dei dati, contattarci a info@webdeploy.it o presentare un reclamo al Garante per la protezione dei dati personali.',
+			'I tuoi diritti: le email delle campagne includono un link per disiscriversi. Le email transazionali di benvenuto e del settimo giorno contengono solo il link per gestire le iscrizioni e non hanno intestazioni di disiscrizione; usa la pagina per revocare ciascun consenso. Puoi anche chiedere l’esportazione o la cancellazione, contattarci a info@webdeploy.it o presentare un reclamo al Garante per la protezione dei dati personali.',
 			'Pixel Meta: l’evento Lead viene inviato solo se hai accettato i cookie di marketing e il pixel è caricato. Al momento dell’iscrizione invia il nome dell’evento e l’etichetta fissa content_name: newsletter; non invia mai il tuo indirizzo email né la lista scelta. Ogni richiesta del pixel comunica inoltre l’URL della pagina e i relativi parametri, la pagina di provenienza, dati sul browser e sul dispositivo e l’identificativo cookie di Meta. Il destinatario è Meta; il ruolo di titolare e le garanzie per i trasferimenti fuori dall’UE, inclusi gli Stati Uniti, devono essere definiti con il legale. Puoi revocare il consenso ai cookie di marketing tramite Impostazioni cookie nel piè di pagina.'
 		],
 		dpaTitle: 'Accordo sul trattamento dei dati (DPA)',
@@ -783,7 +783,7 @@ export const it = {
 		newsletterContents:
 			'Ogni nuovo articolo WEBDEPLOY e avvisi di sicurezza e normativi. Servizi e offerte si scelgono separatamente.',
 		recentNews: 'Leggi le ultime notizie',
-		confirmedTitle: 'Controlla la posta',
+		confirmedTitle: 'Iscrizione confermata',
 		confirmedText:
 			'Il tuo indirizzo è confermato. Cerca un messaggio WEBDEPLOY da newsletter@inwd.org. Puoi lasciare una lista in qualsiasi momento tramite il link contenuto in un’email.',
 		confirmedNews: 'Leggi l’ultimo articolo'

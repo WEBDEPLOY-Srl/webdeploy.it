@@ -50,6 +50,17 @@ test('headers survive redirects, gone and error responses', async ({ request }) 
 		expect(response.status(), path).toBe(status);
 		for (const name of SINGLE) expect(values(name), `${name} on ${path}`).toHaveLength(1);
 	}
+	const tracked = await request.get(
+		'/early-access?utm_source=instagram&utm_campaign=newsletter-2026',
+		{
+			maxRedirects: 0,
+			failOnStatusCode: false
+		}
+	);
+	expect(tracked.status()).toBe(302);
+	expect(tracked.headers()['location']).toBe(
+		'/newsletter?utm_source=instagram&utm_campaign=newsletter-2026'
+	);
 });
 
 test('cache rules: immutable only for hashed build output, none for pages', async ({ request }) => {

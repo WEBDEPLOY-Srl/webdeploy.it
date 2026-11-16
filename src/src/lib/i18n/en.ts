@@ -668,7 +668,7 @@ export const en = {
 			'Even though we use privacy-friendly tracking, you can opt out of analytics entirely:',
 		dataTitle: 'Data We Collect',
 		dataText:
-			'Our analytics data is configured to be cookieless and aggregated. Some website features also process personal data as described below:',
+			'We use cookieless Matomo analytics. It retains per-visit records of pages and time spent, referrer, browser and screen size, and country derived from anonymized IP. Other website features also process personal data as described below:',
 		mapText:
 			'The map on the contacts page loads its tiles from OpenStreetMap (tile.openstreetmap.org, operated by the OpenStreetMap Foundation). To show the map, your browser sends your IP address and browser details to that server; we do not receive this data.',
 		dataItems: [
@@ -681,7 +681,7 @@ export const en = {
 		contactText: 'For any privacy-related questions, contact us at:',
 		marketingTitle: 'Marketing & advertising',
 		marketingText:
-			'With your explicit consent we use the Meta (Facebook/Instagram) pixel to measure ad-campaign effectiveness and for retargeting. The pixel sets cookies and loads only after you consent; you can change or withdraw your choice at any time with the "Cookie settings" link in the footer of every page. Withdrawing stops the pixel and removes its cookies. Without consent, no advertising script is loaded.',
+			'With your explicit consent, we load the Meta (Facebook/Instagram) Pixel for advertising measurement and retargeting. Pixel requests may disclose page URLs and parameters, referrer, browser and device data, and Meta cookie identifiers. You can change or withdraw consent at any time using Cookie settings in the footer; withdrawing stops the pixel and removes its cookies. Without consent, no advertising script is loaded.',
 		newsletterTitle: 'Newsletter',
 		newsletterDraft: 'Draft for review by counsel. This notice has not been approved.',
 		newsletterItems: [
@@ -689,13 +689,13 @@ export const en = {
 			'Data processed: email address, selected lists, signup and confirmation times, the IP address recorded when the confirmation link is used, and bounce records. The web server log for the signup request includes the IP address for up to 90 days.',
 			'Purposes and legal bases: two separate purposes, each based on the consent given for its list: sending WEBDEPLOY news and notices, or sending information about WEBDEPLOY services and offers. Membership records and timestamps are used as evidence of consent.',
 			'Confirmation: after signup, Listmonk sends one email asking you to confirm your address. No newsletter is sent unless you confirm. One confirmation email may cover both lists you selected.',
-			'Emails: the news list receives one introductory email about a week after confirmation and an email when a news post is published. The services and offers list receives messages about WEBDEPLOY services and offers. Both lists receive one welcome email after confirmation. No fixed frequency is promised.',
-			'Email measurement: open and click tracking are disabled. Links may include campaign-level parameters measured by cookieless Matomo analytics. A Matomo event named newsletter_submit_initiated is recorded for every signup attempt; counsel must confirm whether this event requires consent.',
+			'Emails: each subscriber receives one welcome email after confirmation. General-list subscribers also receive one introductory email about a week after confirming that list and one email when each news post is published. Marketing-list subscribers receive messages about WEBDEPLOY services and offers. News frequency follows post publication; no fixed cadence is promised.',
+			'Email measurement: open and click tracking are disabled. Links may include campaign-level parameters measured by cookieless Matomo analytics, which retains per-visit records. After ALTCHA succeeds, Matomo records newsletter_submit_initiated without the email address or selected list. Counsel must confirm whether this event requires consent.',
 			'Service locations: the newsletter is managed in self-hosted Listmonk and automation hosted by Hetzner in Helsinki, Finland. Email is sent through a Hetzner mail server in Falkenstein, Germany. A recipient’s own email provider may process data outside the EU.',
 			'Retention in the live system: unconfirmed signups are deleted after 30 days. A withdrawn list membership is deleted within 24 hours; the email address is deleted when no other subscription remains. Bounce and complaint records are deleted on the same basis; no separate suppression list is kept.',
 			'A one-off rollback copy of deleted early-access records is kept in a root-only server location for no more than 30 days after deletion, then deleted.',
 			'Backups: encrypted backups may retain deleted records for up to about seven months, subject to the configured archive count and age limit.',
-			'Your rights: you can unsubscribe from either list using a link in any email, manage your subscriptions, request an export or deletion, contact us at info@webdeploy.it, or complain to the Italian Data Protection Authority (Garante per la protezione dei dati personali).',
+			'Your rights: campaign emails carry an unsubscribe link. The transactional welcome and day-7 emails carry only a manage-subscriptions link and have no unsubscribe headers; use that page to withdraw either consent. You can also request an export or deletion, contact us at info@webdeploy.it, or complain to the Italian Data Protection Authority (Garante per la protezione dei dati personali).',
 			'Meta Pixel: the Lead event is sent only if you accepted marketing cookies and the pixel is loaded. At signup it sends the event name and the fixed label content_name: newsletter, never your email address or list choice. Pixel requests also disclose the page URL and its parameters, referrer, browser and device data, and Meta’s cookie identifier. Meta is the recipient; its controller role and the transfer mechanism for processing outside the EU, including the United States, require counsel’s review. You can withdraw marketing-cookie consent using Cookie settings in the footer.'
 		],
 		dpaTitle: 'Data Processing Agreement (DPA)',
@@ -778,7 +778,7 @@ export const en = {
 		newsletterContents:
 			'Every new WEBDEPLOY news post, plus security and regulatory notices. Choose services and offers separately.',
 		recentNews: 'Read our latest news',
-		confirmedTitle: 'Check your inbox',
+		confirmedTitle: 'Subscription confirmed',
 		confirmedText:
 			'Your address is confirmed. Look for WEBDEPLOY email from newsletter@inwd.org. You can leave a list at any time using the link in an email.',
 		confirmedNews: 'Read the latest article'
