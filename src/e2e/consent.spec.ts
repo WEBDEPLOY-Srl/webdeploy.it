@@ -183,6 +183,6 @@ test('the privacy page says where to change the choice and discloses the map til
 }) => {
 	void traffic;
 	await page.goto('/privacy');
-	await expect(page.getByText('"Cookie settings" link in the footer')).toBeVisible();
+	await expect(page.getByText('using Cookie settings in the footer').first()).toBeVisible();
 	await expect(page.getByText('tile.openstreetmap.org')).toBeVisible();
 });
