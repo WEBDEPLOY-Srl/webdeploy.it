@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.47.0] - 2026-11-16
+
 ### Changed
 - Migrated to SvelteKit 3, adapter-static 4, vite-plugin-svelte 7 and Vite 8; moved SvelteKit
   configuration into `vite.config.ts` and updated imports for the new aliases and environment module.
