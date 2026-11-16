@@ -2,6 +2,7 @@
 	import { t } from '#lib/i18n/index.ts';
 	import Seo from '#lib/components/Seo.svelte';
 	import ShareButtons from '#lib/components/ShareButtons.svelte';
+	import NewsletterBand from '#lib/components/NewsletterBand.svelte';
 </script>
 
 <Seo
@@ -128,5 +129,6 @@
 				{t('news.contactUs')}
 			</a>
 		</div>
+		<NewsletterBand />
 	</div>
 </div>

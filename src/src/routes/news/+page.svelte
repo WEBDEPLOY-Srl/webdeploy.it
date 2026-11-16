@@ -2,6 +2,7 @@
 	import { t } from '#lib/i18n/index.ts';
 	import NewsCard from '#lib/components/NewsCard.svelte';
 	import Seo from '#lib/components/Seo.svelte';
+	import NewsletterBand from '#lib/components/NewsletterBand.svelte';
 </script>
 
 <Seo title={t('news.title')} description={t('news.metaDescription')} />
@@ -38,5 +39,6 @@
 				description={t('news.fosdem2026.description')}
 			/>
 		</div>
+		<NewsletterBand />
 	</div>
 </div>

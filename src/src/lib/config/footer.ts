@@ -25,6 +25,7 @@ export const footerGroups: FooterGroup[] = [
 	{
 		titleKey: 'footer.resources',
 		links: [
+			{ labelKey: 'footer.newsletter', href: '/newsletter' },
 			{ labelKey: 'nav.manifesto', href: '/developer-manifesto' },
 			{ labelKey: 'footer.source', href: site.sourceUrl, external: true }
 		]

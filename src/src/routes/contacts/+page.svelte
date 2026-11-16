@@ -22,6 +22,7 @@
 				<h2 class="contacts-column__title">{t('contacts.business.title')}</h2>
 				<a href="mailto:{site.contact.email}" class="btn-action">{site.contact.email}</a>
 				<p class="section-lead">{t('contacts.business.description')}</p>
+				<p class="contacts-note"><a href="/newsletter">{t('contacts.newsletterLine')}</a></p>
 				<dl class="contacts-details">
 					<div>
 						<dt>{t('contacts.business.location')}</dt>
@@ -138,6 +139,11 @@
 		font-family: var(--font-mono);
 		font-size: 0.8125rem;
 		line-height: 1.6;
+	}
+
+	.contacts-note a {
+		color: var(--color-primary);
+		text-underline-offset: 0.2rem;
 	}
 
 	.contacts-map {

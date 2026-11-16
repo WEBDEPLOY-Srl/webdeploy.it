@@ -1,191 +1,62 @@
 ---
 name: news-writer
-description: Write bilingual (English/Italian) tech news posts for WebDeploy. Generates well-structured articles about computer science, software development, open source, and technology with proper i18n integration.
+description: Write English-only technology news posts for WebDeploy, with a matching newsletter campaign source when the post is published.
 ---
 
-This skill guides creation of high-quality bilingual news posts for the WebDeploy website. Posts focus on computer science, software development, open source technologies, and tech industry news.
+Write accurate, useful English news for WebDeploy about open source, Linux, infrastructure, security, software and technology. The site currently serves English only. Do not create Italian article translations or Italian i18n strings.
 
-## Project Context
+## Project context
 
-WebDeploy is an open source infrastructure company with these core values:
-- **Open Source Advocacy**: FOSS technologies, Linux, developer freedom
-- **Developer Experience**: Tools and workflows that empower developers
-- **Privacy-First**: Cookieless Matomo analytics (self-hosted); the Meta Pixel loads only after the visitor consents. Never claim the site has no tracking.
-- **Hacker Ethics**: Transparency, knowledge sharing, innovation
+WebDeploy is an open source infrastructure company. Its values include open source advocacy, developer experience, privacy and transparency. Matomo is cookieless and self-hosted; the Meta Pixel loads only after a visitor accepts marketing cookies. Never claim that the site has no tracking.
 
-The website uses:
-- **Framework**: SvelteKit with TypeScript
-- **i18n**: Translations in `src/src/lib/i18n/en.ts` and `src/src/lib/i18n/it.ts`. The site currently serves English only (`availableLocales` in `src/src/lib/stores/locale.svelte.ts`), so `en.ts` is what visitors read; `it.ts` is kept in sync key for key and is shown again when `'it'` is added back to `availableLocales`.
-- **Design**: Retro-cyberpunk aesthetic
+The website uses SvelteKit, TypeScript and translation files at `src/src/lib/i18n/en.ts` and `src/src/lib/i18n/it.ts`. Add public-facing news copy to both files with the same keys: English in `en.ts`, accurate Italian in `it.ts`. The article itself is English only.
 
-## Writing Guidelines
+## Writing
 
-### Tone & Voice
+- Use clear, professional English for technical readers.
+- Explain the practical effect before implementation detail.
+- Support factual claims with primary sources and link to them.
+- State limitations and uncertainty plainly.
+- Avoid prices, scarcity, and unsupported compliance claims.
+- Give each article a specific title, a one or two sentence description, an introduction, useful section headings, and a concrete closing.
 
-**English**:
-- Professional yet approachable
-- Technical accuracy without unnecessary jargon
-- Developer-to-developer communication style
-- Clear, concise, and actionable
+## Site implementation
 
-**Italian**:
-- Natural, fluid Italian (not machine-translated)
-- Maintain technical terms where appropriate (e.g., "open source", "deployment")
-- Use formal "noi" (we) for company voice
-- Proper Italian grammar and idioms
+1. Confirm the topic, intended readers, evidence, and useful next step.
+2. Add the post's English and Italian display strings to `src/src/lib/i18n/en.ts` and `src/src/lib/i18n/it.ts` with matching structure.
+3. Create `src/src/routes/news/[post-slug]/+page.svelte`. Follow the current article pattern and use `#lib` imports, for example:
 
-### Content Focus Areas
+   ```svelte
+   <script lang="ts">
+     import { t, tObj } from '#lib/i18n/index.ts';
+     import Seo from '#lib/components/Seo.svelte';
+     import ShareButtons from '#lib/components/ShareButtons.svelte';
+   </script>
+   ```
 
-Prioritize topics aligned with WebDeploy's mission:
-- **Open Source**: Linux, FOSS projects, community contributions
-- **Infrastructure**: Kubernetes, Docker, IaC, DevOps practices
-- **Developer Tools**: IDEs, CLI tools, productivity enhancements
-- **Privacy & Security**: Data protection, encryption, ethical tech
-- **Web Technologies**: Modern frameworks, web standards, performance
-- **Industry News**: Tech trends relevant to developers and businesses
+4. Set complete SEO metadata, including the title, description, image, article type and publication date.
+5. Add a `NewsCard` to `src/src/routes/news/+page.svelte` and include the newsletter band at the end of the article.
+6. Keep visible English and Italian strings in sync by key. Write the English article in English only.
 
-### Article Structure
+## Newsletter campaign source
 
-Each news post should include:
+Every news post must have a matching English source file for the general newsletter in the smm repository at `newsletter/posts/<content-id>.md`. Include these fields:
 
-1. **Title**: Compelling, specific, SEO-friendly (both languages)
-2. **Date**: Format as DD/MM/YYYY
-3. **Description**: 1-2 sentence summary for cards/previews
-4. **Introduction**: Hook the reader, establish relevance
-5. **Main Content**:
-   - Use clear section headings
-   - Include bullet points for features/benefits
-   - Add technical details where appropriate
-6. **Closing**: Call-to-action or forward-looking statement
+- `subject`
+- `preheader`
+- `content_id`
+- `post_url`
+- `target_list`: `WEBDEPLOY news and notices`
+- a short email body that stands on its own and links once to the published article
 
-## Implementation Steps
+Marketing campaigns use the same source format and process with `target_list: WEBDEPLOY services and offers`; they do not link to a site post unless one is relevant.
 
-### Step 1: Gather Information
+The owner reviews the article and email source. After the site release is live, the agent runs `newsletter/push-campaign-draft.mjs` from the smm repository to create or update the Listmonk campaign draft. The script must verify the post URL and refuse to modify a campaign that is not a draft. Do not send the campaign: the owner sends a test, checks the list, messenger and From address, then starts it in Listmonk. Record the campaign ID and status in the newsletter ledger.
 
-Before writing, understand:
-- What is the topic/announcement?
-- Who is the target audience?
-- What action should readers take?
-- Are there technical details to include?
+## Final review
 
-### Step 2: Write English Content First
-
-Create the English version with:
-- Clear, engaging headline
-- Scannable structure with headings
-- Technical accuracy
-- WebDeploy brand voice
-
-### Step 3: Write Italian Translation
-
-Translate to Italian ensuring:
-- Natural language flow (not literal translation)
-- Correct grammar and punctuation
-- Appropriate technical terminology
-- Cultural adaptation where needed
-
-### Step 4: Update i18n Files
-
-Add translations to both language files following this structure:
-
-```typescript
-// In en.ts and it.ts under the news object
-postSlug: {
-  title: 'Post Title',
-  date: 'DD/MM/YYYY',
-  description: 'Brief description for preview cards.',
-  intro: 'Opening paragraph...',
-  sectionTitle: 'Section Heading',
-  features: [
-    'Feature or point 1',
-    'Feature or point 2',
-  ],
-  // Additional sections as needed
-}
-```
-
-### Step 5: Create Post Page
-
-Create new route at `src/routes/news/[post-slug]/+page.svelte`:
-
-```svelte
-<script lang="ts">
-  import { t, tObj } from '#lib/i18n/index.ts';
-  import Seo from '#lib/components/Seo.svelte';
-</script>
-
-<Seo
-  title={t('news.postSlug.title')}
-  description={t('news.postSlug.description')}
-  image="/post-image.jpg"
-  type="article"
-  publishedTime="YYYY-MM-DD"
-/>
-
-<!-- Follow existing post template structure -->
-```
-
-### Step 6: Add to News Index
-
-Update `src/routes/news/+page.svelte` to include the new NewsCard.
-
-## Quality Checklist
-
-Before finalizing:
-
-- [ ] English content is technically accurate and well-written
-- [ ] Italian content reads naturally (not machine-translated)
-- [ ] Both versions convey the same information
-- [ ] SEO metadata is complete (title, description, image)
-- [ ] Links and CTAs are working
-- [ ] Date format is correct (DD/MM/YYYY)
-- [ ] Content aligns with WebDeploy brand values
-- [ ] No spelling or grammar errors in either language
-
-## Writing Tips
-
-### For Technical Content
-- Explain concepts before diving into details
-- Use code examples when helpful
-- Link to external resources/documentation
-- Acknowledge trade-offs honestly
-
-### For Announcements
-- Lead with the most important news
-- Explain user benefits clearly
-- Include concrete next steps
-- Thank the community when appropriate
-
-### For Opinion/Analysis
-- Support claims with evidence
-- Acknowledge different perspectives
-- Connect to WebDeploy's mission
-- Be authentic, not promotional
-
-## Example Topics
-
-Good topics for WebDeploy news:
-- New product/feature launches
-- Open source project contributions
-- Technology deep-dives (Linux, infrastructure)
-- Developer workflow improvements
-- Industry commentary from developer perspective
-- Partnership announcements
-- Community events and meetups
-
-## Common Italian Tech Terms
-
-Maintain consistency with these translations:
-- "deployment" → "deployment" or "distribuzione"
-- "open source" → "open source" (keep English)
-- "developer" → "sviluppatore"
-- "infrastructure" → "infrastruttura"
-- "code" → "codice"
-- "release" → "release" or "rilascio"
-- "feature" → "funzionalità"
-- "bug" → "bug" (keep English)
-- "workflow" → "workflow" or "flusso di lavoro"
-
----
-
-Remember: Quality bilingual content builds trust with both international and Italian audiences. Take time to craft content that sounds natural in both languages while maintaining technical accuracy and the WebDeploy brand voice.
+- Verify technical claims and links against primary sources.
+- Check spelling, accessibility text, SEO metadata and mobile layout.
+- Confirm both i18n files have matching keys and well-written translations.
+- Confirm the email source matches the article and links to it once.
+- Never send or start a campaign; only prepare the draft for owner review.
