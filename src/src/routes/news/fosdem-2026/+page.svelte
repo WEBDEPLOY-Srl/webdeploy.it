@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
-	import Seo from '$lib/components/Seo.svelte';
-	import ShareButtons from '$lib/components/ShareButtons.svelte';
+	import { t } from '#lib/i18n/index.ts';
+	import Seo from '#lib/components/Seo.svelte';
+	import ShareButtons from '#lib/components/ShareButtons.svelte';
 </script>
 
 <Seo

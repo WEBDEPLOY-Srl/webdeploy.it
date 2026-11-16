@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import { t } from '$lib/i18n';
-	import { browser } from '$app/environment';
-	import { consent } from '$lib/stores/consent.svelte';
-	import { loadMetaPixel, withdrawMetaPixel } from '$lib/utils/metaPixel';
+	import { t } from '#lib/i18n/index.ts';
+	import { browser } from '$app/env';
+	import { consent } from '#lib/stores/consent.svelte.ts';
+	import { loadMetaPixel, withdrawMetaPixel } from '#lib/utils/metaPixel.ts';
 
 	let banner = $state<HTMLElement>();
 	let returnFocusTo: HTMLElement | null = null;

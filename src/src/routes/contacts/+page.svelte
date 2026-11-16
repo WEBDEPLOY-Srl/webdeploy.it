@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
-	import LeafletMap from '$lib/components/LeafletMap.svelte';
-	import Seo from '$lib/components/Seo.svelte';
-	import { site } from '$lib/config/site';
+	import { t } from '#lib/i18n/index.ts';
+	import LeafletMap from '#lib/components/LeafletMap.svelte';
+	import Seo from '#lib/components/Seo.svelte';
+	import { site } from '#lib/config/site.ts';
 </script>
 
 <Seo title={t('contacts.title')} description={t('contacts.business.description')} />

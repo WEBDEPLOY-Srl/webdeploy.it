@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { t } from '$lib/i18n';
-	import { browser } from '$app/environment';
-	import { logShare } from '$lib/utils/logger';
-	import { createStoryImage } from '$lib/utils/storyImage';
+	import { t } from '#lib/i18n/index.ts';
+	import { browser } from '$app/env';
+	import { logShare } from '#lib/utils/logger.ts';
+	import { createStoryImage } from '#lib/utils/storyImage.ts';
 
 	interface Props {
 		/** Canonical URL of the article */

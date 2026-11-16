@@ -1,4 +1,4 @@
-import { logAnimation } from '$lib/utils/logger';
+import { logAnimation } from '#lib/utils/logger.ts';
 
 /**
  * Svelte action that draws a Windows-logo style window (border plus centre cross) in pixel

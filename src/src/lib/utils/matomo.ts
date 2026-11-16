@@ -1,5 +1,5 @@
-import { site } from '$lib/config/site';
-import { logAnalytics } from '$lib/utils/logger';
+import { site } from '#lib/config/site.ts';
+import { logAnalytics } from '#lib/utils/logger.ts';
 
 /**
  * Matomo, set up for a visitor who has not been asked for anything: cookieless,

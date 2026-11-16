@@ -2,7 +2,7 @@
  * Facts about the site and the company that more than one place needs. Change
  * one here and every page, the structured data and the sitemap follow.
  *
- * `svelte.config.js` lists the analytics and map hosts in the Content-Security-Policy
+ * `vite.config.ts` lists the analytics and map hosts in the Content-Security-Policy
  * by hand, because Node loads that file without TypeScript; a unit test keeps the
  * two in step.
  */

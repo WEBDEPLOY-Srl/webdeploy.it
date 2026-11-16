@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { tObj } from '$lib/i18n';
-	import { logPrivacy } from '$lib/utils/logger';
+	import { tObj } from '#lib/i18n/index.ts';
+	import { logPrivacy } from '#lib/utils/logger.ts';
 	import {
 		browserOptOutEnvironment,
 		createMatomoOptOut,
 		type MatomoOptOut,
 		type OptOutProblem
-	} from '$lib/utils/matomoOptOut';
+	} from '#lib/utils/matomoOptOut.ts';
 
 	type OptOutStrings = {
 		OptOutComplete: string;

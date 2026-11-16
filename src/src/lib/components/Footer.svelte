@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
-	import { consent } from '$lib/stores/consent.svelte';
-	import { site } from '$lib/config/site';
-	import { footerGroups } from '$lib/config/footer';
+	import { t } from '#lib/i18n/index.ts';
+	import { consent } from '#lib/stores/consent.svelte.ts';
+	import { site } from '#lib/config/site.ts';
+	import { footerGroups } from '#lib/config/footer.ts';
 
 	const linkClass =
 		'block py-2 hover:text-primary hover:underline decoration-dashed underline-offset-4 min-h-[44px] flex items-center';

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { en } from '$lib/i18n/en';
-import { it as itTranslations } from '$lib/i18n/it';
+import { en } from '#lib/i18n/en.ts';
+import { it as itTranslations } from '#lib/i18n/it.ts';
 import { footerGroups } from './footer';
 
 const lookup = (tree: unknown, key: string) =>

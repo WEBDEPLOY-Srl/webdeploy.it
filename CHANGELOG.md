@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Migrated to SvelteKit 3, adapter-static 4, vite-plugin-svelte 7 and Vite 8; moved SvelteKit
+  configuration into `vite.config.ts` and updated imports for the new aliases and environment module.
+- Upgraded TypeScript to 6.0.3. TypeScript 7 remains unsupported by SvelteKit 3.2.0, svelte-check
+  4.7.8 and typescript-eslint 8.72.2, whose declared TypeScript ranges stop at 6.x.
+- SvelteKit 3 checks `/_app/version.json` on focus and visibility changes; periodic polling is disabled.
+- Vite 8's default browser baseline is Chrome 111, Edge 111, Firefox 114 and Safari 16.4; CSS
+  minification now uses Lightning CSS.
+
 ## [1.46.1] - 2026-11-16
 
 ### Fixed

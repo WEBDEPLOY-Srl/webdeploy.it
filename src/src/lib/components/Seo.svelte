@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { locale, availableLocales } from '$lib/stores/locale.svelte';
-	import { jsonLdScript } from '$lib/utils/jsonLd';
-	import { site, siteUrl } from '$lib/config/site';
-	import { publisherJsonLd } from '$lib/utils/structuredData';
+	import { locale, availableLocales } from '#lib/stores/locale.svelte.ts';
+	import { jsonLdScript } from '#lib/utils/jsonLd.ts';
+	import { site, siteUrl } from '#lib/config/site.ts';
+	import { publisherJsonLd } from '#lib/utils/structuredData.ts';
 
 	interface Props {
 		title: string;

@@ -1,7 +1,7 @@
 import { en } from './en';
 import { it } from './it';
-import { locale, type Locale } from '$lib/stores/locale.svelte';
-import { logI18n } from '$lib/utils/logger';
+import { locale, type Locale } from '#lib/stores/locale.svelte.ts';
+import { logI18n } from '#lib/utils/logger.ts';
 
 export type Translations = typeof en;
 
@@ -67,4 +67,4 @@ export function tObj<T = unknown>(key: string): T | undefined {
 	return undefined;
 }
 
-export { locale } from '$lib/stores/locale.svelte';
+export { locale } from '#lib/stores/locale.svelte.ts';

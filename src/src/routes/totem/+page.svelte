@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { t, tObj } from '$lib/i18n';
-	import Hero from '$lib/components/Hero.svelte';
-	import Seo from '$lib/components/Seo.svelte';
-	import KioskDemo from '$lib/components/KioskDemo.svelte';
-	import { site } from '$lib/config/site';
+	import { t, tObj } from '#lib/i18n/index.ts';
+	import Hero from '#lib/components/Hero.svelte';
+	import Seo from '#lib/components/Seo.svelte';
+	import KioskDemo from '#lib/components/KioskDemo.svelte';
+	import { site } from '#lib/config/site.ts';
 
 	const features = ['linux', 'security', 'noLockIn'];
 	const included = ['hardware', 'software', 'branding'];

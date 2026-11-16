@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { browser } from '$app/environment';
-	import { logMap } from '$lib/utils/logger';
-	import { t } from '$lib/i18n';
+	import { browser } from '$app/env';
+	import { logMap } from '#lib/utils/logger.ts';
+	import { t } from '#lib/i18n/index.ts';
 	import type { Map as LeafletMapInstance, Marker } from 'leaflet';
 
 	let mapContainer: HTMLDivElement;
