@@ -9,6 +9,7 @@ const routesRoot = fileURLToPath(new URL('..', import.meta.url));
 const pagesOnDisk = readdirSync(routesRoot, { recursive: true, encoding: 'utf8' })
 	.filter((file) => file.endsWith('+page.svelte') && !file.includes('['))
 	.map((file) => '/' + file.replace(/\/?\+page\.svelte$/, ''))
+	.filter((path) => path !== '/newsletter/confirmed')
 	.sort();
 
 /** Throws unless the text is well-formed XML made of tags, text and entity references. */

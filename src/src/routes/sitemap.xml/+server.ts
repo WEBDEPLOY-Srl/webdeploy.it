@@ -7,6 +7,7 @@ export function GET() {
 	const pages = Object.keys(import.meta.glob('/src/routes/**/+page.svelte'))
 		.map((file) => file.replace('/src/routes', '').replace(/\/\+page\.svelte$/, '') || '/')
 		.filter((path) => !path.includes('['))
+		.filter((path) => path !== '/newsletter/confirmed')
 		.sort();
 
 	const urls = pages
