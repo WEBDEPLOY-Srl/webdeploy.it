@@ -71,6 +71,7 @@
 					.address.postalCode}
 			</p>
 			<p>PEC: legal@pec.webdeploy.it | P.IVA: IT02993340344 | SDI: 3RQHC04</p>
+			<p>{t('footer.shareCapital')}</p>
 			<p>{t('footer.copyright')}</p>
 			<p>{t('footer.trademarks')}</p>
 		</div>

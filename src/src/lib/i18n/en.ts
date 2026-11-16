@@ -600,6 +600,7 @@ export const en = {
 		copyright: 'Copyright © 2026 WEBDEPLOY S.R.L.',
 		trademarks: 'WEBDEPLOY™ and inWD™ are trademarks of WEBDEPLOY S.R.L.',
 		registeredOffice: 'Registered office',
+		shareCapital: 'Share capital: €10,000.00',
 		security: 'Security',
 		privacy: 'Privacy Policy',
 		source: 'Source code',

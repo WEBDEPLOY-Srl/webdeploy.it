@@ -603,6 +603,7 @@ export const it = {
 		copyright: 'Copyright © 2026 WEBDEPLOY S.R.L.',
 		trademarks: 'WEBDEPLOY™ e inWD™ sono marchi di WEBDEPLOY S.R.L.',
 		registeredOffice: 'Sede legale',
+		shareCapital: 'Capitale sociale: € 10.000,00',
 		security: 'Sicurezza',
 		privacy: 'Informativa sulla privacy',
 		source: 'Codice sorgente',
