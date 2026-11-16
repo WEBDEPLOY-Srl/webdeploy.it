@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   every page, the map, the consent choices and the Matomo opt-out.
 
 ### Changed
+- The image build pins the current digest of the builder image; the old one had been removed from the registry.
 - Caching is now exact: one year and `immutable` only under `/_app/immutable/`, one hour for other static
   files (the favicon, fonts and `.webp` images had no hashed names or no rule at all), `no-cache` for pages
   so a release shows at once, `no-store` for the temporary early-access redirect.
