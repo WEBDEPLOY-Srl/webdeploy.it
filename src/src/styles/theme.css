@@ -1,0 +1,67 @@
+/* Custom theme configuration */
+@theme {
+	/* ==========================================
+     COLORS: Core palette
+     ========================================== */
+	--color-primary: #00f0ff;
+	--color-secondary: #ff00ff;
+	--color-background-dark: #050a10;
+	--color-surface-dark: #0e1621;
+	--color-surface-light: #15202e;
+
+	/* Text colors */
+	--color-text-body: #b0b8c4;
+	--color-text-muted: #64748b;
+	--color-text-heading: #ffffff;
+
+	/* Border colors */
+	--color-border-default: #1e293b;
+	--color-border-muted: #334155;
+	--color-border-strong: #475569;
+
+	/* Border colors with theme accents (for decorative borders) */
+	--color-border-primary-soft: rgba(0, 240, 255, 0.2);
+	--color-border-primary: rgba(0, 240, 255, 0.3);
+	--color-border-secondary-soft: rgba(255, 0, 255, 0.2);
+	--color-border-secondary: rgba(255, 0, 255, 0.3);
+
+	/* Social brand colors */
+	--color-linkedin: #0077b5;
+	--color-linkedin-hover: #005582;
+	--color-instagram-start: #833ab4;
+	--color-instagram-mid: #fd1d1d;
+	--color-instagram-end: #fcb045;
+
+	/* ==========================================
+     TYPOGRAPHY
+     ========================================== */
+	--font-display: 'VT323', monospace;
+	--font-mono: 'Space Mono', monospace;
+	--font-sans: 'Space Mono', monospace;
+	--font-reading: var(--font-mono);
+
+	/* ==========================================
+     SPACING & SIZING
+     ========================================== */
+	--radius: 0px;
+	--radius-lg: 0px;
+	--radius-xl: 0px;
+	--radius-full: 0px;
+
+	/* ==========================================
+     SHADOWS
+     ========================================== */
+	--shadow-retro-primary: 4px 4px 0px 0px var(--color-primary);
+	--shadow-retro-primary-soft: 4px 4px 0px 0px rgba(0, 240, 255, 0.3);
+	--shadow-retro-secondary: 4px 4px 0px 0px var(--color-secondary);
+	--shadow-retro-secondary-soft: 4px 4px 0px 0px rgba(255, 0, 255, 0.3);
+	--shadow-retro-hover: 2px 2px 0px 0px;
+	--shadow-glow-secondary: 0 0 15px rgba(255, 0, 255, 0.2);
+
+	/* ==========================================
+     ANIMATION: Easing curves
+     ========================================== */
+	--ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+	--ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}

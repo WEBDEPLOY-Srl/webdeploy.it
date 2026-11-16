@@ -600,9 +600,11 @@ export const en = {
 		copyright: 'Copyright © 2026 WEBDEPLOY S.R.L.',
 		trademarks: 'WEBDEPLOY™ and inWD™ are trademarks of WEBDEPLOY S.R.L.',
 		registeredOffice: 'Registered office',
+		shareCapital: 'Share capital: €10,000.00',
 		security: 'Security',
 		privacy: 'Privacy Policy',
-		source: 'Source code'
+		source: 'Source code',
+		cookieSettings: 'Cookie settings'
 	},
 
 	// Security page
@@ -660,6 +662,8 @@ export const en = {
 			'Even though we use privacy-friendly tracking, you can opt out of analytics entirely:',
 		dataTitle: 'Data We Collect',
 		dataText: 'We only collect anonymous, aggregated data to understand how our website is used:',
+		mapText:
+			'The map on the contacts page loads its tiles from OpenStreetMap (tile.openstreetmap.org, operated by the OpenStreetMap Foundation). To show the map, your browser sends your IP address and browser details to that server; we do not receive this data.',
 		dataItems: [
 			'Pages visited and time spent',
 			'Referring website',
@@ -670,7 +674,7 @@ export const en = {
 		contactText: 'For any privacy-related questions, contact us at:',
 		marketingTitle: 'Marketing & advertising',
 		marketingText:
-			'With your explicit consent we use the Meta (Facebook/Instagram) pixel to measure ad-campaign effectiveness and for retargeting. The pixel sets cookies and loads only after you consent; you can decline or withdraw at any time by clearing the site cookies. Without consent, no advertising script is loaded.',
+			'With your explicit consent we use the Meta (Facebook/Instagram) pixel to measure ad-campaign effectiveness and for retargeting. The pixel sets cookies and loads only after you consent; you can change or withdraw your choice at any time with the "Cookie settings" link in the footer of every page. Withdrawing stops the pixel and removes its cookies. Without consent, no advertising script is loaded.',
 		dpaTitle: 'Data Processing Agreement (DPA)',
 		dpaText:
 			'When WEBDEPLOY S.R.L. processes personal data on your behalf as a processor, it does so under a Data Processing Agreement (DPA) compliant with Art. 28 GDPR: defined purpose and duration, technical and organizational security measures, a list of sub-processors, assistance with data-subject requests, and deletion or return of the data at the end of the service. Request the DPA text by writing to info@webdeploy.it.',
@@ -703,8 +707,6 @@ export const en = {
 	// Error page
 	error: {
 		pageTitle: 'Error',
-		codeLabel: 'ERROR_CODE',
-		statusLine: 'STATUS: SYSTEM_RECOVERY_AVAILABLE',
 		notFoundTitle: 'Page Not Found',
 		serverErrorTitle: 'Internal Server Error',
 		forbiddenTitle: 'Access Forbidden',
@@ -723,6 +725,7 @@ export const en = {
 		title: 'Privacy & cookies',
 		body: 'We use Matomo (cookieless analytics, always on) and, only with your consent, the Meta pixel to measure our ad campaigns. Details in our <a href="/privacy" class="text-primary underline underline-offset-2">privacy policy</a>.',
 		accept: 'Accept marketing cookies',
-		reject: 'Reject marketing cookies'
+		reject: 'Reject marketing cookies',
+		close: 'Close'
 	}
 };

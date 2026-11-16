@@ -603,9 +603,11 @@ export const it = {
 		copyright: 'Copyright © 2026 WEBDEPLOY S.R.L.',
 		trademarks: 'WEBDEPLOY™ e inWD™ sono marchi di WEBDEPLOY S.R.L.',
 		registeredOffice: 'Sede legale',
+		shareCapital: 'Capitale sociale: € 10.000,00',
 		security: 'Sicurezza',
 		privacy: 'Informativa sulla privacy',
-		source: 'Codice sorgente'
+		source: 'Codice sorgente',
+		cookieSettings: 'Impostazioni cookie'
 	},
 
 	// Pagina Sicurezza
@@ -664,6 +666,8 @@ export const it = {
 		dataTitle: 'Dati raccolti',
 		dataText:
 			'Raccogliamo solo dati anonimi e aggregati per capire come viene utilizzato il nostro sito:',
+		mapText:
+			'La mappa nella pagina dei contatti carica le proprie tessere da OpenStreetMap (tile.openstreetmap.org, gestito dalla OpenStreetMap Foundation). Per mostrare la mappa, il tuo browser invia a quel server il tuo indirizzo IP e i dati del browser; noi non riceviamo questi dati.',
 		dataItems: [
 			'Pagine visitate e tempo trascorso',
 			'Sito web di provenienza',
@@ -674,7 +678,7 @@ export const it = {
 		contactText: 'Per qualsiasi domanda relativa alla privacy, contattaci a:',
 		marketingTitle: 'Marketing e pubblicità',
 		marketingText:
-			"Con il tuo consenso esplicito usiamo il pixel di Meta (Facebook/Instagram) per misurare l'efficacia delle campagne pubblicitarie e per il retargeting. Il pixel imposta cookie e viene caricato solo dopo il consenso, che puoi negare o revocare in qualsiasi momento cancellando i cookie del sito. Senza consenso, nessuno script pubblicitario viene caricato.",
+			'Con il tuo consenso esplicito usiamo il pixel di Meta (Facebook/Instagram) per misurare l\'efficacia delle campagne pubblicitarie e per il retargeting. Il pixel imposta cookie e viene caricato solo dopo il consenso, che puoi modificare o revocare in qualsiasi momento con il link "Impostazioni cookie" nel piè di pagina di ogni pagina. La revoca ferma il pixel e ne rimuove i cookie. Senza consenso, nessuno script pubblicitario viene caricato.',
 		dpaTitle: 'Accordo sul trattamento dei dati (DPA)',
 		dpaText:
 			"Quando WEBDEPLOY S.R.L. tratta dati personali per tuo conto in qualità di responsabile del trattamento, lo fa sulla base di un accordo sul trattamento dei dati (DPA) conforme all'art. 28 GDPR: finalità e durata del trattamento definite, misure di sicurezza tecniche e organizzative, elenco dei sub-responsabili, assistenza per le richieste degli interessati, e cancellazione o restituzione dei dati al termine del servizio. Richiedi il testo del DPA scrivendo a info@webdeploy.it.",
@@ -707,8 +711,6 @@ export const it = {
 	// Error page
 	error: {
 		pageTitle: 'Errore',
-		codeLabel: 'CODICE_ERRORE',
-		statusLine: 'STATO: RIPRISTINO_DISPONIBILE',
 		notFoundTitle: 'Pagina non trovata',
 		serverErrorTitle: 'Errore interno del server',
 		forbiddenTitle: 'Accesso negato',
@@ -727,6 +729,7 @@ export const it = {
 		title: 'Privacy e cookie',
 		body: 'Usiamo Matomo (analytics senza cookie, sempre attivo) e, solo con il tuo consenso, il pixel Meta per misurare le campagne pubblicitarie. Dettagli nell\'<a href="/privacy" class="text-primary underline underline-offset-2">informativa sulla privacy</a>.',
 		accept: 'Accetta i cookie di marketing',
-		reject: 'Rifiuta i cookie di marketing'
+		reject: 'Rifiuta i cookie di marketing',
+		close: 'Chiudi'
 	}
 };

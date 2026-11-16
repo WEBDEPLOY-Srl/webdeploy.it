@@ -20,9 +20,20 @@ function getCookie(name: string): string | null {
 	return match ? match[2] : null;
 }
 
+/**
+ * The cookie text for a preference. SameSite=Lax is what browsers assume anyway,
+ * stated so it does not depend on that. Secure keeps it off plain HTTP; it is
+ * left out only when the page itself is not on HTTPS (local development).
+ */
+export function localeCookie(name: string, value: string, https: boolean): string {
+	return `${name}=${value}; expires=${COOKIE_EXPIRY.toUTCString()}; path=/; SameSite=Lax${
+		https ? '; Secure' : ''
+	}`;
+}
+
 function setCookie(name: string, value: string): void {
 	if (!browser) return;
-	document.cookie = `${name}=${value}; expires=${COOKIE_EXPIRY.toUTCString()}; path=/`;
+	document.cookie = localeCookie(name, value, location.protocol === 'https:');
 }
 
 function detectLocale(): Locale {

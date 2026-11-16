@@ -2,6 +2,7 @@
 	import { t } from '$lib/i18n';
 	import LeafletMap from '$lib/components/LeafletMap.svelte';
 	import Seo from '$lib/components/Seo.svelte';
+	import { site } from '$lib/config/site';
 </script>
 
 <Seo title={t('contacts.title')} description={t('contacts.business.description')} />
@@ -19,7 +20,7 @@
 		<div class="page-container contacts-columns__layout">
 			<div class="contacts-column">
 				<h2 class="contacts-column__title">{t('contacts.business.title')}</h2>
-				<a href="mailto:info@webdeploy.it" class="btn-action">info@webdeploy.it</a>
+				<a href="mailto:{site.contact.email}" class="btn-action">{site.contact.email}</a>
 				<p class="section-lead">{t('contacts.business.description')}</p>
 				<dl class="contacts-details">
 					<div>
@@ -28,7 +29,7 @@
 					</div>
 					<div>
 						<dt>{t('common.phone')}</dt>
-						<dd><a href="tel:+393398183373">+39 339 8183373</a></dd>
+						<dd><a href="tel:{site.contact.phone.href}">{site.contact.phone.display}</a></dd>
 					</div>
 				</dl>
 			</div>
@@ -37,8 +38,8 @@
 				<h2 class="contacts-column__title contacts-column__title--careers">
 					{t('contacts.careers.title')}
 				</h2>
-				<a href="mailto:careers@webdeploy.it" class="btn-action btn-action--secondary"
-					>careers@webdeploy.it</a
+				<a href="mailto:{site.contact.careersEmail}" class="btn-action btn-action--secondary"
+					>{site.contact.careersEmail}</a
 				>
 				<p class="section-lead">{t('contacts.careers.description')}</p>
 				<p class="contacts-note">{t('contacts.careers.perks')}</p>

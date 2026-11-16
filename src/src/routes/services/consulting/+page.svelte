@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { t, tObj } from '$lib/i18n';
 	import Seo from '$lib/components/Seo.svelte';
+	import { siteUrl } from '$lib/config/site';
+	import { publisherJsonLd } from '$lib/utils/structuredData';
 	import ContactBand from '$lib/components/ContactBand.svelte';
 	import ToolTiles from '$lib/components/ToolTiles.svelte';
 </script>
@@ -15,8 +17,8 @@
 		name: t('services.consulting.title'),
 		description: t('services.consulting.metaDescription'),
 		serviceType: 'Open source consulting',
-		url: 'https://webdeploy.it/services/consulting',
-		provider: { '@type': 'Organization', name: 'WEBDEPLOY S.R.L.', url: 'https://webdeploy.it' }
+		url: siteUrl('/services/consulting'),
+		provider: publisherJsonLd()
 	}}
 />
 

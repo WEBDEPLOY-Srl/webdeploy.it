@@ -1,6 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const port = 4173;
+// Set to test an already running server, such as the nginx container.
+const external = process.env.E2E_BASE_URL;
 
 export default defineConfig({
 	testDir: 'e2e',
@@ -12,7 +14,7 @@ export default defineConfig({
 	forbidOnly: !!process.env.CI,
 	reporter: process.env.CI ? 'list' : [['list'], ['html', { open: 'never' }]],
 	use: {
-		baseURL: `http://127.0.0.1:${port}`,
+		baseURL: external ?? `http://127.0.0.1:${port}`,
 		trace: 'retain-on-failure'
 	},
 	projects: [
@@ -24,10 +26,12 @@ export default defineConfig({
 		}
 	],
 	// Serves the production build (`npm run build` first), as nginx does in the image.
-	webServer: {
-		command: `npm run preview -- --host 127.0.0.1 --port ${port} --strictPort`,
-		url: `http://127.0.0.1:${port}/`,
-		reuseExistingServer: !process.env.CI,
-		timeout: 60_000
-	}
+	webServer: external
+		? undefined
+		: {
+				command: `npm run preview -- --host 127.0.0.1 --port ${port} --strictPort`,
+				url: `http://127.0.0.1:${port}/`,
+				reuseExistingServer: !process.env.CI,
+				timeout: 60_000
+			}
 });

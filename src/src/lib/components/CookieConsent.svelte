@@ -1,34 +1,66 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import { t } from '$lib/i18n';
 	import { browser } from '$app/environment';
 	import { consent } from '$lib/stores/consent.svelte';
-	import { loadMetaPixel } from '$lib/utils/metaPixel';
+	import { loadMetaPixel, withdrawMetaPixel } from '$lib/utils/metaPixel';
+
+	let banner = $state<HTMLElement>();
+	let returnFocusTo: HTMLElement | null = null;
 
 	function accept() {
 		consent.set('granted');
 		loadMetaPixel();
 	}
 	function reject() {
+		const wasGranted = consent.marketing === 'granted';
 		consent.set('denied');
+		if (wasGranted) withdrawMetaPixel();
+	}
+
+	// Reopened from the footer: move focus into the banner, and back to the
+	// control that opened it once it closes. Before a first decision the banner
+	// does not take focus away from the page.
+	$effect(() => {
+		if (consent.reopened) {
+			returnFocusTo = document.activeElement as HTMLElement | null;
+			void tick().then(() => banner?.focus());
+		} else if (returnFocusTo) {
+			if (returnFocusTo.isConnected) returnFocusTo.focus();
+			returnFocusTo = null;
+		}
+	});
+
+	function onKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape' && consent.reopened) consent.dismiss();
 	}
 </script>
 
-{#if browser && consent.marketing === null}
-	<div
-		class="fixed inset-x-0 bottom-0 z-50 p-4 sm:p-6"
-		role="dialog"
-		aria-live="polite"
-		aria-label={t('consent.title')}
-	>
+<svelte:window onkeydown={onKeydown} />
+
+{#if browser && consent.bannerVisible}
+	<!-- A named complementary landmark rather than role="region": Firefox crashes while axe's ARIA rules read a region landmark here. -->
+	<aside bind:this={banner} aria-label={t('consent.title')} tabindex="-1">
 		<div
 			class="home-consent card-retro bg-surface-dark max-w-4xl mx-auto p-6 flex flex-col md:flex-row md:items-center gap-4"
 		>
 			<div class="flex-1">
-				<p class="text-sm font-display uppercase text-primary mb-1">{t('consent.title')}</p>
+				<h2 class="text-sm font-display uppercase text-primary mb-1">
+					{t('consent.title')}
+				</h2>
 				<!-- eslint-disable-next-line svelte/no-at-html-tags -- repository-owned translation containing a link -->
 				<p class="text-sm text-slate-400 leading-relaxed">{@html t('consent.body')}</p>
 			</div>
 			<div class="flex gap-3 shrink-0">
+				{#if consent.reopened}
+					<button
+						type="button"
+						onclick={() => consent.dismiss()}
+						class="btn-retro-secondary px-4 py-2 text-sm font-mono"
+					>
+						{t('consent.close')}
+					</button>
+				{/if}
 				<button
 					type="button"
 					onclick={reject}
@@ -45,5 +77,5 @@
 				</button>
 			</div>
 		</div>
-	</div>
+	</aside>
 {/if}

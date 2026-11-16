@@ -58,7 +58,7 @@ test('the cookie banner has no serious or critical accessibility violations', as
 	void traffic;
 	await page.addInitScript(() => localStorage.removeItem('wd_consent_marketing'));
 	await page.goto('/');
-	await expect(page.getByRole('dialog')).toBeVisible();
+	await expect(page.getByRole('complementary', { name: 'Privacy & cookies' })).toBeVisible();
 	const { violations } = await new AxeBuilder({ page })
 		.withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
 		.analyze();
