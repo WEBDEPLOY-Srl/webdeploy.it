@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.46.1] - 2026-11-16
+
+### Fixed
+- The footer states the REA number (PR-283022) next to the VAT number, as Italian law requires on company websites.
+
 ## [1.46.0] - 2026-11-16
 
 ### Added
