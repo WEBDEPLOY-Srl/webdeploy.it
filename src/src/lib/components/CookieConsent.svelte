@@ -103,10 +103,8 @@
 			</div>
 		</div>
 	</aside>
-	{#if !hideBanner}
-		<!-- The fixed banner does not move page content; this spacer prevents overlap while visible. -->
-		<div class="consent-reservation" style:height={`${bannerHeight}px`} aria-hidden="true"></div>
-	{/if}
+	<!-- Keep space reserved through phone field focus; remove it with the dismissed banner. -->
+	<div class="consent-reservation" style:height={`${bannerHeight}px`} aria-hidden="true"></div>
 {/if}
 
 <style>
