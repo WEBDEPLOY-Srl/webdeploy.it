@@ -779,6 +779,8 @@ export const it = {
 		privacyLink: 'Leggi l’informativa sulla newsletter',
 		noScript: 'JavaScript è necessario per completare il controllo antispam e inviare il modulo.',
 		verificationError: 'Non è stato possibile completare il controllo antispam. Riprova.',
+		setupError:
+			'Non è stato possibile caricare il controllo antispam. Ricarica la pagina per riprovare.',
 		newsletterContentsTitle: 'Cosa riceverai',
 		newsletterContents:
 			'Ogni nuovo articolo WEBDEPLOY e avvisi di sicurezza e normativi. Servizi e offerte si scelgono separatamente.',

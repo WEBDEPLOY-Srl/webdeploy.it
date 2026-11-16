@@ -58,7 +58,7 @@ async function stubExternalHosts(page: Page, traffic: ExternalTraffic, unexpecte
 				});
 				if (url.pathname === '/api/public/captcha/altcha') {
 					const salt = 'abc?expires=1893456000';
-					const origin = route.request().headers().origin ?? 'http://127.0.0.1:4173';
+					const origin = route.request().headers().origin ?? new URL(page.url()).origin;
 					return route.fulfill({
 						status: 200,
 						contentType: 'application/json',

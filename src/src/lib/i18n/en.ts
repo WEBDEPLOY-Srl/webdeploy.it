@@ -774,6 +774,7 @@ export const en = {
 		privacyLink: 'Read the newsletter privacy notice',
 		noScript: 'JavaScript is required to complete the spam check and submit this form.',
 		verificationError: 'The spam check could not be completed. Please try again.',
+		setupError: 'The spam check could not be loaded. Reload the page to try again.',
 		newsletterContentsTitle: 'What arrives in your inbox',
 		newsletterContents:
 			'Every new WEBDEPLOY news post, plus security and regulatory notices. Choose services and offers separately.',

@@ -158,7 +158,9 @@ test('banner decisions use identical controls and the privacy link survives larg
 	expect(privacyBox!.y + privacyBox!.height).toBeLessThanOrEqual(bannerBox!.y + bannerBox!.height);
 });
 
-test('short landscape touch screens get phone banner focus behavior', async ({ browser }) => {
+test('short landscape touch screens get phone banner focus behavior', async ({
+	browser
+}, testInfo) => {
 	const context = await browser.newContext({
 		viewport: { width: 640, height: 480 },
 		hasTouch: true
@@ -169,7 +171,8 @@ test('short landscape touch screens get phone banner focus behavior', async ({ b
 		if (url.hostname === '127.0.0.1') return route.continue();
 		return route.fulfill({ status: 204, body: '' });
 	});
-	await page.goto('http://127.0.0.1:4173/newsletter');
+	const baseURL = String(testInfo.project.use.baseURL);
+	await page.goto(new URL('/newsletter', baseURL).href);
 	await expect(banner(page)).toBeVisible();
 	expect(await page.evaluate(() => matchMedia('(pointer: coarse)').matches)).toBe(true);
 	await page.getByLabel('Email address').focus();

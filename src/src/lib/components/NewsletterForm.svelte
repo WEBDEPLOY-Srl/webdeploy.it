@@ -28,6 +28,7 @@
 	let ready = $state(false);
 	let submitAttempted = $state(false);
 	let noListError = $state(true);
+	let setupError = $state(false);
 	let verificationError = $state(false);
 	let submitting = $state(false);
 
@@ -42,7 +43,6 @@
 			newsBox.checked = false;
 			marketingBox.checked = false;
 			widget.reset();
-			form.querySelector('input[name="altcha"]')?.remove();
 			updateListValidity();
 		};
 		window.addEventListener('pageshow', onPageShow);
@@ -64,7 +64,7 @@
 				if (!cancelled) ready = true;
 			})
 			.catch(() => {
-				if (!cancelled) verificationError = true;
+				if (!cancelled) setupError = true;
 			});
 
 		return () => {
@@ -179,6 +179,9 @@
 
 	{#if verificationError}
 		<p class="form-error" role="alert">{t('newsletter.verificationError')}</p>
+	{/if}
+	{#if setupError}
+		<p class="form-error" role="alert">{t('newsletter.setupError')}</p>
 	{/if}
 	<button class="newsletter-submit" type="submit" disabled={!ready || submitting}>
 		{submitting ? t('newsletter.submitting') : t('newsletter.submit')}

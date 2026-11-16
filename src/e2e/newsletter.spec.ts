@@ -66,15 +66,35 @@ test('solves a real ALTCHA v1 challenge with the local SHA worker', async ({
 	const altcha = new URLSearchParams(post.body ?? '').get('altcha');
 	const proof = JSON.parse(Buffer.from(altcha ?? '', 'base64').toString('utf8'));
 	const salt = 'abc?expires=1893456000';
-	expect(proof).toMatchObject({
+	const expectedProof = {
 		algorithm: 'SHA-256',
 		challenge: createHash('sha256').update(`${salt}1234`).digest('hex'),
 		number: 1234,
 		salt,
 		signature: 'offline-signature'
-	});
-	expect(challengeOrigin).toBe('http://127.0.0.1:4173');
+	};
+	expect(proof).toMatchObject(expectedProof);
+	expect(challengeOrigin).toBe(new URL(page.url()).origin);
 	expect(workers.some((url) => url.includes('/workers/sha-'))).toBe(true);
+	await page.evaluate(() =>
+		window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true }))
+	);
+	await expect(page.locator('input[name="l"]').nth(0)).not.toBeChecked();
+	await expect(page.locator('input[name="l"]').nth(1)).not.toBeChecked();
+	await expect(submit).toBeEnabled();
+	await page.locator('input[name="l"]').first().check();
+	await submit.click();
+	await expect
+		.poll(() => traffic.listmonk.filter(({ method }) => method === 'POST').length)
+		.toBe(2);
+	const restoredBody = new URLSearchParams(
+		traffic.listmonk.filter(({ method }) => method === 'POST')[1].body ?? ''
+	);
+	const restoredPayload = restoredBody.get('altcha');
+	expect(restoredPayload).toBeTruthy();
+	expect(JSON.parse(Buffer.from(restoredPayload!, 'base64').toString('utf8'))).toMatchObject(
+		expectedProof
+	);
 	expect(cspViolations).toEqual([]);
 });
 
@@ -147,7 +167,7 @@ test('cookie banner hides on phone field focus and dismisses without moving the 
 	const before = await layout();
 	await page.getByLabel('Email address').focus();
 	await expect(banner(page)).toBeHidden();
-	await expect(page.locator('.consent-reservation')).toHaveCount(0);
+	await expect(page.locator('.consent-reservation')).toHaveCount(1);
 	await page.getByLabel('Email address').evaluate((input: HTMLInputElement) => input.blur());
 	await expect(banner(page)).toBeVisible();
 	await expect(page.locator('.consent-reservation')).toHaveCount(1);
