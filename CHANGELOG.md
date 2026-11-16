@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.46.0] - 2026-11-16
+
 ### Added
+- The footer states the share capital (€10,000.00), as Italian law requires on company websites.
 - Unknown URLs now get the site's own error page: the build emits `404.html` as the static fallback
   and nginx serves it with status 404.
 - The Matomo opt-out on the privacy page is a Svelte component with typed, unit-tested cookie
