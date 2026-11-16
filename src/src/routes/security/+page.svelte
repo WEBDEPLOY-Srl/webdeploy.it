@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { t, tObj } from '$lib/i18n';
-	import Seo from '$lib/components/Seo.svelte';
+	import { t, tObj } from '#lib/i18n/index.ts';
+	import Seo from '#lib/components/Seo.svelte';
 </script>
 
 <Seo title={t('security.title')} description={t('security.metaDescription')} />

@@ -1,5 +1,5 @@
-import { browser } from '$app/environment';
-import { logPrivacy } from '$lib/utils/logger';
+import { browser } from '$app/env';
+import { logPrivacy } from '#lib/utils/logger.ts';
 
 export type ConsentValue = 'granted' | 'denied';
 

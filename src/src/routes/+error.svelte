@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { t } from '$lib/i18n';
-	import { site } from '$lib/config/site';
+	import { t } from '#lib/i18n/index.ts';
+	import { site } from '#lib/config/site.ts';
 
 	// Raw error messages are not localized, so show the translated status copy instead.
 	const statusKey = $derived(

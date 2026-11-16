@@ -1,11 +1,11 @@
-import { browser } from '$app/environment';
-import { site } from '$lib/config/site';
-import { logAnalytics, logPrivacy } from '$lib/utils/logger';
+import { browser } from '$app/env';
+import { site } from '#lib/config/site.ts';
+import { logAnalytics, logPrivacy } from '#lib/utils/logger.ts';
 
 /**
  * Meta (Facebook/Instagram) Pixel — consent-gated.
  *
- * Loads only after explicit marketing opt-in (see $lib/stores/consent). The
+ * Loads only after explicit marketing opt-in (see #lib/stores/consent). The
  * pixel/dataset id is PUBLIC (it is visible in the fbevents init call in every
  * browser that loads the pixel), so it lives in the site config. Not a secret.
  *

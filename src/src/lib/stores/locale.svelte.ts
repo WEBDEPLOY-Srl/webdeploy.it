@@ -1,5 +1,5 @@
-import { browser } from '$app/environment';
-import { logI18n } from '$lib/utils/logger';
+import { browser } from '$app/env';
+import { logI18n } from '#lib/utils/logger.ts';
 
 export type Locale = 'en' | 'it';
 

@@ -1,5 +1,5 @@
 // Built from the page files at build time, so a new page is listed without editing anything here.
-import { site } from '$lib/config/site';
+import { site } from '#lib/config/site.ts';
 
 export const prerender = true;
 

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
-	import NewsCard from '$lib/components/NewsCard.svelte';
-	import Seo from '$lib/components/Seo.svelte';
+	import { t } from '#lib/i18n/index.ts';
+	import NewsCard from '#lib/components/NewsCard.svelte';
+	import Seo from '#lib/components/Seo.svelte';
 </script>
 
 <Seo title={t('news.title')} description={t('news.metaDescription')} />

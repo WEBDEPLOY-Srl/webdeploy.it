@@ -1,4 +1,4 @@
-import { site, siteUrl } from '$lib/config/site';
+import { site, siteUrl } from '#lib/config/site.ts';
 
 /** The company as the publisher or provider of a page's own structured data. */
 export function publisherJsonLd() {

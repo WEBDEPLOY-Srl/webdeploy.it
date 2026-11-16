@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { t, tObj } from '$lib/i18n';
-	import Seo from '$lib/components/Seo.svelte';
-	import { siteUrl } from '$lib/config/site';
-	import { publisherJsonLd } from '$lib/utils/structuredData';
-	import ContactBand from '$lib/components/ContactBand.svelte';
-	import WorkstationDemo from '$lib/components/WorkstationDemo.svelte';
+	import { t, tObj } from '#lib/i18n/index.ts';
+	import Seo from '#lib/components/Seo.svelte';
+	import { siteUrl } from '#lib/config/site.ts';
+	import { publisherJsonLd } from '#lib/utils/structuredData.ts';
+	import ContactBand from '#lib/components/ContactBand.svelte';
+	import WorkstationDemo from '#lib/components/WorkstationDemo.svelte';
 
 	type Example = { item: string; result: string };
 </script>

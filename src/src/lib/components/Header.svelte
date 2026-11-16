@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
+	import { t } from '#lib/i18n/index.ts';
 	import LanguageSwitcher from './LanguageSwitcher.svelte';
-	import { availableLocales } from '$lib/stores/locale.svelte';
+	import { availableLocales } from '#lib/stores/locale.svelte.ts';
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import { onDestroy, tick } from 'svelte';
@@ -29,7 +29,9 @@
 		if (!mobileMenuOpen) mobileServicesOpen = false;
 	});
 
-	afterNavigate(() => {
+	afterNavigate(({ shallow }) => {
+		if (shallow) return;
+
 		mobileServicesOpen = false;
 	});
 

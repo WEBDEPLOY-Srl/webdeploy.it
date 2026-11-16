@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
+	import { t } from '#lib/i18n/index.ts';
 </script>
 
 <!-- Same call-to-action band as the inWD Kiosk page. -->

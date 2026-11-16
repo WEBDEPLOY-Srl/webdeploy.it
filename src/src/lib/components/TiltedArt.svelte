@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { pixelWindowBreak } from '$lib/actions/pixelWindowBreak';
+	import { pixelWindowBreak } from '#lib/actions/pixelWindowBreak.ts';
 
 	interface Props {
 		src: string;
