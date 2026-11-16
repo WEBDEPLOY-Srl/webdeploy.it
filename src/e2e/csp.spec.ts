@@ -35,6 +35,22 @@ test('the contacts map loads its tiles from the allowed tile host', async ({
 	expect(cspViolations).toEqual([]);
 });
 
+test('newsletter challenge and hosted form have only the required CSP destinations', async ({
+	page,
+	cspViolations
+}) => {
+	await page.goto('/newsletter');
+	await page.waitForLoadState('networkidle');
+	const policy = await page
+		.locator('meta[http-equiv="content-security-policy"]')
+		.getAttribute('content');
+	expect(policy).toContain('connect-src');
+	expect(policy).toContain('https://newsletter.webdeploy.it');
+	expect(policy).toContain('form-action');
+	expect(policy).toMatch(/form-action[^;]*https:\/\/newsletter\.webdeploy\.it/);
+	expect(cspViolations).toEqual([]);
+});
+
 test('Matomo and, after consent, the Meta pixel run inside the policy', async ({
 	page,
 	traffic,

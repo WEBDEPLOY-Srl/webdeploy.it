@@ -432,6 +432,8 @@ export const it = {
 				'Vuoi parlare delle tue esigenze di infrastruttura open source? Siamo qui per aiutarti a sfuggire al vendor lock-in e abbracciare soluzioni developer-friendly.',
 			location: 'Sede'
 		},
+		newsletterLine:
+			'Preferisci ricevere aggiornamenti via email? Iscriviti alle notizie e agli avvisi WEBDEPLOY.',
 		address: 'Via Puccini 15, 43123 Parma (PR), Italia',
 		map: {
 			loading: 'Caricamento della mappa…',
@@ -452,6 +454,10 @@ export const it = {
 		title: 'Notizie',
 		metaDescription:
 			'Notizie da WEBDEPLOY: avvisi di sicurezza, eventi open source e aggiornamenti sui nostri servizi Linux, infrastruttura e backup.',
+		newsletterBandTitle: 'Ricevi le notizie WEBDEPLOY via email',
+		newsletterBandText:
+			'Nuovi articoli, avvisi di sicurezza e normativi, aggiornamenti su rilasci ed eventi.',
+		newsletterBandLink: 'Scegli cosa ricevere',
 		readMore: 'Leggi di più',
 		backToNews: 'Notizie',
 		contactUs: 'Contattaci',
@@ -606,6 +612,7 @@ export const it = {
 		shareCapital: 'Capitale sociale: € 10.000,00',
 		security: 'Sicurezza',
 		privacy: 'Informativa sulla privacy',
+		newsletter: 'Newsletter',
 		source: 'Codice sorgente',
 		cookieSettings: 'Impostazioni cookie'
 	},
@@ -650,7 +657,7 @@ export const it = {
 	privacy: {
 		title: 'Informativa sulla privacy',
 		intro:
-			'WEBDEPLOY S.R.L. si impegna a proteggere la tua privacy. Questa pagina spiega come gestiamo i tuoi dati quando visiti il nostro sito web.',
+			'WEBDEPLOY S.R.L. si impegna a proteggere la tua privacy. Questa pagina spiega come trattiamo i tuoi dati quando visiti e utilizzi il nostro sito.',
 		analyticsTitle: 'Analisi delle visite',
 		analyticsText:
 			'Utilizziamo Matomo, una piattaforma di analytics self-hosted e orientata alla privacy. La nostra configurazione è progettata per rispettare la tua privacy:',
@@ -665,7 +672,7 @@ export const it = {
 			"Anche se utilizziamo un tracciamento rispettoso della privacy, puoi disattivare completamente l'analisi delle visite:",
 		dataTitle: 'Dati raccolti',
 		dataText:
-			'Raccogliamo solo dati anonimi e aggregati per capire come viene utilizzato il nostro sito:',
+			'I dati di analytics sono configurati senza cookie e in forma aggregata. Alcune funzioni del sito trattano anche dati personali, come descritto qui sotto:',
 		mapText:
 			'La mappa nella pagina dei contatti carica le proprie tessere da OpenStreetMap (tile.openstreetmap.org, gestito dalla OpenStreetMap Foundation). Per mostrare la mappa, il tuo browser invia a quel server il tuo indirizzo IP e i dati del browser; noi non riceviamo questi dati.',
 		dataItems: [
@@ -679,6 +686,22 @@ export const it = {
 		marketingTitle: 'Marketing e pubblicità',
 		marketingText:
 			'Con il tuo consenso esplicito usiamo il pixel di Meta (Facebook/Instagram) per misurare l\'efficacia delle campagne pubblicitarie e per il retargeting. Il pixel imposta cookie e viene caricato solo dopo il consenso, che puoi modificare o revocare in qualsiasi momento con il link "Impostazioni cookie" nel piè di pagina di ogni pagina. La revoca ferma il pixel e ne rimuove i cookie. Senza consenso, nessuno script pubblicitario viene caricato.',
+		newsletterTitle: 'Newsletter',
+		newsletterDraft: 'Bozza da sottoporre al legale. Questa informativa non è stata approvata.',
+		newsletterItems: [
+			'Titolare e contatti: WEBDEPLOY S.R.L., sede legale in Via Puccini 15, 43123 Parma (PR), Italia; info@webdeploy.it; PEC legal@pec.webdeploy.it. La nomina di un Responsabile della protezione dei dati è da confermare.',
+			'Dati trattati: indirizzo email, liste selezionate, data e ora di iscrizione e conferma, indirizzo IP registrato quando si utilizza il link di conferma e dati relativi ai mancati recapiti. Il log del server web relativo alla richiesta di iscrizione include l’indirizzo IP per un massimo di 90 giorni.',
+			'Finalità e basi giuridiche: due finalità distinte, ciascuna basata sul consenso prestato per la relativa lista: inviare notizie e avvisi WEBDEPLOY oppure informazioni sui servizi e sulle offerte WEBDEPLOY. Le registrazioni delle iscrizioni e le relative date sono utilizzate come prova del consenso.',
+			'Conferma: dopo l’iscrizione, Listmonk invia un’email per chiedere di confermare l’indirizzo. Non inviamo newsletter senza conferma. Una sola email può chiedere la conferma per entrambe le liste selezionate.',
+			'Email: la lista delle notizie riceve un’email introduttiva circa una settimana dopo la conferma e un’email quando pubblichiamo un articolo. La lista di servizi e offerte riceve messaggi sui servizi e sulle offerte WEBDEPLOY. Dopo la conferma entrambe le liste ricevono un’email di benvenuto. Non garantiamo una frequenza fissa.',
+			'Misurazione delle email: il monitoraggio delle aperture e dei clic è disattivato. I link possono contenere parametri di campagna misurati con Matomo senza cookie. Per ogni tentativo di iscrizione viene registrato un evento Matomo newsletter_submit_initiated; il legale deve confermare se questo evento richiede il consenso.',
+			'Luogo dei servizi: la newsletter è gestita con Listmonk self-hosted e automazioni ospitate da Hetzner a Helsinki, in Finlandia. L’invio avviene tramite un server email Hetzner a Falkenstein, in Germania. Il provider email scelto dal destinatario potrebbe trattare i dati fuori dall’UE.',
+			'Conservazione nel sistema operativo: le iscrizioni non confermate sono cancellate dopo 30 giorni. L’iscrizione a una lista revocata viene cancellata entro 24 ore; l’indirizzo email viene cancellato quando non rimangono altre iscrizioni. I dati relativi a mancati recapiti e reclami sono cancellati con le stesse modalità; non conserviamo un elenco separato di esclusione.',
+			'Una copia temporanea di ripristino dei vecchi dati early-access cancellati è conservata in una posizione server accessibile solo a root per non più di 30 giorni dalla cancellazione, poi viene eliminata.',
+			'Backup: i backup cifrati possono conservare i dati cancellati fino a circa sette mesi, in base al numero di archivi configurato e al limite massimo di età.',
+			'I tuoi diritti: puoi disiscriverti da ciascuna lista tramite il link presente in ogni email, gestire le iscrizioni, chiedere l’esportazione o la cancellazione dei dati, contattarci a info@webdeploy.it o presentare un reclamo al Garante per la protezione dei dati personali.',
+			'Pixel Meta: l’evento Lead viene inviato solo se hai accettato i cookie di marketing e il pixel è caricato. Al momento dell’iscrizione invia il nome dell’evento e l’etichetta fissa content_name: newsletter; non invia mai il tuo indirizzo email né la lista scelta. Ogni richiesta del pixel comunica inoltre l’URL della pagina e i relativi parametri, la pagina di provenienza, dati sul browser e sul dispositivo e l’identificativo cookie di Meta. Il destinatario è Meta; il ruolo di titolare e le garanzie per i trasferimenti fuori dall’UE, inclusi gli Stati Uniti, devono essere definiti con il legale. Puoi revocare il consenso ai cookie di marketing tramite Impostazioni cookie nel piè di pagina.'
+		],
 		dpaTitle: 'Accordo sul trattamento dei dati (DPA)',
 		dpaText:
 			"Quando WEBDEPLOY S.R.L. tratta dati personali per tuo conto in qualità di responsabile del trattamento, lo fa sulla base di un accordo sul trattamento dei dati (DPA) conforme all'art. 28 GDPR: finalità e durata del trattamento definite, misure di sicurezza tecniche e organizzative, elenco dei sub-responsabili, assistenza per le richieste degli interessati, e cancellazione o restituzione dei dati al termine del servizio. Richiedi il testo del DPA scrivendo a info@webdeploy.it.",
@@ -727,9 +750,41 @@ export const it = {
 	// Cookie / marketing consent
 	consent: {
 		title: 'Privacy e cookie',
-		body: 'Usiamo Matomo (analytics senza cookie, sempre attivo) e, solo con il tuo consenso, il pixel Meta per misurare le campagne pubblicitarie. Dettagli nell\'<a href="/privacy" class="text-primary underline underline-offset-2">informativa sulla privacy</a>.',
-		accept: 'Accetta i cookie di marketing',
-		reject: 'Rifiuta i cookie di marketing',
-		close: 'Chiudi'
+		body: 'Matomo non usa cookie. Meta usa cookie pubblicitari solo se accetti. Leggi l’<a href="/privacy" class="text-primary underline underline-offset-2">informativa sulla privacy</a>.',
+		accept: 'Accetta',
+		reject: 'Rifiuta'
+	},
+
+	// Iscrizione alla newsletter
+	newsletter: {
+		title: 'Newsletter WEBDEPLOY',
+		metaDescription:
+			'Scegli quali notizie e aggiornamenti sui servizi WEBDEPLOY ricevere via email.',
+		lead: 'Notizie, avvisi di sicurezza e aggiornamenti dal nostro lavoro.',
+		whatTitle: 'Cosa desideri ricevere? Scegli almeno una lista.',
+		generalLabel: 'Notizie e avvisi',
+		generalText:
+			'Acconsento a ricevere via email le notizie di WEBDEPLOY: articoli tecnici, avvisi di sicurezza e normativi e notizie sui rilasci e sugli eventi. Riceverò un’email quando pubblichiamo un articolo e una email introduttiva circa una settimana dopo la conferma.',
+		marketingLabel: 'Servizi e offerte',
+		marketingText:
+			'Acconsento a ricevere email che promuovono i servizi di WEBDEPLOY (inWD, backup cifrati, migrazione Linux, inWD Kiosk, consulenza), comprese le offerte.',
+		emailLabel: 'Indirizzo email',
+		emailPlaceholder: 'tu@example.com',
+		requiredError: 'Scegli almeno una lista email.',
+		submit: 'Iscriviti',
+		submitting: 'Verifica della richiesta…',
+		confirmationNote:
+			'WEBDEPLOY S.R.L. è il titolare del trattamento. Per prima cosa invieremo un’email per confermare il tuo indirizzo; prima della conferma non invieremo altro. Dopo la conferma riceverai un’email di benvenuto. Puoi revocare ciascun consenso in qualsiasi momento da ogni email. La relativa iscrizione viene cancellata entro 24 ore; l’indirizzo viene cancellato quando non restano altre iscrizioni.',
+		privacyLink: 'Leggi l’informativa sulla newsletter',
+		noScript: 'JavaScript è necessario per completare il controllo antispam e inviare il modulo.',
+		verificationError: 'Non è stato possibile completare il controllo antispam. Riprova.',
+		newsletterContentsTitle: 'Cosa riceverai',
+		newsletterContents:
+			'Ogni nuovo articolo WEBDEPLOY e avvisi di sicurezza e normativi. Servizi e offerte si scelgono separatamente.',
+		recentNews: 'Leggi le ultime notizie',
+		confirmedTitle: 'Controlla la posta',
+		confirmedText:
+			'Il tuo indirizzo è confermato. Cerca un messaggio WEBDEPLOY da newsletter@inwd.org. Puoi lasciare una lista in qualsiasi momento tramite il link contenuto in un’email.',
+		confirmedNews: 'Leggi l’ultimo articolo'
 	}
 };

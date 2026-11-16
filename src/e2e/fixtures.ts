@@ -16,6 +16,7 @@ export interface ExternalTraffic {
 	all: string[];
 	/** The subset that went to a Meta host. */
 	meta: string[];
+	listmonk: Array<{ method: string; url: string; body: string | null }>;
 }
 
 /**
@@ -43,6 +44,26 @@ async function stubExternalHosts(page: Page, traffic: ExternalTraffic, unexpecte
 			if (url.hostname === 'connect.facebook.net') {
 				return route.fulfill({ contentType: 'application/javascript', body: '/* meta stub */' });
 			}
+			if (url.hostname === 'newsletter.webdeploy.it') {
+				traffic.listmonk.push({
+					method: route.request().method(),
+					url: url.href,
+					body: route.request().postData()
+				});
+				if (url.pathname === '/api/public/captcha/altcha') {
+					return route.fulfill({
+						status: 200,
+						contentType: 'application/json',
+						body: JSON.stringify({
+							algorithm: 'SHA-256',
+							challenge: '0'.repeat(64),
+							salt: 'test',
+							signature: 'test'
+						})
+					});
+				}
+				return route.fulfill({ status: 204 });
+			}
 			if (META_HOST.test(url.hostname)) return route.fulfill({ status: 204 });
 			if (url.hostname.endsWith('tile.openstreetmap.org')) {
 				return route.fulfill({ contentType: 'image/png', body: PIXEL_PNG });
@@ -60,7 +81,7 @@ export const test = base.extend<{
 	cspViolations: string[];
 }>({
 	traffic: async ({ page }, use) => {
-		const traffic: ExternalTraffic = { all: [], meta: [] };
+		const traffic: ExternalTraffic = { all: [], meta: [], listmonk: [] };
 		const unexpected: string[] = [];
 		await stubExternalHosts(page, traffic, unexpected);
 		await use(traffic);

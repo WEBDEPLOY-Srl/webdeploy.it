@@ -430,6 +430,7 @@ export const en = {
 				"Ready to discuss your open source infrastructure needs? We're here to help you escape vendor lock-in and embrace developer-friendly solutions.",
 			location: 'Location'
 		},
+		newsletterLine: 'Prefer updates by email? Subscribe to WEBDEPLOY news and notices.',
 		address: 'Via Puccini 15, 43123 Parma (PR), Italy',
 		map: {
 			loading: 'Loading map…',
@@ -449,6 +450,10 @@ export const en = {
 		title: 'News',
 		metaDescription:
 			'News from WEBDEPLOY: security advisories, open source events and updates on our Linux, infrastructure and backup services.',
+		newsletterBandTitle: 'Get WEBDEPLOY news by email',
+		newsletterBandText:
+			'New articles, security and regulatory notices, and news about our releases and events.',
+		newsletterBandLink: 'Choose your updates',
 		readMore: 'Read more',
 		backToNews: 'News',
 		contactUs: 'Contact Us',
@@ -603,6 +608,7 @@ export const en = {
 		shareCapital: 'Share capital: €10,000.00',
 		security: 'Security',
 		privacy: 'Privacy Policy',
+		newsletter: 'Newsletter',
 		source: 'Source code',
 		cookieSettings: 'Cookie settings'
 	},
@@ -647,7 +653,7 @@ export const en = {
 	privacy: {
 		title: 'Privacy Policy',
 		intro:
-			'WEBDEPLOY S.R.L. is committed to protecting your privacy. This page explains how we handle your data when you visit our website.',
+			'WEBDEPLOY S.R.L. is committed to protecting your privacy. This page explains how we handle your data when you visit and use our website.',
 		analyticsTitle: 'Analytics',
 		analyticsText:
 			'We use Matomo, a privacy-focused, self-hosted analytics platform. Our configuration is designed to respect your privacy:',
@@ -661,7 +667,8 @@ export const en = {
 		optOutText:
 			'Even though we use privacy-friendly tracking, you can opt out of analytics entirely:',
 		dataTitle: 'Data We Collect',
-		dataText: 'We only collect anonymous, aggregated data to understand how our website is used:',
+		dataText:
+			'Our analytics data is configured to be cookieless and aggregated. Some website features also process personal data as described below:',
 		mapText:
 			'The map on the contacts page loads its tiles from OpenStreetMap (tile.openstreetmap.org, operated by the OpenStreetMap Foundation). To show the map, your browser sends your IP address and browser details to that server; we do not receive this data.',
 		dataItems: [
@@ -675,6 +682,22 @@ export const en = {
 		marketingTitle: 'Marketing & advertising',
 		marketingText:
 			'With your explicit consent we use the Meta (Facebook/Instagram) pixel to measure ad-campaign effectiveness and for retargeting. The pixel sets cookies and loads only after you consent; you can change or withdraw your choice at any time with the "Cookie settings" link in the footer of every page. Withdrawing stops the pixel and removes its cookies. Without consent, no advertising script is loaded.',
+		newsletterTitle: 'Newsletter',
+		newsletterDraft: 'Draft for review by counsel. This notice has not been approved.',
+		newsletterItems: [
+			'Controller and contact: WEBDEPLOY S.R.L., registered office at Via Puccini 15, 43123 Parma (PR), Italy; info@webdeploy.it; PEC legal@pec.webdeploy.it. Whether a Data Protection Officer has been appointed is to be confirmed.',
+			'Data processed: email address, selected lists, signup and confirmation times, the IP address recorded when the confirmation link is used, and bounce records. The web server log for the signup request includes the IP address for up to 90 days.',
+			'Purposes and legal bases: two separate purposes, each based on the consent given for its list: sending WEBDEPLOY news and notices, or sending information about WEBDEPLOY services and offers. Membership records and timestamps are used as evidence of consent.',
+			'Confirmation: after signup, Listmonk sends one email asking you to confirm your address. No newsletter is sent unless you confirm. One confirmation email may cover both lists you selected.',
+			'Emails: the news list receives one introductory email about a week after confirmation and an email when a news post is published. The services and offers list receives messages about WEBDEPLOY services and offers. Both lists receive one welcome email after confirmation. No fixed frequency is promised.',
+			'Email measurement: open and click tracking are disabled. Links may include campaign-level parameters measured by cookieless Matomo analytics. A Matomo event named newsletter_submit_initiated is recorded for every signup attempt; counsel must confirm whether this event requires consent.',
+			'Service locations: the newsletter is managed in self-hosted Listmonk and automation hosted by Hetzner in Helsinki, Finland. Email is sent through a Hetzner mail server in Falkenstein, Germany. A recipient’s own email provider may process data outside the EU.',
+			'Retention in the live system: unconfirmed signups are deleted after 30 days. A withdrawn list membership is deleted within 24 hours; the email address is deleted when no other subscription remains. Bounce and complaint records are deleted on the same basis; no separate suppression list is kept.',
+			'A one-off rollback copy of deleted early-access records is kept in a root-only server location for no more than 30 days after deletion, then deleted.',
+			'Backups: encrypted backups may retain deleted records for up to about seven months, subject to the configured archive count and age limit.',
+			'Your rights: you can unsubscribe from either list using a link in any email, manage your subscriptions, request an export or deletion, contact us at info@webdeploy.it, or complain to the Italian Data Protection Authority (Garante per la protezione dei dati personali).',
+			'Meta Pixel: the Lead event is sent only if you accepted marketing cookies and the pixel is loaded. At signup it sends the event name and the fixed label content_name: newsletter, never your email address or list choice. Pixel requests also disclose the page URL and its parameters, referrer, browser and device data, and Meta’s cookie identifier. Meta is the recipient; its controller role and the transfer mechanism for processing outside the EU, including the United States, require counsel’s review. You can withdraw marketing-cookie consent using Cookie settings in the footer.'
+		],
 		dpaTitle: 'Data Processing Agreement (DPA)',
 		dpaText:
 			'When WEBDEPLOY S.R.L. processes personal data on your behalf as a processor, it does so under a Data Processing Agreement (DPA) compliant with Art. 28 GDPR: defined purpose and duration, technical and organizational security measures, a list of sub-processors, assistance with data-subject requests, and deletion or return of the data at the end of the service. Request the DPA text by writing to info@webdeploy.it.',
@@ -723,9 +746,40 @@ export const en = {
 	// Cookie / marketing consent
 	consent: {
 		title: 'Privacy & cookies',
-		body: 'We use Matomo (cookieless analytics, always on) and, only with your consent, the Meta pixel to measure our ad campaigns. Details in our <a href="/privacy" class="text-primary underline underline-offset-2">privacy policy</a>.',
-		accept: 'Accept marketing cookies',
-		reject: 'Reject marketing cookies',
-		close: 'Close'
+		body: 'Matomo is cookieless. Meta ads use cookies only if you accept. Read our <a href="/privacy" class="text-primary underline underline-offset-2">privacy notice</a>.',
+		accept: 'Accept',
+		reject: 'Reject'
+	},
+
+	// Newsletter signup
+	newsletter: {
+		title: 'WEBDEPLOY newsletter',
+		metaDescription: 'Choose which WEBDEPLOY news and service updates you want by email.',
+		lead: 'News, security notices and updates from our workbench.',
+		whatTitle: 'What would you like to receive? Choose at least one.',
+		generalLabel: 'News and notices',
+		generalText:
+			"I agree to receive WEBDEPLOY's news by email: technical articles, security and regulatory notices, and news about its releases and events. An email is sent when a news post is published, plus one introductory email about a week after I confirm.",
+		marketingLabel: 'Services and offers',
+		marketingText:
+			"I agree to receive emails promoting WEBDEPLOY's services (inWD, encrypted backups, Linux migration, inWD Kiosk, consulting), including offers.",
+		emailLabel: 'Email address',
+		emailPlaceholder: 'you@example.com',
+		requiredError: 'Choose at least one email list.',
+		submit: 'Subscribe',
+		submitting: 'Checking your request…',
+		confirmationNote:
+			'WEBDEPLOY S.R.L. is the data controller. We first send one email to confirm your address; nothing else is sent until you confirm. After you confirm, you receive one welcome email. You can withdraw either consent at any time from any email. That subscription is then deleted within 24 hours, and your address with it once no subscription remains.',
+		privacyLink: 'Read the newsletter privacy notice',
+		noScript: 'JavaScript is required to complete the spam check and submit this form.',
+		verificationError: 'The spam check could not be completed. Please try again.',
+		newsletterContentsTitle: 'What arrives in your inbox',
+		newsletterContents:
+			'Every new WEBDEPLOY news post, plus security and regulatory notices. Choose services and offers separately.',
+		recentNews: 'Read our latest news',
+		confirmedTitle: 'Check your inbox',
+		confirmedText:
+			'Your address is confirmed. Look for WEBDEPLOY email from newsletter@inwd.org. You can leave a list at any time using the link in an email.',
+		confirmedNews: 'Read the latest article'
 	}
 };

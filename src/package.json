@@ -47,6 +47,7 @@
 		"vitest": "^5.1.0"
 	},
 	"dependencies": {
+		"altcha": "3.6.0",
 		"@sveltejs/adapter-static": "^4.0.1",
 		"@tailwindcss/vite": "^4.3.5",
 		"leaflet": "^1.9.4",

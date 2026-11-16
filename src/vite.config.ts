@@ -22,6 +22,7 @@ export default defineConfig({
 					'connect-src': [
 						'self',
 						'https://analytics.inwd.org',
+						'https://newsletter.webdeploy.it',
 						'https://www.facebook.com',
 						'https://connect.facebook.net'
 					],
@@ -39,7 +40,7 @@ export default defineConfig({
 					'font-src': ['self'],
 					'object-src': ['none'],
 					'base-uri': ['self'],
-					'form-action': ['self']
+					'form-action': ['self', 'https://newsletter.webdeploy.it']
 				}
 			},
 

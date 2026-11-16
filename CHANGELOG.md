@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- A two-list newsletter signup at `/newsletter`, with separately unticked consents, a self-hosted ALTCHA check, and a confirmation page excluded from search indexing and the sitemap.
+- Newsletter submission and confirmation events, with the Meta `Lead` event gated on accepted marketing cookies and limited to `content_name: newsletter`.
+- A draft newsletter privacy section for counsel review and newsletter links from the footer, news pages and contacts page.
+
+### Changed
+- The cookie banner uses compact equal-weight Reject and Accept buttons, reserves page space, and hides while a form field has focus on phones.
+- The retired early-access path now redirects to `/newsletter`; the news-writer skill now describes English-only articles and the campaign-draft workflow.
+
 ## [1.47.0] - 2026-11-16
 
 ### Changed

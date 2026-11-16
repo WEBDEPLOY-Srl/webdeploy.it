@@ -1,6 +1,7 @@
 import { browser } from '$app/env';
 import { site } from '#lib/config/site.ts';
 import { logAnalytics, logPrivacy } from '#lib/utils/logger.ts';
+import { consent } from '#lib/stores/consent.svelte.ts';
 
 /**
  * Meta (Facebook/Instagram) Pixel — consent-gated.
@@ -14,6 +15,7 @@ import { logAnalytics, logPrivacy } from '#lib/utils/logger.ts';
 const PIXEL_ID = site.analytics.metaPixelId;
 let loaded = false;
 let revoked = false;
+let pixelReady = false;
 
 /** Load fbevents.js + init the pixel + first PageView. Idempotent, no-op on SSR. */
 export function loadMetaPixel(): void {
@@ -46,12 +48,20 @@ export function loadMetaPixel(): void {
 		const s = document.createElement('script');
 		s.async = true;
 		s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+		s.onload = () => (pixelReady = true);
 		document.head.appendChild(s);
 	}
 
 	window.fbq?.('init', PIXEL_ID);
 	window.fbq?.('track', 'PageView');
 	logAnalytics.log('Meta Pixel loaded', PIXEL_ID);
+}
+
+/** Report a newsletter lead without email, list choice, or other custom data. */
+export function trackNewsletterLead(): void {
+	if (consent.marketing !== 'granted' || !loaded || !pixelReady || revoked) return;
+	window.fbq?.('track', 'Lead', { content_name: 'newsletter' });
+	logAnalytics.log('Newsletter Lead event tracked');
 }
 
 /** Cookies the pixel sets on the site's own domain. */
