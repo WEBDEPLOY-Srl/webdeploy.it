@@ -29,8 +29,8 @@
 		if (!mobileMenuOpen) mobileServicesOpen = false;
 	});
 
-	afterNavigate(({ shallow, type }) => {
-		if (shallow && type === 'goto') return;
+	afterNavigate(({ shallow }) => {
+		if (shallow) return;
 
 		mobileServicesOpen = false;
 	});
@@ -255,7 +255,7 @@
 							onkeydown={handleMenuItemKeydown}
 						>
 							{t('nav.managedInfra')}
-							<span aria-hidden="true">↗</span>
+							<span aria-hidden="true">&nbsp;↗</span>
 						</a>
 						<a
 							href="/services/linux-workstations"
@@ -376,7 +376,7 @@
 						onclick={closeMobileMenu}
 					>
 						{t('nav.managedInfra')}
-						<span aria-hidden="true">↗</span>
+						<span aria-hidden="true">&nbsp;↗</span>
 					</a>
 					<a
 						href="/services/linux-workstations"

@@ -8,6 +8,7 @@ export default defineConfig({
 	plugins: [
 		sveltekit({
 			preprocess: vitePreprocess(),
+			version: { pollInterval: 0 },
 			// Prerendered pages carry this policy in a <meta> tag, with a hash for each
 			// inline script SvelteKit writes. nginx sends the same policy as a header;
 			// see scripts/nginx-csp.mjs. Only the hosts the site really talks to are

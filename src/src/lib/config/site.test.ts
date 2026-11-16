@@ -1,4 +1,5 @@
 import { loadConfig } from '@sveltejs/load-config';
+import { fileURLToPath } from 'node:url';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { site } from './site';
 
@@ -7,7 +8,8 @@ describe('site data and the Content-Security-Policy', () => {
 	const hosts = (name: string) => directives[name] ?? [];
 
 	beforeAll(async () => {
-		const loaded = await loadConfig('./', { traverse: false });
+		const projectRoot = fileURLToPath(new URL('../../../', import.meta.url));
+		const loaded = await loadConfig(projectRoot, { traverse: false });
 		if (!loaded || !('config' in loaded)) throw new Error('Could not load SvelteKit configuration');
 		directives =
 			(loaded.config.csp as { directives?: Record<string, string[]> } | undefined)?.directives ??

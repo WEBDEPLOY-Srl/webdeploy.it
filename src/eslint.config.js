@@ -5,8 +5,15 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import ts from 'typescript-eslint';
 import { loadConfig } from '@sveltejs/load-config';
+import { fileURLToPath } from 'node:url';
 
-const svelteConfig = (await loadConfig('./', { traverse: false }))?.config;
+const loadedSvelteConfig = await loadConfig(fileURLToPath(new URL('.', import.meta.url)), {
+	traverse: false
+});
+if (!loadedSvelteConfig || !('config' in loadedSvelteConfig)) {
+	throw new Error('Could not load SvelteKit configuration');
+}
+const svelteConfig = loadedSvelteConfig.config;
 
 export default defineConfig(
 	globalIgnores(['build/', '.svelte-kit/', 'node_modules/', 'test-results/', 'playwright-report/']),

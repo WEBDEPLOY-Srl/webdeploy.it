@@ -35,8 +35,8 @@
 	});
 
 	// The first load counts as a page view too. tick() waits for the new page's <title>.
-	afterNavigate(async ({ from, shallow, type }) => {
-		if (shallow && type === 'goto') return;
+	afterNavigate(async ({ from, shallow }) => {
+		if (shallow) return;
 		if (!browser) return;
 		await tick();
 		trackPageView(from?.url);
