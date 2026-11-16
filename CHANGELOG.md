@@ -13,8 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A draft newsletter privacy section for counsel review and newsletter links from the footer, news pages and contacts page.
 
 ### Changed
-- The cookie banner uses compact equal-weight Reject and Accept buttons, reserves page space, and hides while a form field has focus on phones.
-- The retired early-access path now redirects to `/newsletter`; the news-writer skill now describes English-only articles and the campaign-draft workflow.
+- The cookie banner uses identical Reject and Accept button styling, restores Close when reopened, reserves space only while visible, keeps its privacy link visible at 200% text zoom, and hides on phone form-field focus. The `/newsletter` mobile view hides the site header so the form stays above the banner.
+- The newsletter form waits for local ALTCHA readiness and disables human-interaction-signature collection. Returning from Listmonk resets list choices and submission state.
+- The confirmed-page event is recorded only when the referrer origin is `https://newsletter.webdeploy.it`. The privacy notice now describes per-visit Matomo records and transactional manage-link behavior.
+- The retired early-access path now redirects to `/newsletter` while preserving query parameters; the news-writer skill matches the smm campaign source contract.
 
 ## [1.47.0] - 2026-11-16
 
