@@ -3,13 +3,13 @@ name: news-writer
 description: Write English-only technology news posts for WebDeploy, with a matching newsletter campaign source when the post is published.
 ---
 
-Write accurate, useful English news for WebDeploy about open source, Linux, infrastructure, security, software and technology. The site currently serves English only. Do not create Italian article translations or Italian i18n strings.
+Write accurate, useful English news for WebDeploy about open source, Linux, infrastructure, security, software and technology. News articles and newsletter sources are English only. Do not create Italian article routes or Italian newsletter sources.
 
 ## Project context
 
 WebDeploy is an open source infrastructure company. Its values include open source advocacy, developer experience, privacy and transparency. Matomo is cookieless and self-hosted; the Meta Pixel loads only after a visitor accepts marketing cookies. Never claim that the site has no tracking.
 
-The website uses SvelteKit, TypeScript and translation files at `src/src/lib/i18n/en.ts` and `src/src/lib/i18n/it.ts`. Add public-facing news copy to both files with the same keys: English in `en.ts`, accurate Italian in `it.ts`. The article itself is English only.
+The website uses SvelteKit, TypeScript and translation files at `src/src/lib/i18n/en.ts` and `src/src/lib/i18n/it.ts`. For every new news key, put the English value in `en.ts` and its natural Italian translation in `it.ts`; keep keys and structure identical. The article page, newsletter source and campaign remain English only. Do not revive or translate archived Italian posts; the owner decides how archived Italian content is handled.
 
 ## Writing
 
@@ -23,8 +23,8 @@ The website uses SvelteKit, TypeScript and translation files at `src/src/lib/i18
 ## Site implementation
 
 1. Confirm the topic, intended readers, evidence, and useful next step.
-2. Add the post's English and Italian display strings to `src/src/lib/i18n/en.ts` and `src/src/lib/i18n/it.ts` with matching structure.
-3. Create `src/src/routes/news/[post-slug]/+page.svelte`. Follow the current article pattern and use `#lib` imports, for example:
+2. Add the post's English display strings to `src/src/lib/i18n/en.ts` and natural Italian translations of those strings to `src/src/lib/i18n/it.ts`, with matching keys and structure. Do not create an Italian article page.
+3. Create `src/src/routes/news/<post-slug>/+page.svelte`. Follow the current article pattern and use `#lib` imports, for example:
 
    ```svelte
    <script lang="ts">
@@ -36,27 +36,28 @@ The website uses SvelteKit, TypeScript and translation files at `src/src/lib/i18
 
 4. Set complete SEO metadata, including the title, description, image, article type and publication date.
 5. Add a `NewsCard` to `src/src/routes/news/+page.svelte` and include the newsletter band at the end of the article.
-6. Keep visible English and Italian strings in sync by key. Write the English article in English only.
+6. Keep the i18n keys and shape in sync. Write the article in English only; `it.ts` contains Italian translations of its display strings for shape parity.
 
 ## Newsletter campaign source
 
-Every news post must have a matching English source file for the general newsletter in the smm repository at `newsletter/posts/<content-id>.md`. Include these fields:
+Every news post must have a matching English campaign source in the smm repository at `newsletter/posts/<yyyy-mm-dd>-<slug>.md`. Use Markdown front matter followed by an HTML body. Front matter fields:
 
 - `subject`
 - `preheader`
 - `content_id`
-- `post_url`
-- `target_list`: `WEBDEPLOY news and notices`
-- a short email body that stands on its own and links once to the published article
+- `target_list: general`
+- `post_url`: the article's `https://webdeploy.it/news/<slug>` URL
 
-Marketing campaigns use the same source format and process with `target_list: WEBDEPLOY services and offers`; they do not link to a site post unless one is relevant.
+The post's HTML body must stand on its own and contain `{{ post_url }}` exactly once. The draft script replaces that placeholder with the post URL and its `mtm_` campaign parameters.
 
-The owner reviews the article and email source. After the site release is live, the agent runs `newsletter/push-campaign-draft.mjs` from the smm repository to create or update the Listmonk campaign draft. The script must verify the post URL and refuse to modify a campaign that is not a draft. Do not send the campaign: the owner sends a test, checks the list, messenger and From address, then starts it in Listmonk. Record the campaign ID and status in the newsletter ledger.
+Marketing sources use `newsletter/marketing/<yyyy-mm-dd>-<slug>.md`, the same front matter and HTML-body format, `target_list: marketing`, and no `post_url`.
+
+The owner reviews the article and campaign source. First run `node newsletter/push-campaign-draft.mjs --dry-run newsletter/posts/<yyyy-mm-dd>-<slug>.md`. After the site release is live and the draft is approved, run the script with `--base-url http://127.0.0.1:<forwarded-port>` through WireGuard or the documented loopback SSH tunnel. The script checks a post URL once, creates or updates one Listmonk draft, and refuses to modify a campaign that is not a draft. Never send, schedule or start it: the owner sends a test, checks the list, messenger and From address, then starts the campaign. Record the campaign ID and status in `newsletter/ledger.csv`.
 
 ## Final review
 
 - Verify technical claims and links against primary sources.
 - Check spelling, accessibility text, SEO metadata and mobile layout.
-- Confirm both i18n files have matching keys and well-written translations.
+- Confirm both i18n files have matching keys and well-written Italian translations; keep article pages and newsletter sources English only.
 - Confirm the email source matches the article and links to it once.
 - Never send or start a campaign; only prepare the draft for owner review.
