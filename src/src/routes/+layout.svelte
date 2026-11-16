@@ -70,6 +70,7 @@
 <div
 	class="site-shell bg-background-dark min-h-screen relative selection:bg-secondary selection:text-white"
 	class:home-preview={page.url.pathname === '/'}
+	class:newsletterLanding={page.url.pathname === '/newsletter'}
 >
 	<!-- Skip to main content link for keyboard users -->
 	<a href="#main-content" class="skip-link">
@@ -84,3 +85,11 @@
 	<Footer />
 	<CookieConsent />
 </div>
+
+<style>
+	@media (max-width: 639px) {
+		.newsletterLanding :global(.site-header) {
+			display: none;
+		}
+	}
+</style>

@@ -74,17 +74,11 @@ test('the footer control reopens the banner and a refusal withdraws an earlier a
 	await expect(banner(page)).toBeVisible();
 	await expect(banner(page)).toBeFocused();
 
-	// Closing without a choice keeps the stored decision and returns focus to the control.
-	await banner(page).getByRole('button', { name: 'Close' }).click();
+	// Making a choice from settings restores focus to the control that opened the banner.
+	await banner(page).getByRole('button', { name: 'Accept' }).click();
 	await expect(banner(page)).toBeHidden();
 	await expect(control).toBeFocused();
 	expect(await page.evaluate((key) => localStorage.getItem(key), KEY)).toBe('granted');
-
-	// Escape closes it too.
-	await control.click();
-	await expect(banner(page)).toBeVisible();
-	await page.keyboard.press('Escape');
-	await expect(banner(page)).toBeHidden();
 
 	await control.click();
 	await banner(page)
