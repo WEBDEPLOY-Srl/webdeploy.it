@@ -752,7 +752,8 @@ export const it = {
 		title: 'Privacy e cookie',
 		body: 'Matomo non usa cookie. Meta usa cookie pubblicitari solo se accetti. Leggi l’<a href="/privacy" class="text-primary underline underline-offset-2">informativa sulla privacy</a>.',
 		accept: 'Accetta',
-		reject: 'Rifiuta'
+		reject: 'Rifiuta',
+		close: 'Chiudi'
 	},
 
 	// Iscrizione alla newsletter

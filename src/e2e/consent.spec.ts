@@ -10,6 +10,7 @@ test('no Meta request is made before consent, and one is made after accepting', 
 }) => {
 	await page.goto('/');
 	await expect(banner(page)).toBeVisible();
+	await expect(banner(page)).not.toHaveAttribute('aria-hidden');
 	await page.waitForLoadState('networkidle');
 	// Matomo is cookieless and always on; Meta must wait for the visitor.
 	expect(traffic.all.some((url) => url.startsWith('https://analytics.inwd.org/'))).toBe(true);
@@ -74,10 +75,17 @@ test('the footer control reopens the banner and a refusal withdraws an earlier a
 	await expect(banner(page)).toBeVisible();
 	await expect(banner(page)).toBeFocused();
 
-	// Making a choice from settings restores focus to the control that opened the banner.
-	await banner(page).getByRole('button', { name: 'Accept' }).click();
+	// Closing settings without a new choice restores focus and keeps the stored decision.
+	await banner(page).getByRole('button', { name: 'Close' }).click();
 	await expect(banner(page)).toBeHidden();
 	await expect(control).toBeFocused();
+	expect(await page.evaluate((key) => localStorage.getItem(key), KEY)).toBe('granted');
+	await expect(page.locator('.consent-reservation')).toHaveCount(0);
+
+	await control.click();
+	await expect(banner(page)).toBeVisible();
+	await page.keyboard.press('Escape');
+	await expect(banner(page)).toBeHidden();
 	expect(await page.evaluate((key) => localStorage.getItem(key), KEY)).toBe('granted');
 
 	await control.click();
@@ -113,6 +121,60 @@ test('accepting from the footer control after a refusal loads the pixel', async 
 		.click();
 	await pixel;
 	expect(await page.evaluate((key) => localStorage.getItem(key), KEY)).toBe('granted');
+});
+
+test('banner decisions use identical controls and the privacy link survives larger text', async ({
+	page
+}) => {
+	await page.setViewportSize({ width: 360, height: 640 });
+	await page.goto('/');
+	const reject = banner(page).getByRole('button', { name: 'Reject' });
+	const accept = banner(page).getByRole('button', { name: 'Accept' });
+	const getStyle = (button: typeof reject) =>
+		button.evaluate((element) => {
+			const style = getComputedStyle(element);
+			const box = element.getBoundingClientRect();
+			return {
+				width: box.width,
+				height: box.height,
+				fontFamily: style.fontFamily,
+				fontSize: style.fontSize,
+				fontWeight: style.fontWeight,
+				color: style.color,
+				backgroundColor: style.backgroundColor,
+				borderColor: style.borderColor
+			};
+		});
+	expect(await getStyle(reject)).toEqual(await getStyle(accept));
+
+	await page.evaluate(() => (document.documentElement.style.zoom = '200%'));
+	const bannerBox = await banner(page).boundingBox();
+	const privacyBox = await banner(page).getByRole('link', { name: 'privacy notice' }).boundingBox();
+	expect(bannerBox).not.toBeNull();
+	expect(privacyBox).not.toBeNull();
+	expect(privacyBox!.x).toBeGreaterThanOrEqual(bannerBox!.x);
+	expect(privacyBox!.y).toBeGreaterThanOrEqual(bannerBox!.y);
+	expect(privacyBox!.x + privacyBox!.width).toBeLessThanOrEqual(bannerBox!.x + bannerBox!.width);
+	expect(privacyBox!.y + privacyBox!.height).toBeLessThanOrEqual(bannerBox!.y + bannerBox!.height);
+});
+
+test('short landscape touch screens get phone banner focus behavior', async ({ browser }) => {
+	const context = await browser.newContext({
+		viewport: { width: 640, height: 480 },
+		hasTouch: true
+	});
+	const page = await context.newPage();
+	await page.route('**/*', async (route) => {
+		const url = new URL(route.request().url());
+		if (url.hostname === '127.0.0.1') return route.continue();
+		return route.fulfill({ status: 204, body: '' });
+	});
+	await page.goto('http://127.0.0.1:4173/newsletter');
+	await expect(banner(page)).toBeVisible();
+	expect(await page.evaluate(() => matchMedia('(pointer: coarse)').matches)).toBe(true);
+	await page.getByLabel('Email address').focus();
+	await expect(banner(page)).toBeHidden();
+	await context.close();
 });
 
 test('the privacy page says where to change the choice and discloses the map tiles', async ({

@@ -9,6 +9,7 @@
 	let returnFocusTo: HTMLElement | null = null;
 	let phone = $state(false);
 	let fieldFocused = $state(false);
+	let bannerHeight = $state(112);
 
 	const hideBanner = $derived(phone && fieldFocused);
 
@@ -50,11 +51,23 @@
 	}
 
 	onMount(() => {
-		const media = window.matchMedia('(max-width: 639px)');
+		const media = window.matchMedia(
+			'(max-width: 639px), (pointer: coarse) and (max-height: 500px)'
+		);
 		const update = () => (phone = media.matches);
 		update();
 		media.addEventListener('change', update);
 		return () => media.removeEventListener('change', update);
+	});
+
+	$effect(() => {
+		if (!banner) return;
+		const element = banner;
+		const measure = () => (bannerHeight = Math.ceil(element.getBoundingClientRect().height));
+		const observer = new ResizeObserver(measure);
+		observer.observe(element);
+		measure();
+		return () => observer.disconnect();
 	});
 </script>
 
@@ -66,7 +79,7 @@
 	<aside
 		bind:this={banner}
 		aria-labelledby="consent-title"
-		aria-hidden={hideBanner}
+		aria-hidden={hideBanner || undefined}
 		inert={hideBanner}
 		class:hidden-for-field={hideBanner}
 		tabindex="-1"
@@ -76,31 +89,33 @@
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -- repository-owned translation containing a link -->
 			<p class="consent-copy">{@html t('consent.body')}</p>
 			<div class="consent-actions">
-				<button type="button" onclick={reject} class="consent-button consent-reject">
+				{#if consent.reopened}
+					<button type="button" onclick={() => consent.dismiss()} class="consent-button">
+						{t('consent.close')}
+					</button>
+				{/if}
+				<button type="button" onclick={reject} class="consent-button">
 					{t('consent.reject')}
 				</button>
-				<button type="button" onclick={accept} class="consent-button consent-accept">
+				<button type="button" onclick={accept} class="consent-button">
 					{t('consent.accept')}
 				</button>
 			</div>
 		</div>
 	</aside>
+	{#if !hideBanner}
+		<!-- The fixed banner does not move page content; this spacer prevents overlap while visible. -->
+		<div class="consent-reservation" style:height={`${bannerHeight}px`} aria-hidden="true"></div>
+	{/if}
 {/if}
 
-<!-- Persistent document space keeps the fixed banner from covering content or shifting layout. -->
-<div class="consent-reservation" aria-hidden="true"></div>
-
 <style>
-	:global(.consent-reservation) {
-		height: 7rem;
-	}
-
 	aside {
 		position: fixed;
 		z-index: 50;
 		inset: auto 0 0;
 		box-sizing: border-box;
-		height: 7rem;
+		min-height: 7rem;
 		padding: 0.5rem 0.75rem;
 		border-top: 1px solid rgba(0, 240, 255, 0.38);
 		background: rgb(11 16 27 / 96%);
@@ -140,19 +155,10 @@
 		min-width: 7.5rem;
 		padding: 0.5rem 0.8rem;
 		border: 1px solid #64748b;
-		font: 600 0.875rem var(--font-mono, monospace);
-		cursor: pointer;
-	}
-
-	.consent-reject {
 		color: #f8fafc;
 		background: #1e293b;
-	}
-
-	.consent-accept {
-		color: #07111b;
-		border-color: var(--color-primary, #00f0ff);
-		background: var(--color-primary, #00f0ff);
+		font: 600 0.875rem var(--font-mono, monospace);
+		cursor: pointer;
 	}
 
 	.consent-button:focus-visible {
@@ -166,10 +172,6 @@
 	}
 
 	@media (max-width: 639px) {
-		:global(.consent-reservation) {
-			height: 7rem;
-		}
-
 		.consent-panel {
 			display: flex;
 			flex-direction: column;
@@ -177,16 +179,7 @@
 			gap: 0.4rem;
 		}
 
-		aside {
-			height: 7rem;
-		}
-
 		.consent-copy {
-			display: -webkit-box;
-			line-clamp: 2;
-			overflow: hidden;
-			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 2;
 			font-size: 0.75rem;
 			line-height: 1.25rem;
 		}

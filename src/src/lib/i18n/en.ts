@@ -748,7 +748,8 @@ export const en = {
 		title: 'Privacy & cookies',
 		body: 'Matomo is cookieless. Meta ads use cookies only if you accept. Read our <a href="/privacy" class="text-primary underline underline-offset-2">privacy notice</a>.',
 		accept: 'Accept',
-		reject: 'Reject'
+		reject: 'Reject',
+		close: 'Close'
 	},
 
 	// Newsletter signup
