@@ -1,0 +1,28 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"checkJs": true,
+		"strict": true,
+		"maxNodeModuleJsDepth": 0,
+		"noEmit": true,
+		"target": "ES2022",
+		"lib": ["ES2022", "DOM", "DOM.Iterable"],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"types": ["node"],
+		"skipLibCheck": true
+	},
+	"include": [
+		"types.d.ts",
+		"build.mjs",
+		"build-tools/**/*.mjs",
+		"assets/js/**/*.mjs",
+		"content/*.mjs",
+		"data/*.mjs",
+		"e2e/*.mjs",
+		"parity/*.mjs",
+		"test/*.mjs",
+		"playwright.config.mjs",
+		"scripts/lighthouse.mjs"
+	]
+}
