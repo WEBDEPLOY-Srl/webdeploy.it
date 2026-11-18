@@ -35,8 +35,9 @@
 					<a
 						href="mailto:security@webdeploy.it"
 						class="text-primary underline underline-offset-4 hover:text-white"
-						>security@webdeploy.it</a
-					>.
+					>
+						security@webdeploy.it
+					</a>.
 				</p>
 
 				<p class="text-slate-400 mb-4 leading-relaxed">{t('security.includeTitle')}</p>

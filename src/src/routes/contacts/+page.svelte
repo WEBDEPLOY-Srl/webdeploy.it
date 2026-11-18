@@ -39,9 +39,9 @@
 				<h2 class="contacts-column__title contacts-column__title--careers">
 					{t('contacts.careers.title')}
 				</h2>
-				<a href="mailto:{site.contact.careersEmail}" class="btn-action btn-action--secondary"
-					>{site.contact.careersEmail}</a
-				>
+				<a href="mailto:{site.contact.careersEmail}" class="btn-action btn-action--secondary">
+					{site.contact.careersEmail}
+				</a>
 				<p class="section-lead">{t('contacts.careers.description')}</p>
 				<p class="contacts-note">{t('contacts.careers.perks')}</p>
 			</div>

@@ -44,11 +44,13 @@
 			{/if}
 			<h1 class="readable-hero__title">
 				<!-- Trademark signs drop to a small superscript at display size. -->
-				<span
-					>{#each name.split('™') as part, index (index)}{#if index > 0}<sup
-								class="readable-hero__mark">™</sup
-							>{/if}{part}{/each}</span
-				>
+				<span>
+					{#each name.split('™') as part, index (index)}{#if index > 0}<sup
+								class="readable-hero__mark"
+							>
+								™
+							</sup>{/if}{part}{/each}
+				</span>
 				{#if text}
 					<span class="readable-hero__title-accent">{text}</span>
 				{/if}

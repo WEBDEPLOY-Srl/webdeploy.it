@@ -62,8 +62,9 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						class="text-primary underline underline-offset-2"
-						>metal-stack.io<span class="sr-only"> {t('common.opensInNewTab')}</span></a
-					>{t('news.fosdem2026.descriptionAfterLink')}
+					>
+						metal-stack.io<span class="sr-only"> {t('common.opensInNewTab')}</span>
+					</a>{t('news.fosdem2026.descriptionAfterLink')}
 				</p>
 
 				<p class="text-slate-400 leading-relaxed mb-8">

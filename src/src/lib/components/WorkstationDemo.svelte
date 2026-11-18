@@ -211,9 +211,9 @@
 								{#each Array(9) as _, r (r)}
 									<div class="sheet__row" class:head={r === 0}>
 										{#each Array(6) as _, c (c)}
-											<span class:num={r > 0 && c > 1}
-												>{r > 0 && c > 1 ? ((r * 37 + c * 11) % 90) + 10 : ''}</span
-											>
+											<span class:num={r > 0 && c > 1}>
+												{r > 0 && c > 1 ? ((r * 37 + c * 11) % 90) + 10 : ''}
+											</span>
 										{/each}
 									</div>
 								{/each}

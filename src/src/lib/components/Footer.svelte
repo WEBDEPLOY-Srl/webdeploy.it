@@ -51,9 +51,13 @@
 										{t(link.labelKey)}
 									</button>
 								{:else}
-									<a href={link.href} rel={link.external ? 'noopener' : undefined} class={linkClass}
-										>{t(link.labelKey)}</a
+									<a
+										href={link.href}
+										rel={link.external ? 'noopener' : undefined}
+										class={linkClass}
 									>
+										{t(link.labelKey)}
+									</a>
 								{/if}
 							</li>
 						{/each}

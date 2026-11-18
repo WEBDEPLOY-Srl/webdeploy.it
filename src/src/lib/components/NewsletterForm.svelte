@@ -146,8 +146,10 @@
 				autocomplete="off"
 				onchange={updateListValidity}
 			/>
-			<span><strong>{t('newsletter.marketingLabel')}.</strong> {t('newsletter.marketingText')}</span
-			>
+			<span>
+				<strong>{t('newsletter.marketingLabel')}.</strong>
+				{t('newsletter.marketingText')}
+			</span>
 		</label>
 		<p id="newsletter-list-error" class="form-error" role="alert">
 			{submitAttempted && noListError ? t('newsletter.requiredError') : ''}
