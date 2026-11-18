@@ -1,0 +1,32 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<nav id="mobile-menu" class="site-mobile-nav" aria-label="{{nav.mobileNavigation}}">
+	<div class="mobile-nav-inner">
+		<a href="/totem" class="mobile-nav-link">{{nav.kiosk}}</a>
+		<a href="/news" class="mobile-nav-link">{{nav.news}}</a>
+		<button
+			type="button"
+			class="mobile-nav-trigger"
+			aria-controls="mobile-services-menu"
+			aria-expanded="true"
+		>
+			{{nav.services}}
+			<span aria-hidden="true" class="pixel-icon pixel-icon-chevron-down mobile-nav-chevron"></span>
+		</button>
+		<div
+			id="mobile-services-menu"
+			class="mobile-nav-sub"
+			role="group"
+			aria-label="{{nav.servicesSubmenu}}"
+		>
+			<a href="https://inwd.org" class="mobile-nav-link"
+				>{{nav.managedInfra}} <span aria-hidden="true"> ↗</span></a
+			>
+			<a href="/services/linux-workstations" class="mobile-nav-link">{{nav.linuxMigration}}</a>
+			<a href="/services/backup" class="mobile-nav-link">{{nav.backup}}</a>
+			<a href="/services/consulting" class="mobile-nav-link">{{nav.consulting}}</a>
+		</div>
+		<a href="/developer-manifesto" class="mobile-nav-link">{{nav.manifesto}}</a>
+		<a href="/contacts" class="mobile-nav-link">{{nav.contacts}}</a>
+	</div>
+</nav>

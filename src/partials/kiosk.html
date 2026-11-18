@@ -1,0 +1,42 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="kiosk-demo" role="group" aria-label="{{totem.demo.label}}">
+	<div class="kiosk-demo__device">
+		<div class="kiosk-demo__screen">
+			<div class="kiosk-demo__app">
+				<div class="kiosk-demo__status"><span>{{totem.heroName}}</span> <span></span></div>
+				<div class="kiosk-demo__body">
+					<p class="kiosk-demo__title">{{totem.demo.welcome}}</p>
+					<p class="kiosk-demo__prompt">{{totem.demo.prompt}}</p>
+					<div class="kiosk-demo__tiles">
+						<button type="button" class="kiosk-demo__tile">
+							<span class="pixel-icon pixel-icon-clock" aria-hidden="true"></span>
+							{{totem.demo.hours.title}}</button
+						><button type="button" class="kiosk-demo__tile">
+							<span class="pixel-icon pixel-icon-map" aria-hidden="true"></span>
+							{{totem.demo.map.title}}</button
+						><button type="button" class="kiosk-demo__tile">
+							<span class="pixel-icon pixel-icon-calendar" aria-hidden="true"></span>
+							{{totem.demo.events.title}}
+						</button>
+					</div>
+				</div>
+				<p class="kiosk-demo__footer">{{totem.demo.footer}}</p>
+			</div>
+		</div>
+		<img
+			class="kiosk-demo__frame"
+			src="/images/inwd-kiosk-frame.webp"
+			alt="{{totem.diagramAlt}}"
+			width="898"
+			height="1752"
+			fetchpriority="high"
+			decoding="async"
+		/>
+		<div class="kiosk-demo__switch" role="group" aria-label="{{totem.demo.switchLabel}}">
+			<button type="button" aria-pressed="false">{{totem.demo.windows}}</button>
+			<button type="button" aria-pressed="true">{{totem.heroName}}</button>
+		</div>
+	</div>
+	<p class="kiosk-demo__caption">{{totem.demo.caption}}</p>
+</div>

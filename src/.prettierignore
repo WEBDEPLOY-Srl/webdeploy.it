@@ -5,3 +5,7 @@ package-lock.json
 static/
 test-results/
 playwright-report/
+
+vanilla-build/
+.vanilla-build-generations/
+.build-generations/

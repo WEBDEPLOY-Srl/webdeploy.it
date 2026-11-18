@@ -1,0 +1,643 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="home-page">
+	<div class="home-hero">
+		<section class="readable-hero">
+			<div class="readable-hero__content">
+				<div class="readable-hero__copy">
+					<h1 class="readable-hero__title">
+						<span>{{home.heroName}}</span>
+						<span class="readable-hero__title-accent">{{home.heroText}}</span>
+					</h1>
+					<p class="readable-hero__subtitle">{{home.heroSubtitle}}</p>
+					<p class="readable-hero__tagline">{{home.heroTagline}}</p>
+					<div class="readable-hero__actions">
+						<a href="/#services" class="readable-hero__primary">{{home.servicesBtn}}</a
+						><a href="/developer-manifesto">{{home.manifestoBtn}}</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<section id="services" class="home-section home-services" aria-labelledby="home-services-title">
+		<div class="page-container">
+			<div class="home-section__intro">
+				<p class="section-eyebrow">{{home.servicesEyebrow}}</p>
+				<h2 id="home-services-title" class="section-title">{{home.servicesTitle}}</h2>
+				<p class="section-lead">{{home.servicesDescription}}</p>
+			</div>
+		</div>
+	</section>
+	<section
+		id="home-service-linux"
+		class="home-service home-service--art-right"
+		aria-labelledby="home-service-linux-title"
+	>
+		<div class="page-container home-service__layout">
+			<div class="home-service__copy">
+				<h3 id="home-service-linux-title">{{home.serviceSections.linux.title}}</h3>
+				<p class="home-service__subtitle">{{home.serviceSections.linux.subtitle}}</p>
+				<p class="section-lead">{{home.serviceSections.linux.lead}}</p>
+				<ul class="section-points">
+					<li>{{home.serviceSections.linux.points.0}}</li>
+					<li>{{home.serviceSections.linux.points.1}}</li>
+					<li>{{home.serviceSections.linux.points.2}}</li>
+					<li>{{home.serviceSections.linux.points.3}}</li>
+				</ul>
+				<a href="/services/linux-workstations" class="btn-action"
+					>{{home.serviceSections.linux.linkLabel}} <span aria-hidden="true">→</span></a
+				>
+			</div>
+			<figure class="home-service__art">{{>workstation}}</figure>
+		</div>
+	</section>
+	<section
+		id="home-service-privacy"
+		class="home-service home-service--art-left"
+		aria-labelledby="home-service-privacy-title"
+	>
+		<div class="page-container home-service__layout">
+			<div class="home-service__copy">
+				<h3 id="home-service-privacy-title">{{home.serviceSections.privacy.title}}</h3>
+				<p class="home-service__subtitle">{{home.serviceSections.privacy.subtitle}}</p>
+				<p class="section-lead">{{home.serviceSections.privacy.lead}}</p>
+				<ul class="section-points">
+					<li>{{home.serviceSections.privacy.points.0}}</li>
+					<li>{{home.serviceSections.privacy.points.1}}</li>
+					<li>{{home.serviceSections.privacy.points.2}}</li>
+					<li>{{home.serviceSections.privacy.points.3}}</li>
+				</ul>
+				<a href="/services/backup" class="btn-action"
+					>{{home.serviceSections.privacy.linkLabel}} <span aria-hidden="true">→</span></a
+				>
+			</div>
+			<figure class="home-service__art">
+				<img
+					class="home-service__image home-service__image--logo"
+					src="/images/borgbackup-logo.svg"
+					alt="{{home.serviceSections.privacy.imageAlt}}"
+					width="320"
+					height="133"
+					loading="lazy"
+					decoding="async"
+				/>
+				<figcaption class="home-service__credit">
+					{{home.serviceSections.privacy.imageCredit}}
+					<a href="/images/borgbackup-logo-LICENSE.txt">{{home.licenceLink}}</a>
+				</figcaption>
+			</figure>
+		</div>
+	</section>
+	<section
+		id="home-service-inwd"
+		class="home-service home-service--art-right"
+		aria-labelledby="home-service-inwd-title"
+	>
+		<div class="page-container home-service__layout">
+			<div class="home-service__copy">
+				<h3 id="home-service-inwd-title">{{home.serviceSections.inwd.title}}</h3>
+				<p class="home-service__subtitle">{{home.serviceSections.inwd.subtitle}}</p>
+				<p class="section-lead">{{home.serviceSections.inwd.lead}}</p>
+				<ul class="section-points">
+					<li>{{home.serviceSections.inwd.points.0}}</li>
+					<li>{{home.serviceSections.inwd.points.1}}</li>
+					<li>{{home.serviceSections.inwd.points.2}}</li>
+					<li>{{home.serviceSections.inwd.points.3}}</li>
+				</ul>
+				<a href="https://inwd.org" class="btn-action"
+					>{{home.serviceSections.inwd.linkLabel}} <span aria-hidden="true">→</span></a
+				>
+			</div>
+			<figure class="home-service__art">
+				<img
+					class="home-service__image home-service__image--icon"
+					src="/images/inwd-trunk-rack.webp"
+					srcset="/images/inwd-trunk-rack-500.webp 500w, /images/inwd-trunk-rack.webp 907w"
+					sizes="(min-width: 64rem) 40vw, 100vw"
+					alt="{{home.serviceSections.inwd.imageAlt}}"
+					width="907"
+					height="1026"
+					loading="lazy"
+					decoding="async"
+				/>
+			</figure>
+		</div>
+	</section>
+	<section class="home-section home-about" aria-labelledby="home-about-title">
+		<div class="page-container home-about__content">
+			<div class="home-about__copy">
+				<p class="section-eyebrow">{{home.aboutEyebrow}}</p>
+				<h2 id="home-about-title" class="section-title">{{home.aboutTitle}}</h2>
+				<p class="section-lead">{{home.aboutDescription}}</p>
+				<a href="/developer-manifesto" class="btn-action"
+					>{{home.aboutLink}} <span aria-hidden="true">→</span></a
+				>
+			</div>
+			<div class="home-tools">
+				<div class="home-tools__group">
+					<h3 id="home-tools-company">{{home.toolGroups.company}}</h3>
+					<ul class="home-tools__grid" aria-labelledby="home-tools-company">
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://forgejo.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/forgejo-org}}</svg>
+								<span>Forgejo</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://planka.app"
+								target="_blank"
+								rel="noopener noreferrer"
+								><span class="home-tools__initial" aria-hidden="true">P</span>
+								<span>Planka</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://affine.pro"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/affine-pro}}</svg>
+								<span>AFFiNE</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://nextcloud.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/nextcloud-com}}</svg>
+								<span>Nextcloud</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.collaboraonline.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/collaboraonline-com}}</svg>
+								<span>Collabora Online</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://penpot.app"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/penpot-app}}</svg>
+								<span>Penpot</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://matrix.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/matrix-org}}</svg>
+								<span>Matrix</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://fluffychat.im"
+								target="_blank"
+								rel="noopener noreferrer"
+								><span class="home-tools__initial" aria-hidden="true">F</span>
+								<span>FluffyChat</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://jitsi.org/jitsi-meet/"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/jitsi-org-jitsi-meet}}</svg>
+								<span>Jitsi Meet</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://stalw.art"
+								target="_blank"
+								rel="noopener noreferrer"
+								><span class="home-tools__initial" aria-hidden="true">S</span>
+								<span>Stalwart</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://listmonk.app"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/listmonk-app}}</svg>
+								<span>listmonk</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://n8n.io"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/n8n-io}}</svg>
+								<span>n8n</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://matomo.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/matomo-org}}</svg>
+								<span>Matomo</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://actualbudget.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/actualbudget-org}}</svg>
+								<span>Actual Budget</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://linkding.link"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 900 900" aria-hidden="true">{{>marks/linkding-link}}</svg>
+								<span>linkding</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.thunderbird.net"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/thunderbird-net}}</svg>
+								<span>Thunderbird</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.firefox.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/firefox-com}}</svg>
+								<span>Firefox</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://archlinux.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/archlinux-org}}</svg>
+								<span>Arch Linux</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://kde.org/plasma-desktop/"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/kde-org-plasma-desktop}}</svg>
+								<span>KDE Plasma</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://wayland.freedesktop.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">
+									{{>marks/wayland-freedesktop-org}}
+								</svg>
+								<span>Wayland</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://furilabs.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="50 65 870 215" aria-hidden="true">{{>marks/furilabs-com}}</svg>
+								<span>FuriLabs</span></a
+							>
+						</li>
+					</ul>
+				</div>
+				<div class="home-tools__group">
+					<h3 id="home-tools-infrastructure">{{home.toolGroups.infrastructure}}</h3>
+					<ul class="home-tools__grid" aria-labelledby="home-tools-infrastructure">
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://kernel.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/kernel-org}}</svg>
+								<span>Linux</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.debian.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/debian-org}}</svg>
+								<span>Debian</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://alpinelinux.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/alpinelinux-org}}</svg>
+								<span>Alpine Linux</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://github.com/ansible/ansible"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">
+									{{>marks/github-com-ansible-ansible}}
+								</svg>
+								<span>Ansible</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://opentofu.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/opentofu-org}}</svg>
+								<span>OpenTofu</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://github.com/moby/moby"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/github-com-moby-moby}}</svg>
+								<span>Docker</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://caddyserver.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/caddyserver-com}}</svg>
+								<span>Caddy</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://letsencrypt.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/letsencrypt-org}}</svg>
+								<span>Let’s Encrypt</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://nginx.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/nginx-org}}</svg>
+								<span>NGINX</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.wireguard.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/wireguard-com}}</svg>
+								<span>WireGuard</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.postgresql.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/postgresql-org}}</svg>
+								<span>PostgreSQL</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://mariadb.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/mariadb-org}}</svg>
+								<span>MariaDB</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://valkey.io"
+								target="_blank"
+								rel="noopener noreferrer"
+								><span class="home-tools__initial" aria-hidden="true">V</span>
+								<span>Valkey</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.ory.sh"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/ory-sh}}</svg>
+								<span>Ory</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://supertokens.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								><span class="home-tools__initial" aria-hidden="true">S</span>
+								<span>SuperTokens</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://temporal.io"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/temporal-io}}</svg>
+								<span>Temporal</span></a
+							>
+						</li>
+					</ul>
+				</div>
+				<div class="home-tools__group">
+					<h3 id="home-tools-operations">{{home.toolGroups.operations}}</h3>
+					<ul class="home-tools__grid" aria-labelledby="home-tools-operations">
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://grafana.com/oss/grafana/"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">
+									{{>marks/grafana-com-oss-grafana}}
+								</svg>
+								<span>Grafana</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://prometheus.io"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/prometheus-io}}</svg>
+								<span>Prometheus</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://github.com/getsentry/sentry"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">
+									{{>marks/github-com-getsentry-sentry}}
+								</svg>
+								<span>Sentry</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://grafana.com/oss/loki/"
+								target="_blank"
+								rel="noopener noreferrer"
+								><span class="home-tools__initial" aria-hidden="true">L</span> <span>Loki</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://ntfy.sh"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/ntfy-sh}}</svg>
+								<span>ntfy</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.borgbackup.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/borgbackup-org}}</svg>
+								<span>BorgBackup</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://borgwarehouse.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 130 128" aria-hidden="true">{{>marks/borgwarehouse-com}}</svg>
+								<span>BorgWarehouse</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://woodpecker-ci.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><span class="home-tools__initial" aria-hidden="true">W</span>
+								<span>Woodpecker CI</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://trivy.dev"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/trivy-dev}}</svg>
+								<span>Trivy</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://suricata.io"
+								target="_blank"
+								rel="noopener noreferrer"
+								><span class="home-tools__initial" aria-hidden="true">S</span>
+								<span>Suricata</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://github.com/fail2ban/fail2ban"
+								target="_blank"
+								rel="noopener noreferrer"
+								><span class="home-tools__initial" aria-hidden="true">F</span>
+								<span>Fail2Ban</span></a
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	{{>contact-band}}
+</div>

@@ -1,0 +1,73 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="reading-page">
+	<div class="reading-column">
+		<a href="/news" class="article-back">&lt; News</a>
+		<div class="article-header">
+			<div class="article-date">{{news.fosdem2026.date}}</div>
+			<h1 class="article-title">{{news.fosdem2026.title}}</h1>
+			<div class="share-controls">
+				<span class="muted-caption">Share:</span>
+				<button class="btn-social-linkedin share-button" aria-label="{{news.shareOnLinkedIn}}">
+					<span class="pixel-icon pixel-icon-linkedin" aria-hidden="true"></span> LinkedIn
+				</button>
+				<button class="btn-social-instagram share-button" aria-label="{{news.shareOnInstagram}}">
+					<span class="pixel-icon pixel-icon-instagram" aria-hidden="true"></span> Instagram
+				</button>
+			</div>
+		</div>
+		<div class="article-figure">
+			<img
+				src="/fosdem-2026.jpg"
+				alt="{{news.fosdem2026.imageAlt}}"
+				width="1200"
+				height="1600"
+				loading="eager"
+				decoding="async"
+				fetchpriority="high"
+				class="article-image"
+			/>
+		</div>
+		<article class="prose prose-invert article-body">
+			<div class="card-retro reading-card">
+				<p class="article-intro">
+					Our experience at FOSDEM 2026 in Brussels - from CRA and SBOM devrooms to discovering
+					innovative open source projects like
+					<a
+						href="https://metal-stack.io"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="prose-link"
+						>metal-stack.io<span class="sr-only">{{common.opensInNewTab}}</span></a
+					>{{news.fosdem2026.descriptionAfterLink}}
+				</p>
+				<p class="article-section-lead">{{news.fosdem2026.intro}}</p>
+				<h2 class="article-subheading">{{news.fosdem2026.whatIsFosdem}}</h2>
+				<p class="article-section-lead">{{news.fosdem2026.whatIsFosdemDescription}}</p>
+				<h2 class="article-subheading-alt">{{news.fosdem2026.craRoom}}</h2>
+				<p class="article-section-lead">{{news.fosdem2026.craRoomDescription}}</p>
+				<h2 class="article-subheading">{{news.fosdem2026.sbomRoom}}</h2>
+				<p class="article-section-lead">{{news.fosdem2026.sbomRoomDescription}}</p>
+				<h2 class="article-subheading">{{news.fosdem2026.community}}</h2>
+				<p class="article-paragraph">{{news.fosdem2026.communityDescription}}</p>
+				<div class="article-divider">
+					<div class="article-actions">
+						<a
+							href="https://fosdem.org"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="btn-retro-primary article-primary"
+							>{{news.fosdem2026.visitFosdem}}
+							<span class="small-caption" aria-hidden="true">↗</span>
+							<span class="sr-only">{{common.opensInNewTab}}</span></a
+						>
+					</div>
+				</div>
+			</div>
+		</article>
+		<div class="article-end">
+			<a href="/contacts" class="btn-retro-secondary article-secondary">{{news.contactUs}}</a>
+		</div>
+		{{>newsletter-band}}
+	</div>
+</div>

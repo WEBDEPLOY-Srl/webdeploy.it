@@ -1,0 +1,55 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+/* ==========================================
+   ACCESSIBILITY: Focus indicators
+   ========================================== */
+
+/* Focus-visible for keyboard navigation */
+:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+}
+
+/* Remove default focus for mouse users */
+:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* Enhanced focus for interactive elements */
+a:focus-visible,
+button:focus-visible,
+[role='button']:focus-visible,
+[role='menuitem']:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+	box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.2);
+}
+
+/* Focus within for dropdown containers */
+.dropdown-container:focus-within {
+	outline: none;
+}
+
+/* A submenu hangs 0.5rem (mt-2) below its trigger, and that gap belongs to no
+   element inside .dropdown-container — so a pointer travelling from the
+   trigger to the submenu leaves the container and dismisses the menu before it
+   can be reached. This transparent bridge fills exactly that gap: hit-testing
+   it resolves to the submenu, so the container never sees a mouseleave.
+   It inherits the submenu's `visibility: hidden` while closed, so it is inert
+   until the menu opens.
+   Height = 0.5rem (the `mt-2` gap) + 1px (the submenu's own 1px border, which
+   sits between the gap and the padding box the bridge is positioned against).
+   It must not grow past that, or the bridge would cover the trigger's bottom
+   edge and swallow its clicks. */
+.dropdown-menu::before {
+	content: '';
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	right: 0;
+	height: calc(0.5rem + 1px);
+}

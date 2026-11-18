@@ -1,0 +1,117 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+.newsletter-form {
+	display: grid;
+	gap: 0.5rem;
+}
+
+.newsletter-lists {
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.newsletter-lists legend {
+	margin-bottom: 0.3rem;
+	color: white;
+	font-family: var(--font-display, system-ui, sans-serif);
+	font-size: 1.05rem;
+	line-height: 1.2;
+}
+
+.newsletter-choice {
+	display: grid;
+	grid-template-columns: 1.25rem minmax(0, 1fr);
+	align-items: start;
+	gap: 0.65rem;
+	margin: 0.2rem 0;
+	color: #cbd5e1;
+	font-size: 0.8125rem;
+	line-height: 1.28;
+	cursor: pointer;
+}
+
+.newsletter-choice input {
+	width: 1.25rem;
+	height: 1.25rem;
+	margin: 0.1rem 0 0;
+	accent-color: var(--color-primary, #00f0ff);
+}
+
+.newsletter-choice input:focus-visible,
+.email-field input:focus-visible,
+.newsletter-submit:focus-visible {
+	outline: 3px solid white;
+	outline-offset: 3px;
+}
+
+.form-error {
+	min-height: 1.2rem;
+	margin: 0.25rem 0 0;
+	color: #fca5a5;
+	font-size: 0.875rem;
+}
+
+.email-field {
+	display: grid;
+	gap: 0.35rem;
+}
+
+.email-field label {
+	color: white;
+	font-family: var(--font-mono, monospace);
+	font-size: 0.875rem;
+}
+
+.email-field input {
+	width: 100%;
+	min-height: 2.75rem;
+	padding: 0.65rem 0.75rem;
+	border: 1px solid #64748b;
+	border-radius: 0;
+	color: white;
+	background: #101827;
+	font: 16px var(--font-reading, system-ui, sans-serif);
+}
+
+.newsletter-submit {
+	min-height: 2.75rem;
+	padding: 0.7rem 1rem;
+	border: 1px solid var(--color-primary, #00f0ff);
+	color: #07111b;
+	background: var(--color-primary, #00f0ff);
+	font: 700 1rem var(--font-mono, monospace);
+	cursor: pointer;
+}
+
+.newsletter-submit:disabled {
+	cursor: wait;
+	opacity: 0.75;
+}
+
+.newsletter-note {
+	margin: 0;
+	color: #cbd5e1;
+	font-size: 0.8rem;
+	line-height: 1.5;
+}
+
+.newsletter-note a {
+	color: var(--color-primary, #00f0ff);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+@media (max-width: 639px) {
+	.newsletter-lists legend {
+		font-size: 0.9rem;
+		line-height: 1.1;
+	}
+
+	.newsletter-choice {
+		font-size: 0.75rem;
+		line-height: 1.15;
+	}
+}

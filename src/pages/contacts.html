@@ -1,0 +1,54 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="contacts-page">
+	<section class="home-section contacts-intro" aria-labelledby="contacts-title">
+		<div class="page-container">
+			<p class="section-eyebrow">{{contacts.eyebrow}}</p>
+			<h1 id="contacts-title" class="section-title contacts-intro__title">{{contacts.title}}</h1>
+			<p class="section-lead">{{contacts.lead}}</p>
+		</div>
+	</section>
+	<section class="contacts-columns">
+		<div class="page-container contacts-columns__layout">
+			<div class="contacts-column">
+				<h2 class="contacts-column__title">{{contacts.business.title}}</h2>
+				<a href="mailto:{{@email}}" class="btn-action">{{@email}}</a>
+				<p class="section-lead">{{contacts.business.description}}</p>
+				<p class="contacts-note"><a href="/newsletter">{{contacts.newsletterLine}}</a></p>
+				<dl class="contacts-details">
+					<div>
+						<dt>{{contacts.business.location}}</dt>
+						<dd>{{contacts.address}}</dd>
+					</div>
+					<div>
+						<dt>{{common.phone}}</dt>
+						<dd><a href="tel:{{@phoneHref}}">{{@phoneDisplay}}</a></dd>
+					</div>
+				</dl>
+			</div>
+			<div class="contacts-column">
+				<h2 class="contacts-column__title contacts-column__title--careers">
+					{{contacts.careers.title}}
+				</h2>
+				<a href="mailto:{{@careersEmail}}" class="btn-action btn-action--secondary"
+					>{{@careersEmail}}</a
+				>
+				<p class="section-lead">{{contacts.careers.description}}</p>
+				<p class="contacts-note">{{contacts.careers.perks}}</p>
+			</div>
+		</div>
+	</section>
+	<section class="contacts-map" aria-label="{{contacts.business.location}}">
+		<div class="page-container">
+			<div class="contacts-map__frame">
+				<div class="contact-map">
+					<div class="contact-map__overlay">
+						<div class="contact-map__spinner"></div>
+						<p class="muted-caption">{{contacts.map.loading}}</p>
+					</div>
+					<div class="contact-map__canvas"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

@@ -1,0 +1,326 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+/* Base styles */
+body {
+	font-family: var(--font-mono);
+	background-color: var(--color-background-dark);
+	color: var(--color-text-body);
+	overflow-x: hidden;
+}
+
+/* Bordered header controls (language switcher, menu toggle) share one box so
+   they line up at every breakpoint. Kept in the components layer so display
+   utilities such as xl:hidden still win. */
+@layer controls {
+	.header-control {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		width: 2.75rem;
+		height: 2.75rem;
+		padding: 0;
+		border: 1px solid var(--color-primary);
+		color: var(--color-primary);
+		font-family: var(--font-reading);
+		font-size: 0.8125rem;
+		font-weight: 700;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		transition:
+			background-color 150ms,
+			color 150ms;
+	}
+
+	.header-control:hover {
+		background-color: var(--color-primary);
+		color: black;
+	}
+}
+
+/* Site header: one style on every page (formerly the homepage reading mode). */
+.site-header {
+	--home-rule: rgba(148, 163, 184, 0.34);
+	border-bottom: 1px solid var(--home-rule);
+	background-color: rgba(5, 10, 16, 0.98);
+	box-shadow: none;
+}
+
+.site-header__container {
+	padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+	.site-header__container {
+		padding-inline: 1.5rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.site-header__container {
+		padding-inline: 2rem;
+	}
+}
+
+.site-header__inner {
+	height: 4.75rem;
+}
+
+.site-logo {
+	gap: 0.625rem;
+	min-width: 0;
+}
+
+.site-logo > div {
+	padding: 0.1875rem;
+	border-width: 1px;
+}
+
+.site-logo > div img {
+	width: 3rem;
+	height: 3rem;
+}
+
+.site-nav {
+	gap: 1.5rem;
+}
+
+.site-nav > a,
+.site-nav button {
+	min-height: 2.75rem;
+	font-family: var(--font-reading);
+	font-size: 0.9375rem;
+	font-weight: 600;
+	letter-spacing: normal;
+	text-transform: none;
+	color: var(--color-text-body);
+}
+
+.site-nav > a:hover,
+.site-nav button:hover {
+	color: var(--color-secondary);
+}
+
+.site-nav .dropdown-menu {
+	border-width: 1px;
+	border-color: var(--home-rule);
+	box-shadow: none;
+}
+
+.site-nav .dropdown-menu a {
+	font-family: var(--font-reading);
+	font-size: 0.9375rem;
+	color: var(--color-text-body);
+}
+
+.site-nav .dropdown-menu a:hover,
+.site-mobile-nav a:hover {
+	color: var(--color-primary);
+}
+
+.site-header__controls {
+	gap: 0.75rem;
+}
+
+.site-mobile-nav {
+	border-top: 1px solid var(--home-rule);
+}
+
+.site-mobile-nav a,
+.site-mobile-nav .mobile-nav-trigger {
+	min-height: 2.75rem;
+	padding-block: 0.75rem;
+	font-family: var(--font-reading);
+	font-size: 1rem;
+	color: var(--color-text-body);
+}
+
+.site-mobile-nav .mobile-nav-trigger:hover {
+	color: var(--color-primary);
+}
+
+.site-mobile-nav .mobile-nav-sub a {
+	padding-left: 2rem;
+}
+
+#services {
+	scroll-margin-top: 5rem;
+}
+
+@media (max-width: 360px) {
+	.site-header__container {
+		padding-inline: 0.75rem;
+	}
+}
+
+@media (max-width: 639px) {
+	.site-header__inner {
+		height: 4.5rem;
+	}
+
+	.site-logo > div img {
+		width: 2.5rem;
+		height: 2.5rem;
+	}
+
+	.site-logo {
+		gap: 0.5rem;
+	}
+
+	.site-header__controls {
+		gap: 0.375rem;
+	}
+}
+
+/* Homepage reading mode keeps the site's palette and display face while making
+   navigation, supporting copy, and controls easier to scan. */
+.home-preview {
+	--home-rule: rgba(148, 163, 184, 0.34);
+}
+
+.home-preview .crt-scanlines {
+	display: none;
+}
+
+.home-preview .home-hero {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	background-color: var(--color-background-dark);
+	background-image: url('/images/neon-cafe-workshop.webp');
+	background-position: 68% center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.home-preview .home-hero::before {
+	position: absolute;
+	z-index: 0;
+	inset: 0;
+	background: linear-gradient(
+		90deg,
+		rgba(5, 10, 16, 0.98) 0%,
+		rgba(5, 10, 16, 0.96) 32%,
+		rgba(5, 10, 16, 0.86) 48%,
+		rgba(5, 10, 16, 0.58) 61%,
+		rgba(5, 10, 16, 0.18) 82%,
+		rgba(5, 10, 16, 0.08) 100%
+	);
+	content: '';
+	pointer-events: none;
+}
+
+.home-preview .home-hero .readable-hero {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	min-height: min(52rem, calc(100vh - 4.75rem));
+	align-items: center;
+	background: transparent;
+}
+
+.home-preview .home-hero .readable-hero__content {
+	width: 100%;
+}
+
+.home-preview .home-services {
+	background-color: rgba(5, 10, 16, 0.72);
+}
+
+@media (max-width: 639px) {
+	.home-preview .home-hero {
+		background-position: 78% center;
+	}
+
+	.home-preview .home-hero::before {
+		background: linear-gradient(
+			90deg,
+			rgba(5, 10, 16, 0.98) 0%,
+			rgba(5, 10, 16, 0.94) 48%,
+			rgba(5, 10, 16, 0.86) 74%,
+			rgba(5, 10, 16, 0.66) 100%
+		);
+	}
+}
+
+@media (min-width: 40rem) and (max-width: 63.99rem) {
+	.home-preview .home-hero::before {
+		background: linear-gradient(
+			90deg,
+			rgba(5, 10, 16, 0.98) 0%,
+			rgba(5, 10, 16, 0.96) 50%,
+			rgba(5, 10, 16, 0.86) 74%,
+			rgba(5, 10, 16, 0.68) 100%
+		);
+	}
+}
+
+.home-preview .site-footer a[href^='mailto:'] {
+	color: var(--color-text-body);
+}
+
+.home-preview .site-footer a:hover {
+	color: var(--color-primary);
+}
+
+.home-preview .site-footer {
+	border-top: 1px solid var(--home-rule);
+}
+
+.home-preview .site-footer__description,
+.home-preview .site-footer__links,
+.home-preview .site-footer__links a {
+	font-family: var(--font-reading);
+	font-size: 1rem;
+	line-height: 1.55;
+	color: var(--color-text-body);
+}
+
+.home-preview .site-footer h2 {
+	margin-bottom: 1rem;
+	border-color: var(--home-rule);
+	font-family: var(--font-display);
+	font-size: 1.25rem;
+	font-weight: 400;
+	letter-spacing: normal;
+	text-transform: uppercase;
+}
+
+.home-preview .site-footer__legal {
+	border-color: var(--home-rule);
+	font-family: var(--font-reading);
+	font-size: 0.875rem;
+	line-height: 1.5;
+	color: var(--color-text-body);
+}
+
+.home-preview .home-consent {
+	border-color: var(--home-rule);
+	box-shadow: none;
+}
+
+.home-preview .home-consent:hover {
+	border-color: var(--home-rule);
+	box-shadow: none;
+}
+
+.home-preview .home-consent p {
+	font-family: var(--font-reading);
+	color: var(--color-text-body);
+}
+
+.home-preview .home-consent p:first-child {
+	font-size: 0.875rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: none;
+	color: var(--color-primary);
+}
+
+.home-preview .home-consent button {
+	min-height: 2.75rem;
+	font-family: var(--font-reading);
+	font-size: 0.875rem;
+}

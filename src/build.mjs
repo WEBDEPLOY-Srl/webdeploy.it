@@ -60,7 +60,7 @@ export async function buildSite({ root, output, pages, copy, site }) {
 		const partials = await readPartials(join(root, 'partials'));
 		const docs = new Map();
 		for (const page of pages)
-			docs.set(page.path, await emitPage(page, site, copy, assets, partials, root, stage));
+			docs.set(page.path, await emitPage(page, site, copy, assets, partials, root, stage, pages));
 		await write(join(stage, 'sitemap.xml'), sitemap(pages, site.url));
 		await write(
 			join(stage, '_app/version.json'),

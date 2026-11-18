@@ -21,6 +21,8 @@ path = [
   "src/static/*.svg",
   "src/static/images/*.svg",
   "src/src/lib/assets/favicon.svg",
+  "src/content/en.mjs",
+  "src/content/it.mjs",
   "src/src/lib/i18n/en.ts",
   "src/src/lib/i18n/it.ts",
 ]
@@ -31,6 +33,9 @@ SPDX-License-Identifier = "LicenseRef-WEBDEPLOY-Reserved"
 # Third-party names and logos traced into the source or shipped as images.
 [[annotations]]
 path = [
+  "src/partials/marks/borgwarehouse-com.html",
+  "src/partials/marks/furilabs-com.html",
+  "src/partials/marks/linkding-link.html",
   "src/src/lib/assets/borgwarehouseLogo.ts",
   "src/src/lib/assets/furilabsLogo.ts",
   "src/src/lib/assets/linkdingLogo.ts",
@@ -75,3 +80,48 @@ path = "CODE_OF_CONDUCT.md"
 precedence = "override"
 SPDX-FileCopyrightText = "Contributor Covenant (https://www.contributor-covenant.org)"
 SPDX-License-Identifier = "CC-BY-4.0"
+
+# Locally stored Simple Icons path data from version 16.38.0. Third-party marks retain trademark protection.
+[[annotations]]
+path = [
+  "src/partials/marks/actualbudget-org.html",
+  "src/partials/marks/affine-pro.html",
+  "src/partials/marks/alpinelinux-org.html",
+  "src/partials/marks/archlinux-org.html",
+  "src/partials/marks/borgbackup-org.html",
+  "src/partials/marks/caddyserver-com.html",
+  "src/partials/marks/collaboraonline-com.html",
+  "src/partials/marks/debian-org.html",
+  "src/partials/marks/firefox-com.html",
+  "src/partials/marks/forgejo-org.html",
+  "src/partials/marks/github-com-ansible-ansible.html",
+  "src/partials/marks/github-com-getsentry-sentry.html",
+  "src/partials/marks/github-com-moby-moby.html",
+  "src/partials/marks/grafana-com-oss-grafana.html",
+  "src/partials/marks/jitsi-org-jitsi-meet.html",
+  "src/partials/marks/kde-org-plasma-desktop.html",
+  "src/partials/marks/kernel-org.html",
+  "src/partials/marks/letsencrypt-org.html",
+  "src/partials/marks/libreoffice-org.html",
+  "src/partials/marks/listmonk-app.html",
+  "src/partials/marks/mariadb-org.html",
+  "src/partials/marks/matomo-org.html",
+  "src/partials/marks/matrix-org.html",
+  "src/partials/marks/n8n-io.html",
+  "src/partials/marks/nextcloud-com.html",
+  "src/partials/marks/nginx-org.html",
+  "src/partials/marks/ntfy-sh.html",
+  "src/partials/marks/opentofu-org.html",
+  "src/partials/marks/ory-sh.html",
+  "src/partials/marks/penpot-app.html",
+  "src/partials/marks/postgresql-org.html",
+  "src/partials/marks/prometheus-io.html",
+  "src/partials/marks/temporal-io.html",
+  "src/partials/marks/thunderbird-net.html",
+  "src/partials/marks/trivy-dev.html",
+  "src/partials/marks/wayland-freedesktop-org.html",
+  "src/partials/marks/wireguard-com.html",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "Simple Icons contributors"
+SPDX-License-Identifier = "CC0-1.0"

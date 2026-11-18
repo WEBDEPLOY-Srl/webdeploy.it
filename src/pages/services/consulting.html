@@ -1,0 +1,116 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="services-page">
+	<section class="home-service home-service--art-right" aria-labelledby="consulting-title">
+		<div class="page-container home-service__layout">
+			<div class="home-service__copy">
+				<h1 id="consulting-title">{{services.consulting.title}}</h1>
+				<p class="home-service__subtitle">{{services.consulting.subtitle}}</p>
+				<ul class="section-points">
+					<li>{{services.consulting.items.0}}</li>
+					<li>{{services.consulting.items.1}}</li>
+					<li>{{services.consulting.items.2}}</li>
+					<li>{{services.consulting.items.3}}</li>
+				</ul>
+			</div>
+			<figure class="home-service__art">
+				<div class="home-tools tool-tiles">
+					<p class="tool-tiles__label" id="s1-label">{{services.cards.consulting.toolsLabel}}</p>
+					<ul class="home-tools__grid" aria-labelledby="s1-label">
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.debian.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/debian-org}}</svg>
+								<span>Debian</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://archlinux.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/archlinux-org}}</svg>
+								<span>Arch Linux</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://kde.org/plasma-desktop/"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/kde-org-plasma-desktop}}</svg>
+								<span>KDE Plasma</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.libreoffice.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/libreoffice-org}}</svg>
+								<span>LibreOffice</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.firefox.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/firefox-com}}</svg>
+								<span>Firefox</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.thunderbird.net"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/thunderbird-net}}</svg>
+								<span>Thunderbird</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://nextcloud.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/nextcloud-com}}</svg>
+								<span>Nextcloud</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://forgejo.org"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/forgejo-org}}</svg>
+								<span>Forgejo</span></a
+							>
+						</li>
+						<li>
+							<a
+								class="home-tools__tile"
+								href="https://www.wireguard.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								><svg viewBox="0 0 24 24" aria-hidden="true">{{>marks/wireguard-com}}</svg>
+								<span>WireGuard</span></a
+							>
+						</li>
+					</ul>
+				</div>
+			</figure>
+		</div>
+	</section>
+	{{>contact-band}}
+</div>

@@ -1,0 +1,121 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="ws-demo" role="group" aria-label="{{services.linux.testMachine.demo.label}}">
+	<div class="ws-demo__device">
+		<div class="ws-demo__stage">
+			<div class="ws-screen ws-screen--left" aria-hidden="true">
+				<div class="win">
+					<div class="win__title">Thunderbird</div>
+					<div class="mail">
+						<div class="mail__folders">
+							<span class="active">Inbox</span><span>Sent</span><span>Archive</span>
+						</div>
+						<div class="mail__list">
+							<div class="mail__row unread"><i></i><b></b></div>
+							<div class="mail__row unread"><i></i><b></b></div>
+							<div class="mail__row"><i></i><b></b></div>
+							<div class="mail__row unread"><i></i><b></b></div>
+							<div class="mail__row"><i></i><b></b></div>
+							<div class="mail__row"><i></i><b></b></div>
+							<div class="mail__row unread"><i></i><b></b></div>
+							<div class="mail__row"><i></i><b></b></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ws-screen ws-screen--center" aria-hidden="true">
+				<div class="desk">
+					<div class="panel">
+						<span class="panel__launcher"></span> <span class="panel__task"><i></i></span
+						><span class="panel__task"><i></i></span><span class="panel__task"><i></i></span>
+						<span class="panel__tray"></span>
+					</div>
+				</div>
+			</div>
+			<div class="ws-screen ws-screen--right" aria-hidden="true">
+				<div class="win">
+					<div class="win__title">LibreOffice Calc</div>
+					<div class="sheet">
+						<div class="sheet__row head">
+							<span></span><span></span><span></span><span></span><span></span><span></span>
+						</div>
+						<div class="sheet__row">
+							<span></span><span></span><span class="num">69</span><span class="num">80</span
+							><span class="num">91</span><span class="num">12</span>
+						</div>
+						<div class="sheet__row">
+							<span></span><span></span><span class="num">16</span><span class="num">27</span
+							><span class="num">38</span><span class="num">49</span>
+						</div>
+						<div class="sheet__row">
+							<span></span><span></span><span class="num">53</span><span class="num">64</span
+							><span class="num">75</span><span class="num">86</span>
+						</div>
+						<div class="sheet__row">
+							<span></span><span></span><span class="num">90</span><span class="num">11</span
+							><span class="num">22</span><span class="num">33</span>
+						</div>
+						<div class="sheet__row">
+							<span></span><span></span><span class="num">37</span><span class="num">48</span
+							><span class="num">59</span><span class="num">70</span>
+						</div>
+						<div class="sheet__row">
+							<span></span><span></span><span class="num">74</span><span class="num">85</span
+							><span class="num">96</span><span class="num">17</span>
+						</div>
+						<div class="sheet__row">
+							<span></span><span></span><span class="num">21</span><span class="num">32</span
+							><span class="num">43</span><span class="num">54</span>
+						</div>
+						<div class="sheet__row">
+							<span></span><span></span><span class="num">58</span><span class="num">69</span
+							><span class="num">80</span><span class="num">91</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ws-screen ws-screen--top" aria-hidden="true">
+				<div class="win">
+					<div class="win__title">{{services.linux.testMachine.demo.printQueue}}</div>
+					<div class="queue">
+						<div class="queue__printer">
+							<span class="queue__dot"></span>{{services.linux.inventory.examples.3.item}}
+							<em>{{services.linux.testMachine.demo.ready}}</em>
+						</div>
+						<div class="queue__job">
+							invoice-2026-114.pdf <em>{{services.linux.testMachine.demo.completed}}</em>
+						</div>
+						<div class="queue__job">
+							delivery-note.odt <em>{{services.linux.testMachine.demo.completed}}</em>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<img
+			class="ws-demo__frame"
+			src="/images/linux-workstation-frame-800.webp"
+			srcset="
+				/images/linux-workstation-frame-800.webp  800w,
+				/images/linux-workstation-frame.webp     1113w
+			"
+			sizes="min(34rem, 100vw)"
+			alt="{{services.linux.testMachine.imageAlt}}"
+			width="1113"
+			height="1414"
+			loading="lazy"
+			decoding="async"
+		/>
+	</div>
+	<div
+		class="ws-demo__controls"
+		role="group"
+		aria-label="{{services.linux.testMachine.demo.controls}}"
+	>
+		<button type="button" aria-pressed="false">{{services.linux.testMachine.demo.files}}</button
+		><button type="button" aria-pressed="false">{{services.linux.testMachine.demo.browser}}</button
+		><button type="button" aria-pressed="false">{{services.linux.testMachine.demo.office}}</button>
+		<button type="button">{{services.linux.testMachine.demo.print}}</button>
+	</div>
+	<p class="sr-only" role="status"></p>
+</div>

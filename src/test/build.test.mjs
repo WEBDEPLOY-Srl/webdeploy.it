@@ -33,7 +33,7 @@ const site = {
 };
 /** @type {import('../types.d.ts').SitePage[]} */
 const pages = [
-	{ path: '/', file: 'index.html', title: 'title', description: 'description' },
+	{ path: '/', file: 'index.html', title: 'title', description: 'description', modules: ['shell'] },
 	{ path: '/404', file: '404.html', title: 'title', description: 'description', robots: 'noindex' }
 ];
 

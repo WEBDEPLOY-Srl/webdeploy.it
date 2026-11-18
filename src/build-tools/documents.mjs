@@ -68,7 +68,7 @@ function head(page, site, copy, assets) {
 	tags.push(jsonLd(organization(site)), pageSchema(page, site, title, description));
 	for (const css of ['site', ...(page.styles ?? [])])
 		tags.push(`<link rel="stylesheet" href="${assets.base}/css/${css}.css">`);
-	for (const name of ['shell', ...(page.modules ?? [])]) {
+	for (const name of page.modules ?? []) {
 		if (name === 'shell' || name === 'newsletter')
 			tags.push(`<link rel="modulepreload" href="${assets.base}/js/${name}.mjs">`);
 		tags.push(`<script type="module" src="${assets.base}/js/${name}.mjs"></script>`);
@@ -112,14 +112,46 @@ export function sitemap(pages, url) {
 	);
 }
 
-/** @param {SitePage} page @param {SiteFacts} site @param {Content} copy @param {BuiltAssets} assets @param {Map<string,string>} partials @param {string} source @param {string} stage @returns {Promise<string>} */
-export async function emitPage(page, site, copy, assets, partials, source, stage) {
+/** @param {SitePage[]} pages @param {Content} copy @param {Map<string,string>} partials @returns {string} */
+function newsCards(pages, copy, partials) {
+	const card = partials.get('news-card');
+	if (!card) throw new Error('Missing news-card partial');
+	return pages
+		.filter((page) => page.card)
+		.sort((a, b) => (b.published ?? '').localeCompare(a.published ?? ''))
+		.map((page) => {
+			const fields = page.card;
+			if (!fields) throw new Error('Missing card data: ' + page.path);
+			return render(card, copy, partials, {
+				url: escapeHtml(page.path),
+				title: escapeHtml(stringAt(copy, page.title)),
+				description: escapeHtml(stringAt(copy, fields.description)),
+				image: escapeHtml(fields.image),
+				width: String(fields.width),
+				height: String(fields.height),
+				date: escapeHtml(stringAt(copy, fields.date))
+			});
+		})
+		.join('\n');
+}
+
+/** @param {SitePage} page @param {SiteFacts} site @param {Content} copy @param {BuiltAssets} assets @param {Map<string,string>} partials @param {string} source @param {string} stage @param {SitePage[]} pages @returns {Promise<string>} */
+export async function emitPage(page, site, copy, assets, partials, source, stage, pages) {
 	const shell = partials.get('shell');
 	if (!shell) throw new Error('Missing partial: shell');
 	const template = await readFile(within(join(source, 'pages'), page.file), 'utf8');
 	const slots = {
 		head: head(page, site, copy, assets),
+		newsCards: template.includes('{{@newsCards}}') ? newsCards(pages, copy, partials) : '',
 		assetBase: assets.base,
+		email: escapeHtml(site.contact.email),
+		careersEmail: escapeHtml(site.contact.careersEmail),
+		phoneHref: escapeHtml(site.contact.phone.href),
+		phoneDisplay: escapeHtml(site.contact.phone.display),
+		office: escapeHtml(
+			[site.address.locality, site.address.street, site.address.postalCode].join(', ')
+		),
+		sourceUrl: escapeHtml(site.sourceUrl),
 		shellClass:
 			page.path === '/' ? 'home-preview' : page.path === '/newsletter' ? 'newsletterLanding' : '',
 		body: ''

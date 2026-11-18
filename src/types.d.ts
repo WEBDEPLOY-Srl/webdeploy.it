@@ -16,6 +16,7 @@ export interface SitePage {
 	styles?: string[];
 	modules?: string[];
 	preloadImage?: string;
+	card?: { date: string; description: string; image: string; width: number; height: number };
 }
 
 export interface BuiltAssets {
@@ -48,4 +49,5 @@ export interface SiteFacts {
 	};
 	services: readonly string[];
 	areaServed: string;
+	analytics?: { matomo: { url: string; siteId: string }; metaPixelId: string };
 }

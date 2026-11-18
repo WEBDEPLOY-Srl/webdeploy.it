@@ -1,0 +1,80 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<header class="site-header">
+	<div class="site-header__container">
+		<div class="site-header__inner">
+			<a href="/" class="site-logo"
+				><div class="site-logo__frame">
+					<img
+						src="/webdeploy-icon.png"
+						alt="WEBDEPLOY"
+						width="48"
+						height="48"
+						class="site-logo__image"
+					/></div
+			></a>
+			<nav class="site-nav" aria-label="{{nav.mainNavigation}}">
+				<div role="presentation" class="dropdown-container">
+					<button
+						class="site-nav__trigger"
+						aria-expanded="false"
+						aria-haspopup="true"
+						aria-controls="products-menu"
+					>
+						{{nav.products}}
+						<span class="pixel-icon pixel-icon-chevron-down" aria-hidden="true"></span>
+					</button>
+					<div
+						id="products-menu"
+						role="menu"
+						aria-label="{{nav.productsSubmenu}}"
+						class="dropdown-menu products-dropdown"
+					>
+						<a href="/totem" role="menuitem" class="site-nav__option">{{nav.kiosk}}</a>
+					</div>
+				</div>
+				<a href="/news" class="site-nav__link">{{nav.news}}</a>
+				<div role="presentation" class="dropdown-container">
+					<button
+						class="site-nav__trigger"
+						aria-expanded="false"
+						aria-haspopup="true"
+						aria-controls="services-menu"
+					>
+						{{nav.services}}
+						<span class="pixel-icon pixel-icon-chevron-down" aria-hidden="true"></span>
+					</button>
+					<div
+						id="services-menu"
+						role="menu"
+						aria-label="{{nav.servicesSubmenu}}"
+						class="dropdown-menu services-dropdown"
+					>
+						<a href="https://inwd.org" role="menuitem" class="site-nav__option"
+							>{{nav.managedInfra}} <span aria-hidden="true"> ↗</span></a
+						>
+						<a href="/services/linux-workstations" role="menuitem" class="site-nav__option"
+							>{{nav.linuxMigration}}</a
+						>
+						<a href="/services/backup" role="menuitem" class="site-nav__option">{{nav.backup}}</a>
+						<a href="/services/consulting" role="menuitem" class="site-nav__option"
+							>{{nav.consulting}}</a
+						>
+					</div>
+				</div>
+				<a href="/developer-manifesto" class="site-nav__link">{{nav.manifesto}}</a>
+				<a href="/contacts" class="site-nav__link">{{nav.contacts}}</a>
+			</nav>
+			<div class="site-header__controls">
+				<button
+					class="site-menu-toggle header-control"
+					aria-label="{{nav.openMenu}}"
+					aria-expanded="false"
+					aria-controls="mobile-menu"
+				>
+					<span class="pixel-icon pixel-icon-menu" aria-hidden="true"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+</header>

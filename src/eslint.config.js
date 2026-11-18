@@ -16,7 +16,16 @@ if (!loadedSvelteConfig || !('config' in loadedSvelteConfig)) {
 const svelteConfig = loadedSvelteConfig.config;
 
 export default defineConfig(
-	globalIgnores(['build/', '.svelte-kit/', 'node_modules/', 'test-results/', 'playwright-report/']),
+	globalIgnores([
+		'build/',
+		'vanilla-build/',
+		'.vanilla-build-generations/',
+		'.build-generations/',
+		'.svelte-kit/',
+		'node_modules/',
+		'test-results/',
+		'playwright-report/'
+	]),
 	js.configs.recommended,
 	ts.configs.recommended,
 	svelte.configs.recommended,

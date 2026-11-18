@@ -26,3 +26,7 @@ vite.config.ts.timestamp-*
 /test-results
 /playwright-report
 /csp-pages.map
+
+vanilla-build/
+.vanilla-build-generations/
+.build-generations/

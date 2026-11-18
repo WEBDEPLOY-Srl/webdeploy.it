@@ -1,0 +1,61 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<footer class="site-footer">
+	<div class="site-footer__container">
+		<div class="site-footer__content">
+			<div class="site-footer__brand">
+				<p class="site-footer__wordmark">WEBDEPLOY™</p>
+				<p class="site-footer__description">
+					<span aria-hidden="true">//</span> {{footer.tagline}}<br />
+					<span aria-hidden="true">&gt;</span> {{footer.description}}
+				</p>
+				<a href="mailto:{{@email}}" class="site-footer__email">{{@email}}</a>
+			</div>
+			<div>
+				<h2 class="site-footer__heading">{{footer.product}}</h2>
+				<ul class="site-footer__links">
+					<li><a href="/totem" class="site-footer__link">{{nav.kiosk}}</a></li>
+					<li>
+						<a href="/services/linux-workstations" class="site-footer__link"
+							>{{nav.linuxMigration}}</a
+						>
+					</li>
+					<li><a href="/services/backup" class="site-footer__link">{{nav.backup}}</a></li>
+					<li><a href="/services/consulting" class="site-footer__link">{{nav.consulting}}</a></li>
+					<li><a href="/news" class="site-footer__link">{{nav.news}}</a></li>
+				</ul>
+			</div>
+			<div>
+				<h2 class="site-footer__heading">{{footer.resources}}</h2>
+				<ul class="site-footer__links">
+					<li><a href="/newsletter" class="site-footer__link">{{footer.newsletter}}</a></li>
+					<li><a href="/developer-manifesto" class="site-footer__link">{{nav.manifesto}}</a></li>
+					<li>
+						<a href="{{@sourceUrl}}" rel="noopener" class="site-footer__link">{{footer.source}}</a>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<h2 class="site-footer__heading">{{footer.company}}</h2>
+				<ul class="site-footer__links">
+					<li><a href="/contacts" class="site-footer__link">{{nav.contacts}}</a></li>
+					<li>
+						<a href="mailto:{{@careersEmail}}" class="site-footer__link">{{footer.careers}}</a>
+					</li>
+					<li><a href="/privacy" class="site-footer__link">{{footer.privacy}}</a></li>
+					<li><a href="/security" class="site-footer__link">{{footer.security}}</a></li>
+					<li>
+						<button type="button" class="site-footer__settings">{{footer.cookieSettings}}</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="site-footer__legal">
+			<p>{{footer.registeredOffice}}: {{@office}}</p>
+			<p>PEC: legal@pec.webdeploy.it | P.IVA: IT02993340344 | SDI: 3RQHC04 | REA: PR-283022</p>
+			<p>{{footer.shareCapital}}</p>
+			<p>{{footer.copyright}}</p>
+			<p>{{footer.trademarks}}</p>
+		</div>
+	</div>
+</footer>
