@@ -376,4 +376,15 @@ test('privacy notice reflects live newsletter retention, links and per-visit ana
 	await expect(page.locator('body')).not.toContainText(
 		'We only collect anonymous, aggregated data'
 	);
+	await expect(notice).toContainText('legal@pec.webdeploy.it');
+	await expect(notice).toContainText('EU-US Data Privacy Framework');
+	await expect(page.locator('body')).toContainText('does not use it for retargeting');
+	for (const placeholder of [
+		'counsel',
+		'to be confirmed',
+		'Draft for review',
+		'not been approved'
+	]) {
+		await expect(page.locator('body')).not.toContainText(placeholder);
+	}
 });

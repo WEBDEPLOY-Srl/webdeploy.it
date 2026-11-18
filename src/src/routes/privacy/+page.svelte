@@ -89,9 +89,6 @@
 				<h2 id="newsletter-privacy-title" class="text-2xl font-display uppercase text-primary mb-3">
 					{t('privacy.newsletterTitle')}
 				</h2>
-				<p class="mb-5 border-l-4 border-secondary pl-4 text-sm font-mono text-secondary">
-					{t('privacy.newsletterDraft')}
-				</p>
 				<ol class="list-decimal space-y-4 pl-6 text-slate-400 leading-relaxed">
 					{#each tObj<string[]>('privacy.newsletterItems') ?? [] as item}
 						<li>{item}</li>
