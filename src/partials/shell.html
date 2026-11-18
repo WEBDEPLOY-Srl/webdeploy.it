@@ -24,13 +24,18 @@
 		/>
 		{{@head}}
 	</head>
-	<body>
+	<body
+		data-matomo-url="{{@matomoUrl}}"
+		data-matomo-site="{{@matomoSite}}"
+		data-pixel-id="{{@pixelId}}"
+	>
 		<div class="site-shell {{@shellClass}}">
 			<a href="#main-content" class="skip-link">{{common.skipToContent}}</a>
 			<div class="crt-scanlines" aria-hidden="true"></div>
 			{{>header}}
 			<main id="main-content" class="site-main" tabindex="-1">{{@body}}</main>
 			{{>footer}}
+			<template id="consent-template">{{>consent}}</template>
 		</div>
 	</body>
 </html>

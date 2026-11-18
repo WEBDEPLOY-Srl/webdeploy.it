@@ -84,6 +84,7 @@ export const pages = [
 	},
 	{
 		path: '/privacy',
+		modules: ['opt-out'],
 		file: 'privacy.html',
 		title: 'privacy.title',
 		description: 'privacy.intro'

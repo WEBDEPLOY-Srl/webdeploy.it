@@ -83,7 +83,11 @@ export async function emitAssets(root, stage) {
 		const links = css
 			? /url\(\s*['"]?([^'"\s)]+)/g
 			: /(?:^\s*(?:import|export)\s+(?:[^'"\n;]*?\bfrom\s*)?|\bimport\(\s*|\bnew URL\(\s*)['"](\.[^'"]+)['"]/gm;
-		for (const match of bytes.toString().matchAll(links)) {
+		// JSDoc imports reference development declarations and do not run in the browser.
+		const source = css
+			? bytes.toString()
+			: bytes.toString().replace(/\/\*[\s\S]*?\*\/|^\s*\/\/[^\n]*/gm, '');
+		for (const match of source.matchAll(links)) {
 			if (match[1].startsWith('#') || match[1].startsWith('data:')) continue;
 			const url = new URL(match[1], 'https://assets.invalid' + base + '/' + name);
 			if (url.origin === 'https://assets.invalid' && !emitted.has(url.pathname))

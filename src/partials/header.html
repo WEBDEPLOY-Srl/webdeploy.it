@@ -69,6 +69,8 @@
 				<button
 					class="site-menu-toggle header-control"
 					aria-label="{{nav.openMenu}}"
+					data-open-label="{{nav.openMenu}}"
+					data-close-label="{{nav.closeMenu}}"
 					aria-expanded="false"
 					aria-controls="mobile-menu"
 				>
@@ -77,4 +79,17 @@
 			</div>
 		</div>
 	</div>
+	<template id="mobile-navigation-template">{{>mobile-menu}}</template>
+	<noscript>
+		<nav class="fallback-nav" aria-label="{{nav.mainNavigation}}">
+			<a href="/totem">{{nav.kiosk}}</a>
+			<a href="/news">{{nav.news}}</a>
+			<a href="https://inwd.org">{{nav.managedInfra}}</a>
+			<a href="/services/linux-workstations">{{nav.linuxMigration}}</a>
+			<a href="/services/backup">{{nav.backup}}</a>
+			<a href="/services/consulting">{{nav.consulting}}</a>
+			<a href="/developer-manifesto">{{nav.manifesto}}</a>
+			<a href="/contacts">{{nav.contacts}}</a>
+		</nav>
+	</noscript>
 </header>

@@ -68,7 +68,7 @@ function head(page, site, copy, assets) {
 	tags.push(jsonLd(organization(site)), pageSchema(page, site, title, description));
 	for (const css of ['site', ...(page.styles ?? [])])
 		tags.push(`<link rel="stylesheet" href="${assets.base}/css/${css}.css">`);
-	for (const name of page.modules ?? []) {
+	for (const name of new Set(['shell', ...(page.modules ?? [])])) {
 		if (name === 'shell' || name === 'newsletter')
 			tags.push(`<link rel="modulepreload" href="${assets.base}/js/${name}.mjs">`);
 		tags.push(`<script type="module" src="${assets.base}/js/${name}.mjs"></script>`);
@@ -112,6 +112,19 @@ export function sitemap(pages, url) {
 	);
 }
 
+/** @param {string} text @returns {string} */
+function privacyLink(text) {
+	const match = /^([^<>]*)<a href="\/privacy"(?: class="[^"]*")?>([^<>]+)<\/a>([^<>]*)$/.exec(text);
+	if (!match) throw new Error('Expected the privacy notice link in consent.body');
+	return (
+		escapeHtml(match[1]) +
+		'<a href="/privacy" class="prose-link">' +
+		escapeHtml(match[2]) +
+		'</a>' +
+		escapeHtml(match[3])
+	);
+}
+
 /** @param {SitePage[]} pages @param {Content} copy @param {Map<string,string>} partials @returns {string} */
 function newsCards(pages, copy, partials) {
 	const card = partials.get('news-card');
@@ -144,6 +157,10 @@ export async function emitPage(page, site, copy, assets, partials, source, stage
 		head: head(page, site, copy, assets),
 		newsCards: template.includes('{{@newsCards}}') ? newsCards(pages, copy, partials) : '',
 		assetBase: assets.base,
+		matomoUrl: escapeHtml(site.analytics?.matomo.url ?? ''),
+		matomoSite: escapeHtml(site.analytics?.matomo.siteId ?? ''),
+		pixelId: escapeHtml(site.analytics?.metaPixelId ?? ''),
+		consentBody: partials.has('consent') ? privacyLink(stringAt(copy, 'consent.body')) : '',
 		email: escapeHtml(site.contact.email),
 		careersEmail: escapeHtml(site.contact.careersEmail),
 		phoneHref: escapeHtml(site.contact.phone.href),

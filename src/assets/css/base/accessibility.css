@@ -73,3 +73,14 @@
 	white-space: nowrap;
 	border: 0;
 }
+
+.fallback-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	padding: 1rem;
+}
+.opt-out-error {
+	color: oklch(63.7% 0.237 25.331);
+	font-weight: bold;
+}

@@ -51,3 +51,33 @@ export interface SiteFacts {
 	areaServed: string;
 	analytics?: { matomo: { url: string; siteId: string }; metaPixelId: string };
 }
+
+export type ConsentChoice = 'granted' | 'denied';
+export type AnalyticsCommand = Array<string | number | boolean>;
+export interface MetaPixel {
+	(...args: unknown[]): void;
+	callMethod?: (...args: unknown[]) => void;
+	queue: unknown[][];
+	push: (...args: unknown[]) => void;
+	loaded: boolean;
+	version: string;
+}
+export interface OptOutEnvironment {
+	cookies: { read(): string; write(value: string): void };
+	cookiesEnabled: boolean;
+	isHttps: boolean;
+	now(): number;
+}
+export interface MatomoOptOut {
+	problem(): 'noCookies' | 'notHttps' | null;
+	hasConsent(): boolean;
+	giveConsent(): boolean;
+	revokeConsent(): boolean;
+}
+declare global {
+	interface Window {
+		_paq?: AnalyticsCommand[];
+		fbq?: MetaPixel;
+		_fbq?: MetaPixel;
+	}
+}

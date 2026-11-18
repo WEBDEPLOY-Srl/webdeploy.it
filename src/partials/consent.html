@@ -1,15 +1,15 @@
 <!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
-<aside aria-labelledby="consent-title" tabindex="-1">
+<aside class="cookie-banner" aria-labelledby="consent-title" tabindex="-1">
 	<div class="consent-panel">
 		<h2 id="consent-title" class="sr-only">{{consent.title}}</h2>
-		<p class="consent-copy">
-			Matomo is cookieless. Meta ads use cookies only if you accept. Read our
-			<a href="/privacy" class="prose-link">privacy notice</a>.
-		</p>
+		<p class="consent-copy">{{@consentBody}}</p>
 		<div class="consent-actions">
-			<button type="button" class="consent-button">{{consent.reject}}</button>
-			<button type="button" class="consent-button">{{consent.accept}}</button>
+			<button type="button" class="consent-button" data-choice="close" hidden>
+				{{consent.close}}
+			</button>
+			<button type="button" class="consent-button" data-choice="denied">{{consent.reject}}</button>
+			<button type="button" class="consent-button" data-choice="granted">{{consent.accept}}</button>
 		</div>
 	</div>
 </aside>
