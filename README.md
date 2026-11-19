@@ -70,7 +70,14 @@ From `src/` run `npm ci --include=dev` for development checks. `npm run lint` ch
 syntax, `npm run typecheck` runs strict TypeScript checking of JSDoc, and `npm run check` runs both.
 Run `npm run test:unit`, `npm run build` and `npm audit --audit-level=high`. With the nginx image
 running, `E2E_BASE_URL=http://127.0.0.1:18080 npm run test:e2e` runs the complete browser suite.
-Read [CONTRIBUTING.md](./CONTRIBUTING.md) for authoring and verification conventions.
+The [manual Lighthouse release gate](./CONTRIBUTING.md#lighthouse-production-gate) measures all
+15 designs on mobile and desktop twice. Each cell requires a quiet workstation. Runtime errors and
+measurements with a benchmark below 1000 are recorded and retried under a bounded policy.
+A valid score stays in the result. On 2026-11-20 the owner accepted Performance 99 when the only
+lost points are for total blocking time or largest contentful paint and the report attributes
+a majority of blocking to the real Matomo tracker. Four mobile measurements met that condition.
+The release table shows the raw score and credited milliseconds for each exception. `--strict`
+requires four raw 100s. Woodpecker runs the independent functional checks on each push.
 
 ## Browsers and language
 

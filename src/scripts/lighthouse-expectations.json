@@ -1,0 +1,24 @@
+{
+	"performance99": {
+		"audits": ["total-blocking-time", "largest-contentful-paint"],
+		"trackerScript": "https://analytics.inwd.org/matomo.js",
+		"collectionEndpoint": "https://analytics.inwd.org/matomo.php",
+		"profiledCaller": "/assets/build/f75dac30546b32f6/js/matomo.mjs",
+		"callerProfile": "verification-318d2863e54b/analytics-command-timing.json",
+		"decisionDate": "2026-11-20"
+	},
+	"pages": {
+		"/newsletter/confirmed": {
+			"seo": ["is-crawlable"]
+		},
+		"/__quality-check__/missing-page": {
+			"seo": ["http-status-code", "is-crawlable"],
+			"mainDocument404": {
+				"audit": "errors-in-console",
+				"source": "network",
+				"description": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+				"evidence": "61a1ca6b191dd1f3a05f10ffb12485db366798e7/2026-11-19T16-51-56.800Z/mobile/404.json"
+			}
+		}
+	}
+}

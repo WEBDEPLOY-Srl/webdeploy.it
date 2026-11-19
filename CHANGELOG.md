@@ -14,6 +14,7 @@ The next site version is **2.0.0**. The public routes, English content and newsl
 - Newsletter submission and confirmation events, with the Meta `Lead` event gated on accepted marketing cookies and limited to `content_name: newsletter`.
 - The approved newsletter privacy notice at `/privacy#newsletter` and newsletter links from the footer, news pages and contacts page.
 - Browser screenshot comparisons cover all 15 page designs and the interactive states of the newsletter, navigation, demos and consent banner.
+- The manual production Lighthouse release gate records two mobile and desktop matrices, quiet-host qualifications and every measurement attempt. It reports the by-design 404 and noindex exceptions and accepts a raw Performance 99 only with per-page evidence of Matomo-dominated blocking. Strict mode retains every raw score.
 
 ### Changed
 - The website now builds offline with Node built-ins from HTML templates, native CSS and browser ES modules. Shared JS/CSS assets use a build ID and in-page media and fonts use content hashes. Stable public media and social preview URLs remain available.

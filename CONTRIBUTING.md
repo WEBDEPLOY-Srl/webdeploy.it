@@ -102,3 +102,114 @@ transparent and so that forks can keep to the same style.
 The code is licensed under the GNU Affero General Public License v3.0 only. The WEBDEPLOY and inWD names
 and logos, photographs, customer imagery and written content are © WEBDEPLOY S.R.L., all rights reserved.
 See the licence section of the [README](./README.md#license).
+
+## Lighthouse production gate
+
+Run the manual release gate against the production nginx image on loopback as described in
+the README. Lighthouse uses Chromium. The Firefox and Chromium interaction tests remain a
+separate gate. The ordinary measurement starts with undecided consent and fetches the same
+resources as a first-time visitor, including cookieless Matomo and map tiles when needed.
+
+The release command performs two independent matrices and writes both expectation-aware and
+strict results for each. This is a manual release check on the production image. The per-push
+Woodpecker pipeline continues to verify building, licensing, types, dependencies and real browsers.
+
+The CLI is pinned to Lighthouse 13.6.0 in an external npm project. Its `package.json` and
+`package-lock.json` are stored in `~/work/webdeploy-oss/lighthouse/runner/`. Install it with
+`npm ci --prefix "$HOME/work/webdeploy-oss/lighthouse/runner" --ignore-scripts`. For a new
+workstation, copy those two records from the verified runner first. The archived runner lock
+has SHA-256 `6a0c4d525a5b555e08ea814a10413f0de3aa962178faf913b9f595bdd61fd67b`. The website's
+npm lock remains independent.
+
+Use Chrome for Testing 157.0.8103.78, the full-browser revision declared by the runner's
+locked Puppeteer 25.18.1. The initial Playwright Chromium 159.0.8154.6 pairing intermittently
+omitted the navigation trace; those unscorable reports are preserved. Install the exact
+browser into the same external evidence directory. The measured Linux binary has SHA-256
+`f60cb86024464df9740504a1584b605c2b3cf107625ff11e1da22c875c1627e8`:
+
+```sh
+quality_dir="$HOME/work/webdeploy-oss/lighthouse"
+node "$quality_dir/runner/node_modules/@puppeteer/browsers/lib/main-cli.js" install \
+  chrome@157.0.8103.78 --platform linux --path "$quality_dir/chrome-for-testing"
+```
+
+From the repository root, with the candidate already served at `http://127.0.0.1:18080`, run:
+
+```sh
+quality_dir="$HOME/work/webdeploy-oss/lighthouse"
+quality_image="mcr.microsoft.com/playwright:v1.65.1-noble@sha256:1507cbfc550a63a6b7396791ca4f00df17beb56342d2447b3f106c306f525579"
+docker run --rm --network=host --cap-drop=ALL --security-opt=no-new-privileges \
+  --user "$(id -u):$(id -g)" --shm-size=1g \
+  --mount "type=bind,source=$PWD/src,target=/repo/src,readonly" \
+  --mount "type=bind,source=$quality_dir,target=/reports" \
+  --mount "type=bind,source=$quality_dir/runner,target=/reports/runner,readonly" \
+  --mount "type=bind,source=$quality_dir/chrome-for-testing,target=/reports/chrome-for-testing,readonly" \
+  --workdir /repo/src -e LIGHTHOUSE_CONTAINER=1 \
+  -e QUALITY_BROWSER_IMAGE="$quality_image" \
+  -e CHROME_PATH=/reports/chrome-for-testing/chrome/linux-157.0.8103.78/chrome-linux64/chrome \
+  "$quality_image" node scripts/lighthouse.mjs --gate --runs=2 \
+    --base-url http://127.0.0.1:18080 --output /reports --runner /reports/runner \
+    --commit "$(git rev-parse HEAD)"
+```
+
+The pair shares a bounded quiet-wait budget of four hours (14,400 seconds). It first requires
+one minute with load below 3 and CPU idle above 70%. Before **each attempt** it requires 20
+continuous seconds with the same limits. Linux idle ticks exclude I/O wait. Five-second samples
+are saved. If the budget expires the gate fails and reports which measurements are unavailable.
+
+Every attempt starts a new Chromium profile. A Lighthouse runtime error such as `NO_NAVSTART`,
+an unreadable report or another unscorable navigation can have two retries. A benchmark index
+below 1000 marks an attempt **host-degraded**, even if it reported a 100. It gets one separate
+quiet remeasurement. A second degraded measurement fails the cell. The first qualified numerical
+result is final, including scores below 100. The ordinary 404 navigation's expected
+`ERRORED_DOCUMENT_REQUEST` is retained as evidence before the scored 404 collection.
+
+Each run contains `attempts.md` and per-attempt raw JSON, logs, quiet intervals, host load,
+idle percentage and benchmark index under `attempts/{mobile,desktop}/<page>/`. The canonical
+`mobile/` and `desktop/` reports link to the selected attempt. For a failed cell the ledger
+identifies the unusable attempt. Each accepted report has a corresponding `conditions/` record.
+The two-run receipt is under `releases/<start-time>/release.json`.
+
+The driver checks the served sitemap against the route inventory, verifies the index policy
+and HTTP status of every target, and generates a cold mobile and desktop report for each of
+the 15 page designs. It starts a fresh Chromium process for every measurement and keeps default
+network/CPU throttling. The real 404 additionally gets an ordinary navigation report before
+the supplementary `--ignore-status-code` run gathers the remaining categories on that same
+error response. The release gate requires both full matrices to pass. For an uncommitted
+image, pass `--working-tree` with its full `QUALITY_IMAGE_ID`. Diagnostic results are then grouped
+by image under `working-tree/`; the recorded Git revision is the base of that work.
+
+Read the raw LHR files under `<commit>/<run-id>/{mobile,desktop}/` and the adjacent manifest and
+gate table. `src/scripts/lighthouse-expectations.json` lists the noindex and HTTP 404 SEO
+expectations. The 404 may also produce one network console entry with the exact message and URL
+of the missing main document. Every other console error fails.
+
+On 2026-11-20 the owner accepted an exact raw Performance 99 when the only failing weighted
+audits are `total-blocking-time` or `largest-contentful-paint` and the tracker at
+`https://analytics.inwd.org/matomo.js` accounts for a majority of total blocking time (TBT).
+The category scores and established exceptions for other categories are evaluated independently.
+The original two production matrices contained four such mobile cells on the confirmation,
+privacy, security and backup pages. All four lost points solely on TBT.
+
+For each 99 the gate checks successful script and collection requests, positive tracker CPU
+in both `bootup-time` and `third-parties-insight`, and the complete `long-tasks` debug ledger.
+It clips each task to the first-contentful-paint to interactive interval and counts time above
+50 ms. The sum must reproduce the raw TBT within 1 ms. Unknown scripts and unattributed tasks
+count towards the denominator. The credited share must exceed half of both the reconstructed
+and reported totals. A failing LCP additionally needs a credited task blocking at paint.
+
+The hosted script receives direct credit. The one same-origin adapter identified by the build
+path in the expectation can receive partial credit only when its script and scripting CPU appear
+in the same report and its task immediately follows the tracker's task (within 0.2 ms of the
+rounded boundary). In a separate fourfold-CPU profile, the synchronous `trackPageView` call
+took 33.3 ms and all other measured calls took 1.9 ms. The gate credits at most half the
+adapter's blocking, capped at the directly attributed tracker time. A new build path receives
+direct tracker credit only until its adapter is profiled. The external evidence root contains
+the profile referenced in the expectation and a per-cell breakdown in `gate.json`.
+
+`--strict` requires all four raw 100s on every page. Both modes exit nonzero on uncovered
+failures. To apply either mode to existing reports without launching a browser, pass `--read-run`.
+
+```sh
+node src/scripts/lighthouse.mjs --strict --read-run "$quality_dir/<commit>/<run-id>"
+```

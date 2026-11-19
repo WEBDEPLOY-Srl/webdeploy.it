@@ -8,7 +8,7 @@ import { files } from './files.mjs';
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const sources = ['build.mjs', 'playwright.config.mjs'];
-for (const dir of ['build-tools', 'content', 'data', 'assets/js', 'e2e', 'test', 'parity']) {
+for (const dir of ['build-tools', 'scripts', 'content', 'data', 'assets/js', 'e2e', 'test', 'parity']) {
 	for (const file of await files(join(root, dir)))
 		if (file.endsWith('.mjs')) sources.push(join(dir, file));
 }
