@@ -18,7 +18,7 @@ export function initializeNavigation() {
 	for (const button of buttons) {
 		const group = button.parentElement;
 		if (!group) continue;
-		const items = Array.from(group.querySelectorAll('a[role="menuitem"]')).filter(
+		const items = Array.from(group.querySelectorAll('.dropdown-menu a[href]')).filter(
 			(a) => a instanceof HTMLAnchorElement
 		);
 		group.addEventListener('pointerenter', (event) => {
@@ -59,22 +59,42 @@ export function initializeNavigation() {
 	const toggle = element(header, '.site-menu-toggle', HTMLButtonElement);
 	const mobile = element(header, '#mobile-navigation-template', HTMLTemplateElement);
 	const icon = element(toggle, '.pixel-icon', HTMLElement);
-	function closeMobile() {
-		header.querySelector('#mobile-menu')?.remove();
+	const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+	/** @param {boolean} [animate] */
+	function closeMobile(animate = false) {
+		const nav = header.querySelector('#mobile-menu');
+		if (nav instanceof HTMLElement) {
+			const height = nav.getBoundingClientRect().height;
+			for (const animation of nav.getAnimations()) animation.cancel();
+			nav.inert = true;
+			if (animate && motion.matches && height > 0) {
+				const slide = nav.animate([{ height: height + 'px' }, { height: '0px' }], {
+					duration: 250, easing: 'ease-out'
+				});
+				slide.onfinish = () => nav.remove();
+			} else nav.remove();
+		}
 		toggle.setAttribute('aria-expanded', 'false');
 		toggle.setAttribute('aria-label', toggle.dataset.openLabel ?? '');
 		icon.classList.replace('pixel-icon-close', 'pixel-icon-menu');
 	}
 	toggle.addEventListener('click', () => {
-		if (header.querySelector('#mobile-menu')) {
-			closeMobile();
+		if (toggle.getAttribute('aria-expanded') === 'true') {
+			closeMobile(true);
 			return;
 		}
+		// A rapid reopen supersedes a closing animation.
+		closeMobile();
 		header.append(mobile.content.cloneNode(true));
 		toggle.setAttribute('aria-expanded', 'true');
 		toggle.setAttribute('aria-label', toggle.dataset.closeLabel ?? '');
 		icon.classList.replace('pixel-icon-menu', 'pixel-icon-close');
 		const nav = element(header, '#mobile-menu', HTMLElement);
+		if (motion.matches) {
+			nav.animate([{ height: '0px' }, { height: nav.offsetHeight + 'px' }], {
+				duration: 250, easing: 'ease-out'
+			});
+		}
 		const trigger = element(nav, '.mobile-nav-trigger', HTMLButtonElement);
 		const services = element(nav, '#mobile-services-menu', HTMLElement);
 		trigger.addEventListener('click', () => {
@@ -83,7 +103,7 @@ export function initializeNavigation() {
 		});
 		nav.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
-				closeMobile();
+				closeMobile(true);
 				toggle.focus();
 			}
 		});

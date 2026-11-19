@@ -7,9 +7,15 @@
 .contact-map__canvas,
 .share-controls button,
 .ws-demo__controls,
+.kiosk-demo__tiles,
+.kiosk-demo__prompt,
 .kiosk-demo__switch {
 	display: none;
 }
 .contact-map {
 	display: none;
+}
+
+.site-header {
+	position: relative;
 }

@@ -21,8 +21,10 @@ export function initializeConsent() {
 	let previous = marketingChoice();
 	const observer = new ResizeObserver(measure);
 	function measure() {
-		if (banner.isConnected)
-			reservation.style.height = Math.ceil(banner.getBoundingClientRect().height) + 'px';
+		if (!banner.isConnected) return;
+		const height = Math.ceil(banner.getBoundingClientRect().height) + 'px';
+		reservation.style.height = height;
+		document.documentElement.style.setProperty('--consent-height', height);
 	}
 	function focusState() {
 		const hidden =
@@ -45,6 +47,7 @@ export function initializeConsent() {
 			observer.disconnect();
 			banner.remove();
 			reservation.remove();
+			document.documentElement.style.removeProperty('--consent-height');
 		}
 	}
 	function dismiss() {

@@ -11,7 +11,7 @@
 			<div class="kiosk-demo__app">
 				<div class="kiosk-demo__status"><span>{{totem.demo.brand}}</span> <span></span></div>
 				<div class="kiosk-demo__body">
-					<p class="kiosk-demo__title">{{totem.demo.welcome}}</p>
+					<h2 class="kiosk-demo__title">{{totem.demo.welcome}}</h2>
 					<p class="kiosk-demo__prompt">{{totem.demo.prompt}}</p>
 					<div class="kiosk-demo__tiles">
 						<button type="button" class="kiosk-demo__tile" data-view="hours">
@@ -43,6 +43,7 @@
 			<button type="button" data-mode="inwd" aria-pressed="true">{{totem.demo.inwd}}</button>
 		</div>
 	</div>
+	<span class="sr-only kiosk-demo__announcement" role="status"></span>
 	<p class="kiosk-demo__caption">{{totem.demo.caption}}</p>
 
 	<template data-panel="hours">{{>kiosk-hours}}</template>

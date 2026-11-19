@@ -1,6 +1,18 @@
 /* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
  * SPDX-License-Identifier: AGPL-3.0-only
  */
+html {
+	scroll-padding-bottom: var(--consent-height, 0px);
+}
+
+.consent-heading {
+	position: absolute;
+	inline-size: 1px;
+	block-size: 1px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
 .cookie-banner {
 	position: fixed;
 	z-index: 50;

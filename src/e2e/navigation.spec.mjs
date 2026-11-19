@@ -5,7 +5,7 @@ import { expect, test } from './fixtures.mjs';
 test.beforeEach(async ({ page }) => {
 	await page.addInitScript(() => localStorage.setItem('wd_consent_marketing', 'denied'));
 });
-test.describe('desktop menus by keyboard', () => {
+test.describe('desktop disclosure navigation by keyboard', () => {
 	test.use({ viewport: { width: 1440, height: 900 } });
 	for (const [name, controls, items] of /** @type {const} */ ([
 		['Products', 'products-menu', 1],
@@ -15,7 +15,7 @@ test.describe('desktop menus by keyboard', () => {
 			void traffic;
 			await page.goto('/');
 			const trigger = page.locator(`button[aria-controls="${controls}"]`);
-			const menuItems = page.locator(`#${controls} [role="menuitem"]`);
+			const menuItems = page.locator(`#${controls} a[href]`);
 			await expect(menuItems).toHaveCount(items);
 			await expect(trigger).toHaveAttribute('aria-expanded', 'false');
 			// ArrowDown on the trigger opens the menu and lands on the first item.
@@ -35,6 +35,19 @@ test.describe('desktop menus by keyboard', () => {
 			await expect(trigger).toBeFocused();
 		});
 	}
+	test('disclosure buttons reveal lists of ordinary links in tab order', async ({ page }) => {
+		await page.goto('/');
+		const trigger = page.getByRole('button', { name: 'Services', exact: true });
+		await trigger.focus();
+		await trigger.press('Space');
+		const list = page.locator('#services-menu');
+		await expect(list).toHaveRole('list');
+		await expect(trigger).not.toHaveAttribute('aria-haspopup');
+		await page.keyboard.press('Tab');
+		await expect(list.getByRole('link').first()).toBeFocused();
+		await page.keyboard.press('Escape');
+		await expect(trigger).toBeFocused();
+	});
 	test('tabbing out of an open menu closes it', async ({ page, traffic }) => {
 		void traffic;
 		await page.goto('/');
@@ -43,7 +56,7 @@ test.describe('desktop menus by keyboard', () => {
 		await page.keyboard.press('ArrowDown');
 		await expect(trigger).toHaveAttribute('aria-expanded', 'true');
 		// Leave the menu through the last item, then the page's next focusable element.
-		await page.locator('#services-menu [role="menuitem"]').last().focus();
+		await page.locator('#services-menu a[href]').last().focus();
 		await page.keyboard.press('Tab');
 		await expect(trigger).toHaveAttribute('aria-expanded', 'false');
 	});
@@ -54,7 +67,7 @@ test.describe('desktop menus by keyboard', () => {
 		await trigger.focus();
 		await page.keyboard.press('ArrowDown');
 		// The first item leaves the site; the next one is a page of this one.
-		await expect(page.locator('#services-menu [role="menuitem"]').first()).toBeFocused();
+		await expect(page.locator('#services-menu a[href]').first()).toBeFocused();
 		await page.keyboard.press('ArrowDown');
 		await expect(
 			page.locator('#services-menu [href="/services/linux-workstations"]')
@@ -93,4 +106,18 @@ test.describe('mobile menu', () => {
 		await page.keyboard.press('Enter');
 		await expect(menu).toHaveCount(0);
 	});
+});
+
+test('landscape navigation scrolls to its last link while services are open', async ({ page }) => {
+	await page.setViewportSize({ width: 844, height: 390 });
+	await page.goto('/');
+	await page.locator('button[aria-controls="mobile-menu"]').click();
+	const menu = page.locator('#mobile-menu');
+	await menu.getByRole('button', { name: 'Services' }).click();
+	const link = menu.getByRole('link', { name: 'Contacts' });
+	await link.focus();
+	await expect(link).toBeInViewport({ ratio: 1 });
+	await expect(menu).toHaveCSS('overflow-y', 'auto');
+	await link.press('Enter');
+	await expect(page).toHaveURL(/\/contacts$/);
 });

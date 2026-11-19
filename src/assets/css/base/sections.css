@@ -152,19 +152,6 @@
 	width: min(75%, 24rem);
 }
 
-/* A framed photograph: narrow, with a thin cyan rule so it reads as a picture, not a cut-out. */
-.home-service__image--photo {
-	width: min(60%, 16rem);
-	border: 1px solid rgba(0, 240, 255, 0.35);
-	box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, 0.6);
-}
-
-/* A black cut-out on a dark page: a faint cyan edge light keeps its outline readable. */
-.home-service__image--cutout {
-	width: min(100%, 30rem);
-	filter: drop-shadow(0 0 1px rgba(0, 240, 255, 0.55)) drop-shadow(0 1.5rem 2rem rgba(0, 0, 0, 0.6));
-}
-
 .home-service__credit {
 	max-width: 28rem;
 	margin: 1rem auto 0;

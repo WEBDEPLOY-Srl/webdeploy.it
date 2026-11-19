@@ -11,8 +11,7 @@ in full: the checks below find many problems but not all, and the known limits a
 ## What the design provides
 
 - A skip link to the main content, one `h1` per page and an English document language.
-- Header menus and the mobile menu work from the keyboard: arrow keys move between items, Escape closes
-  a menu and returns focus to its button.
+- Header disclosure buttons expose lists of links. Tab moves through them, arrow keys also move between links, and Escape closes a disclosure and restores focus. The mobile menu scrolls in landscape.
 - Visible focus styles, and reduced-motion support for the animated decoration and the demos.
 - Text and interface colours chosen for contrast on the dark background.
 
@@ -35,7 +34,7 @@ checked with the keyboard in both browsers. Statement updated on 2026-11-18.
 ## Known limits
 
 - No audit with a screen reader or by an external accessibility specialist has been carried out yet.
-- The cookie banner is a complementary landmark named “Privacy & cookies” directly through its accessible label. On first appearance it leaves focus in place. Opening Cookie settings moves focus into the banner; Close, Escape and a decision return focus to the footer control.
+- The cookie banner is a complementary landmark named “Privacy & cookies” directly through its accessible label. It also contains a level-two heading for heading navigation. The measured banner height reserves scroll space for keyboard focus. On first appearance it leaves focus in place. Opening Cookie settings moves focus into the banner; Close, Escape and a decision return focus to the footer control.
 - The contact page map is a third-party OpenStreetMap map (Leaflet). Its address is also given as text
   on the page. The map initializes on proximity or keyboard focus and uses Leaflet’s keyboard controls.
 - The animated desktop and kiosk demos are decorative; they respect reduced-motion settings but have no

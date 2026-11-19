@@ -164,3 +164,31 @@ test('the privacy page says where to change the choice and discloses the map til
 	await expect(page.getByText('using Cookie settings in the footer').first()).toBeVisible();
 	await expect(page.getByText('tile.openstreetmap.org')).toBeVisible();
 });
+
+for (const width of [390, 1280]) {
+	test('pending consent leaves keyboard focus visible at ' + width + 'px', async ({ page }) => {
+		await page.setViewportSize({ width, height: 844 });
+		await page.goto('/services/backup');
+		const panel = banner(page);
+		const size = await panel.boundingBox();
+		assert.ok(size);
+		await expect(page.locator('html')).toHaveCSS('scroll-padding-bottom', Math.ceil(size.height) + 'px');
+		const targets = ['.contact-band__action', '.site-footer__link[href="/security"]', '.site-footer__settings'];
+		await page.locator('main').focus();
+		for (const selector of targets) {
+			const target = page.locator(selector);
+			for (let tab = 0; tab < 25; tab++) {
+				await page.keyboard.press('Tab');
+				if (await target.evaluate((node) => node === document.activeElement)) break;
+			}
+			await expect(target).toBeFocused();
+			await expect.poll(async () => {
+				const rect = await target.boundingBox();
+				const overlay = await panel.boundingBox();
+				return !!rect && !!overlay && rect.y + rect.height <= overlay.y + 1;
+			}, { message: selector + ' must be above the consent banner' }).toBe(true);
+		}
+		await panel.getByRole('button', { name: 'Reject' }).click();
+		await expect(page.locator('html')).toHaveCSS('scroll-padding-bottom', '0px');
+	});
+}

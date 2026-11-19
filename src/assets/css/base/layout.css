@@ -9,9 +9,7 @@ body {
 	overflow-x: hidden;
 }
 
-/* Bordered header controls (language switcher, menu toggle) share one box so
-   they line up at every breakpoint. Kept in the components layer so display
-   utilities such as xl:hidden still win. */
+/* Keep the menu toggle aligned with the logo across header breakpoints. */
 @layer controls {
 	.header-control {
 		display: inline-flex;
@@ -294,33 +292,4 @@ body {
 	font-size: 0.875rem;
 	line-height: 1.5;
 	color: var(--color-text-body);
-}
-
-.home-preview .home-consent {
-	border-color: var(--home-rule);
-	box-shadow: none;
-}
-
-.home-preview .home-consent:hover {
-	border-color: var(--home-rule);
-	box-shadow: none;
-}
-
-.home-preview .home-consent p {
-	font-family: var(--font-reading);
-	color: var(--color-text-body);
-}
-
-.home-preview .home-consent p:first-child {
-	font-size: 0.875rem;
-	font-weight: 700;
-	letter-spacing: 0.04em;
-	text-transform: none;
-	color: var(--color-primary);
-}
-
-.home-preview .home-consent button {
-	min-height: 2.75rem;
-	font-family: var(--font-reading);
-	font-size: 0.875rem;
 }

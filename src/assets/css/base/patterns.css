@@ -113,7 +113,9 @@
 		z-index: 10;
 	}
 	.site-mobile-nav {
-		overflow: hidden;
+		max-block-size: calc(100dvh - 5rem - var(--consent-height, 0px));
+		overflow-y: auto;
+		overscroll-behavior: contain;
 		background: var(--color-surface-dark);
 	}
 	.mobile-nav-inner {
@@ -360,6 +362,15 @@
 	}
 	.article-image {
 		width: 100%;
+	}
+	/* Long settings names extend beyond the viewport on narrow phones. */
+	@media (max-width: 24em) {
+		.article-body li {
+			overflow-wrap: anywhere;
+		}
+	}
+	.article-body code {
+		overflow-wrap: anywhere;
 	}
 	.article-body {
 		max-width: none;
@@ -760,7 +771,7 @@
 	}
 }
 @media (max-width: 639px) {
-	.newsletterLanding .site-header {
+	.newsletter-landing .site-header {
 		display: none;
 	}
 }

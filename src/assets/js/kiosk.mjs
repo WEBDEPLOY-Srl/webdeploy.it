@@ -4,6 +4,9 @@
 import { element } from './dom.mjs';
 
 const kiosk = element(document, '.kiosk-demo', HTMLElement);
+const announcement = element(kiosk, '.kiosk-demo__announcement', HTMLElement);
+/** @type {HTMLButtonElement|null} */
+let originatingTile = null;
 const screen = element(kiosk, '.kiosk-demo__screen', HTMLElement);
 const app = element(screen, '.kiosk-demo__app', HTMLElement);
 const home = element(app, '.kiosk-demo__body', HTMLElement);
@@ -37,17 +40,25 @@ function setMode(windows) {
 			String(button.getAttribute('data-mode') === (windows ? 'windows' : 'inwd'))
 		);
 	if (!windows) {
+		announcement.textContent = '';
+		originatingTile = null;
 		screen.replaceChildren(app);
 		element(app, '.kiosk-demo__body', HTMLElement).replaceWith(home);
 		return;
 	}
 	screen.replaceChildren(clonePanel('windows'));
 	const progress = element(screen, '.kiosk-demo__update-title:nth-of-type(2)', HTMLElement);
+	announcement.textContent = element(screen, '.kiosk-demo__update-title', HTMLElement).textContent;
 	let current = 0;
+	let announcedCompletion = false;
 	progress.textContent = '0' + (kiosk.dataset.complete ?? '');
 	progressTimer = window.setInterval(() => {
 		current = current >= 100 ? 0 : Math.min(100, current + 1 + Math.floor(Math.random() * 3));
 		progress.textContent = current + (kiosk.dataset.complete ?? '');
+		if (current === 100 && !announcedCompletion) {
+			announcement.textContent = progress.textContent;
+			announcedCompletion = true;
+		}
 	}, 900);
 }
 kiosk.addEventListener('click', (event) => {
@@ -59,10 +70,15 @@ kiosk.addEventListener('click', (event) => {
 	}
 	if (button.matches('.kiosk-demo__back')) {
 		element(app, '.kiosk-demo__body', HTMLElement).replaceWith(home);
+		originatingTile?.focus({ preventScroll: true });
+		originatingTile = null;
 		return;
 	}
-	if (button.dataset.view)
+	if (button.dataset.view) {
+		originatingTile = button;
 		element(app, '.kiosk-demo__body', HTMLElement).replaceWith(clonePanel(button.dataset.view));
+		element(app, '.kiosk-demo__back', HTMLButtonElement).focus({ preventScroll: true });
+	}
 });
 startClock();
 window.addEventListener('pagehide', () => {

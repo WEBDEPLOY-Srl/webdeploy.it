@@ -191,7 +191,7 @@ export async function emitPage(page, site, copy, assets, partials, source, stage
 		),
 		sourceUrl: escapeHtml(site.sourceUrl),
 		shellClass:
-			page.path === '/' ? 'home-preview' : page.path === '/newsletter' ? 'newsletterLanding' : '',
+			page.path === '/' ? 'home-preview' : page.path === '/newsletter' ? 'newsletter-landing' : '',
 		body: ''
 	};
 	slots.body = render(template, copy, partials, slots);

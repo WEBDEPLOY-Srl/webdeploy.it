@@ -20,7 +20,6 @@
 a:focus-visible,
 button:focus-visible,
 [role='button']:focus-visible,
-[role='menuitem']:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {

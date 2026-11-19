@@ -11,12 +11,22 @@ test('kiosk views and system switching work from the keyboard', async ({ page })
 	await page.goto('/totem');
 	const demo = page.getByRole('group', { name: 'Interactive kiosk demo' });
 	for (const name of ['Opening hours', 'Find your way', 'Today']) {
-		await demo.getByRole('button', { name, exact: true }).press('Enter');
+		const tile = demo.getByRole('button', { name, exact: true });
+		await tile.press('Enter');
 		await expect(demo.locator('.kiosk-demo__list li').first()).toBeVisible();
-		await demo.getByRole('button', { name: 'Back', exact: true }).press('Enter');
+		const back = demo.getByRole('button', { name: 'Back', exact: true });
+		await expect(back).toBeFocused();
+		await back.press('Enter');
+		await expect(tile).toBeFocused();
 	}
+	await page.clock.install();
 	await demo.getByRole('button', { name: 'Windows kiosk' }).press('Enter');
-	await expect(demo.getByRole('status')).toContainText('Working on updates');
+	await expect(demo.getByRole('status')).toHaveText('Working on updates');
+	await page.clock.runFor(1800);
+	await expect(demo.getByRole('status')).toHaveText('Working on updates');
+	await expect(demo.locator('.kiosk-demo__update-title').last()).not.toHaveText('0% complete');
+	await page.clock.runFor(90000);
+	await expect(demo.getByRole('status')).toHaveText('100% complete');
 	await demo.getByRole('button', { name: 'inWD™ Kiosk', exact: true }).press('Enter');
 	await expect(demo.getByRole('button', { name: 'Opening hours' })).toBeVisible();
 });
@@ -78,6 +88,8 @@ test('share controls use the canonical URL and the expected campaign tags', asyn
 		'data-shared',
 		'https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwebdeploy.it%2Fnews%2Ffosdem-2026'
 	);
+	await expect(page.getByRole('status')).toHaveCount(1);
+	await expect(page.getByRole('status')).toHaveText('');
 	await page.getByRole('button', { name: 'Share on Instagram' }).click();
 	await expect(page.locator('html')).toHaveAttribute(
 		'data-copied',
@@ -109,6 +121,17 @@ test('a lookalike origin cannot record a confirmation', async ({ page }) => {
 
 test.describe('HTML without JavaScript', () => {
 	test.use({ javaScriptEnabled: false });
+	test('static demos and mobile navigation work without script controls or a sticky header', async ({ page }) => {
+		await page.setViewportSize({ width: 390, height: 844 });
+		for (const path of ['/', '/services/linux-workstations', '/totem']) {
+			await page.goto(path);
+			await expect(page.locator('.site-header')).toHaveCSS('position', 'relative');
+			await expect(page.locator('.fallback-nav a[href="/contacts"]')).toBeVisible();
+			const demo = page.locator(path === '/totem' ? '.kiosk-demo' : '.ws-demo');
+			await expect(demo).toBeVisible();
+			await expect(demo.locator('button:visible')).toHaveCount(0);
+		}
+	});
 	test('navigation, the error page and newsletter fallback remain usable', async ({
 		page,
 		traffic
@@ -154,4 +177,33 @@ test.describe('Italian browser preference', () => {
 			(await context.cookies(baseURL)).find((cookie) => cookie.name === 'nf_lang')?.value
 		).toBe('it');
 	});
+});
+
+test('article text reflows on narrow phones and print omits interactive overlays', async ({ page }) => {
+	await page.goto('/news/php2shell-cve-2026-109618-109619');
+	const rows = page.locator('.article-body li');
+	expect(await rows.count()).toBeGreaterThan(0);
+	for (const width of [320, 360, 375]) {
+		await page.setViewportSize({ width, height: 740 });
+		expect(await rows.evaluateAll((items) => items.every((item) => item.scrollWidth <= item.clientWidth + 1))).toBe(true);
+	}
+	await page.getByRole('button', { name: 'Cookie settings' }).click();
+	await page.emulateMedia({ media: 'print' });
+	for (const selector of ['.cookie-banner', '.consent-reservation', '.share-controls', '.toast-container']) {
+		await expect(page.locator(selector)).toBeHidden();
+	}
+});
+
+test('a navigation initialization failure leaves consent and cookieless analytics available', async ({ page }) => {
+	await page.route((url) => url.pathname === '/security', async (route) => {
+		const response = await route.fetch();
+		const html = (await response.text()).replace('id="mobile-navigation-template"', 'id="unavailable-navigation"');
+		await route.fulfill({ response, body: html });
+	});
+	await page.addInitScript(() => localStorage.removeItem('wd_consent_marketing'));
+	await page.goto('/security');
+	await expect(page.locator('.site-footer__settings')).toBeVisible();
+	await expect.poll(() => page.evaluate(() => window._paq?.some(([command]) => command === 'disableCookies'))).toBe(true);
+	await page.locator('.site-footer__settings').click();
+	await expect(page.getByRole('complementary', { name: 'Privacy & cookies' })).toBeVisible();
 });

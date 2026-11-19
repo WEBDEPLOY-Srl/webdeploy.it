@@ -62,7 +62,7 @@ export const pages = [
 		styles: ['components/newsletter-band'],
 		kind: 'article',
 		published: '2026-10-22',
-		image: '/news-php2shell.webp',
+		image: '/images/og/php2shell.jpg',
 		card: {
 			date: 'news.php2shell.date',
 			description: 'news.php2shell.description',
@@ -139,7 +139,7 @@ export const pages = [
 		title: 'totem.heroName',
 		description: 'totem.metaDescription',
 		styles: ['components/hero', 'components/kiosk', 'pages/totem'],
-		image: '/images/inwd-kiosk-photo.webp'
+		image: '/images/og/totem.jpg'
 	},
 	{
 		path: '/404',

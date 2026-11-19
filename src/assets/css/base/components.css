@@ -16,6 +16,10 @@
 	padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
+.toast-container .toast:empty {
+	display: none;
+}
+
 .toast {
 	background-color: var(--color-surface-light);
 	color: var(--color-text-body);

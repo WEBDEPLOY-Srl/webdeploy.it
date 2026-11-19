@@ -39,6 +39,12 @@ transparent and so that forks can keep to the same style.
 - **Design and compatibility.** Preserve artwork, typography, keyboard access, visible focus
   and reduced motion. Use flat CSS for the stated browser baseline. Page modules use explicit,
   relative native imports and `new URL(..., import.meta.url)` for local workers.
+- **Social previews.** Use a stable 1200 × 630 JPEG in `src/static/images/og/` for a new
+  page’s Open Graph and Twitter image. Keep the full image inside that frame if cropping
+  would remove the subject. LinkedIn recommends a landscape image at this size, and Meta
+  accepts JPEG for custom link images. In-page images retain their own responsive formats.
+  [LinkedIn sharing guidelines](https://www.linkedin.com/help/linkedin/answer/a1322434) ·
+  [Meta link images](https://developers.facebook.com/docs/graph-api/reference/page/feed/)
 - **JSDoc.** Start every authored JavaScript file with `// @ts-check` and SPDX attribution.
   Document exported function parameters and return types with `@param` and `@returns`.
   Use `@typedef`, `@type` and the shared `src/types.d.ts` for contracts. Narrow DOM elements

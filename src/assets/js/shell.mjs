@@ -4,7 +4,12 @@
 import { initializeNavigation } from './navigation.mjs';
 import { initializeConsent } from './consent.mjs';
 import { initializeMatomo } from './matomo.mjs';
+import { debug } from './logger.mjs';
 
-initializeNavigation();
-initializeConsent();
-initializeMatomo();
+for (const initialize of [initializeNavigation, initializeConsent, initializeMatomo]) {
+	try {
+		initialize();
+	} catch {
+		debug('Shell', initialize.name + ' could not initialize');
+	}
+}

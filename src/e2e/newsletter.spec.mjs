@@ -158,7 +158,7 @@ test('the newsletter is accessible and its form stays above the cookie banner on
 		expect(await banner(page).getByRole('button', { name: 'Reject' }).count()).toBe(1);
 		expect(await banner(page).getByRole('button', { name: 'Accept' }).count()).toBe(1);
 		await expect(banner(page)).toHaveAccessibleName('Privacy & cookies');
-		await expect(banner(page).getByRole('heading')).toHaveCount(0);
+		await expect(banner(page).getByRole('heading', { name: 'Privacy & cookies', level: 2 })).toHaveCount(1);
 	}
 });
 test('cookie banner hides on phone field focus and dismisses without moving the page', async ({

@@ -22,9 +22,7 @@ let story = null;
 function announce(text) {
 	clearTimeout(timer);
 	message.textContent = text ?? '';
-	toast.hidden = false;
 	timer = window.setTimeout(() => {
-		toast.hidden = true;
 		message.textContent = '';
 	}, 3000);
 }
