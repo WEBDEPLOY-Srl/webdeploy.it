@@ -19,16 +19,19 @@
 			{{>share}}
 		</div>
 		<div class="article-figure">
-			<img
-				src="/fosdem-2026.jpg"
-				alt="{{news.fosdem2026.imageAlt}}"
-				width="1200"
-				height="1600"
-				loading="eager"
-				decoding="async"
-				fetchpriority="high"
-				class="article-image"
-			/>
+			<picture>
+				<source type="image/avif" srcset="{{@prioritySources}}" sizes="{{@prioritySizes}}" />
+				<img
+					src="/fosdem-2026.jpg"
+					alt="{{news.fosdem2026.imageAlt}}"
+					width="1200"
+					height="1600"
+					loading="eager"
+					decoding="async"
+					fetchpriority="high"
+					class="article-image"
+				/>
+			</picture>
 		</div>
 		<article class="prose prose-invert article-body">
 			<div class="card-retro reading-card">

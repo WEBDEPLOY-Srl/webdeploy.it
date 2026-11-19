@@ -9,7 +9,7 @@ import { gzipSync } from 'node:zlib';
 import { digest, files, write } from './build-tools/files.mjs';
 import { emitAssets } from './build-tools/assets.mjs';
 import { emitPage, sitemap } from './build-tools/documents.mjs';
-import { readPartials } from './build-tools/template.mjs';
+import { readPartials, toolImages } from './build-tools/template.mjs';
 import { validateDocuments, validateRoutes } from './build-tools/validate.mjs';
 
 /** @typedef {import('./types.d.ts').BuildInputs} BuildInputs */
@@ -54,8 +54,11 @@ export async function buildSite({ root, output, pages, copy, site }) {
 		// The published directory is also served by non-owner nginx workers on bind mounts.
 		await chmod(stage, 0o755);
 		validateRoutes(pages, await files(join(root, 'pages')));
-		const assets = await emitAssets(root, stage);
+		const assets = await emitAssets(root, stage, pages);
 		const partials = await readPartials(join(root, 'partials'));
+		for (const [name, partial] of partials) {
+			if (partial.includes('{{>marks/')) partials.set(name, await toolImages(partial, partials, stage));
+		}
 		const docs = new Map();
 		for (const page of pages)
 			docs.set(page.path, await emitPage(page, site, copy, assets, partials, root, stage, pages));

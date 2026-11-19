@@ -30,7 +30,7 @@ The website uses HTML templates, native CSS and JSDoc-typed browser modules. The
    Add the source SPDX comment at the top. Reference text through escaped `{{news.<key>}}` lookups.
 4. Add an article record in `src/data/pages.mjs` with the clean path, template, title and description
    keys, publication date, stable social image, share module, newsletter band CSS and card data
-   (date key, description key, image, width and height). The build emits the news index card,
+   (date key, description key, image, width and height). An optional `sources` field supplies responsive AVIF card thumbnails. The build emits the news index card,
    sitemap entry, canonical/OG/Twitter tags and NewsArticle structured data from that record.
 5. Build from `src/` with `node build.mjs`. Verify the index, full article and share links in Firefox
    and Chromium. Keep both dictionaries in sync and check the matching email source below.

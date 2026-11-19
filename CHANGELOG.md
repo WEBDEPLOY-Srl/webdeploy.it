@@ -20,6 +20,8 @@ The next site version is **2.0.0**. The public routes, English content and newsl
 - Native document navigation replaces the client router and hover prefetch. The contact map now initializes on viewport proximity or focus. ALTCHA and Leaflet ship as pinned local distributions with verified checksums.
 - The nginx image serves a static Content-Security-Policy and a complete 404 document. The cache-revalidated version marker supports visitors with an older tab open.
 - Strict JSDoc type checks, node:test, production nginx browser tests and the full-tree npm audit replace the framework-dependent checks.
+- Pages prioritize their first-viewport fonts and responsive artwork. The homepage paints its portrait and consent controls before loading below-fold styles and demo behavior. Self-hosted interface font subsets retain the original glyphs, and each tool mark is a lazy, independently cached image with its original artwork and attribution.
+- The workstation shows its original screen artwork until its live demo approaches the viewport. The newsletter prepares its local ALTCHA worker when the form approaches or receives input.
 - The cookie banner now takes its accessible name directly from the approved title. Its solid background keeps text and privacy-link contrast consistent over artwork.
 - The cookie banner uses identical Reject and Accept button styling, restores Close when reopened, keeps its measured space reserved while pending and during phone focus-hide, and removes it only when dismissed. Its privacy link remains visible at 200% page zoom. The `/newsletter` mobile view hides the site header so the form stays above the banner.
 - The newsletter form waits for local ALTCHA readiness and disables human-interaction-signature collection. Returning from Listmonk resets list choices and submission state; setup failures instruct visitors to reload.
@@ -41,6 +43,7 @@ The next site version is **2.0.0**. The public routes, English content and newsl
 - Narrow article layouts wrap long settings names, printouts omit interactive controls, and share feedback uses a persistent live region.
 - On phones, service descriptions and article introductions now precede supporting artwork and sharing actions. Newsletter choices use larger, more widely spaced text.
 - Small-screen demos expose a larger kiosk Back button and readable workstation results. The contact map reports unavailable tiles while keeping the address and attribution available.
+- Early homepage consent and menu input works while optional modules load. The newsletter enables submission after ALTCHA signals readiness and finishes configuration.
 
 ## [1.47.0] - 2026-11-16
 

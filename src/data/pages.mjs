@@ -6,12 +6,13 @@
 export const pages = [
 	{
 		path: '/',
-		modules: ['workstation'],
+		entry: 'home-start',
+		firstStylesheet: 'home-first',
+		embeddedPortrait: '/images/neon-cafe-portrait.avif',
 		file: 'index.html',
 		title: 'home.metaTitle',
 		description: 'home.metaDescription',
-		styles: ['components/hero', 'components/workstation', 'pages/home'],
-		preloadImage: '/images/neon-cafe-workshop.webp'
+		styles: ['components/hero', 'components/workstation', 'pages/home']
 	},
 	{
 		path: '/contacts',
@@ -37,6 +38,11 @@ export const pages = [
 	},
 	{
 		path: '/news/fosdem-2026',
+		priorityImage: {
+			href: '/images/fosdem-article-800.avif', type: 'image/avif',
+			srcset: '/images/fosdem-article-480.avif 480w, /images/fosdem-article-672.avif 672w, /images/fosdem-article-800.avif 800w, /images/fosdem-article-1200.avif 1200w',
+			sizes: '(min-width: 56rem) 53.5rem, calc(100vw - 2.5rem)'
+		},
 		modules: ['share'],
 		file: 'news/fosdem-2026.html',
 		title: 'news.fosdem2026.title',
@@ -49,6 +55,7 @@ export const pages = [
 			date: 'news.fosdem2026.date',
 			description: 'news.fosdem2026.description',
 			image: '/fosdem-2026.jpg',
+			sources: '/images/fosdem-card-400.avif 400w, /images/fosdem-card-672.avif 672w, /images/fosdem-card-800.avif 800w',
 			width: 1200,
 			height: 1600
 		}
@@ -67,6 +74,7 @@ export const pages = [
 			date: 'news.php2shell.date',
 			description: 'news.php2shell.description',
 			image: '/news-php2shell.webp',
+			sources: '/images/php2shell-card-400.avif 400w, /images/php2shell-card-672.avif 672w, /images/php2shell-card-800.avif 800w',
 			width: 1122,
 			height: 748
 		}
@@ -123,6 +131,11 @@ export const pages = [
 	},
 	{
 		path: '/services/linux-workstations',
+		priorityImage: {
+			href: '/images/inwd-managed-760.avif', type: 'image/avif',
+			srcset: '/images/inwd-managed-480.avif 480w, /images/inwd-managed-672.avif 672w, /images/inwd-managed-760.avif 760w, /images/inwd-managed-1000.avif 1000w',
+			sizes: '(min-width: 30rem) 28rem, calc(100vw - 2rem)'
+		},
 		modules: ['workstation'],
 		file: 'services/linux-workstations.html',
 		title: 'services.linux.title',
@@ -134,6 +147,11 @@ export const pages = [
 	},
 	{
 		path: '/totem',
+		priorityImage: {
+			href: '/images/inwd-kiosk-frame-320.avif', type: 'image/avif',
+			srcset: '/images/inwd-kiosk-frame-320.avif 320w, /images/inwd-kiosk-frame-576.avif 576w, /images/inwd-kiosk-frame-898.avif 898w',
+			sizes: '(max-width: 352px) calc(100vw - 2rem), 320px'
+		},
 		modules: ['kiosk'],
 		file: 'totem.html',
 		title: 'totem.heroName',

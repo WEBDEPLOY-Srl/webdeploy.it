@@ -25,7 +25,7 @@ async function headersOf(request, path) {
 /** @param {import("@playwright/test").APIRequestContext} request */
 async function assetPaths(request) {
 	const html = await (await request.get('/')).text();
-	const script = /\/assets\/build\/[a-f0-9]{16}\/js\/shell\.mjs/.exec(html)?.[0];
+	const script = /<script type="module" src="(\/assets\/build\/[a-f0-9]{16}\/js\/[a-z-]+\.mjs)"/.exec(html)?.[1];
 	if (!script) throw new Error('no hashed entry script on the homepage');
 	return { script };
 }

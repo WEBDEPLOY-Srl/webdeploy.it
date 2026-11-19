@@ -3,10 +3,19 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 import { element } from './dom.mjs';
 import { marketingChoice, setMarketing } from './marketing.mjs';
-import { grantPixel, revokePixel } from './meta-pixel.mjs';
+let initialized = false;
+
+/** @returns {void} */
+function synchronizePixel() {
+	void import('./meta-pixel.mjs').then(({ grantPixel, revokePixel }) => {
+		if (marketingChoice() === 'granted') grantPixel();
+		else revokePixel();
+	}).catch(() => import('./logger.mjs').then(({ debug }) => debug('Marketing', 'Pixel preference could not be applied')).catch(() => {}));
+}
 
 /** @returns {void} */
 export function initializeConsent() {
+	if (initialized) return;
 	const template = element(document, '#consent-template', HTMLTemplateElement);
 	const control = element(document, '.site-footer__settings', HTMLButtonElement);
 	const phone = matchMedia('(max-width: 639px), (pointer: coarse) and (max-height: 500px)');
@@ -19,13 +28,12 @@ export function initializeConsent() {
 	reservation.setAttribute('aria-hidden', 'true');
 	let reopened = false;
 	let previous = marketingChoice();
-	const observer = new ResizeObserver(measure);
-	function measure() {
+	const observer = new ResizeObserver(([entry]) => {
 		if (!banner.isConnected) return;
-		const height = Math.ceil(banner.getBoundingClientRect().height) + 'px';
-		reservation.style.height = height;
-		document.documentElement.style.setProperty('--consent-height', height);
-	}
+		const size = entry.borderBoxSize?.[0];
+		const height = size?.blockSize ?? banner.getBoundingClientRect().height;
+		document.documentElement.style.setProperty('--consent-height', Math.ceil(height) + 'px');
+	});
 	function focusState() {
 		const hidden =
 			phone.matches && Boolean(document.activeElement?.matches('input,select,textarea'));
@@ -38,10 +46,10 @@ export function initializeConsent() {
 		if (marketingChoice() === null || reopened) {
 			close.hidden = !reopened;
 			if (!banner.isConnected) {
+				document.documentElement.style.setProperty('--consent-height', '7rem');
 				template.after(banner, reservation);
-				observer.observe(banner);
+				observer.observe(banner, { box: 'border-box' });
 			}
-			measure();
 			focusState();
 		} else {
 			observer.disconnect();
@@ -71,8 +79,7 @@ export function initializeConsent() {
 			const before = marketingChoice();
 			setMarketing(choice);
 			previous = choice;
-			if (choice === 'granted') grantPixel();
-			else if (before === 'granted') revokePixel();
+			if (choice === 'granted' || before === 'granted') synchronizePixel();
 		}
 		dismiss();
 	});
@@ -84,8 +91,7 @@ export function initializeConsent() {
 	phone.addEventListener('change', focusState);
 	function restore() {
 		const choice = marketingChoice();
-		if (choice === 'granted') grantPixel();
-		else if (previous === 'granted') revokePixel();
+		if (choice === 'granted' || previous === 'granted') synchronizePixel();
 		previous = choice;
 		synchronize();
 	}
@@ -99,4 +105,5 @@ export function initializeConsent() {
 		if (event.key === 'wd_consent_marketing' || event.key === null) restore();
 	});
 	restore();
+	initialized = true;
 }

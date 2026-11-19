@@ -2,6 +2,12 @@
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
 <div class="home-page">
 	<div class="home-hero">
+		<picture class="home-hero__image">
+			<source type="image/avif" media="(max-width: 639px) and (max-aspect-ratio: 2/3)" srcset="{{@portraitImage}}" />
+			<source type="image/webp" media="(max-width: 639px) and (max-aspect-ratio: 2/3)" srcset="/images/neon-cafe-portrait.webp" />
+			<source type="image/avif" srcset="/images/neon-cafe-960.avif 960w, /images/neon-cafe-1672.avif 1672w" sizes="100vw" />
+			<img src="/images/neon-cafe-workshop.webp" width="1672" height="941" alt="" fetchpriority="high" />
+		</picture>
 		<section class="readable-hero">
 			<div class="readable-hero__content">
 				<div class="readable-hero__copy">
@@ -113,7 +119,7 @@
 					class="home-service__image home-service__image--icon"
 					src="/images/inwd-trunk-rack.webp"
 					srcset="/images/inwd-trunk-rack-500.webp 500w, /images/inwd-trunk-rack.webp 907w"
-					sizes="(min-width: 64rem) 40vw, 100vw"
+					sizes="(min-width: 34rem) 24rem, calc(75vw - 1.5rem)"
 					alt="{{home.serviceSections.inwd.imageAlt}}"
 					width="907"
 					height="1026"

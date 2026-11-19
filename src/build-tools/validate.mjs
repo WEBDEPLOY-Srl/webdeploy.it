@@ -76,6 +76,8 @@ export async function validateDocuments(docs, stage, origin) {
 				if (attrs[attr]) references.push([route, attrs[attr]]);
 			for (const attr of ['srcset', 'imagesrcset'])
 				if (attrs[attr]) {
+					// A single embedded image has a comma between its MIME type and payload.
+					if (/^data:image\/avif;base64,[A-Za-z0-9+/]+={0,2}$/.test(attrs[attr])) continue;
 					for (const item of attrs[attr].split(','))
 						references.push([route, item.trim().split(/\s+/)[0]]);
 				}

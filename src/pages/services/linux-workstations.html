@@ -9,17 +9,20 @@
 				<p class="section-lead">{{services.linux.description}}</p>
 			</div>
 			<figure class="home-service__art">
-				<img
-					class="home-service__image home-service__image--logo"
-					src="/images/inwd-managed-host.webp"
-					srcset="/images/inwd-managed-host-600.webp 600w, /images/inwd-managed-host.webp 1248w"
-					sizes="(min-width: 64rem) 40vw, 100vw"
-					alt="{{services.linux.imageAlt}}"
-					width="1248"
-					height="1014"
-					fetchpriority="high"
-					decoding="async"
-				/>
+				<picture>
+					<source type="image/avif" srcset="{{@prioritySources}}" sizes="{{@prioritySizes}}" />
+					<img
+						class="home-service__image home-service__image--logo"
+						src="/images/inwd-managed-host.webp"
+						srcset="/images/inwd-managed-host-600.webp 600w, /images/inwd-managed-host.webp 1248w"
+						sizes="(min-width: 30rem) 28rem, calc(100vw - 2rem)"
+						alt="{{services.linux.imageAlt}}"
+						width="1248"
+						height="1014"
+						fetchpriority="high"
+						decoding="async"
+					/>
+				</picture>
 			</figure>
 		</div>
 	</section>
@@ -103,7 +106,7 @@
 					class="home-service__image home-service__image--icon"
 					src="/images/inwd-trunk-rack.webp"
 					srcset="/images/inwd-trunk-rack-500.webp 500w, /images/inwd-trunk-rack.webp 907w"
-					sizes="(min-width: 64rem) 40vw, 100vw"
+					sizes="(min-width: 34rem) 24rem, calc(75vw - 1.5rem)"
 					alt="{{services.linux.support.imageAlt}}"
 					width="907"
 					height="1026"

@@ -191,3 +191,45 @@ test('validates routes, includes, source boundaries and JSON-LD data', () => {
 	assert.equal(organization(site)['@id'], 'https://example.test/#organization');
 	assert.equal(publisher(site).name, site.legalName);
 });
+
+test('a page requests one stylesheet with shared and page styles in authored order', async (t) => {
+	const input = await fixture(t);
+	await write(join(input.root, 'assets/css/demo.css'), '.demo { color: tomato; }');
+	input.pages = [{ ...pages[0], styles: ['demo'] }, pages[1]];
+	await buildSite(input);
+	const html = await readFile(join(input.output, 'index.html'), 'utf8');
+	const links = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)">/g)];
+	assert.equal(links.length, 1);
+	const sheet = await readFile(join(input.output, links[0][1]), 'utf8');
+	assert.ok(sheet.indexOf('color: cyan') >= 0);
+	assert.ok(sheet.indexOf('color: cyan') < sheet.indexOf('color: tomato'));
+	await assert.rejects(buildSite({ ...input, pages: [{ ...pages[0], styles: ['missing'] }, pages[1]] }), /Missing page stylesheet/);
+});
+
+test('tool marks keep the original viewBox and use a hashed lazy image', async (t) => {
+	const input = await fixture(t);
+	await write(join(input.root, 'partials/marks/tool.html'), '<path d="M0 0h4v4z"/>');
+	await write(join(input.root, 'pages/index.html'), '<h1>Home</h1><svg viewBox="5 2 8 3">{{>marks/tool}}</svg>');
+	await buildSite(input);
+	const home = await readFile(join(input.output, 'index.html'), 'utf8');
+	const image = /<img class="tool-mark" src="([^"]+)" alt="" width="8" height="3" loading="lazy"/.exec(home);
+	assert.ok(image);
+	assert.match(image[1], /tool\.[a-f0-9]{16}\.svg$/);
+	const svg = await readFile(join(input.output, image[1]), 'utf8');
+	assert.ok(svg.includes('viewBox="5 2 8 3"') && svg.includes('<path d="M0 0h4v4z"/>'));
+});
+
+test('the homepage embeds its real portrait and emits a complete script-free stylesheet', async (t) => {
+	const input = await fixture(t);
+	await write(join(input.root,'static/portrait.avif'),'fixture-image');
+	await write(join(input.root,'assets/css/first.css'),'h1 { color: cyan; }');
+	await write(join(input.root,'assets/js/home-start.mjs'),'export {};');
+	await write(join(input.root,'pages/index.html'),'<h1>Home</h1><picture><source type="image/avif" srcset="{{@portraitImage}}"><img src="/logo.svg" alt=""></picture>');
+	input.pages = [{...pages[0],entry:'home-start',modules:[],firstStylesheet:'first',embeddedPortrait:'/portrait.avif'},pages[1]];
+	await buildSite(input);
+	const html = await readFile(join(input.output,'index.html'),'utf8');
+	assert.match(html,/rel="stylesheet" href="[^"]+\/css\/first\.css"/);
+	assert.match(html,/<template id="home-page-styles"><link rel="stylesheet" href="([^"]+)"><\/template>\s*<noscript><link rel="stylesheet" href="\1"><\/noscript>/);
+	assert.ok(html.includes('data:image/avif;base64,' + Buffer.from('fixture-image').toString('base64')));
+	assert.match(html,/type="module" src="[^"]+\/home-start\.mjs"/);
+});

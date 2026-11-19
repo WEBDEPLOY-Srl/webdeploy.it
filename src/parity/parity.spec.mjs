@@ -46,7 +46,22 @@ async function settle(page) {
 	});
 	// Keep lazy images in view through an actual paint. A responsive request can
 	// be decoded before the compositor draws it on a long mobile page.
-	for (const lazy of await page.locator('img[loading="lazy"]:visible').all()) {
+	// Paint each tool grid as a unit; every native image is still decoded below.
+	for (const grid of await page.locator('.home-tools__grid:visible').all()) {
+		await grid.scrollIntoViewIfNeeded();
+		await expect.poll(() => grid.locator('img').evaluateAll((images) =>
+			images.every((image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0)
+		)).toBe(true);
+		await grid.screenshot({ animations: 'disabled' });
+	}
+	// A live workstation replaces its preview on approach. Inspect the actual
+	// device rather than retaining a locator for the outgoing static image.
+	for (const device of await page.locator('.ws-demo__device:visible').all()) {
+		await device.scrollIntoViewIfNeeded();
+		await expect(device.locator('.ws-demo__stage')).toBeVisible();
+		await device.screenshot({ animations: 'disabled' });
+	}
+	for (const lazy of await page.locator('img[loading="lazy"]:not(.tool-mark,.ws-demo__preview):visible').all()) {
 		await lazy.scrollIntoViewIfNeeded();
 		await expect.poll(() => lazy.evaluate(image =>
 			image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0

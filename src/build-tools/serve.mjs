@@ -20,7 +20,8 @@ const types = {
 	'.png': 'image/png',
 	'.svg': 'image/svg+xml',
 	'.jpg': 'image/jpeg',
-	'.webp': 'image/webp'
+	'.webp': 'image/webp',
+	'.avif': 'image/avif'
 };
 
 /** @param {string} file @returns {Promise<boolean>} */

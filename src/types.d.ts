@@ -15,8 +15,11 @@ export interface SitePage {
 	robots?: 'noindex, follow' | 'noindex';
 	styles?: string[];
 	modules?: string[];
-	preloadImage?: string;
-	card?: { date: string; description: string; image: string; width: number; height: number };
+	entry?: string;
+	firstStylesheet?: string;
+	embeddedPortrait?: string;
+	priorityImage?: {href: string; type: string; srcset?: string; sizes?: string; media?: string};
+	card?: { date: string; description: string; image: string; sources?: string; width: number; height: number };
 }
 
 export interface BuiltAssets {

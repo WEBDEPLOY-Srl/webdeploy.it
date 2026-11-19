@@ -57,8 +57,13 @@ async function sheet(base, file, urls, chain = []) {
 	return result;
 }
 
-/** @param {string} root @param {string} stage @returns {Promise<BuiltAssets>} */
-export async function emitAssets(root, stage) {
+/** @param {string[]} [styles] @returns {string} */
+export function stylesheetPath(styles = []) {
+	return styles.length ? 'css/page-' + digest(JSON.stringify(styles)).slice(0, 16) + '.css' : 'css/site.css';
+}
+
+/** @param {string} root @param {string} stage @param {import('../types.d.ts').SitePage[]} pages @returns {Promise<BuiltAssets>} */
+export async function emitAssets(root, stage, pages) {
 	/** @type {Map<string,string>} */
 	const urls = new Map();
 	/** @type {Map<string,Buffer | string>} */
@@ -79,6 +84,27 @@ export async function emitAssets(root, stage) {
 				folder === 'css' ? await sheet(base, file, urls) : await readFile(join(base, file));
 			code.set(posixPath(folder, file), bytes);
 		}
+	}
+	// The browser needs one ordered stylesheet for each distinct page composition.
+	const publishedSheets = new Set(['css/no-script.css', 'css/site.css']);
+	for (const { styles = [], firstStylesheet } of pages) {
+		if (firstStylesheet) {
+			const initial = 'css/' + firstStylesheet + '.css';
+			if (!code.has(initial)) throw new Error('Missing first-paint stylesheet: ' + firstStylesheet);
+			publishedSheets.add(initial);
+		}
+		const output = stylesheetPath(styles);
+		if (publishedSheets.has(output)) continue;
+		const parts = ['site', ...styles].map((style) => {
+			const text = code.get('css/' + style + '.css');
+			if (typeof text !== 'string') throw new Error('Missing page stylesheet: ' + style);
+			return text;
+		});
+		code.set(output, parts.join('\n'));
+		publishedSheets.add(output);
+	}
+	for (const name of code.keys()) {
+		if (name.startsWith('css/') && !publishedSheets.has(name)) code.delete(name);
 	}
 	const vendor = join(root, 'vendor');
 	/** @type {Record<string,string>} */

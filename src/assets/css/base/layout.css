@@ -187,10 +187,19 @@ body {
 	isolation: isolate;
 	overflow: hidden;
 	background-color: var(--color-background-dark);
-	background-image: url('/images/neon-cafe-workshop.webp');
-	background-position: 68% center;
-	background-repeat: no-repeat;
-	background-size: cover;
+}
+
+.home-hero__image {
+	position: absolute;
+	z-index: -1;
+	inset: 0;
+}
+
+.home-hero__image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: 68% center;
 }
 
 .home-preview .home-hero::before {
@@ -228,8 +237,8 @@ body {
 }
 
 @media (max-width: 639px) {
-	.home-preview .home-hero {
-		background-position: 78% center;
+	.home-hero__image img {
+		object-position: 78% center;
 	}
 
 	.home-preview .home-hero::before {
@@ -239,6 +248,20 @@ body {
 			rgba(5, 10, 16, 0.94) 48%,
 			rgba(5, 10, 16, 0.86) 74%,
 			rgba(5, 10, 16, 0.66) 100%
+		);
+	}
+}
+
+/* The portrait crop already includes a 60% dark veil. These stops give it
+   the same final text contrast and artwork exposure as the full-color source. */
+@media (max-width: 639px) and (max-aspect-ratio: 2/3) {
+	.home-preview .home-hero::before {
+		background: linear-gradient(
+			90deg,
+			rgba(5, 10, 16, 0.95) 0%,
+			rgba(5, 10, 16, 0.85) 48%,
+			rgba(5, 10, 16, 0.65) 74%,
+			rgba(5, 10, 16, 0.15) 100%
 		);
 	}
 }

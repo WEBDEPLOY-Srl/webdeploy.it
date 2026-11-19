@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { mediaUrl } from './assets.mjs';
-import { escapeHtml, render, stringAt } from './template.mjs';
+import { mediaUrl, stylesheetPath } from './assets.mjs';
+import { escapeHtml, render, stringAt, toolImages } from './template.mjs';
 import { jsonLd, organization, pageSchema } from './schema.mjs';
 import { within, write } from './files.mjs';
 
@@ -12,6 +12,15 @@ import { within, write } from './files.mjs';
 /** @typedef {import('../types.d.ts').SitePage} SitePage */
 /** @typedef {import('../types.d.ts').BuiltAssets} BuiltAssets */
 /** @typedef {import('../types.d.ts').Content} Content */
+
+/** @param {SitePage['priorityImage']} image @returns {string} */
+function preloadImage(image) {
+	if (!image) return '';
+	const attributes = { href: image.href, type: image.type, media: image.media, imagesrcset: image.srcset, imagesizes: image.sizes };
+	const values = Object.entries(attributes).filter(([, value]) => value !== undefined)
+		.map(([name, value]) => `${name}="${escapeHtml(String(value))}"`);
+	return '<link rel="preload" as="image" fetchpriority="high" ' + values.join(' ') + '>';
+}
 
 /** @param {SitePage} page @param {SiteFacts} site @param {Content} copy @param {BuiltAssets} assets @returns {string} */
 function head(page, site, copy, assets) {
@@ -66,9 +75,8 @@ function head(page, site, copy, assets) {
 		if (page.published) tags.push(meta('property', 'article:published_time', page.published));
 	}
 	tags.push(jsonLd(organization(site)), pageSchema(page, site, title, description));
-	for (const css of ['site', ...(page.styles ?? [])])
-		tags.push(`<link rel="stylesheet" href="${assets.base}/css/${css}.css">`);
-	const entries = new Set(['shell', ...(page.modules ?? [])].map((name) => assets.base + '/js/' + name + '.mjs'));
+	const modules = [page.entry ?? 'shell', ...(page.modules ?? [])];
+	const entries = new Set(modules.map((name) => assets.base + '/js/' + name + '.mjs'));
 	const reachable = new Set(entries);
 	for (const url of reachable) {
 		for (const dependency of assets.imports.get(url) ?? []) reachable.add(dependency);
@@ -77,10 +85,6 @@ function head(page, site, copy, assets) {
 		if (!entries.has(url)) tags.push(`<link rel="modulepreload" href="${url}">`);
 	}
 	for (const url of entries) tags.push(`<script type="module" src="${url}"></script>`);
-	if (page.preloadImage)
-		tags.push(
-			`<link rel="preload" as="image" fetchpriority="high" href="${escapeHtml(page.preloadImage)}">`
-		);
 	return tags.filter(Boolean).join('\n');
 }
 
@@ -143,14 +147,18 @@ function privacyLink(text) {
 	);
 }
 
+const cardSizes = '(min-width: 80rem) 25rem, (min-width: 48rem) 32vw, calc(100vw - 2rem)';
+
+/** @param {SitePage[]} pages @returns {SitePage[]} */
+function articlesByDate(pages) {
+	return pages.filter((page) => page.card).sort((a, b) => (b.published ?? '').localeCompare(a.published ?? ''));
+}
+
 /** @param {SitePage[]} pages @param {Content} copy @param {Map<string,string>} partials @returns {string} */
 function newsCards(pages, copy, partials) {
 	const card = partials.get('news-card');
 	if (!card) throw new Error('Missing news-card partial');
-	return pages
-		.filter((page) => page.card)
-		.sort((a, b) => (b.published ?? '').localeCompare(a.published ?? ''))
-		.map((page) => {
+	return pages.map((page, index) => {
 			const fields = page.card;
 			if (!fields) throw new Error('Missing card data: ' + page.path);
 			return render(card, copy, partials, {
@@ -158,6 +166,10 @@ function newsCards(pages, copy, partials) {
 				title: escapeHtml(stringAt(copy, page.title)),
 				description: escapeHtml(stringAt(copy, fields.description)),
 				image: escapeHtml(fields.image),
+				cardLoading: index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"',
+				cardSource: fields.sources
+					? `<source type="image/avif" srcset="${escapeHtml(fields.sources)}" sizes="${cardSizes}">`
+					: '',
 				width: String(fields.width),
 				height: String(fields.height),
 				date: escapeHtml(stringAt(copy, fields.date))
@@ -170,10 +182,39 @@ function newsCards(pages, copy, partials) {
 export async function emitPage(page, site, copy, assets, partials, source, stage, pages) {
 	const shell = partials.get('shell');
 	if (!shell) throw new Error('Missing partial: shell');
-	const template = await readFile(within(join(source, 'pages'), page.file), 'utf8');
+	const template = await toolImages(await readFile(within(join(source, 'pages'), page.file), 'utf8'), partials, stage);
+	const articles = template.includes('{{@newsCards}}') ? articlesByDate(pages) : [];
+	const card = articles[0]?.card;
+	const leadCard = card?.sources ? {
+		href: card.sources.split(',')[0].trim().split(/\s+/)[0], type: 'image/avif',
+		srcset: card.sources, sizes: cardSizes
+	} : undefined;
+	const fullSheet = assets.base + '/' + stylesheetPath(page.styles);
+	const stylesheet = `<link rel="stylesheet" href="${fullSheet}">`;
+	let styles = stylesheet;
+	let portraitImage = '';
+	if (page.embeddedPortrait) {
+		const url = assets.urls.get(page.embeddedPortrait);
+		if (!url || !url.endsWith('.avif')) throw new Error('Missing critical AVIF portrait: ' + page.embeddedPortrait);
+		// The real portrait is small enough to travel with the first HTML response.
+		// Wide displays and the WebP fallback keep their independently cached sources.
+		portraitImage = 'data:image/avif;base64,' + (await readFile(join(stage, url))).toString('base64');
+	}
+	if (page.firstStylesheet) {
+		styles = [
+			`<link rel="stylesheet" href="${assets.base}/css/${escapeHtml(page.firstStylesheet)}.css">`,
+			`<template id="home-page-styles">${stylesheet}</template>`,
+			`<noscript>${stylesheet}</noscript>`
+		].join('\n');
+	}
 	const slots = {
-		head: head(page, site, copy, assets),
-		newsCards: template.includes('{{@newsCards}}') ? newsCards(pages, copy, partials) : '',
+		head: (shell.includes('{{@styles}}') ? '' : styles + '\n') + head(page, site, copy, assets),
+		styles,
+		portraitImage,
+		imagePreload: preloadImage(page.priorityImage ?? leadCard),
+		prioritySources: escapeHtml(page.priorityImage?.srcset ?? ''),
+		prioritySizes: escapeHtml(page.priorityImage?.sizes ?? ''),
+		newsCards: articles.length ? newsCards(articles, copy, partials) : '',
 		assetBase: assets.base,
 		linkedIn:
 			'https://www.linkedin.com/sharing/share-offsite/?url=' +

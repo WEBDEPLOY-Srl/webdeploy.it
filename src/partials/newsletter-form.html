@@ -48,13 +48,15 @@
 		/>
 	</div>
 	<input type="hidden" name="nonce" value="" />
-	<altcha-widget
-		challenge="https://newsletter.webdeploy.it/api/public/captcha/altcha"
-		auto="off"
-		configuration='{"humanInteractionSignature":false}'
-		display="invisible"
-		name="altcha"
-	></altcha-widget>
+	<template data-spam-widget>
+		<altcha-widget
+			challenge="https://newsletter.webdeploy.it/api/public/captcha/altcha"
+			auto="off"
+			configuration='{"humanInteractionSignature":false}'
+			display="invisible"
+			name="altcha"
+		></altcha-widget>
+	</template>
 	<p class="form-error" data-spam-error role="alert" hidden></p>
 	<button class="newsletter-submit" type="submit" disabled="">{{newsletter.submit}}</button>
 	<p class="newsletter-note">

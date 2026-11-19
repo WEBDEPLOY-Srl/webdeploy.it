@@ -130,6 +130,11 @@ test.describe('HTML without JavaScript', () => {
 			const demo = page.locator(path === '/totem' ? '.kiosk-demo' : '.ws-demo');
 			await expect(demo).toBeVisible();
 			await expect(demo.locator('button:visible')).toHaveCount(0);
+			if (path !== '/totem') {
+				const preview = demo.locator('.ws-demo__preview');
+				await preview.scrollIntoViewIfNeeded();
+				await expect.poll(() => preview.evaluate((image) => image instanceof HTMLImageElement && image.naturalWidth > 0)).toBe(true);
+			}
 		}
 	});
 	test('navigation, the error page and newsletter fallback remain usable', async ({
@@ -260,4 +265,61 @@ test('total map tile failure preserves the address and marker and clears after r
 	await expect(map.getByRole('status')).toHaveText('');
 	await map.locator('.leaflet-marker-icon').click();
 	await expect(map.locator('.leaflet-popup')).toContainText('Via Puccini');
+});
+
+test('the cookieless initial page view is recorded before a confirmation event', async ({ page }) => {
+	await page.goto('/newsletter/confirmed', { referer: 'https://newsletter.webdeploy.it/confirm' });
+	await expect.poll(() => page.evaluate(() => {
+		const commands = window._paq ?? [];
+		const view = commands.findIndex(([name]) => name === 'trackPageView');
+		const confirmation = commands.findIndex(([name, , action]) => name === 'trackEvent' && action === 'newsletter_confirmed');
+		return view !== -1 && confirmation > view &&
+			commands.some(([name]) => name === 'enableLinkTracking') &&
+			commands.slice(0, view).some(([name]) => name === 'disableCookies') &&
+			commands.slice(0, view).some(([name, active]) => name === 'setDoNotTrack' && active === true);
+	})).toBe(true);
+});
+
+test('the homepage consent controls work before optional enhancements finish loading', async ({ page }) => {
+	await page.setViewportSize({width:390,height:844});
+	await page.addInitScript(() => localStorage.removeItem('wd_consent_marketing'));
+	/** @type {() => void} */
+	let release = () => {};
+	const pending = new Promise((resolve) => { release = () => resolve(undefined); });
+	await page.route('**/js/shell.mjs', async (route) => { await pending; await route.continue(); });
+	try {
+		await page.goto('/', { waitUntil: 'domcontentloaded' });
+		const banner = page.getByRole('complementary', { name: 'Privacy & cookies' });
+		await expect(banner).toBeVisible();
+		await banner.getByRole('button', {name:'Reject'}).click();
+		await expect(banner).toHaveCount(0);
+		expect(await page.evaluate(() => localStorage.getItem('wd_consent_marketing'))).toBe('denied');
+		await page.locator('button[aria-controls="mobile-menu"]').click();
+	} finally { release(); }
+	await expect(page.locator('#mobile-menu')).toBeVisible();
+	await expect(page.locator('button[aria-controls="mobile-menu"]')).toHaveAttribute('aria-expanded','true');
+	await page.waitForLoadState('networkidle');
+});
+
+test('a distant newsletter form waits for proximity, then mounts its real ready widget once', async ({ page }) => {
+	/** @type {string[]} */
+	const widgetRequests = [];
+	page.on('request',(request) => {
+		if (new URL(request.url()).pathname.endsWith('/external/altcha.min.js')) widgetRequests.push(request.url());
+	});
+	await page.route(/\/assets\/build\/[^/]+\/css\/page-[^/]+\.css$/, async (route) => {
+		const response = await route.fetch();
+		await route.fulfill({response, body:(await response.text()) + '\n.newsletter-intro { min-height: 300vh; }'});
+	});
+	await page.goto('/newsletter');
+	const form = page.locator('.newsletter-form');
+	await expect(form).not.toBeInViewport();
+	await page.waitForLoadState('networkidle');
+	await expect(form.getByRole('button',{name:'Subscribe'})).toBeDisabled();
+	await expect(form.locator('altcha-widget')).toHaveCount(0);
+	expect(widgetRequests).toHaveLength(0);
+	await form.scrollIntoViewIfNeeded();
+	await expect(form.getByRole('button',{name:'Subscribe'})).toBeEnabled();
+	await expect(form.locator('altcha-widget')).toHaveCount(1);
+	expect(widgetRequests).toHaveLength(1);
 });

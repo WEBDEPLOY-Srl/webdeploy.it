@@ -74,6 +74,33 @@
 		U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* Interface characters use smaller files with the original glyphs and hints.
+   The full Latin and extended faces above supply every other supported character. */
+@font-face {
+	font-family: 'Space Mono';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/fonts/space-mono-400-ui.woff2') format('woff2');
+	unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+2013-2014, U+2018-2019, U+201C-201D, U+2022, U+2026, U+203A, U+20AC, U+2122, U+2190-2193;
+}
+@font-face {
+	font-family: 'Space Mono';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('/fonts/space-mono-700-ui.woff2') format('woff2');
+	unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+2013-2014, U+2018-2019, U+201C-201D, U+2022, U+2026, U+203A, U+20AC, U+2122, U+2190-2193;
+}
+@font-face {
+	font-family: 'VT323';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/fonts/vt323-400-ui.woff2') format('woff2');
+	unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+2013-2014, U+2018-2019, U+201C-201D, U+2022, U+2026, U+203A, U+20AC, U+2122, U+2190-2193;
+}
+
 /* Pixelarticons free set (MIT, see /fonts/pixelarticons-LICENSE.txt).
    Only the glyphs in use are mapped; codepoints come from pixelarticons 2.4.2. */
 @font-face {
@@ -81,10 +108,11 @@
 	font-style: normal;
 	font-weight: 400;
 	font-display: block;
-	src: url('/fonts/pixelarticons.woff2') format('woff2');
+	src: url('/fonts/pixelarticons-site.woff2') format('woff2');
 }
 
 .pixel-icon {
+	inline-size: 1em;
 	font-family: 'pixelarticons';
 	font-weight: normal;
 	font-style: normal;

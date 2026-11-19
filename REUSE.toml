@@ -17,6 +17,7 @@ path = [
   "src/static/**/*.jpg",
   "src/static/**/*.jpeg",
   "src/static/**/*.webp",
+  "src/static/**/*.avif",
   "docs/*.webp",
   "src/static/*.svg",
   "src/static/images/*.svg",

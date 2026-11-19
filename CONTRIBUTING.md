@@ -39,6 +39,25 @@ transparent and so that forks can keep to the same style.
 - **Design and compatibility.** Preserve artwork, typography, keyboard access, visible focus
   and reduced motion. Use flat CSS for the stated browser baseline. Page modules use explicit,
   relative native imports and `new URL(..., import.meta.url)` for local workers.
+- **Responsive media.** Keep the existing full-resolution file as a fallback. Generate and
+  commit display-sized versions offline. The current AVIF, WebP and PNG derivatives were
+  produced with ImageMagick 7.1.2-34. The portrait workshop crop is 760 × 941 at offset (711, 0) in the original. Its AVIF and WebP versions
+  both include a 60% sRGB veil of `#050a10`, paired with the portrait gradient in `base/layout.css`.
+  Rebuild both formats together to retain the same appearance. The homepage embeds the small
+  AVIF portrait in its initial HTML so mobile visitors can paint the real artwork without a
+  separate request. Wide and fallback variants use their immutable URLs. The optional news-card `sources` field accepts a
+  width-described AVIF srcset of 16:9 crops. Check the visual result in both desktop and
+  phone layouts. The icon font subset contains the codepoints mapped in `base/fonts.css`.
+- **First paint.** The home route's `firstStylesheet` uses the same reset, shell and hero
+  sources as the complete page. Consent initializes immediately. The complete stylesheet
+  and optional modules start after a rendering opportunity, on early input or on the bounded
+  fallback. Script-free visitors receive the complete native stylesheet. The static workstation
+  preview is a transparent render of the original screen layer at 1113 × 1414, scaled to 800px.
+  The live screens mount on approach or input. The signup uses ALTCHA's instance `load` event
+  to verify readiness after the form first approaches the viewport.
+- **Tool marks.** The build writes a small content-hashed SVG for each mark. Native lazy images
+  keep the original viewBox, attributable paths and cyan/magenta treatment without loading a
+  site-wide sprite before the visible artwork. A visible text label names each link.
 - **Social previews.** Use a stable 1200 × 630 JPEG in `src/static/images/og/` for a new
   page’s Open Graph and Twitter image. Keep the full image inside that frame if cropping
   would remove the subject. LinkedIn recommends a landscape image at this size, and Meta

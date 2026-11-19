@@ -5,6 +5,10 @@ html {
 	scroll-padding-bottom: var(--consent-height, 0px);
 }
 
+.consent-reservation {
+	block-size: var(--consent-height, 7rem);
+}
+
 .consent-heading {
 	position: absolute;
 	inline-size: 1px;
