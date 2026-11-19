@@ -141,9 +141,18 @@ test('interaction states', async ({ page }, info) => {
 	await page.locator('.contacts-map').scrollIntoViewIfNeeded();
 	await page.locator('.leaflet-marker-icon').click();
 	await capture(page, info, 'map-popup', page.locator('.leaflet-popup'));
+});
+
+test('invalid newsletter form', async ({ page }, info) => {
+	await page.addInitScript(() => localStorage.setItem('wd_consent_marketing', 'denied'));
 	await page.goto('/newsletter');
 	await page.locator('input[type=email]').fill('example@example.test');
 	await page.getByRole('button', { name: 'Subscribe' }).click();
 	await expect(page.locator('#newsletter-list-error')).not.toHaveText('');
+	if (info.project.name === 'chromium-desktop') {
+		// Chromium animates its own validation bubble outside the page's animation clock.
+		// Allow its fade-in to finish on both images while the message is still visible.
+		await page.waitForTimeout(1000);
+	}
 	await capture(page, info, 'signup-invalid', page.locator('form'));
 });

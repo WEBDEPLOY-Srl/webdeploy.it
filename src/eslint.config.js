@@ -22,6 +22,7 @@ export default defineConfig(
 		'.vanilla-build-generations/',
 		'.build-generations/',
 		'.svelte-kit/',
+		'vendor/',
 		'node_modules/',
 		'test-results/',
 		'playwright-report/'

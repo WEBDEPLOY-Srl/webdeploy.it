@@ -6,6 +6,7 @@ const external = process.env.E2E_BASE_URL;
 
 export default defineConfig({
 	testDir: 'e2e',
+	testMatch: '**/*.spec.ts',
 	// One worker keeps memory use low on small CI hosts and removes ordering effects.
 	workers: 1,
 	// A failing test must fail: a retry would hide flakiness instead of exposing it.

@@ -87,7 +87,7 @@ export function rewriteMedia(html, urls) {
 		(whole, attr, raw) => {
 			if (attr === 'srcset' || attr === 'imagesrcset') {
 				const value = String(raw).replace(
-					/(^|,\s*)(\/[^,\s]+)/g,
+					/(^\s*|,\s*)(\/[^,\s]+)/g,
 					(_, separator, url) => separator + mediaUrl(url, urls)
 				);
 				return `${attr}="${value}"`;
@@ -157,6 +157,9 @@ export async function emitPage(page, site, copy, assets, partials, source, stage
 		head: head(page, site, copy, assets),
 		newsCards: template.includes('{{@newsCards}}') ? newsCards(pages, copy, partials) : '',
 		assetBase: assets.base,
+		linkedIn:
+			'https://www.linkedin.com/sharing/share-offsite/?url=' +
+			encodeURIComponent(new URL(page.path, site.url).href),
 		matomoUrl: escapeHtml(site.analytics?.matomo.url ?? ''),
 		matomoSite: escapeHtml(site.analytics?.matomo.siteId ?? ''),
 		pixelId: escapeHtml(site.analytics?.metaPixelId ?? ''),

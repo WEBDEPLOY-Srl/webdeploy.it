@@ -21,3 +21,18 @@
 .leaflet-popup-close-button {
 	color: var(--color-primary) !important;
 }
+
+.map-pin {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	color: black;
+	background: var(--color-primary);
+	border: 2px solid black;
+	font-weight: bold;
+}
+.map-popup {
+	font: 0.875rem/1.25rem var(--font-mono);
+}

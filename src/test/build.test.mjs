@@ -57,7 +57,7 @@ async function fixture(t) {
 		'assets/js/helper.mjs': "export const label = 'v1';",
 		'assets/js/worker.js': 'self.close();',
 		'assets/css/site.css': "@import './parts/base.css';\nbody { color: cyan; }",
-		'assets/css/parts/base.css': "main { background: url('/logo.svg'); }"
+		'assets/css/parts/base.css': "main { background: url('../../../static/logo.svg'); }"
 	}))
 		await write(join(root, name), contents);
 	return {

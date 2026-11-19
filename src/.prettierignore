@@ -9,3 +9,5 @@ playwright-report/
 vanilla-build/
 .vanilla-build-generations/
 .build-generations/
+vendor/altcha-3.6.0/
+vendor/leaflet-1.9.4/

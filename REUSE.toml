@@ -125,3 +125,16 @@ path = [
 precedence = "override"
 SPDX-FileCopyrightText = "Simple Icons contributors"
 SPDX-License-Identifier = "CC0-1.0"
+
+# Published vendor bytes keep their upstream copyright and licence.
+[[annotations]]
+path = ["src/vendor/leaflet-1.9.4/**"]
+precedence = "override"
+SPDX-FileCopyrightText = ["2010–2023 Volodymyr Agafonkin", "2010–2011 CloudMade"]
+SPDX-License-Identifier = "BSD-2-Clause"
+
+[[annotations]]
+path = ["src/vendor/altcha-3.6.0/**"]
+precedence = "override"
+SPDX-FileCopyrightText = ["2023–2026 Daniel Regeci, BAU Software s.r.o.", "2016–2025 Svelte Contributors"]
+SPDX-License-Identifier = "MIT"

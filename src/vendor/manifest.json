@@ -1,1 +1,16 @@
-{}
+{
+	"altcha-3.6.0/LICENSE.txt": "bee1fb9d9c97d42c12c22332c5250f2fb1ef5c2321f6f82beb23e3b77be50a29",
+	"altcha-3.6.0/SVELTE-LICENSE.md": "06257f4847b13a49a039efb17b944c141e71b12fd8d231b362d86919067d77a3",
+	"altcha-3.6.0/dist/external/altcha.css": "03622256effb4e962d0c1da9a59684cf237f541f290703934c07a97dabcbad47",
+	"altcha-3.6.0/dist/external/altcha.min.js": "29ec1d00d6fd0641a832a5e1e3c3d188470036e082c781b5907b508460fa7c6c",
+	"altcha-3.6.0/dist/workers/sha.js": "a7385783758fb251802be93a6d45e8d828b0d60000593c4a58ecc86ba86838ca",
+	"leaflet-1.9.4/LICENSE": "53e8dc25862014e4324741ca18fbe3611e11d42ef69f59f86ea8c5389647d4cb",
+	"leaflet-1.9.4/dist/images/layers-2x.png": "066daca850d8ffbef007af00b06eac0015728dee279c51f3cb6c716df7c42edf",
+	"leaflet-1.9.4/dist/images/layers.png": "1dbbe9d028e292f36fcba8f8b3a28d5e8932754fc2215b9ac69e4cdecf5107c6",
+	"leaflet-1.9.4/dist/images/marker-icon-2x.png": "00179c4c1ee830d3a108412ae0d294f55776cfeb085c60129a39aa6fc4ae2528",
+	"leaflet-1.9.4/dist/images/marker-icon.png": "574c3a5cca85f4114085b6841596d62f00d7c892c7b03f28cbfa301deb1dc437",
+	"leaflet-1.9.4/dist/images/marker-shadow.png": "264f5c640339f042dd729062cfc04c17f8ea0f29882b538e3848ed8f10edb4da",
+	"leaflet-1.9.4/dist/leaflet.css": "a7837102824184820dfa198d1ebcd109ff6d0ff9a2672a074b9a1b4d147d04c6",
+	"leaflet-1.9.4/dist/leaflet.js": "db49d009c841f5ca34a888c96511ae936fd9f5533e90d8b2c4d57596f4e5641a",
+	"leaflet-1.9.4/dist/leaflet.js.map": "600a10dc5cd110de0699510d322afcbe01c7ca90b4c5f48adc20314c70aac753"
+}

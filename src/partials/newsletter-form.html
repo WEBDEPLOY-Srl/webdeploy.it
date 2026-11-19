@@ -1,6 +1,10 @@
 <!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
 <form
+	data-required="{{newsletter.requiredError}}"
+	data-setup-error="{{newsletter.setupError}}"
+	data-verification-error="{{newsletter.verificationError}}"
+	data-submitting="{{newsletter.submitting}}"
 	action="https://newsletter.webdeploy.it/subscription/form"
 	method="post"
 	accept-charset="UTF-8"
@@ -51,6 +55,7 @@
 		display="invisible"
 		name="altcha"
 	></altcha-widget>
+	<p class="form-error" data-spam-error role="alert" hidden></p>
 	<button class="newsletter-submit" type="submit" disabled="">{{newsletter.submit}}</button>
 	<p class="newsletter-note">
 		{{newsletter.confirmationNote}} <a href="/privacy#newsletter">{{newsletter.privacyLink}}</a>

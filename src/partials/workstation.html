@@ -1,6 +1,11 @@
 <!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
-<div class="ws-demo" role="group" aria-label="{{services.linux.testMachine.demo.label}}">
+<div
+	class="ws-demo"
+	data-notice="{{services.linux.testMachine.demo.noticeTitle}}"
+	role="group"
+	aria-label="{{services.linux.testMachine.demo.label}}"
+>
 	<div class="ws-demo__device">
 		<div class="ws-demo__stage">
 			<div class="ws-screen ws-screen--left" aria-hidden="true">
@@ -112,10 +117,21 @@
 		role="group"
 		aria-label="{{services.linux.testMachine.demo.controls}}"
 	>
-		<button type="button" aria-pressed="false">{{services.linux.testMachine.demo.files}}</button
-		><button type="button" aria-pressed="false">{{services.linux.testMachine.demo.browser}}</button
-		><button type="button" aria-pressed="false">{{services.linux.testMachine.demo.office}}</button>
-		<button type="button">{{services.linux.testMachine.demo.print}}</button>
+		<button type="button" data-app="files" aria-pressed="false">
+			{{services.linux.testMachine.demo.files}}</button
+		><button type="button" data-app="browser" aria-pressed="false">
+			{{services.linux.testMachine.demo.browser}}</button
+		><button type="button" data-app="office" aria-pressed="false">
+			{{services.linux.testMachine.demo.office}}
+		</button>
+		<button type="button" data-print>{{services.linux.testMachine.demo.print}}</button>
 	</div>
 	<p class="sr-only" role="status"></p>
+
+	<template data-view="files">{{>demo-files}}</template>
+	<template data-view="browser">{{>demo-browser}}</template>
+	<template data-view="office">{{>demo-office}}</template>
+	<template data-view="launcher">{{>demo-launcher}}</template>
+	<template data-view="print">{{>demo-print}}</template>
+	<template data-view="notice">{{>demo-notice}}</template>
 </div>

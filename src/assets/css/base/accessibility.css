@@ -84,3 +84,8 @@
 	color: oklch(63.7% 0.237 25.331);
 	font-weight: bold;
 }
+
+.error-help .accent-link {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}

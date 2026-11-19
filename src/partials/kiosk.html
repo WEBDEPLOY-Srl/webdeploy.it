@@ -1,21 +1,26 @@
 <!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
-<div class="kiosk-demo" role="group" aria-label="{{totem.demo.label}}">
+<div
+	class="kiosk-demo"
+	data-complete="{{totem.demo.complete}}"
+	role="group"
+	aria-label="{{totem.demo.label}}"
+>
 	<div class="kiosk-demo__device">
 		<div class="kiosk-demo__screen">
 			<div class="kiosk-demo__app">
-				<div class="kiosk-demo__status"><span>{{totem.heroName}}</span> <span></span></div>
+				<div class="kiosk-demo__status"><span>{{totem.demo.brand}}</span> <span></span></div>
 				<div class="kiosk-demo__body">
 					<p class="kiosk-demo__title">{{totem.demo.welcome}}</p>
 					<p class="kiosk-demo__prompt">{{totem.demo.prompt}}</p>
 					<div class="kiosk-demo__tiles">
-						<button type="button" class="kiosk-demo__tile">
+						<button type="button" class="kiosk-demo__tile" data-view="hours">
 							<span class="pixel-icon pixel-icon-clock" aria-hidden="true"></span>
 							{{totem.demo.hours.title}}</button
-						><button type="button" class="kiosk-demo__tile">
+						><button type="button" class="kiosk-demo__tile" data-view="map">
 							<span class="pixel-icon pixel-icon-map" aria-hidden="true"></span>
 							{{totem.demo.map.title}}</button
-						><button type="button" class="kiosk-demo__tile">
+						><button type="button" class="kiosk-demo__tile" data-view="events">
 							<span class="pixel-icon pixel-icon-calendar" aria-hidden="true"></span>
 							{{totem.demo.events.title}}
 						</button>
@@ -34,9 +39,14 @@
 			decoding="async"
 		/>
 		<div class="kiosk-demo__switch" role="group" aria-label="{{totem.demo.switchLabel}}">
-			<button type="button" aria-pressed="false">{{totem.demo.windows}}</button>
-			<button type="button" aria-pressed="true">{{totem.heroName}}</button>
+			<button type="button" data-mode="windows" aria-pressed="false">{{totem.demo.windows}}</button>
+			<button type="button" data-mode="inwd" aria-pressed="true">{{totem.demo.inwd}}</button>
 		</div>
 	</div>
 	<p class="kiosk-demo__caption">{{totem.demo.caption}}</p>
+
+	<template data-panel="hours">{{>kiosk-hours}}</template>
+	<template data-panel="map">{{>kiosk-map}}</template>
+	<template data-panel="events">{{>kiosk-events}}</template>
+	<template data-panel="windows">{{>kiosk-windows}}</template>
 </div>

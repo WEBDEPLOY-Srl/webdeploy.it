@@ -38,10 +38,15 @@
 			</div>
 		</div>
 	</section>
-	<section class="contacts-map" aria-label="{{contacts.business.location}}">
+	<section tabindex="0" class="contacts-map" aria-label="{{contacts.business.location}}">
 		<div class="page-container">
 			<div class="contacts-map__frame">
-				<div class="contact-map">
+				<div class="contact-map" data-error="{{contacts.map.error}}">
+					<template
+						><div class="map-popup">
+							<strong>WEBDEPLOY S.R.L.</strong><br />Via Puccini, 15<br />{{contacts.map.popupCity}}
+						</div></template
+					>
 					<div class="contact-map__overlay">
 						<div class="contact-map__spinner"></div>
 						<p class="muted-caption">{{contacts.map.loading}}</p>

@@ -81,3 +81,42 @@ declare global {
 		_fbq?: MetaPixel;
 	}
 }
+
+export interface AltchaWidget extends HTMLElement {
+	verify(): Promise<{ verified?: boolean; payload?: string } | null>;
+	reset(): void;
+	getState(): string;
+	configure(settings: Record<string, unknown>): Promise<void>;
+}
+export interface LeafletMap {
+	setView(coordinates: [number, number], zoom: number): LeafletMap;
+	remove(): void;
+}
+export interface LeafletApi {
+	map(element: HTMLElement): LeafletMap;
+	tileLayer(
+		url: string,
+		options: { maxZoom: number; attribution: string }
+	): { addTo(map: LeafletMap): unknown };
+	divIcon(options: {
+		className: string;
+		html: HTMLElement;
+		iconSize: [number, number];
+		iconAnchor: [number, number];
+	}): object;
+	marker(
+		point: [number, number],
+		options: { icon: object; title: string }
+	): {
+		addTo(map: LeafletMap): { bindPopup(element: HTMLElement): unknown };
+	};
+}
+declare global {
+	interface Window {
+		$altcha?: { algorithms: Map<string, () => Worker> };
+		L?: LeafletApi;
+	}
+	interface HTMLElementTagNameMap {
+		'altcha-widget': AltchaWidget;
+	}
+}

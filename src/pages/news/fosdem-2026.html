@@ -2,19 +2,11 @@
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
 <div class="reading-page">
 	<div class="reading-column">
-		<a href="/news" class="article-back">&lt; News</a>
+		<a href="/news" class="article-back">&lt; {{news.backToNews}}</a>
 		<div class="article-header">
 			<div class="article-date">{{news.fosdem2026.date}}</div>
 			<h1 class="article-title">{{news.fosdem2026.title}}</h1>
-			<div class="share-controls">
-				<span class="muted-caption">Share:</span>
-				<button class="btn-social-linkedin share-button" aria-label="{{news.shareOnLinkedIn}}">
-					<span class="pixel-icon pixel-icon-linkedin" aria-hidden="true"></span> LinkedIn
-				</button>
-				<button class="btn-social-instagram share-button" aria-label="{{news.shareOnInstagram}}">
-					<span class="pixel-icon pixel-icon-instagram" aria-hidden="true"></span> Instagram
-				</button>
-			</div>
+			{{>share}}
 		</div>
 		<div class="article-figure">
 			<img
@@ -31,8 +23,7 @@
 		<article class="prose prose-invert article-body">
 			<div class="card-retro reading-card">
 				<p class="article-intro">
-					Our experience at FOSDEM 2026 in Brussels - from CRA and SBOM devrooms to discovering
-					innovative open source projects like
+					{{news.fosdem2026.descriptionBeforeLink}}
 					<a
 						href="https://metal-stack.io"
 						target="_blank"

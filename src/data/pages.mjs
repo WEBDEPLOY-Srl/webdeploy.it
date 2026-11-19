@@ -6,6 +6,7 @@
 export const pages = [
 	{
 		path: '/',
+		modules: ['workstation'],
 		file: 'index.html',
 		title: 'home.metaTitle',
 		description: 'home.metaDescription',
@@ -14,6 +15,7 @@ export const pages = [
 	},
 	{
 		path: '/contacts',
+		modules: ['map'],
 		file: 'contacts.html',
 		title: 'contacts.title',
 		description: 'contacts.business.description',
@@ -35,6 +37,7 @@ export const pages = [
 	},
 	{
 		path: '/news/fosdem-2026',
+		modules: ['share'],
 		file: 'news/fosdem-2026.html',
 		title: 'news.fosdem2026.title',
 		description: 'news.fosdem2026.description',
@@ -52,6 +55,7 @@ export const pages = [
 	},
 	{
 		path: '/news/php2shell-cve-2026-109618-109619',
+		modules: ['share'],
 		file: 'news/php2shell-cve-2026-109618-109619.html',
 		title: 'news.php2shell.title',
 		description: 'news.php2shell.metaDescription',
@@ -69,6 +73,7 @@ export const pages = [
 	},
 	{
 		path: '/newsletter',
+		modules: ['newsletter'],
 		file: 'newsletter.html',
 		title: 'newsletter.title',
 		description: 'newsletter.metaDescription',
@@ -76,6 +81,7 @@ export const pages = [
 	},
 	{
 		path: '/newsletter/confirmed',
+		modules: ['confirmed'],
 		file: 'newsletter/confirmed.html',
 		title: 'newsletter.confirmedTitle',
 		description: 'newsletter.confirmedText',
@@ -117,6 +123,7 @@ export const pages = [
 	},
 	{
 		path: '/services/linux-workstations',
+		modules: ['workstation'],
 		file: 'services/linux-workstations.html',
 		title: 'services.linux.title',
 		description: 'services.linux.metaDescription',
@@ -127,6 +134,7 @@ export const pages = [
 	},
 	{
 		path: '/totem',
+		modules: ['kiosk'],
 		file: 'totem.html',
 		title: 'totem.heroName',
 		description: 'totem.metaDescription',

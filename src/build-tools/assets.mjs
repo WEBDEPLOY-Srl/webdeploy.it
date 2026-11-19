@@ -24,7 +24,26 @@ export function mediaUrl(url, urls) {
  */
 async function sheet(base, file, urls, chain = []) {
 	if (chain.includes(file)) throw new Error(`CSS import cycle: ${[...chain, file].join(' -> ')}`);
-	const source = await readFile(within(base, file), 'utf8');
+	const raw = await readFile(within(base, file), 'utf8');
+	const source = raw.replace(
+		/url\(\s*(?:(["'])(.*?)\1|([^\s)]+))\s*\)/gs,
+		(whole, quote, quoted, plain) => {
+			const url = String(quoted ?? plain);
+			if (url.startsWith('#') || url.startsWith('data:')) return whole;
+			const [path] = url.split(/[?#]/);
+			const stable = path.startsWith('/')
+				? path
+				: '/' + relative(join(base, '../../static'), join(base, dirname(file), path));
+			if (!urls.has(stable)) throw new Error('Missing stylesheet asset in ' + file + ': ' + url);
+			return (
+				'url(' +
+				(quote ?? '') +
+				mediaUrl(stable + url.slice(path.length), urls) +
+				(quote ?? '') +
+				')'
+			);
+		}
+	);
 	const pieces = [];
 	let last = 0;
 	for (const match of source.matchAll(/^\s*@import\s+['"]([^'"]+)['"]\s*;/gm)) {
@@ -35,10 +54,7 @@ async function sheet(base, file, urls, chain = []) {
 	pieces.push(source.slice(last));
 	const result = pieces.join('');
 	if (/^\s*@import\b/m.test(result)) throw new Error(`Unsupported CSS import in ${file}`);
-	return result.replace(
-		/url\((['"]?)(\/(?!\/)[^"')]+)\1\)/g,
-		(_, quote, url) => `url(${quote}${mediaUrl(url, urls)}${quote})`
-	);
+	return result;
 }
 
 /** @param {string} root @param {string} stage @returns {Promise<BuiltAssets>} */
@@ -73,6 +89,28 @@ export async function emitAssets(root, stage) {
 		const bytes = await readFile(within(vendor, file));
 		if (digest(bytes) !== hash) throw new Error(`Vendor checksum mismatch: ${file}`);
 		code.set(posixPath('vendor', file), bytes);
+	}
+	// Vendor archives stay byte-identical in source. Resolve their CSS image
+	// references against the original file, then emit individually hashed media.
+	const vendorMedia = new Map();
+	for (const [name, bytes] of code) {
+		if (!name.startsWith('vendor/') || !/\.(?:png|woff2|svg)$/.test(name)) continue;
+		const ext = extname(name);
+		const target =
+			'/assets/media/' + name.slice(0, -ext.length) + '.' + digest(bytes).slice(0, 16) + ext;
+		vendorMedia.set(name, target);
+		await write(join(stage, target), bytes);
+	}
+	for (const [name, bytes] of code) {
+		if (!name.startsWith('vendor/') || !name.endsWith('.css')) continue;
+		const css = bytes
+			.toString()
+			.replace(/url\((['"]?)(?!#|data:)([^'")]+)\1\)/g, (whole, quote, url) => {
+				const target = vendorMedia.get(join(dirname(name), url));
+				if (!target) throw new Error('Unknown vendor CSS asset: ' + url);
+				return 'url(' + quote + target + quote + ')';
+			});
+		code.set(name, css);
 	}
 	const identity = [...code].map(([name, bytes]) => [name, digest(bytes)]).sort();
 	const base = '/assets/build/' + digest(JSON.stringify(identity)).slice(0, 16);

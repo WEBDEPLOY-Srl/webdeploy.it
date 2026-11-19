@@ -1,0 +1,29 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div
+	class="share-controls"
+	data-copy-failed="{{news.copyFailed}}"
+	data-desktop="{{news.instagramDesktop}}"
+	data-story-copied="{{news.instagramStoryLinkCopied}}"
+	data-link-copied="{{news.linkCopied}}"
+	data-popup-blocked="{{news.popupBlocked}}"
+	data-share-text="{{news.shareText}}"
+>
+	<span class="muted-caption">{{news.share}}:</span>
+	<a
+		href="{{@linkedIn}}"
+		class="btn-social-linkedin share-button"
+		aria-label="{{news.shareOnLinkedIn}}"
+		target="_blank"
+		rel="noopener noreferrer"
+		><span class="pixel-icon pixel-icon-linkedin" aria-hidden="true"></span> LinkedIn</a
+	>
+	<button
+		type="button"
+		class="btn-social-instagram share-button"
+		aria-label="{{news.shareOnInstagram}}"
+	>
+		<span class="pixel-icon pixel-icon-instagram" aria-hidden="true"></span> Instagram
+	</button>
+</div>
+<div class="toast-container" role="status" hidden><div class="toast"></div></div>

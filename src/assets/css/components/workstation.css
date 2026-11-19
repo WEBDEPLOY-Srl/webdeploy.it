@@ -582,3 +582,7 @@
 		1
 	);
 }
+
+.ws-demo__stage {
+	visibility: hidden;
+}
