@@ -36,3 +36,20 @@
 .map-popup {
 	font: 0.875rem/1.25rem var(--font-mono);
 }
+
+.contact-map__message {
+	position: absolute;
+	z-index: 800;
+	inset: 0.75rem 0.75rem auto auto;
+	max-inline-size: calc(100% - 4rem);
+	margin: 0;
+	pointer-events: none;
+}
+
+.contact-map__message:not(:empty) {
+	padding: 0.5rem 0.75rem;
+	background: var(--color-background-dark);
+	color: var(--color-text-heading);
+	border: 1px solid var(--color-primary);
+	font: 0.875rem/1.4 var(--font-reading);
+}

@@ -37,8 +37,7 @@ checked with the keyboard in both browsers. Statement updated on 2026-11-18.
 - The cookie banner is a complementary landmark named “Privacy & cookies” directly through its accessible label. It also contains a level-two heading for heading navigation. The measured banner height reserves scroll space for keyboard focus. On first appearance it leaves focus in place. Opening Cookie settings moves focus into the banner; Close, Escape and a decision return focus to the footer control.
 - The contact page map is a third-party OpenStreetMap map (Leaflet). Its address is also given as text
   on the page. The map initializes on proximity or keyboard focus and uses Leaflet’s keyboard controls.
-- The animated desktop and kiosk demos are decorative; they respect reduced-motion settings but have no
-  text transcript of what they show.
+- The workstation prints its current app or print result beside the demo controls. The kiosk exposes its opening hours, directions and events as text, with a keyboard-accessible Back control.
 - The retro look uses a pixel font and a scanline overlay that some readers may find harder to read;
   there is no switch to turn the overlay off.
 - The site is available in English only.

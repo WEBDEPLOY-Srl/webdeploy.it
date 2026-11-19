@@ -39,6 +39,8 @@ The next site version is **2.0.0**. The public routes, English content and newsl
 - The full accessibility scan covers the newsletter with consent pending and dismissed, including measurable contrast in both states.
 - Without JavaScript, the mobile navigation scrolls with the page and interactive demo controls are hidden. Header disclosures, focus restoration in the kiosk, and the consent heading now support keyboard and screen reader navigation.
 - Narrow article layouts wrap long settings names, printouts omit interactive controls, and share feedback uses a persistent live region.
+- On phones, service descriptions and article introductions now precede supporting artwork and sharing actions. Newsletter choices use larger, more widely spaced text.
+- Small-screen demos expose a larger kiosk Back button and readable workstation results. The contact map reports unavailable tiles while keeping the address and attribution available.
 
 ## [1.47.0] - 2026-11-16
 

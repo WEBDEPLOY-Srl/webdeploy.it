@@ -137,6 +137,11 @@
 	margin: 0;
 }
 
+/* On a service landing page, identify the service before showing its illustration. */
+.services-page > .home-service:first-child .home-service__art {
+	order: 0;
+}
+
 .home-service__image {
 	display: block;
 	width: 100%;

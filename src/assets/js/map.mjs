@@ -8,6 +8,7 @@ import { debug } from './logger.mjs';
 const frame = element(document, '.contact-map', HTMLElement);
 const canvas = element(frame, '.contact-map__canvas', HTMLElement);
 const overlay = element(frame, '.contact-map__overlay', HTMLElement);
+const message = element(frame, '.contact-map__message', HTMLElement);
 let started = false;
 async function initialize() {
 	if (started) return;
@@ -23,13 +24,27 @@ async function initialize() {
 		/** @type {[number,number]} */
 		const point = [44.794906009886205, 10.339969612796434];
 		const map = leaflet.map(canvas).setView(point, 13);
-		leaflet
-			.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				maxZoom: 19,
-				attribution:
-					'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-			})
-			.addTo(map);
+		const tiles = leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		});
+		let available = false;
+		let failed = false;
+		tiles.on('loading', () => {
+			available = false;
+			failed = false;
+		});
+		tiles.on('tileload', () => {
+			available = true;
+			message.textContent = '';
+		});
+		tiles.on('tileerror', () => {
+			failed = true;
+		});
+		tiles.on('load', () => {
+			if (failed && !available) message.textContent = frame.dataset.error ?? '';
+		});
+		tiles.addTo(map);
 		const marker = document.createElement('div');
 		marker.className = 'map-pin';
 		const icon = document.createElement('span');
@@ -58,7 +73,8 @@ async function initialize() {
 		debug('Map', 'Initialized contact map');
 	} catch {
 		canvas.hidden = true;
-		overlay.textContent = frame.dataset.error ?? '';
+		overlay.hidden = true;
+		message.textContent = frame.dataset.error ?? '';
 		debug('Map', 'Local map unavailable');
 	}
 }

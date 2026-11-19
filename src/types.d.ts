@@ -93,12 +93,16 @@ export interface LeafletMap {
 	setView(coordinates: [number, number], zoom: number): LeafletMap;
 	remove(): void;
 }
+export interface LeafletTiles {
+	on(event: 'loading' | 'load' | 'tileload' | 'tileerror', listener: () => void): LeafletTiles;
+	addTo(map: LeafletMap): LeafletTiles;
+}
 export interface LeafletApi {
 	map(element: HTMLElement): LeafletMap;
 	tileLayer(
 		url: string,
 		options: { maxZoom: number; attribution: string }
-	): { addTo(map: LeafletMap): unknown };
+	): LeafletTiles;
 	divIcon(options: {
 		className: string;
 		html: HTMLElement;

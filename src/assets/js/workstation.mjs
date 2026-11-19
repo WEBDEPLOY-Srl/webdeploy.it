@@ -59,6 +59,7 @@ function openApp(name) {
 		launcher.classList.remove('on');
 		panel.before(view(name));
 		tasks[index]?.classList.add('on');
+		status.textContent = element(desktop, '.win--float .win__title', HTMLElement).textContent;
 	}
 	if (reduceMotion.matches) {
 		show();
@@ -90,7 +91,6 @@ function print() {
 	printing.push(
 		window.setTimeout(() => {
 			desktop.querySelector('.toast')?.remove();
-			status.textContent = '';
 		}, delay + 6000)
 	);
 }

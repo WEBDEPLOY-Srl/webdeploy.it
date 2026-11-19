@@ -207,3 +207,57 @@ test('a navigation initialization failure leaves consent and cookieless analytic
 	await page.locator('.site-footer__settings').click();
 	await expect(page.getByRole('complementary', { name: 'Privacy & cookies' })).toBeVisible();
 });
+
+test('phone service headings and article introductions precede secondary content', async ({ page }) => {
+	await page.setViewportSize({ width: 320, height: 640 });
+	for (const path of ['/services/backup', '/services/consulting', '/services/linux-workstations']) {
+		await page.goto(path);
+		const heading = await page.locator('h1').boundingBox();
+		const art = await page.locator('main figure').first().boundingBox();
+		expect(heading && art && heading.y + heading.height < art.y, path).toBe(true);
+	}
+	for (const path of ['/news/fosdem-2026', '/news/php2shell-cve-2026-109618-109619']) {
+		await page.goto(path);
+		const intro = await page.locator('.article-intro').boundingBox();
+		const share = await page.locator('.share-controls').boundingBox();
+		const image = await page.locator('.article-figure').boundingBox();
+		expect(intro && share && image && intro.y < share.y && share.y < image.y, path).toBe(true);
+	}
+});
+
+test('small phone demos expose readable controls and results', async ({ page }) => {
+	await page.setViewportSize({ width: 320, height: 640 });
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	await page.goto('/totem');
+	await page.getByRole('button', { name: 'Opening hours', exact: true }).click();
+	const back = page.getByRole('button', { name: 'Back', exact: true });
+	const box = await back.boundingBox();
+	await expect(back).toHaveCSS('min-block-size', '44px');
+	expect(box && Math.round(box.width) >= 44 && Math.round(box.height) >= 44).toBe(true);
+	await expect(back).toHaveCSS('font-size', '14px');
+	await page.goto('/services/linux-workstations');
+	const demo = page.locator('.ws-demo');
+	await demo.locator('[data-app="files"]').click();
+	const status = demo.getByRole('status');
+	await expect(status).toContainText('Dolphin');
+	await demo.locator('[data-print]').click();
+	await expect(status).toHaveText('Test label printed');
+	const result = await status.boundingBox();
+	expect(result && result.width > 80 && result.height >= 20).toBe(true);
+});
+
+test('total map tile failure preserves the address and marker and clears after recovery', async ({ page }) => {
+	let offline = true;
+	await page.context().route('https://tile.openstreetmap.org/**', (route) => offline ? route.abort('failed') : route.fallback());
+	await page.goto('/contacts');
+	const map = page.locator('.contact-map');
+	await map.scrollIntoViewIfNeeded();
+	await expect(map.getByRole('status')).toHaveText('Unable to load map');
+	await expect(page.locator('.contacts-details').first()).toContainText('Via Puccini');
+	await expect(map.locator('.leaflet-control-attribution')).toBeVisible();
+	offline = false;
+	await map.locator('.leaflet-control-zoom-in').click();
+	await expect(map.getByRole('status')).toHaveText('');
+	await map.locator('.leaflet-marker-icon').click();
+	await expect(map.locator('.leaflet-popup')).toContainText('Via Puccini');
+});

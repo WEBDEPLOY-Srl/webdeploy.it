@@ -293,3 +293,50 @@
 .kiosk-demo__spinner > span:nth-child(5) {
 	--dot: 4;
 }
+
+/* Keep the device artwork and allow the real controls to use readable phone sizes. */
+@media (max-width: 639px) {
+	.kiosk-page .readable-hero__visual {
+		min-inline-size: 0;
+		inline-size: 100%;
+	}
+
+	.kiosk-demo__caption {
+		min-inline-size: 0;
+		max-inline-size: min(100%, 22rem);
+	}
+
+	.kiosk-demo__device {
+		inline-size: min(100%, 20rem);
+		block-size: auto;
+	}
+
+	.kiosk-demo__app {
+		overflow-y: auto;
+	}
+
+	.kiosk-demo__switch {
+		/* Resolve spacing from the positioned device even during its first layout. */
+		padding-inline: 5%;
+		gap: 0.5rem;
+	}
+
+	.kiosk-demo__tile,
+	.kiosk-demo__back {
+		min-block-size: 2.75rem;
+		min-inline-size: 2.75rem;
+		padding: 0.35rem;
+		font-size: 0.8125rem;
+		line-height: 1.25;
+	}
+
+	.kiosk-demo__back,
+	.kiosk-demo__back .pixel-icon {
+		font-size: 0.875rem;
+	}
+
+	.kiosk-demo__list li {
+		font-size: 0.8125rem;
+		line-height: 1.4;
+	}
+}

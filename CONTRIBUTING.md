@@ -59,12 +59,14 @@ transparent and so that forks can keep to the same style.
   `E2E_BASE_URL=http://127.0.0.1:18080 npm run test:e2e`. The suite runs both configured
   browsers, including the response-header and real 404 specs. For debugging on loopback,
   `sessionStorage.setItem('wd_debug', '1')` enables the development logger.
-- **Migration screenshots.** In the pinned Playwright environment, set `PARITY_DIR` to the
-  evidence directory (default `~/work/webdeploy-oss/parity`) and `E2E_BASE_URL` to the
-  reference nginx. Run `PARITY_RUN=baseline npm run test:parity -- --update-snapshots=all`
-  only when capturing the approved starting revision. Point the URL to the candidate and use
-  `PARITY_RUN=candidate npm run test:parity` without updating references. Source images,
-  actual captures and comparison reports remain available per browser and viewport.
+- **Migration screenshots.** The immutable 1.x captures are in
+  `~/work/webdeploy-oss/parity/reference/`. For a 2.x candidate, start its production nginx
+  on loopback and run `PARITY_RUN=candidate E2E_BASE_URL=http://127.0.0.1:18080 npm run test:parity`
+  from `src/` in the pinned Playwright environment. The default `PARITY_DIR` is
+  `~/work/webdeploy-oss/parity/current`, which points to the documented current reference set.
+  To record an intentional design change, capture into a fresh `PARITY_DIR` with
+  `--update-snapshots=all`. Review every affected image against the prior baseline, preserve
+  unrelated images, record the reason and rerun the complete comparison without updating snapshots.
 - **Blame.** `git config blame.ignoreRevsFile .git-blame-ignore-revs` hides the historical
   mechanical formatting commits.
 

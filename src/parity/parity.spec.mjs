@@ -135,6 +135,10 @@ test('newsletter banner and choices', async ({ page }, info) => {
 	await capture(page, info, 'signup-form', page.locator('form'));
 	await banner.getByRole('button', { name: 'Reject' }).click();
 	await page.getByRole('button', { name: 'Cookie settings' }).click();
+	await expect(banner).toBeFocused();
+	// The banner is fixed. A shared document origin keeps fractional footer scroll
+	// positions from shifting the screenshot rectangle by one device pixel.
+	await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
 	await capture(page, info, 'reopened-consent', banner);
 });
 

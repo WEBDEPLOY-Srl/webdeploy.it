@@ -9,7 +9,7 @@ const baseURL = process.env.E2E_BASE_URL;
 if (!baseURL || new URL(baseURL).hostname !== '127.0.0.1') {
 	throw new Error('E2E_BASE_URL must identify the local nginx container on 127.0.0.1');
 }
-const directory = resolve(process.env.PARITY_DIR ?? join(homedir(), 'work/webdeploy-oss/parity'));
+const directory = resolve(process.env.PARITY_DIR ?? join(homedir(), 'work/webdeploy-oss/parity/current'));
 const run = process.env.PARITY_RUN;
 if (!run || !/^[a-zA-Z0-9_-]+$/.test(run)) throw new Error('Set PARITY_RUN to a unique run name');
 

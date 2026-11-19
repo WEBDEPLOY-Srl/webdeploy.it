@@ -318,7 +318,9 @@
 		padding-inline: 1rem;
 	}
 	.article-back {
-		display: inline-block;
+		display: inline-flex;
+		align-items: center;
+		min-block-size: 2.75rem;
 		color: var(--color-primary);
 		font: var(--text-caption)/var(--line-caption) var(--font-mono);
 		margin-bottom: 2rem;
@@ -348,6 +350,7 @@
 		flex-wrap: wrap;
 	}
 	.share-button {
+		min-block-size: 2.75rem;
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
@@ -604,6 +607,7 @@
 		margin-bottom: 0.75rem;
 	}
 	.policy-newsletter__items {
+		overflow-wrap: anywhere;
 		list-style: decimal;
 		padding-left: 1.5rem;
 		color: var(--slate-400);

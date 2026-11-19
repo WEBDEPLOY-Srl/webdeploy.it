@@ -586,3 +586,11 @@
 .ws-demo__stage {
 	visibility: hidden;
 }
+
+.ws-demo__result {
+	min-block-size: 1.5em;
+	margin: -0.75rem 0 0;
+	color: var(--color-primary);
+	font: 0.9375rem/1.5 var(--font-reading);
+	text-align: center;
+}
