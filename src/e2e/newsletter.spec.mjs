@@ -157,7 +157,8 @@ test('the newsletter is accessible and its form stays above the cookie banner on
 		expect(buttonWidths[0]).toBeCloseTo(buttonWidths[1], 0);
 		expect(await banner(page).getByRole('button', { name: 'Reject' }).count()).toBe(1);
 		expect(await banner(page).getByRole('button', { name: 'Accept' }).count()).toBe(1);
-		await expect(page.locator('#consent-title')).toHaveClass(/sr-only/);
+		await expect(banner(page)).toHaveAccessibleName('Privacy & cookies');
+		await expect(banner(page).getByRole('heading')).toHaveCount(0);
 	}
 });
 test('cookie banner hides on phone field focus and dismisses without moving the page', async ({
@@ -328,11 +329,43 @@ test('confirmed page is noindex, excluded from sitemap and accessible', async ({
 	expect(response.status()).toBe(200);
 	expect(sitemap).not.toContain('/newsletter/confirmed');
 });
-test('newsletter page and visible consent banner have no axe violations', async ({ page }) => {
+/** @param {import('axe-core').AxeResults} results @returns {string[]} */
+function evaluatedRuleIds(results) {
+	const rules = [
+		...results.passes,
+		...results.violations,
+		...results.incomplete,
+		...results.inapplicable
+	];
+	return [...new Set(rules.map((rule) => rule.id))].sort();
+}
+
+test('newsletter page and visible consent banner have no axe violations', async ({ page }, info) => {
+	test.setTimeout(60_000);
 	await page.goto('/newsletter');
+	await expect(page.getByRole('button', { name: 'Subscribe' })).toBeEnabled();
 	await expect(banner(page)).toBeVisible();
-	const axe = await new AxeBuilder({ page }).analyze();
-	expect(axe.violations).toEqual([]);
+	await page.evaluate(async () => {
+		await document.fonts.ready;
+	});
+
+	const pending = await new AxeBuilder({ page }).analyze();
+	expect(pending.violations).toEqual([]);
+	expect(pending.incomplete.filter((rule) => rule.id === 'color-contrast')).toEqual([]);
+	await expect(banner(page)).toBeVisible();
+	expect(await page.evaluate(() => localStorage.getItem('wd_consent_marketing'))).toBeNull();
+
+	await banner(page).getByRole('button', { name: 'Reject' }).click();
+	await expect(banner(page)).toBeHidden();
+	const dismissed = await new AxeBuilder({ page }).analyze();
+	expect(dismissed.violations).toEqual([]);
+	const rules = evaluatedRuleIds(pending);
+	expect(pending.passes.map((rule) => rule.id)).toContain('color-contrast');
+	expect(rules).toEqual(evaluatedRuleIds(dismissed));
+	await info.attach('axe-rule-coverage', {
+		body: JSON.stringify({ engine: pending.testEngine, defaultRulesInBothStates: rules }),
+		contentType: 'application/json'
+	});
 });
 test('newsletter is the only page with a form', async ({ page }) => {
 	await page.goto('/newsletter');

@@ -9,7 +9,8 @@
 	min-height: 7rem;
 	padding: 0.5rem 0.75rem;
 	border-top: 1px solid rgba(0, 240, 255, 0.38);
-	background: rgb(11 16 27 / 96%);
+	/* Keep the consent and privacy-link contrast measurable over page artwork. */
+	background: #0b101b;
 	box-shadow: 0 -8px 24px rgb(0 0 0 / 28%);
 }
 

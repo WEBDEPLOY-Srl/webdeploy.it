@@ -20,7 +20,7 @@ in full: the checks below find many problems but not all, and the known limits a
 
 Every push runs the Playwright suite in `src/e2e/` in Firefox and Chromium against production nginx (see [CONTRIBUTING.md](./CONTRIBUTING.md)):
 
-- [axe-core](https://github.com/dequelabs/axe-core) scans every sitemap page, the confirmation page, the branded 404 and the cookie banner. All default rules run on each page and on the newsletter form with its consent banner visible. The home page with its banner visible also runs the WCAG A/AA checks. Any reported violation fails the check.
+- [axe-core](https://github.com/dequelabs/axe-core) scans every sitemap page, the confirmation page, the branded 404 and the cookie banner. All default rules run on each page. The newsletter test runs the complete rule set with consent visibly pending and after dismissal, and checks that both states cover the same rules. The home page with its banner visible also runs the WCAG A/AA checks. Any reported violation fails the check.
 - Keyboard tests cover the header menus and the mobile menu.
 - Every page is checked for one `h1`, a title, a description, and a clean browser console. Indexable pages have a canonical link.
 
@@ -35,7 +35,7 @@ checked with the keyboard in both browsers. Statement updated on 2026-11-18.
 ## Known limits
 
 - No audit with a screen reader or by an external accessibility specialist has been carried out yet.
-- The cookie banner is a named complementary landmark. On first appearance it leaves focus in place. Opening Cookie settings moves focus into the banner; Close, Escape and a decision return focus to the footer control.
+- The cookie banner is a complementary landmark named “Privacy & cookies” directly through its accessible label. On first appearance it leaves focus in place. Opening Cookie settings moves focus into the banner; Close, Escape and a decision return focus to the footer control.
 - The contact page map is a third-party OpenStreetMap map (Leaflet). Its address is also given as text
   on the page. The map initializes on proximity or keyboard focus and uses Leaflet’s keyboard controls.
 - The animated desktop and kiosk demos are decorative; they respect reduced-motion settings but have no
