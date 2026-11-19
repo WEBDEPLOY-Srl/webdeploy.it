@@ -129,15 +129,17 @@ test('preloads transitive static imports once and validates multiline and lazy r
 
 test('collects repeated partial notices without discarding third-party attributions', async (t) => {
 	const input = await fixture(t);
-	const notice = '<!-- SPDX-FileCopyrightText: Example -->\n<!-- SPDX-License-Identifier: CC0-1.0 -->\n';
+	const ownerField = 'SPDX-' + 'FileCopyrightText';
+	const licenseField = 'SPDX-' + 'License-Identifier';
+	const notice = `<!-- ${ownerField}: Example -->\n<!-- ${licenseField}: CC0-1.0 -->\n`;
 	await write(join(input.root, 'pages/index.html'), notice + '<h1>Home</h1>{{>mark}}{{>mark}}');
 	await write(join(input.root, 'partials/mark.html'), notice.replace('Example -->', 'Artist -->') + '<span>Mark</span>');
 	await buildSite(input);
 	const html = await readFile(join(input.output, 'index.html'), 'utf8');
-	assert.equal((html.match(/SPDX-FileCopyrightText: Artist/g) ?? []).length, 1);
+	assert.equal(html.split(ownerField + ': Artist').length - 1, 1);
 	assert.equal((html.match(/<!--/g) ?? []).length, 1);
-	assert.ok(html.includes('SPDX-FileCopyrightText: Example'));
-	assert.ok(html.includes('SPDX-License-Identifier: CC0-1.0'));
+	assert.ok(html.includes(ownerField + ': Example'));
+	assert.ok(html.includes(licenseField + ': CC0-1.0'));
 });
 
 test('a failed full rebuild preserves the last good generation', async (t) => {
