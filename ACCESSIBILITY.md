@@ -10,8 +10,7 @@ in full: the checks below find many problems but not all, and the known limits a
 
 ## What the design provides
 
-- A skip link to the main content, one `h1` per page and a document language that follows the visible
-  language.
+- A skip link to the main content, one `h1` per page and an English document language.
 - Header menus and the mobile menu work from the keyboard: arrow keys move between items, Escape closes
   a menu and returns focus to its button.
 - Visible focus styles, and reduced-motion support for the animated decoration and the demos.
@@ -19,26 +18,26 @@ in full: the checks below find many problems but not all, and the known limits a
 
 ## How it is tested
 
-Every push runs the Playwright suite in `src/e2e/` in Firefox and Chromium against the production
-build (see [CONTRIBUTING.md](./CONTRIBUTING.md)):
+Every push runs the Playwright suite in `src/e2e/` in Firefox and Chromium against production nginx (see [CONTRIBUTING.md](./CONTRIBUTING.md)):
 
-- [axe-core](https://github.com/dequelabs/axe-core) scans every page listed in the sitemap, and the cookie
-  banner, against the WCAG 2.0, 2.1 and 2.2 A and AA rules. The build fails on any serious or critical
-  violation.
+- [axe-core](https://github.com/dequelabs/axe-core) scans every sitemap page, the confirmation page, the branded 404 and the cookie banner. All default rules run on each page and on the newsletter form with its consent banner visible. The home page with its banner visible also runs the WCAG A/AA checks. Any reported violation fails the check.
 - Keyboard tests cover the header menus and the mobile menu.
-- Every page is checked for one `h1`, a title, a canonical link and a clean browser console.
+- Every page is checked for one `h1`, a title, a description, and a clean browser console. Indexable pages have a canonical link.
 
-Run it locally with `npm run build && npm run test:e2e` in `src/`.
+Run `npm run build` in `src/`, start the production nginx image and run
+`E2E_BASE_URL=http://127.0.0.1:18080 npm run test:e2e`. The no-JavaScript tests cover navigation,
+the newsletter explanation and the 404 recovery link. Browser tests also exercise the form
+at three phone sizes, equal consent controls, focus restoration, the product demos and map access.
 
 Automated rules cover only part of WCAG. Changes to layout, navigation or interactive parts are also
-checked by hand with the keyboard in both browsers. Last reviewed: 2026-11-15.
+checked with the keyboard in both browsers. Statement updated on 2026-11-18.
 
 ## Known limits
 
 - No audit with a screen reader or by an external accessibility specialist has been carried out yet.
-- The cookie banner is announced as a dialog but does not move focus into itself when it appears.
+- The cookie banner is a named complementary landmark. On first appearance it leaves focus in place. Opening Cookie settings moves focus into the banner; Close, Escape and a decision return focus to the footer control.
 - The contact page map is a third-party OpenStreetMap map (Leaflet). Its address is also given as text
-  on the page, but the map itself offers only the keyboard support Leaflet provides.
+  on the page. The map initializes on proximity or keyboard focus and uses Leaflet’s keyboard controls.
 - The animated desktop and kiosk demos are decorative; they respect reduced-motion settings but have no
   text transcript of what they show.
 - The retro look uses a pixel font and a scanline overlay that some readers may find harder to read;

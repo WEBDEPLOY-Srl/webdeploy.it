@@ -130,3 +130,28 @@ test.describe('HTML without JavaScript', () => {
 		expect(traffic.meta).toHaveLength(0);
 	});
 });
+
+test.describe('Italian browser preference', () => {
+	test.use({ locale: 'it-IT' });
+	test('archived locale cookies leave the English page and canonical intact', async ({
+		page,
+		context,
+		baseURL
+	}) => {
+		if (!baseURL) throw new Error('Missing local nginx origin');
+		await context.addCookies([{ name: 'nf_lang', value: 'it', url: baseURL }]);
+		await page.goto('/news');
+		await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+		await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute('content', 'en_US');
+		await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+			'href',
+			'https://webdeploy.it/news'
+		);
+		await expect(
+			page.locator('link[hreflang],meta[property="og:locale:alternate"],.language-switcher')
+		).toHaveCount(0);
+		expect(
+			(await context.cookies(baseURL)).find((cookie) => cookie.name === 'nf_lang')?.value
+		).toBe('it');
+	});
+});

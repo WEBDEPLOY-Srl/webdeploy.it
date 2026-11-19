@@ -20,11 +20,8 @@ path = [
   "docs/*.webp",
   "src/static/*.svg",
   "src/static/images/*.svg",
-  "src/src/lib/assets/favicon.svg",
   "src/content/en.mjs",
   "src/content/it.mjs",
-  "src/src/lib/i18n/en.ts",
-  "src/src/lib/i18n/it.ts",
 ]
 precedence = "override"
 SPDX-FileCopyrightText = "2026 WEBDEPLOY S.R.L."
@@ -36,9 +33,6 @@ path = [
   "src/partials/marks/borgwarehouse-com.html",
   "src/partials/marks/furilabs-com.html",
   "src/partials/marks/linkding-link.html",
-  "src/src/lib/assets/borgwarehouseLogo.ts",
-  "src/src/lib/assets/furilabsLogo.ts",
-  "src/src/lib/assets/linkdingLogo.ts",
 ]
 precedence = "override"
 SPDX-FileCopyrightText = "The respective owners of the depicted marks"

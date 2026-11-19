@@ -1,6 +1,12 @@
 .env
 .git
-node_modules/
+node_modules
 src/node_modules
 src/build
+src/vanilla-build
+src/.build-generations
+src/.vanilla-build-generations
 src/.svelte-kit
+src/test-results
+src/playwright-report
+graphify-out

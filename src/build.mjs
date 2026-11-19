@@ -117,7 +117,7 @@ async function compile(root, output) {
 }
 
 /** @param {string} root @param {string} output @returns {Promise<void>} */
-async function watchSite(root, output) {
+export async function watchSite(root, output) {
 	let running = false,
 		pending = false;
 	async function rebuild() {

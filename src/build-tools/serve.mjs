@@ -23,6 +23,21 @@ const types = {
 	'.webp': 'image/webp'
 };
 
+/** @param {string} file @returns {Promise<boolean>} */
+async function isFile(file) {
+	try {
+		return (await stat(file)).isFile();
+	} catch (error) {
+		if (
+			error instanceof Error &&
+			'code' in error &&
+			(error.code === 'ENOENT' || error.code === 'ENOTDIR')
+		)
+			return false;
+		throw error;
+	}
+}
+
 /**
  * The relay forwards nginx's original status, headers and encoded body. Local
  * preview resolves clean URLs but the acceptance suite always uses real nginx.
@@ -58,17 +73,20 @@ export function previewServer({ root, upstream }) {
 			const candidates = short
 				? [short, short + '.html', join(short, 'index.html')]
 				: ['index.html'];
-			for (const name of [...candidates, '404.html']) {
+			for (const name of candidates) {
 				const path = within(root, name);
-				if (!(await stat(path, { throwIfNoEntry: false }))?.isFile()) continue;
-				res.writeHead(name === '404.html' ? 404 : 200, {
+				if (!(await isFile(path))) continue;
+				res.writeHead(200, {
 					'content-type': types[extname(path)] ?? 'application/octet-stream'
 				});
 				res.end(req.method === 'HEAD' ? undefined : await readFile(path));
 				return;
 			}
-			res.writeHead(404);
-			res.end();
+			const fallback = within(root, '404.html');
+			res.writeHead(404, { 'content-type': types['.html'] });
+			res.end(
+				req.method === 'HEAD' || !(await isFile(fallback)) ? undefined : await readFile(fallback)
+			);
 		} catch {
 			if (!res.headersSent) res.writeHead(400);
 			res.end();

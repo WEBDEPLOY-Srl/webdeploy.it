@@ -5,10 +5,9 @@ site about open source infrastructure, Linux workstations, backup and the inWD k
 
 ![The webdeploy.it home page](./docs/screenshot.webp)
 
-Built with [SvelteKit](https://svelte.dev/docs/kit) (static adapter), [Svelte 5](https://svelte.dev),
-[Tailwind CSS 4](https://tailwindcss.com) and [Leaflet](https://leafletjs.com) with OpenStreetMap tiles.
-SvelteKit and Tailwind were chosen largely because their documentation is clear and consistent, which
-also makes them easy to work with in an AI-assisted workflow.
+The site ships English HTML, CSS and native browser modules. A zero-dependency Node script builds
+the pages and immutable assets. The newsletter uses a local ALTCHA widget and the contact page uses
+local Leaflet with OpenStreetMap tiles.
 
 ## Repository and contributions
 
@@ -20,77 +19,68 @@ also makes them easy to work with in an AI-assisted workflow.
   [CONTRIBUTING.md](./CONTRIBUTING.md).
 - Security problems are not reported in public issues, see [Security](#security).
 
-## Requirements
+## Build and preview
 
-- Node.js 24 or newer (`.nvmrc` pins 26, the current LTS) and npm.
-- Docker, only to build the container image.
-
-## Quick start
+Use Node.js 24 or newer. The repository's `.nvmrc` selects Node 26. From the project root:
 
 ```sh
-git clone https://github.com/WEBDEPLOY-Srl/webdeploy.it.git
-cd webdeploy.it/src
-npm ci
+cd src
+node build.mjs
 npm run dev
 ```
 
-The dev server listens on <http://localhost:5173>.
+The build works offline without installing packages. The development server listens on
+<http://127.0.0.1:5173> and rebuilds on source changes. Refresh the browser to see a new generation.
+To watch without a server, use `node build.mjs --watch`. Use `npm run preview` to serve the last
+successful build on port 4173. Clean URLs and the error document work in the preview.
 
-## Scripts
+The production image supplies the security policy, cache headers, MIME types, redirects and
+compression. To verify the offline build and run the actual image on a Docker host with port
+publishing enabled, use the repository root:
 
-Run from `src/`:
+```sh
+docker build --network=none -t webdeploy-it:local .
+docker network create webdeploy-it-preview
+docker run --rm --network webdeploy-it-preview -p 127.0.0.1:18080:80 webdeploy-it:local
+```
 
-| Command | What it does |
+Create the user-defined network once. On a Linux workstation without `docker0`, an alternative is
+host networking with nginx bound explicitly to loopback:
+
+```sh
+preview_dir="$(mktemp -d)"
+sed 's/listen 80;/listen 127.0.0.1:18080;/' nginx.conf > "$preview_dir/default.conf"
+docker run --rm --network=host \
+  --mount "type=bind,source=$preview_dir/default.conf,target=/etc/nginx/conf.d/default.conf,readonly" \
+  webdeploy-it:local
+```
+
+## Structure and checks
+
+| Location | Purpose |
 |---|---|
-| `npm run dev` | Start the dev server |
-| `npm run build` | Build the static site into `src/build/` |
-| `npm run preview` | Serve the production build locally |
-| `npm run check` | Type check and Svelte diagnostics (`svelte-check`) |
-| `npm run lint` | Prettier format check and ESLint |
-| `npm run format` | Rewrite files with Prettier |
-| `npm run test:unit` | Unit tests (Vitest) |
-| `npm run test:e2e` | Browser smoke tests (Playwright); run `npm run build` first |
+| `src/pages/`, `src/partials/` | Semantic page templates and shared HTML |
+| `src/data/`, `src/content/` | Routes and metadata, company facts, English text and the Italian archive |
+| `src/assets/`, `src/static/`, `src/vendor/` | Authored CSS and browser JavaScript, public media, verified vendor files |
+| `src/build.mjs`, `src/build-tools/` | Page generation, validation, compression, preview and the CI relay |
+| `src/test/`, `src/e2e/`, `src/parity/` | Node tests, Firefox/Chromium production tests and migration screenshot comparisons |
 
-To build and run the production image (nginx serving the static build) on <http://localhost:8080>, run from the repository root, not `src/`:
+From `src/` run `npm ci --include=dev` for development checks. `npm run lint` checks JavaScript
+syntax, `npm run typecheck` runs strict TypeScript checking of JSDoc, and `npm run check` runs both.
+Run `npm run test:unit`, `npm run build` and `npm audit --audit-level=high`. With the nginx image
+running, `E2E_BASE_URL=http://127.0.0.1:18080 npm run test:e2e` runs the complete browser suite.
+Read [CONTRIBUTING.md](./CONTRIBUTING.md) for authoring and verification conventions.
 
-```sh
-docker build -t webdeploy.it .
-docker run --rm -p 127.0.0.1:8080:80 webdeploy.it
-```
+## Browsers and language
 
-The image sends its own security headers, including a Content-Security-Policy built from the policy
-SvelteKit writes into each page (`src/vite.config.ts`, `src/scripts/nginx-csp.mjs`). The header, cache
-and 404 tests only make sense against nginx, so run them against the container:
+The browser baseline is Chrome/Edge 111, Firefox 114 and Safari 16.4. Styles use flat selectors,
+cascade layers, custom properties and container queries. The site uses native document navigation
+and browser history. Its primary content and navigation are available without JavaScript. Signup
+requires JavaScript for its local spam check.
 
-```sh
-cd src && E2E_BASE_URL=http://127.0.0.1:8080 npx playwright test
-```
-
-## Structure
-
-```
-.
-├── src/                  The npm project (package.json, lockfile, SvelteKit config)
-│   ├── src/              SvelteKit source: routes/, lib/ (components, i18n, stores, utils), app.css
-│   └── static/           Files served as they are: fonts, images, robots.txt, security.txt
-├── Dockerfile            Multi-stage build: Node builds the site, nginx serves it
-├── nginx.conf            nginx configuration used by the image
-├── docker-compose.*.yml  Compose files for the CI build and for running the image by hand
-├── .woodpecker/          CI pipeline
-├── CHANGELOG.md          Release notes (Keep a Changelog)
-└── REUSE.toml, LICENSES/ Per-file licensing
-```
-
-`src/src` looks odd but is deliberate: the repository root carries the container, CI and policy files,
-the `src/` directory is the npm project, and SvelteKit keeps its own sources in a `src/` directory
-inside it.
-
-## Translations
-
-All visible text lives in `src/src/lib/i18n/en.ts` and `src/src/lib/i18n/it.ts` and is read with
-`t('some.key')`. Both files must contain exactly the same keys. The site currently serves English only
-(`availableLocales` in `src/src/lib/stores/locale.svelte.ts`); the Italian file is kept up to date so
-the language can come back by adding `'it'` to that list.
+The site serves English only. `src/content/en.mjs` and `src/content/it.mjs` retain matching keys,
+array lengths and types. Enabling Italian in a future release requires generating `/it/` pages
+with their own canonical URLs, paired hreflang and language navigation.
 
 ## Deployment
 

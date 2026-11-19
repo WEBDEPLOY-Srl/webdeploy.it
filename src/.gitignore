@@ -1,32 +1,16 @@
-node_modules
-
-# Output
-.output
-.vercel
-.netlify
-.wrangler
-/.svelte-kit
+node_modules/
 /build
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Env
+/vanilla-build
+.build-generations/
+.vanilla-build-generations/
+test-results/
+playwright-report/
 .env
 .env.*
 !.env.example
-!.env.test
+.DS_Store
+Thumbs.db
 
-# Vite
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
-
-# Playwright
-/test-results
-/playwright-report
+# Build artifacts left by 1.x checkouts.
+/.svelte-kit/
 /csp-pages.map
-
-vanilla-build/
-.vanilla-build-generations/
-.build-generations/

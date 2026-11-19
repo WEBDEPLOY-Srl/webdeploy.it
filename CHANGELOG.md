@@ -7,12 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+The next site version is **2.0.0**. The public routes, English content and newsletter submission contract carry forward from 1.x.
+
 ### Added
 - A two-list newsletter signup at `/newsletter`, with separately unticked consents, a self-hosted ALTCHA check, and a confirmation page excluded from search indexing and the sitemap.
 - Newsletter submission and confirmation events, with the Meta `Lead` event gated on accepted marketing cookies and limited to `content_name: newsletter`.
-- A draft newsletter privacy section for counsel review and newsletter links from the footer, news pages and contacts page.
+- The approved newsletter privacy notice at `/privacy#newsletter` and newsletter links from the footer, news pages and contacts page.
 
 ### Changed
+- The website now builds offline with Node built-ins from HTML templates, native CSS and browser ES modules. Shared JS/CSS assets use a build ID and in-page media and fonts use content hashes. Stable public media and social preview URLs remain available.
+- Native document navigation replaces the client router and hover prefetch. The contact map now initializes on viewport proximity or focus. ALTCHA and Leaflet ship as pinned local distributions with verified checksums.
+- The nginx image serves a static Content-Security-Policy and a complete 404 document. The cache-revalidated version marker supports visitors with an older tab open.
+- Strict JSDoc type checks, node:test, production nginx browser tests and the full-tree npm audit replace the framework-dependent checks.
 - The cookie banner uses identical Reject and Accept button styling, restores Close when reopened, keeps its measured space reserved while pending and during phone focus-hide, and removes it only when dismissed. Its privacy link remains visible at 200% page zoom. The `/newsletter` mobile view hides the site header so the form stays above the banner.
 - The newsletter form waits for local ALTCHA readiness and disables human-interaction-signature collection. Returning from Listmonk resets list choices and submission state; setup failures instruct visitors to reload.
 - The confirmed-page event is recorded only when the referrer origin is `https://newsletter.webdeploy.it`. The privacy notice now describes per-visit Matomo records and transactional manage-link behavior.

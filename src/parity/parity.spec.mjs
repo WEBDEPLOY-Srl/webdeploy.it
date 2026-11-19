@@ -35,17 +35,42 @@ const tile = Buffer.from(
  * @returns {Promise<void>}
  */
 async function settle(page) {
-	await page.evaluate(async () => {
+	const start = await page.evaluate(async () => {
 		const start = scrollY;
 		for (let y = 0; y < document.documentElement.scrollHeight; y += innerHeight) {
 			scrollTo({ top: y, behavior: 'instant' });
 			await new Promise((resolve) => requestAnimationFrame(resolve));
 		}
 		await document.fonts.ready;
-		await Promise.all(Array.from(document.images, (image) => image.decode()));
-		scrollTo({ top: start, behavior: 'instant' });
-		await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+		return start;
 	});
+	// Keep lazy images in view through an actual paint. A responsive request can
+	// be decoded before the compositor draws it on a long mobile page.
+	for (const lazy of await page.locator('img[loading="lazy"]:visible').all()) {
+		await lazy.scrollIntoViewIfNeeded();
+		await expect.poll(() => lazy.evaluate(image =>
+			image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0
+		), { timeout: 10_000 }).toBe(true);
+		await lazy.screenshot({ animations: 'disabled' });
+	}
+	// A decode on a superseded request can reject. Require a successful decode
+	// of the current request for every image before capturing.
+	await expect.poll(() => page.evaluate(async () => {
+		const pending = await Promise.all(Array.from(document.images, async (image) => {
+			if (image.complete && image.naturalWidth > 0) {
+				try {
+					await image.decode();
+					return '';
+				} catch { /* Recheck the current request on the next poll. */ }
+			}
+			return image.currentSrc || image.src || '(missing image source)';
+		}));
+		return pending.filter(Boolean);
+	}), { timeout: 10_000, message: 'Every screenshot image must decode' }).toEqual([]);
+	await page.evaluate(async (position) => {
+		scrollTo({ top: position, behavior: 'instant' });
+		await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+	}, start);
 }
 
 /**
@@ -149,7 +174,7 @@ test('invalid newsletter form', async ({ page }, info) => {
 	await page.locator('input[type=email]').fill('example@example.test');
 	await page.getByRole('button', { name: 'Subscribe' }).click();
 	await expect(page.locator('#newsletter-list-error')).not.toHaveText('');
-	if (info.project.name === 'chromium-desktop') {
+	if (info.project.use.browserName === 'chromium') {
 		// Chromium animates its own validation bubble outside the page's animation clock.
 		// Allow its fade-in to finish on both images while the message is still visible.
 		await page.waitForTimeout(1000);

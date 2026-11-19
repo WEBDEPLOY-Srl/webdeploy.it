@@ -27,7 +27,6 @@ The fonts are subsets in WOFF2 format, served from the site's own host.
 | [ALTCHA](https://altcha.org/) 3.6.0 | MIT | The newsletter ships the published minified external custom element, its stylesheet and its SHA worker locally. The included Svelte runtime retains its MIT notice. |
 | [Leaflet](https://leafletjs.com/) 1.9.4, © 2010-2023 Volodymyr Agafonkin, © 2010-2011 CloudMade | BSD-2-Clause | Contact map. Its stylesheet and marker images are bundled. |
 | [Simple Icons](https://simpleicons.org/) 16.38.0 | CC0-1.0 (the icon data) | The native site stores the selected SVG paths in `src/partials/marks/`. The marks themselves are trademarks of their owners, see below. |
-| [Svelte](https://svelte.dev/), [SvelteKit](https://svelte.dev/docs/kit), [Tailwind CSS](https://tailwindcss.com/) and the other npm dependencies | MIT and similar | Listed with their versions in [src/package-lock.json](./src/package-lock.json); each ships its own licence file. |
 
 The pinned browser distributions, original archive integrity values and file checksums are documented in [the vendor inventory](./src/vendor/README.md).
 

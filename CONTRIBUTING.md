@@ -30,14 +30,37 @@ Do not open a public issue. Write to <security@webdeploy.it>, see [SECURITY.md](
 You do not need to follow these to report an issue. They are documented so that the project is
 transparent and so that forks can keep to the same style.
 
-- **Translations.** Every visible string lives in `src/src/lib/i18n/en.ts` and `it.ts`. A change to one
-  file is made to the other in the same commit; both must hold the same keys.
-- **Design.** Let artwork and typography carry the design. No terminal or console window panels, no
-  "01 / 02 / 03" stage numbering and similar decorative themes.
-- **Accessibility and browsers.** Keyboard operation, visible focus and reduced-motion support are
-  required. Changes are checked in Firefox and Chromium.
-- **Blame.** `git config blame.ignoreRevsFile .git-blame-ignore-revs` hides the mechanical formatting commits from `git blame`.
-- **Checks.** In `src/`, `npm run lint`, `npm run check`, `npm run test:unit` and, after `npm run build`, `npm run test:e2e` must pass without warnings.
+- **Content.** Put page markup in `src/pages/`; share components through `src/partials/`.
+  Register each route once in `src/data/pages.mjs` with its title and description keys.
+  Article records also supply the dated card, canonical image and NewsArticle metadata.
+  Use the dictionary lookup `{{key.path}}`, the include `{{>partial-name}}`, or a documented
+  build-owned slot. Content values are HTML-escaped by default. Add matching English and
+  natural Italian values to `src/content/en.mjs` and `it.mjs` in the same change.
+- **Design and compatibility.** Preserve artwork, typography, keyboard access, visible focus
+  and reduced motion. Use flat CSS for the stated browser baseline. Page modules use explicit,
+  relative native imports and `new URL(..., import.meta.url)` for local workers.
+- **JSDoc.** Start every authored JavaScript file with `// @ts-check` and SPDX attribution.
+  Document exported function parameters and return types with `@param` and `@returns`.
+  Use `@typedef`, `@type` and the shared `src/types.d.ts` for contracts. Narrow DOM elements
+  with their actual interfaces before calling element-specific methods. Strict
+  `tsc --noEmit -p jsconfig.json` covers browser code, build scripts, preview and test helpers.
+  Published vendor bytes are verified by checksum and carry their upstream licences.
+- **Checks.** In `src/`, run `npm ci --include=dev`, `npm run check`, `npm run test:unit`,
+  `node build.mjs` and `npm audit --audit-level=high`. The build checks internal links,
+  media, fragments, page metadata, inline executable markup and vendor integrity.
+  Run the [production nginx image](./README.md#build-and-preview), then
+  `E2E_BASE_URL=http://127.0.0.1:18080 npm run test:e2e`. The suite runs both configured
+  browsers, including the response-header and real 404 specs. For debugging on loopback,
+  `sessionStorage.setItem('wd_debug', '1')` enables the development logger.
+- **Migration screenshots.** In the pinned Playwright environment, set `PARITY_DIR` to the
+  evidence directory (default `~/work/webdeploy-oss/parity`) and `E2E_BASE_URL` to the
+  reference nginx. Run `PARITY_RUN=baseline npm run test:parity -- --update-snapshots=all`
+  only when capturing the approved starting revision. Point the URL to the candidate and use
+  `PARITY_RUN=candidate npm run test:parity` without updating references. Source images,
+  actual captures and comparison reports remain available per browser and viewport.
+- **Blame.** `git config blame.ignoreRevsFile .git-blame-ignore-revs` hides the historical
+  mechanical formatting commits.
+
 - **Commits.** [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `docs:`,
   `chore:`, `refactor:`, `test:`, `perf:`, `ci:` or `build:`, an imperative lowercase subject of at most
   72 characters with no trailing period.
