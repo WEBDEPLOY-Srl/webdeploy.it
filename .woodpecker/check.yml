@@ -25,7 +25,7 @@ steps:
       - nginx -t
       - |
         set -eu
-        state="src/.build-generations/ci-nginx-$${CI_PIPELINE_NUMBER}"
+        state=".ci-state/nginx-$${CI_PIPELINE_NUMBER}"
         mkdir -p "$$state"
         rm -f "$$state/stop" "$$state/stopped"
         (
@@ -88,7 +88,7 @@ steps:
     commands:
       - |
         set -eu
-        state="src/.build-generations/ci-nginx-$${CI_PIPELINE_NUMBER}"
+        state=".ci-state/nginx-$${CI_PIPELINE_NUMBER}"
         if ! test -d "$$state"; then exit 0; fi
         touch "$$state/stop"
         for attempt in $(seq 1 30); do

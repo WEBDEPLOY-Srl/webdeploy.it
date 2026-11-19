@@ -44,6 +44,7 @@ transparent and so that forks can keep to the same style.
   Use `@typedef`, `@type` and the shared `src/types.d.ts` for contracts. Narrow DOM elements
   with their actual interfaces before calling element-specific methods. Strict
   `tsc --noEmit -p jsconfig.json` covers browser code, build scripts, preview and test helpers.
+  The additional `jsconfig.browser.json` pass checks browser modules against DOM and ECMAScript globals alone.
   Published vendor bytes are verified by checksum and carry their upstream licences.
 - **Checks.** In `src/`, run `npm ci --include=dev`, `npm run check`, `npm run test:unit`,
   `node build.mjs` and `npm audit --audit-level=high`. The build checks internal links,

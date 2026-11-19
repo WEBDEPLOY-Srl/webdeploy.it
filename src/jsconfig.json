@@ -22,7 +22,6 @@
 		"e2e/*.mjs",
 		"parity/*.mjs",
 		"test/*.mjs",
-		"playwright.config.mjs",
-		"scripts/lighthouse.mjs"
+		"playwright.config.mjs"
 	]
 }

@@ -45,6 +45,7 @@ test('preserves the four approved privacy and newsletter dictionaries', () => {
 });
 
 test('retains canonical sitemap coverage and the site, service and article data', () => {
+	assert.equal(site.url, new URL(site.url).origin);
 	const xml = sitemap(pages, site.url);
 	const locations = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]));
 	const expected = [

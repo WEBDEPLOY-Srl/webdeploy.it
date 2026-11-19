@@ -35,7 +35,8 @@ To watch without a server, use `node build.mjs --watch`. Use `npm run preview` t
 successful build on port 4173. Clean URLs and the error document work in the preview.
 
 The production image supplies the security policy, cache headers, MIME types, redirects and
-compression. To verify the offline build and run the actual image on a Docker host with port
+compression. The build writes gzip sidecars for text assets. The pinned Alpine nginx image
+serves these with `gzip_static` and includes no Brotli module. To verify the offline build and run the actual image on a Docker host with port
 publishing enabled, use the repository root:
 
 ```sh

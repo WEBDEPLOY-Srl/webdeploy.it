@@ -1,11 +1,11 @@
 // @ts-check
 // SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
 // SPDX-License-Identifier: AGPL-3.0-only
-import { lstat, mkdir, mkdtemp, readFile, readlink, rename, rm, symlink } from 'node:fs/promises';
+import { chmod, lstat, mkdir, mkdtemp, readFile, readlink, rename, rm, symlink } from 'node:fs/promises';
 import { watch } from 'node:fs';
 import { basename, dirname, join, resolve } from 'node:path';
 import { pathToFileURL, fileURLToPath } from 'node:url';
-import { gzipSync, brotliCompressSync, constants } from 'node:zlib';
+import { gzipSync } from 'node:zlib';
 import { digest, files, write } from './build-tools/files.mjs';
 import { emitAssets } from './build-tools/assets.mjs';
 import { emitPage, sitemap } from './build-tools/documents.mjs';
@@ -32,10 +32,6 @@ async function precompress(stage) {
 		const path = join(stage, name);
 		const bytes = await readFile(path);
 		await write(path + '.gz', gzipSync(bytes, { level: 9 }));
-		await write(
-			path + '.br',
-			brotliCompressSync(bytes, { params: { [constants.BROTLI_PARAM_QUALITY]: 8 } })
-		);
 	}
 }
 
@@ -55,6 +51,8 @@ export async function buildSite({ root, output, pages, copy, site }) {
 	const stage = await mkdtemp(join(generations, 'site-'));
 	let published = false;
 	try {
+		// The published directory is also served by non-owner nginx workers on bind mounts.
+		await chmod(stage, 0o755);
 		validateRoutes(pages, await files(join(root, 'pages')));
 		const assets = await emitAssets(root, stage);
 		const partials = await readPartials(join(root, 'partials'));

@@ -5,8 +5,22 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from './fixtures.mjs';
 import { sitemapPaths } from './routes.mjs';
 const paths = [...sitemapPaths(), '/newsletter/confirmed'];
-test('the sitemap is not empty', () => {
-	expect(paths.length).toBeGreaterThan(5);
+test('the production sitemap is well-formed XML and lists the expected canonical locations', async ({ page, request }) => {
+	const response = await request.get('/sitemap.xml');
+	expect(response.status()).toBe(200);
+	const parsed = await page.evaluate((text) => {
+		const xml = new DOMParser().parseFromString(text, 'application/xml');
+		return {
+			error: xml.querySelector('parsererror')?.textContent ?? null,
+			root: xml.documentElement.localName,
+			namespace: xml.documentElement.namespaceURI,
+			locations: Array.from(xml.getElementsByTagNameNS('*', 'loc'), (node) => node.textContent)
+		};
+	}, await response.text());
+	expect(parsed.error).toBeNull();
+	expect(parsed.root).toBe('urlset');
+	expect(parsed.namespace).toBe('http://www.sitemaps.org/schemas/sitemap/0.9');
+	expect(parsed.locations).toEqual(sitemapPaths().map((path) => 'https://webdeploy.it' + path));
 });
 for (const path of paths) {
 	test.describe(path, () => {

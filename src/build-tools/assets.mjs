@@ -115,25 +115,30 @@ export async function emitAssets(root, stage) {
 	const identity = [...code].map(([name, bytes]) => [name, digest(bytes)]).sort();
 	const base = '/assets/build/' + digest(JSON.stringify(identity)).slice(0, 16);
 	const emitted = new Set([...urls.values(), ...[...code.keys()].map((name) => base + '/' + name)]);
+	/** @type {Map<string,string[]>} */
+	const imports = new Map();
 	for (const [name, bytes] of code) {
 		if (name.startsWith('vendor/')) continue;
 		const css = name.endsWith('.css');
+		const source = css ? bytes.toString() : bytes.toString().replace(/\/\*[\s\S]*?\*\/|^\s*\/\/[^\n]*/gm, '');
+		// Keep static imports distinct from modules and workers fetched only on interaction.
 		const links = css
 			? /url\(\s*['"]?([^'"\s)]+)/g
-			: /(?:^\s*(?:import|export)\s+(?:[^'"\n;]*?\bfrom\s*)?|\bimport\(\s*|\bnew URL\(\s*)['"](\.[^'"]+)['"]/gm;
-		// JSDoc imports reference development declarations and do not run in the browser.
-		const source = css
-			? bytes.toString()
-			: bytes.toString().replace(/\/\*[\s\S]*?\*\/|^\s*\/\/[^\n]*/gm, '');
+			: /(?:^|;)\s*(?:import\s*(?:[\w$*,\s{}]*?\bfrom\s*)?|export\s*(?:\*(?:\s+as\s+[\w$]+)?|\{[^{};]*\})\s*from\s*)['"](\.[^'"]+)['"]|\b(?:import|new URL)\(\s*['"](\.[^'"]+)['"]/gm;
+		const ownUrl = base + '/' + name;
+		const dependencies = [];
 		for (const match of source.matchAll(links)) {
-			if (match[1].startsWith('#') || match[1].startsWith('data:')) continue;
-			const url = new URL(match[1], 'https://assets.invalid' + base + '/' + name);
-			if (url.origin === 'https://assets.invalid' && !emitted.has(url.pathname))
-				throw new Error(`Missing asset from ${name}: ${match[1]}`);
+			const specifier = match[1] ?? match[2];
+			if (specifier.startsWith('#') || specifier.startsWith('data:')) continue;
+			const url = new URL(specifier, 'https://assets.invalid' + ownUrl);
+			if (url.origin !== 'https://assets.invalid') continue;
+			if (!emitted.has(url.pathname)) throw new Error('Missing asset from ' + name + ': ' + specifier);
+			if (!css && match[1]) dependencies.push(url.pathname);
 		}
+		if (!css) imports.set(ownUrl, dependencies);
 	}
 	for (const [name, bytes] of code) await write(join(stage, base, name), bytes);
-	return { base, urls };
+	return { base, urls, imports };
 }
 
 /** @param {string} folder @param {string} file @returns {string} */

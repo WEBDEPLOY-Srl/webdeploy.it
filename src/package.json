@@ -16,7 +16,7 @@
 		"build": "node build.mjs",
 		"preview": "node build-tools/serve.mjs build",
 		"lint": "node build-tools/syntax.mjs",
-		"typecheck": "tsc --noEmit -p jsconfig.json",
+		"typecheck": "tsc --noEmit -p jsconfig.json && tsc --noEmit -p jsconfig.browser.json",
 		"check": "npm run lint && npm run typecheck",
 		"test:unit": "node --test --test-isolation=none test/*.test.mjs",
 		"test:e2e": "playwright test -c playwright.config.mjs",

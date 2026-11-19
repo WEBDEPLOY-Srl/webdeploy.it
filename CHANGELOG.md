@@ -13,6 +13,7 @@ The next site version is **2.0.0**. The public routes, English content and newsl
 - A two-list newsletter signup at `/newsletter`, with separately unticked consents, a self-hosted ALTCHA check, and a confirmation page excluded from search indexing and the sitemap.
 - Newsletter submission and confirmation events, with the Meta `Lead` event gated on accepted marketing cookies and limited to `content_name: newsletter`.
 - The approved newsletter privacy notice at `/privacy#newsletter` and newsletter links from the footer, news pages and contacts page.
+- Browser screenshot comparisons cover all 15 page designs and the interactive states of the newsletter, navigation, demos and consent banner.
 
 ### Changed
 - The website now builds offline with Node built-ins from HTML templates, native CSS and browser ES modules. Shared JS/CSS assets use a build ID and in-page media and fonts use content hashes. Stable public media and social preview URLs remain available.
@@ -24,6 +25,18 @@ The next site version is **2.0.0**. The public routes, English content and newsl
 - The newsletter form waits for local ALTCHA readiness and disables human-interaction-signature collection. Returning from Listmonk resets list choices and submission state; setup failures instruct visitors to reload.
 - The confirmed-page event is recorded only when the referrer origin is `https://newsletter.webdeploy.it`. The privacy notice now describes per-visit Matomo records and transactional manage-link behavior.
 - The retired early-access path now redirects to `/newsletter` while preserving query parameters; the news-writer skill matches the smm campaign source contract.
+
+### Removed
+- Svelte, SvelteKit, adapter-static, Vite and Tailwind CSS from the site and its build.
+- ESLint, Prettier, svelte-check and Vitest from the development toolchain, along with the `format` and `check:watch` npm scripts.
+- The per-page CSP meta tags, script hashes and generated nginx policy map previously produced by `scripts/nginx-csp.mjs`.
+- The client-side router and link-hover prefetching.
+- Unused Brotli sidecars. The production nginx image serves the prebuilt gzip representations.
+
+### Fixed
+- Build output directories can be served directly by a different user, including nginx workers reading a bind mount.
+- The build validates multiline static imports and preloads shared module dependencies before entry scripts execute.
+- The full accessibility scan covers the newsletter with consent pending and dismissed, including measurable contrast in both states.
 
 ## [1.47.0] - 2026-11-16
 

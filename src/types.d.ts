@@ -22,6 +22,7 @@ export interface SitePage {
 export interface BuiltAssets {
 	base: string;
 	urls: Map<string, string>;
+	imports: Map<string, string[]>;
 }
 
 export interface BuildInputs {

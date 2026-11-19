@@ -1,6 +1,7 @@
 // @ts-check
 // SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
 // SPDX-License-Identifier: AGPL-3.0-only
+import { gunzipSync } from 'node:zlib';
 import { expect, test } from './fixtures.mjs';
 // Response headers come from nginx, so these need the container:
 //   E2E_BASE_URL=http://127.0.0.1:18080 npx playwright test headers
@@ -95,6 +96,12 @@ test('pages and scripts are served precompressed', async ({ request }) => {
 	for (const path of ['/', script]) {
 		const response = await request.get(path, { headers: { 'accept-encoding': 'gzip' } });
 		expect(response.headers()['content-encoding'], path).toBe('gzip');
+		const file = path === '/' ? '/index.html' : path;
+		const sidecar = await request.get(file + '.gz', { headers: { 'accept-encoding': 'identity' } });
+		expect(sidecar.status()).toBe(200);
+		const stored = await sidecar.body();
+		expect(response.headers()['content-length'], path).toBe(String(stored.length));
+		expect(gunzipSync(stored).equals(await response.body()), path).toBe(true);
 	}
 });
 

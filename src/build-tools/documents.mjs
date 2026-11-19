@@ -68,16 +68,34 @@ function head(page, site, copy, assets) {
 	tags.push(jsonLd(organization(site)), pageSchema(page, site, title, description));
 	for (const css of ['site', ...(page.styles ?? [])])
 		tags.push(`<link rel="stylesheet" href="${assets.base}/css/${css}.css">`);
-	for (const name of new Set(['shell', ...(page.modules ?? [])])) {
-		if (name === 'shell' || name === 'newsletter')
-			tags.push(`<link rel="modulepreload" href="${assets.base}/js/${name}.mjs">`);
-		tags.push(`<script type="module" src="${assets.base}/js/${name}.mjs"></script>`);
+	const entries = new Set(['shell', ...(page.modules ?? [])].map((name) => assets.base + '/js/' + name + '.mjs'));
+	const reachable = new Set(entries);
+	for (const url of reachable) {
+		for (const dependency of assets.imports.get(url) ?? []) reachable.add(dependency);
 	}
+	for (const url of reachable) {
+		if (!entries.has(url)) tags.push(`<link rel="modulepreload" href="${url}">`);
+	}
+	for (const url of entries) tags.push(`<script type="module" src="${url}"></script>`);
 	if (page.preloadImage)
 		tags.push(
 			`<link rel="preload" as="image" fetchpriority="high" href="${escapeHtml(page.preloadImage)}">`
 		);
 	return tags.filter(Boolean).join('\n');
+}
+
+/**
+ * Preserve the distinct source attributions in one notice per published document.
+ * @param {string} html
+ * @returns {string}
+ */
+function collectNotices(html) {
+	const notices = new Set();
+	const body = html.replace(/<!-- (SPDX-FileCopyrightText: [^\n]+?) -->\s*<!-- (SPDX-License-Identifier: [^\n]+?) -->\s*/g, (_, owner, license) => {
+		notices.add(owner + '\n' + license);
+		return '';
+	});
+	return notices.size ? '<!--\n' + [...notices].join('\n\n') + '\n-->\n' + body : body;
 }
 
 /** @param {string} html @param {Map<string,string>} urls @returns {string} */
@@ -177,7 +195,7 @@ export async function emitPage(page, site, copy, assets, partials, source, stage
 		body: ''
 	};
 	slots.body = render(template, copy, partials, slots);
-	const html = rewriteMedia(render(shell, copy, partials, slots), assets.urls);
+	const html = collectNotices(rewriteMedia(render(shell, copy, partials, slots), assets.urls));
 	const filename = page.path === '/' ? 'index.html' : page.path.slice(1) + '.html';
 	await write(within(stage, filename), html);
 	return html;
