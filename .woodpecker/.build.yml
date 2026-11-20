@@ -14,7 +14,7 @@ depends_on:
 
 steps:
   build_frontend:
-    image: git.webdeploy.it/webdeploy/alpine:latest@sha256:5e35a84c4162b90d0041e7a82b23177153e0206ea049206cd23128063b09c8d5
+    image: git.webdeploy.it/webdeploy/alpine:latest@sha256:fa857714ffdb0a1d3de11e0dab0c06c7f3fe2455f2dc147b65a207159cabb6ef
     environment:
       DOCKER_USERNAME:
         from_secret: docker_username
