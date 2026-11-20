@@ -191,6 +191,7 @@ test('invalid newsletter form', async ({ page }, info) => {
 	await page.addInitScript(() => localStorage.setItem('wd_consent_marketing', 'denied'));
 	await page.goto('/newsletter');
 	await page.locator('input[type=email]').fill('example@example.test');
+	await page.evaluate(async () => { await document.fonts.ready; });
 	await page.getByRole('button', { name: 'Subscribe' }).click();
 	await expect(page.locator('#newsletter-list-error')).not.toHaveText('');
 	if (info.project.use.browserName === 'chromium') {

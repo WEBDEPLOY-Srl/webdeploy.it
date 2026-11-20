@@ -760,8 +760,9 @@ export const en = {
 	newsletter: {
 		title: 'WEBDEPLOY newsletter',
 		metaDescription: 'Choose which WEBDEPLOY news and service updates you want by email.',
-		lead: 'News, security notices and updates from our workbench.',
-		whatTitle: 'What would you like to receive? Choose at least one.',
+		heading: 'From the workbench',
+		lead: 'WEBDEPLOY news, security notices and offers by email.',
+		whatTitle: 'Choose one or both lists',
 		generalLabel: 'News and notices',
 		generalText:
 			"I agree to receive WEBDEPLOY's news by email: technical articles, security and regulatory notices, and news about its releases and events. An email is sent when a news post is published, plus one introductory email about a week after I confirm.",
@@ -773,15 +774,16 @@ export const en = {
 		requiredError: 'Choose at least one email list.',
 		submit: 'Subscribe',
 		submitting: 'Checking your request…',
+		afterSignup: 'After you subscribe',
 		confirmationNote:
-			'WEBDEPLOY S.R.L. is the data controller. We first send one email to confirm your address; nothing else is sent until you confirm. After you confirm, you receive one welcome email. You can withdraw either consent at any time from any email. That subscription is then deleted within 24 hours, and your address with it once no subscription remains.',
+			'We first send one email to confirm your address; nothing else is sent until you confirm. After you confirm, you receive one welcome email.',
+		withdrawalNote:
+			'You can withdraw either consent at any time from any email. That subscription is then deleted within 24 hours, and your address with it once no subscription remains.',
+		controllerNote: 'WEBDEPLOY S.R.L. is the data controller.',
 		privacyLink: 'Read the newsletter privacy notice',
 		noScript: 'JavaScript is required to complete the spam check and submit this form.',
 		verificationError: 'The spam check could not be completed. Please try again.',
 		setupError: 'The spam check could not be loaded. Reload the page to try again.',
-		newsletterContentsTitle: 'What arrives in your inbox',
-		newsletterContents:
-			'Every new WEBDEPLOY news post, plus security and regulatory notices. Choose services and offers separately.',
 		recentNews: 'Read our latest news',
 		confirmedTitle: 'Subscription confirmed',
 		confirmedText:
