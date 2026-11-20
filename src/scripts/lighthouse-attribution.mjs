@@ -18,24 +18,45 @@ function successful(item) {
 }
 
 /**
+ * Match the exact content-addressed module requested by this navigation to a measured profile.
+ * @param {LighthouseReport} report
+ * @param {PerformanceExpectation} policy
+ * @returns {{url?: string; notice?: string}}
+ */
+export function adapterProfile(report, policy) {
+	const origin = new URL(report.requestedUrl).origin;
+	/** @type {Set<string>} */
+	const paths = new Set();
+	for (const item of report.audits['network-requests']?.details?.items ?? []) {
+		if (item.resourceType !== 'Script' || !item.url?.startsWith(origin + '/assets/build/')) continue;
+		const path = item.url.slice(origin.length);
+		if (/^\/assets\/build\/[a-f0-9]{16}\/js\/matomo\.mjs$/.test(path)) paths.add(path);
+	}
+	if (!paths.size) return {};
+	const [path] = paths;
+	if (paths.size === 1 && policy.profiledCallers.some((profile) => profile.path === path)) return {url:origin + path};
+	return {notice:'Matomo adapter credit unavailable. Re-profile the observed build at ' + [...paths].join(', ') + '.'};
+}
+
+/**
  * Reconcile the full long-task ledger with the reported navigation TBT. Lighthouse's
  * third-party insight uses observed CPU time, so it corroborates script execution but
  * does not contribute simulated milliseconds to the blocking-time calculation.
  * @param {LighthouseReport} report
  * @param {PerformanceExpectation} policy
+ * @param {string | undefined} caller
  * @returns {PerformanceAttribution | undefined}
  */
-export function trackerBlocking(report, policy) {
+export function trackerBlocking(report, policy, caller) {
 	const audits = report.audits;
 	const tracker = policy.trackerScript;
-	const caller = new URL(policy.profiledCaller, report.requestedUrl).href;
 	const requests = audits['network-requests']?.details?.items ?? [];
 	const scriptFetched = (/** @type {string} */ url) => requests.some((item) =>
 		item.url === url && item.resourceType === 'Script' && successful(item));
 	const collected = requests.some((item) => item.url?.split('?')[0] === policy.collectionEndpoint && successful(item));
 	const boot = audits['bootup-time']?.details?.items ?? [];
 	const trackerBootupMs = boot.find((item) => item.url === tracker)?.total;
-	const callerScriptingMs = boot.find((item) => item.url === caller)?.scripting ?? 0;
+	const callerScriptingMs = caller ? boot.find((item) => item.url === caller)?.scripting ?? 0 : 0;
 	const thirdParties = audits['third-parties-insight']?.details?.items ?? [];
 	const thirdPartyMainThreadMs = thirdParties.flatMap((item) => item.subItems?.items ?? [])
 		.find((item) => item.url === tracker)?.mainThreadTime;
@@ -43,15 +64,14 @@ export function trackerBlocking(report, policy) {
 
 	const fcp = audits['first-contentful-paint']?.numericValue;
 	const tti = audits.interactive?.numericValue;
-	const lcp = audits['largest-contentful-paint']?.numericValue;
 	const reportedTbtMs = audits['total-blocking-time']?.numericValue;
 	const ledger = audits['long-tasks']?.details?.debugData;
-	if (!positive(fcp) || !positive(tti) || tti <= fcp || !positive(lcp) || !positive(reportedTbtMs) ||
+	if (!positive(fcp) || !positive(tti) || tti <= fcp || !positive(reportedTbtMs) ||
 		!Array.isArray(ledger?.urls) || !Array.isArray(ledger?.tasks) || !ledger.tasks.length) return;
 
-	const callerVerified = positive(callerScriptingMs) && scriptFetched(caller);
+	const callerVerified = caller !== undefined && positive(callerScriptingMs) && scriptFetched(caller);
 	let trackerBlockingMs = 0, pairedCallerBlockingMs = 0, windowBlockingMs = 0;
-	let previousEnd = -Infinity, previousWasTracker = false, blocksLcp = false;
+	let previousEnd = -Infinity, previousWasTracker = false;
 	// debugData includes tasks beyond the 20 longest shown in the human-readable table.
 	for (const task of [...ledger.tasks].sort((a,b) => a.startTime - b.startTime)) {
 		const url = ledger.urls[task.urlIndex];
@@ -66,15 +86,13 @@ export function trackerBlocking(report, policy) {
 		windowBlockingMs += blocking;
 		if (direct) trackerBlockingMs += blocking;
 		if (paired) pairedCallerBlockingMs += blocking;
-		if ((direct || paired) && blocking > 0 && lcp >= blockingStart && lcp <= end + 0.2) blocksLcp = true;
 		previousEnd = end;
 		previousWasTracker = direct && blocking > 0;
 	}
-	// The profiled caller spent 33.3 ms in trackPageView and 1.9 ms in other calls.
-	// Credit at most half of the adjacent caller's blocking and cap that credit at the direct evidence.
+	// The owner approved partial credit for Matomo's synchronous trackPageView inside a profiled caller.
 	const creditedBlockingMs = trackerBlockingMs + Math.min(trackerBlockingMs, pairedCallerBlockingMs / 2);
 	const reconciled = Math.abs(windowBlockingMs - reportedTbtMs) <= 1;
 	const dominates = reconciled && creditedBlockingMs > Math.max(windowBlockingMs, reportedTbtMs) / 2;
 	return {trackerScript:tracker, profiledCaller:caller, trackerBootupMs, callerScriptingMs, thirdPartyMainThreadMs,
-		reportedTbtMs, windowBlockingMs, trackerBlockingMs, pairedCallerBlockingMs, creditedBlockingMs, dominates, blocksLcp};
+		reportedTbtMs, windowBlockingMs, trackerBlockingMs, pairedCallerBlockingMs, creditedBlockingMs, dominates};
 }

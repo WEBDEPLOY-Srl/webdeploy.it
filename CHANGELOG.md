@@ -14,7 +14,7 @@ The next site version is **2.0.0**. The public routes, English content and newsl
 - Newsletter submission and confirmation events, with the Meta `Lead` event gated on accepted marketing cookies and limited to `content_name: newsletter`.
 - The approved newsletter privacy notice at `/privacy#newsletter` and newsletter links from the footer, news pages and contacts page.
 - Browser screenshot comparisons cover all 15 page designs and the interactive states of the newsletter, navigation, demos and consent banner.
-- The manual production Lighthouse release gate records two mobile and desktop matrices, quiet-host qualifications and every measurement attempt. It reports the by-design 404 and noindex exceptions and accepts a raw Performance 99 only with per-page evidence of Matomo-dominated blocking. Strict mode retains every raw score.
+- The manual production Lighthouse gate records both mobile and desktop matrices, quiet-host qualifications and every attempt. It verifies passive analytics collection and accepts a mobile Performance 99 only when Matomo-dominated total blocking time is the sole failing audit. It preserves the by-design 404 and noindex exceptions and all raw scores.
 
 ### Changed
 - The website now builds offline with Node built-ins from HTML templates, native CSS and browser ES modules. Shared JS/CSS assets use a build ID and in-page media and fonts use content hashes. Stable public media and social preview URLs remain available.
@@ -23,6 +23,7 @@ The next site version is **2.0.0**. The public routes, English content and newsl
 - Strict JSDoc type checks, node:test, production nginx browser tests and the full-tree npm audit replace the framework-dependent checks.
 - Pages prioritize their first-viewport fonts and responsive artwork. The homepage paints its portrait and consent controls before loading below-fold styles and demo behavior. Self-hosted interface font subsets retain the original glyphs, and each tool mark is a lazy, independently cached image with its original artwork and attribution.
 - The workstation shows its original screen artwork until its live demo approaches the viewport. The newsletter prepares its local ALTCHA worker when the form approaches or receives input.
+- Cookieless analytics starts on idle or early interaction. On a passive visit, the first page view follows the tracker script's load. Very short bounces may end before that page view is counted.
 - The cookie banner now takes its accessible name directly from the approved title. Its solid background keeps text and privacy-link contrast consistent over artwork.
 - The cookie banner uses identical Reject and Accept button styling, restores Close when reopened, keeps its measured space reserved while pending and during phone focus-hide, and removes it only when dismissed. Its privacy link remains visible at 200% page zoom. The `/newsletter` mobile view hides the site header so the form stays above the banner.
 - The newsletter form waits for local ALTCHA readiness and disables human-interaction-signature collection. Returning from Listmonk resets list choices and submission state; setup failures instruct visitors to reload.

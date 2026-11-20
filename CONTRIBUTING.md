@@ -159,8 +159,9 @@ are saved. If the budget expires the gate fails and reports which measurements a
 
 Every attempt starts a new Chromium profile. A Lighthouse runtime error such as `NO_NAVSTART`,
 an unreadable report or another unscorable navigation can have two retries. A benchmark index
-below 1000 marks an attempt **host-degraded**, even if it reported a 100. It gets one separate
-quiet remeasurement. A second degraded measurement fails the cell. The first qualified numerical
+below 1000 marks an attempt **host-degraded**. The approved measurement policy grants exactly
+one quiet remeasurement based on that benchmark alone, including when the original score is 100.
+Both attempts stay in the ledger. A second degraded measurement fails the cell. The first qualified numerical
 result is final, including scores below 100. The ordinary 404 navigation's expected
 `ERRORED_DOCUMENT_REQUEST` is retained as evidence before the scored 404 collection.
 
@@ -184,8 +185,12 @@ gate table. `src/scripts/lighthouse-expectations.json` lists the noindex and HTT
 expectations. The 404 may also produce one network console entry with the exact message and URL
 of the missing main document. Every other console error fails.
 
-On 2026-11-20 the owner accepted an exact raw Performance 99 when the only failing weighted
-audits are `total-blocking-time` or `largest-contentful-paint` and the tracker at
+Each non-404 report must contain exactly one script request for `https://analytics.inwd.org/matomo.js`,
+a successful response to that request, and at least one successful collection at the configured
+`matomo.php` endpoint. These requirements also apply to a page with four raw 100s.
+
+On 2026-11-20 the owner accepted an exact raw **mobile** Performance 99 when the sole failing weighted
+audit is `total-blocking-time` and the tracker at
 `https://analytics.inwd.org/matomo.js` accounts for a majority of total blocking time (TBT).
 The category scores and established exceptions for other categories are evaluated independently.
 The original two production matrices contained four such mobile cells on the confirmation,
@@ -196,16 +201,24 @@ in both `bootup-time` and `third-parties-insight`, and the complete `long-tasks`
 It clips each task to the first-contentful-paint to interactive interval and counts time above
 50 ms. The sum must reproduce the raw TBT within 1 ms. Unknown scripts and unattributed tasks
 count towards the denominator. The credited share must exceed half of both the reconstructed
-and reported totals. A failing LCP additionally needs a credited task blocking at paint.
+and reported totals. A failing LCP or desktop Performance below 100 still fails the gate.
 
-The hosted script receives direct credit. The one same-origin adapter identified by the build
-path in the expectation can receive partial credit only when its script and scripting CPU appear
+The hosted script receives direct credit. The owner explicitly retained partial credit for
+Matomo's own synchronous `trackPageView` when it runs inside the first-party adapter. A profiled
+same-origin build path can receive that credit only when its script and scripting CPU appear
 in the same report and its task immediately follows the tracker's task (within 0.2 ms of the
 rounded boundary). In a separate fourfold-CPU profile, the synchronous `trackPageView` call
 took 33.3 ms and all other measured calls took 1.9 ms. The gate credits at most half the
-adapter's blocking, capped at the directly attributed tracker time. A new build path receives
-direct tracker credit only until its adapter is profiled. The external evidence root contains
-the profile referenced in the expectation and a per-cell breakdown in `gate.json`.
+adapter's blocking, capped at the directly attributed tracker time. The external evidence root
+contains the profiles referenced in the expectation and a per-cell breakdown in `gate.json`.
+
+**Release step.** Re-profile the Matomo adapter whenever its build ID changes. On the production
+nginx image, use a fresh, passive Chromium visit to `/newsletter/confirmed` with fourfold CPU
+throttling. Time the live tracker's individual queue commands and verify successful collection.
+Record the exact adapter URL, command timings and response status in the external evidence
+directory. Add the verified path and its receipt to `profiledCallers` if the profile supports
+the existing credit. Retain earlier entries for archived runs. The gate reports an unprofiled
+build ID and counts only direct tracker blocking until that evidence exists.
 
 `--strict` requires all four raw 100s on every page. Both modes exit nonzero on uncovered
 failures. To apply either mode to existing reports without launching a browser, pass `--read-run`.

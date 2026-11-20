@@ -11,11 +11,12 @@ export interface Console404 {
 	evidence: string;
 }
 export interface PerformanceExpectation {
-	audits: string[];
+	preset: 'mobile';
+	audits: ['total-blocking-time'];
 	trackerScript: string;
 	collectionEndpoint: string;
-	profiledCaller: string;
-	callerProfile: string;
+	adapterCreditDecision: string;
+	profiledCallers: Array<{path: string; evidence: string}>;
 	decisionDate: string;
 }
 export interface Expectations {
@@ -38,7 +39,7 @@ export interface AuditItem {
 export interface LongTask {urlIndex: number; startTime: number; duration: number}
 export interface PerformanceAttribution {
 	trackerScript: string;
-	profiledCaller: string;
+	profiledCaller?: string;
 	trackerBootupMs: number;
 	callerScriptingMs: number;
 	thirdPartyMainThreadMs: number;
@@ -48,7 +49,6 @@ export interface PerformanceAttribution {
 	pairedCallerBlockingMs: number;
 	creditedBlockingMs: number;
 	dominates: boolean;
-	blocksLcp: boolean;
 }
 export interface AuditResult {
 	score: number | null;
@@ -86,6 +86,7 @@ export interface AuditCell {
 	lab?: LabConditions;
 	measurement?: MeasurementRecord;
 	performanceAttribution?: PerformanceAttribution;
+	adapterNotice?: string;
 	path: string;
 	preset: Preset;
 	scores: Record<Category, number | null>;

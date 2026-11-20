@@ -6,6 +6,52 @@ import { expect, test } from './fixtures.mjs';
 const KEY = 'wd_consent_marketing';
 /** @param {import("@playwright/test").Page} page */
 const banner = (page) => page.getByRole('complementary', { name: 'Privacy & cookies' });
+
+/** Keep the command queue inspectable and send a local test beacon only when a page view is recorded.
+ * @returns {void}
+ */
+function recordingTracker() {
+	const queue = window._paq ??= [];
+	/** @param {import('../types.d.ts').AnalyticsCommand} command @returns {void} */
+	function record(command) {
+		if (command[0] !== 'trackPageView') return;
+		const endpoint = queue.find(([name]) => name === 'setTrackerUrl')?.[1];
+		if (typeof endpoint !== 'string') return;
+		const url = new URL(endpoint);
+		url.searchParams.set('rec', '1');
+		url.searchParams.set('url', location.href);
+		navigator.sendBeacon(url.href);
+	}
+	queue.forEach(record);
+	const append = queue.push.bind(queue);
+	queue.push = (...commands) => {
+		const length = append(...commands);
+		commands.forEach(record);
+		return length;
+	};
+}
+
+test('a passive home visit records one Matomo page view without visitor input', async ({page,traffic}) => {
+	let scriptLoads = 0;
+	await page.route('https://analytics.inwd.org/matomo.js', (route) => {
+		scriptLoads++;
+		return route.fulfill({contentType:'application/javascript', body:'(' + recordingTracker.toString() + ')()'});
+	});
+	const collection = page.waitForResponse((response) => {
+		const url = new URL(response.url());
+		return url.origin === 'https://analytics.inwd.org' && url.pathname === '/matomo.php';
+	});
+	await page.goto('/');
+	const response = await collection;
+	expect(response.status()).toBe(204);
+	expect(new URL(response.url()).searchParams.get('url')).toBe(page.url());
+	const names = await page.evaluate(() => window._paq?.map(([name]) => name) ?? []);
+	expect(names.at(-1)).toBe('trackPageView');
+	expect(names.filter((name) => name === 'trackPageView')).toHaveLength(1);
+	expect(scriptLoads).toBe(1);
+	expect(traffic.meta).toEqual([]);
+});
+
 test('no Meta request is made before consent, and one is made after accepting', async ({
 	page,
 	traffic

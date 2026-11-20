@@ -72,12 +72,14 @@ Run `npm run test:unit`, `npm run build` and `npm audit --audit-level=high`. Wit
 running, `E2E_BASE_URL=http://127.0.0.1:18080 npm run test:e2e` runs the complete browser suite.
 The [manual Lighthouse release gate](./CONTRIBUTING.md#lighthouse-production-gate) measures all
 15 designs on mobile and desktop twice. Each cell requires a quiet workstation. Runtime errors and
-measurements with a benchmark below 1000 are recorded and retried under a bounded policy.
-A valid score stays in the result. On 2026-11-20 the owner accepted Performance 99 when the only
-lost points are for total blocking time or largest contentful paint and the report attributes
-a majority of blocking to the real Matomo tracker. Four mobile measurements met that condition.
-The release table shows the raw score and credited milliseconds for each exception. `--strict`
-requires four raw 100s. Woodpecker runs the independent functional checks on each push.
+measurements with a benchmark below 1000 are recorded under a bounded, score-blind retry policy.
+Every non-404 visit must load the Matomo script exactly once and send at least one successful
+tracking request without visitor input. On 2026-11-20 the owner accepted a mobile Performance 99
+only when total blocking time is the sole failing audit and Matomo accounts for a majority of it.
+The owner explicitly retained partial credit for Matomo's own synchronous `trackPageView` inside
+the first-party adapter. The original profile measured 33.3 ms in that call and 1.9 ms in the other
+calls. Four mobile measurements qualified. Desktop Performance and LCP have no such exception.
+`--strict` requires four raw 100s. Woodpecker runs the independent functional checks on each push.
 
 ## Browsers and language
 

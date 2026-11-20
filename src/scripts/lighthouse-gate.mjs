@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 import { pages } from '../data/pages.mjs';
 import { site } from '../data/site.mjs';
-import { trackerBlocking } from './lighthouse-attribution.mjs';
+import { adapterProfile, trackerBlocking } from './lighthouse-attribution.mjs';
 
 /** @typedef {import('./lighthouse-types.d.ts').AuditCell} AuditCell */
 /** @typedef {import('./lighthouse-types.d.ts').Category} Category */
@@ -75,6 +75,9 @@ function matchesDocument404(report, url, expected) {
 export function assess(report, url, preset, expectations, strict) {
 	const path = new URL(url).pathname;
 	const cell = emptyCell(path, preset);
+	const policy = expectations.performance99;
+	const adapter = adapterProfile(report, policy);
+	if (adapter.notice) cell.adapterNotice = adapter.notice;
 	if (report.lighthouseVersion !== version) cell.failures.push('Wrong Lighthouse version');
 	if (report.requestedUrl !== url || report.finalDisplayedUrl !== url) cell.failures.push('Wrong requested or displayed URL');
 	if (!standardPreset(report.configSettings, preset))
@@ -96,8 +99,8 @@ export function assess(report, url, preset, expectations, strict) {
 			const audit = report.audits?.[ref.id];
 			return !audit || (audit.score !== 1 && !['notApplicable', 'manual', 'informative'].includes(audit.scoreDisplayMode ?? ''));
 		}).map((ref) => ref.id);
-		if (id === 'performance' && category.score === 0.99) {
-			const attribution = trackerBlocking(report, expectations.performance99);
+		if (id === 'performance' && preset === policy.preset && category.score === 0.99) {
+			const attribution = trackerBlocking(report, policy, adapter.url);
 			cell.performanceAttribution = attribution;
 			const completeMetrics = ['first-contentful-paint','largest-contentful-paint','total-blocking-time','speed-index','cumulative-layout-shift']
 				.every((metric) => weighted.some((ref) => ref.id === metric)) && weighted.every(({id}) => {
@@ -105,9 +108,7 @@ export function assess(report, url, preset, expectations, strict) {
 				return typeof score === 'number' && Number.isFinite(score) && score >= 0 && score <= 1 &&
 					report.audits[id].scoreDisplayMode === 'numeric';
 			});
-			if (!strict && completeMetrics && attribution?.dominates && failed.length &&
-				failed.every((audit) => expectations.performance99.audits.includes(audit)) &&
-				(!failed.includes('largest-contentful-paint') || attribution.blocksLcp)) {
+			if (!strict && completeMetrics && attribution?.dominates && failed.length === 1 && failed[0] === policy.audits[0]) {
 				cell.exceptions.push('Matomo Performance 99 (' + failed.join(', ') + ')');
 				continue;
 			}
@@ -123,17 +124,28 @@ export function assess(report, url, preset, expectations, strict) {
 	const requests = report.audits?.['network-requests']?.details?.items;
 	if (!Array.isArray(requests) || !requests.some((item) => item.url === url && item.resourceType === 'Document' && item.statusCode === (path === missingPath ? 404 : 200)))
 		cell.failures.push('Missing or unexpected main-document network status');
+	let scriptLoaded = false;
 	for (const item of requests ?? []) {
 		if (!item.url) continue;
 		const request = new URL(item.url);
 		const host = request.hostname;
 		if (host === 'analytics.inwd.org') {
 			cell.requests.matomo++;
-			if (request.pathname.endsWith('/matomo.js')) cell.requests.matomoScript++;
-			if (request.pathname.endsWith('/matomo.php')) cell.requests.matomoTracking++;
+			const endpoint = request.origin + request.pathname;
+			const success = typeof item.statusCode === 'number' && item.statusCode >= 200 && item.statusCode < 300;
+			if (endpoint === policy.trackerScript && item.resourceType === 'Script') {
+				cell.requests.matomoScript++;
+				if (success) scriptLoaded = true;
+			}
+			if (endpoint === policy.collectionEndpoint && success) cell.requests.matomoTracking++;
 		}
 		if (host === 'tile.openstreetmap.org') cell.requests.tiles++;
 		if (host === 'www.facebook.com' || host === 'connect.facebook.net') cell.requests.meta++;
+	}
+	if (path !== missingPath) {
+		if (cell.requests.matomoScript !== 1 || !scriptLoaded)
+			cell.failures.push('Expected exactly one successful Matomo script load (script requests: ' + cell.requests.matomoScript + ')');
+		if (cell.requests.matomoTracking < 1) cell.failures.push('Missing successful Matomo tracking request on passive navigation');
 	}
 	const consoleError = report.audits?.['errors-in-console'];
 	if (consoleError?.score === 0 && !cell.exceptions.includes('errors-in-console') &&

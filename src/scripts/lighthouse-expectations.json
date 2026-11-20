@@ -1,10 +1,16 @@
 {
 	"performance99": {
-		"audits": ["total-blocking-time", "largest-contentful-paint"],
+		"preset": "mobile",
+		"audits": ["total-blocking-time"],
 		"trackerScript": "https://analytics.inwd.org/matomo.js",
 		"collectionEndpoint": "https://analytics.inwd.org/matomo.php",
-		"profiledCaller": "/assets/build/f75dac30546b32f6/js/matomo.mjs",
-		"callerProfile": "verification-318d2863e54b/analytics-command-timing.json",
+		"adapterCreditDecision": "The owner explicitly approved partial credit for Matomo's synchronous trackPageView work inside a profiled first-party adapter. The original profile measured 33.3 ms in trackPageView and 1.9 ms in the other calls.",
+		"profiledCallers": [
+			{
+				"path": "/assets/build/f75dac30546b32f6/js/matomo.mjs",
+				"evidence": "verification-318d2863e54b/analytics-command-timing.json"
+			}
+		],
 		"decisionDate": "2026-11-20"
 	},
 	"pages": {

@@ -237,10 +237,13 @@ async function summarize(directory, manifest, strictMode) {
 		return '| ' + [cell.path,cell.preset,...categories.map((id) => cell.scores[id] ?? '—'),attempts,
 			lab?.benchmarkIndex?.toFixed(0) ?? '—',lab ? lab.load1Start.toFixed(2) + '/' + lab.load1End.toFixed(2) : '—',
 			lab?.cpuIdlePercent?.toFixed(1) ?? '—',proof ? proof.creditedBlockingMs.toFixed(1) + ' / ' + proof.reportedTbtMs.toFixed(1) : '—',
-			[...cell.exceptions,...cell.failures].join(', ')].join(' | ') + ' |';
+			[...cell.exceptions,...cell.failures,cell.adapterNotice].filter(Boolean).join(', ')].join(' | ') + ' |';
 	});
 	await writeFile(join(directory, mode + '.md'), [header,'|---|---|---:|---:|---:|---:|---|---:|---|---:|---:|---|',...rows].join('\n') + '\n');
 	process.stdout.write(mode + ': ' + count + '/' + cells.length + ' passed\n');
+	for (const notice of new Set(cells.map((cell) => cell.adapterNotice))) {
+		if (notice) process.stdout.write(notice + '\n');
+	}
 	return {passed:count === cells.length,count};
 }
 
