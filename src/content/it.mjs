@@ -765,8 +765,9 @@ export const it = {
 		title: 'Newsletter WEBDEPLOY',
 		metaDescription:
 			'Scegli quali notizie e aggiornamenti sui servizi WEBDEPLOY ricevere via email.',
-		lead: 'Notizie, avvisi di sicurezza e aggiornamenti dal nostro lavoro.',
-		whatTitle: 'Cosa desideri ricevere? Scegli almeno una lista.',
+		heading: 'Dal nostro laboratorio',
+		lead: 'Notizie, avvisi di sicurezza e offerte di WEBDEPLOY via email.',
+		whatTitle: 'Scegli una o entrambe le liste',
 		generalLabel: 'Notizie e avvisi',
 		generalText:
 			'Acconsento a ricevere via email le notizie di WEBDEPLOY: articoli tecnici, avvisi di sicurezza e normativi e notizie sui rilasci e sugli eventi. Riceverò un’email quando pubblichiamo un articolo e una email introduttiva circa una settimana dopo la conferma.',
@@ -778,16 +779,17 @@ export const it = {
 		requiredError: 'Scegli almeno una lista email.',
 		submit: 'Iscriviti',
 		submitting: 'Verifica della richiesta…',
+		afterSignup: 'Dopo l’iscrizione',
 		confirmationNote:
-			'WEBDEPLOY S.R.L. è il titolare del trattamento. Per prima cosa invieremo un’email per confermare il tuo indirizzo; prima della conferma non invieremo altro. Dopo la conferma riceverai un’email di benvenuto. Puoi revocare ciascun consenso in qualsiasi momento da ogni email. La relativa iscrizione viene cancellata entro 24 ore; l’indirizzo viene cancellato quando non restano altre iscrizioni.',
+			'Per prima cosa invieremo un’email per confermare il tuo indirizzo; prima della conferma non invieremo altro. Dopo la conferma riceverai un’email di benvenuto.',
+		withdrawalNote:
+			'Puoi revocare ciascun consenso in qualsiasi momento da ogni email. La relativa iscrizione viene cancellata entro 24 ore; l’indirizzo viene cancellato quando non restano altre iscrizioni.',
+		controllerNote: 'WEBDEPLOY S.R.L. è il titolare del trattamento.',
 		privacyLink: 'Leggi l’informativa sulla newsletter',
 		noScript: 'JavaScript è necessario per completare il controllo antispam e inviare il modulo.',
 		verificationError: 'Non è stato possibile completare il controllo antispam. Riprova.',
 		setupError:
 			'Non è stato possibile caricare il controllo antispam. Ricarica la pagina per riprovare.',
-		newsletterContentsTitle: 'Cosa riceverai',
-		newsletterContents:
-			'Ogni nuovo articolo WEBDEPLOY e avvisi di sicurezza e normativi. Servizi e offerte si scelgono separatamente.',
 		recentNews: 'Leggi le ultime notizie',
 		confirmedTitle: 'Iscrizione confermata',
 		confirmedText:

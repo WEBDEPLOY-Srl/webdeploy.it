@@ -30,16 +30,28 @@ test('the Italian archive mirrors every English string and array', () => {
 			for (const key of [page.title, page.description]) assert.ok(stringAt(language, key));
 });
 
-test('preserves the four approved privacy and newsletter dictionaries', () => {
+test('preserves the privacy and newsletter dictionaries', () => {
 	assert.deepEqual(
 		[en.privacy, en.newsletter, it.privacy, it.newsletter].map((tree) =>
 			digest(JSON.stringify(tree))
 		),
 		[
 			'39f8e57883879d475f92b65c1a02b9235bc14a0c2d1796209c11ce36779f58bd',
-			'399f2278633fde0c5d502100b8fae7a094b8aca3fbd2b00fce3ba715162c26d2',
+			'b4bb414a6df70416a14d4dce8ddb928d2bb2bb260659116f92ca8c9741661d0a',
 			'42f20dfee96881845a9d8b1c349da45ceb4019d121f551a7ec135150ce82fd1e',
-			'9094b413295dc0b1e2c4f3464516239e9aad0b8fc6b20d23435dce61d19446a7'
+			'b3e6d319d2c7aa4cccd609e8f129397311cbc12bb3162bea55ab6992b097764a'
+		]
+	);
+});
+
+test('the two approved consent statements stay verbatim across newsletter copy edits', () => {
+	assert.deepEqual(
+		[en.newsletter, it.newsletter].map(({ generalText, marketingText }) =>
+			digest(JSON.stringify([generalText, marketingText]))
+		),
+		[
+			'a646dabc0f8992bbad4afdde5db09c9ede1d670c247aa46258241ea390ceaec8',
+			'b59539cf51a5d8ae7211c6ff70c7cfefc3934fa612e1c2e53da2fea2e78a856d'
 		]
 	);
 });

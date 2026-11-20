@@ -4,6 +4,7 @@
 import { createHash } from 'node:crypto';
 import AxeBuilder from '@axe-core/playwright';
 import assert from 'node:assert/strict';
+import { en } from '../content/en.mjs';
 import { expect, test } from './fixtures.mjs';
 import { sitemapPaths } from './routes.mjs';
 const LIST_NEWS = '300c28fe-d91b-4965-b247-da6e6dafdb7a';
@@ -144,6 +145,9 @@ test('the newsletter is accessible and its form stays above the cookie banner on
 			['submit', submitBox]
 		])) {
 			assert.ok(box);
+			expect(box.x).toBeGreaterThanOrEqual(0);
+			expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
+			expect(box.y).toBeGreaterThanOrEqual(0);
 			expect(
 				box.y + box.height,
 				`${name} bottom ${box.y + box.height}px must stay above banner top ${bannerBox.y}px`
@@ -160,6 +164,62 @@ test('the newsletter is accessible and its form stays above the cookie banner on
 		await expect(banner(page)).toHaveAccessibleName('Privacy & cookies');
 		await expect(banner(page).getByRole('heading', { name: 'Privacy & cookies', level: 2 })).toHaveCount(1);
 	}
+});
+test('the shortest phone keeps Subscribe above the banner while web fonts load', async ({ page }) => {
+	await page.setViewportSize({ width: 360, height: 640 });
+	let releaseFonts = () => {};
+	/** @type {Promise<void>} */
+	const held = new Promise((resolve) => { releaseFonts = resolve; });
+	await page.route(/\.woff2$/, async (route) => {
+		await held;
+		await route.continue();
+	});
+	const submit = page.getByRole('button', { name: 'Subscribe' });
+	let before;
+	try {
+		await page.goto('/newsletter', { waitUntil: 'domcontentloaded' });
+		await expect(banner(page)).toBeVisible();
+		before = await submit.boundingBox();
+		const bannerBox = await banner(page).boundingBox();
+		assert.ok(before && bannerBox);
+		expect(before.y + before.height).toBeLessThanOrEqual(bannerBox.y);
+	} finally {
+		releaseFonts();
+	}
+	await page.evaluate(async () => { await document.fonts.ready; });
+	const after = await submit.boundingBox();
+	assert.ok(after);
+	expect(after.y).toBeCloseTo(before.y, 0);
+});
+test('each card labels one independent checkbox and signup details open by keyboard', async ({ page }) => {
+	await page.goto('/newsletter');
+	const copy = en.newsletter;
+	const group = page.getByRole('group', { name: copy.whatTitle });
+	const news = group.getByRole('checkbox', { name: copy.generalLabel + ' ' + copy.generalText, exact: true });
+	const services = group.getByRole('checkbox', { name: copy.marketingLabel + ' ' + copy.marketingText, exact: true });
+	await expect(news).not.toBeChecked();
+	await expect(services).not.toBeChecked();
+	await group.getByText(copy.generalLabel, { exact: true }).click();
+	await expect(news).toBeChecked();
+	await expect(services).not.toBeChecked();
+	await news.press('Tab');
+	await expect(services).toBeFocused();
+	await services.press('Space');
+	await expect(services).toBeChecked();
+	await expect(news).toBeChecked();
+	await services.press('Tab');
+	await expect(page.getByLabel(copy.emailLabel)).toBeFocused();
+
+	const form = page.locator('form');
+	const confirmation = form.getByText(copy.confirmationNote, { exact: true });
+	await expect(confirmation).toBeHidden();
+	await expect(form.getByRole('link', { name: copy.privacyLink })).toHaveAttribute('href', '/privacy#newsletter');
+	const summary = form.locator('summary');
+	await summary.press('Enter');
+	for (const note of [copy.confirmationNote, copy.withdrawalNote, copy.controllerNote])
+		await expect(form.getByText(note, { exact: true })).toBeVisible();
+	await summary.press('Space');
+	await expect(confirmation).toBeHidden();
 });
 test('cookie banner hides on phone field focus and dismisses without moving the page', async ({
 	page
@@ -357,6 +417,7 @@ test('newsletter page and visible consent banner have no axe violations', async 
 
 	await banner(page).getByRole('button', { name: 'Reject' }).click();
 	await expect(banner(page)).toBeHidden();
+	await page.locator('form summary').click();
 	const dismissed = await new AxeBuilder({ page }).analyze();
 	expect(dismissed.violations).toEqual([]);
 	const rules = evaluatedRuleIds(pending);
