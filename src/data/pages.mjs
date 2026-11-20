@@ -39,7 +39,7 @@ export const pages = [
 	{
 		path: '/news/fosdem-2026',
 		priorityImage: {
-			href: '/images/fosdem-article-800.avif', type: 'image/avif',
+			type: 'image/avif',
 			srcset: '/images/fosdem-article-480.avif 480w, /images/fosdem-article-672.avif 672w, /images/fosdem-article-800.avif 800w, /images/fosdem-article-1200.avif 1200w',
 			sizes: '(min-width: 56rem) 53.5rem, calc(100vw - 2.5rem)'
 		},
@@ -132,7 +132,7 @@ export const pages = [
 	{
 		path: '/services/linux-workstations',
 		priorityImage: {
-			href: '/images/inwd-managed-760.avif', type: 'image/avif',
+			type: 'image/avif',
 			srcset: '/images/inwd-managed-480.avif 480w, /images/inwd-managed-672.avif 672w, /images/inwd-managed-760.avif 760w, /images/inwd-managed-1000.avif 1000w',
 			sizes: '(min-width: 30rem) 28rem, calc(100vw - 2rem)'
 		},
@@ -148,7 +148,7 @@ export const pages = [
 	{
 		path: '/totem',
 		priorityImage: {
-			href: '/images/inwd-kiosk-frame-320.avif', type: 'image/avif',
+			type: 'image/avif',
 			srcset: '/images/inwd-kiosk-frame-320.avif 320w, /images/inwd-kiosk-frame-576.avif 576w, /images/inwd-kiosk-frame-898.avif 898w',
 			sizes: '(max-width: 352px) calc(100vw - 2rem), 320px'
 		},

@@ -206,6 +206,29 @@ test('a page requests one stylesheet with shared and page styles in authored ord
 	await assert.rejects(buildSite({ ...input, pages: [{ ...pages[0], styles: ['missing'] }, pages[1]] }), /Missing page stylesheet/);
 });
 
+test('responsive image preloads omit the fixed URL and single-image preloads retain it', async (t) => {
+	const input = await fixture(t);
+	await write(join(input.root,'partials/shell.html'),
+		'<!doctype html><html lang="en"><head>{{@imagePreload}}{{@head}}</head><body>{{@body}}</body></html>');
+	const href = '/logo.svg';
+	const type = 'image/svg+xml';
+	input.pages = [
+		{...pages[0],priorityImage:{href,type,srcset:'/logo.svg 320w, /logo.svg 640w',sizes:'100vw'}},
+		{...pages[1],priorityImage:{href,type}}
+	];
+	await buildSite(input);
+	const home = await readFile(join(input.output,'index.html'),'utf8');
+	const error = await readFile(join(input.output,'404.html'),'utf8');
+	const responsive = home.match(/<link rel="preload" as="image"[^>]*>/)?.[0];
+	const fixed = error.match(/<link rel="preload" as="image"[^>]*>/)?.[0];
+	assert.ok(responsive && fixed);
+	assert.doesNotMatch(responsive,/\shref=/);
+	assert.match(responsive,/imagesrcset="\/assets\/media\/logo\.[a-f0-9]{16}\.svg 320w, [^"]+ 640w"/);
+	assert.match(responsive,/imagesizes="100vw"/);
+	assert.match(fixed,/href="\/assets\/media\/logo\.[a-f0-9]{16}\.svg"/);
+	assert.doesNotMatch(fixed,/imagesrcset=/);
+});
+
 test('tool marks keep the original viewBox and use a hashed lazy image', async (t) => {
 	const input = await fixture(t);
 	await write(join(input.root, 'partials/marks/tool.html'), '<path d="M0 0h4v4z"/>');

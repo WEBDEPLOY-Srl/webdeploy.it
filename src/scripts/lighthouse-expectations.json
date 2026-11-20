@@ -9,6 +9,10 @@
 			{
 				"path": "/assets/build/f75dac30546b32f6/js/matomo.mjs",
 				"evidence": "verification-318d2863e54b/analytics-command-timing.json"
+			},
+			{
+				"path": "/assets/build/a9d2e942f2827e54/js/matomo.mjs",
+				"evidence": "adapter-profiles/a9d2e942f2827e54.json"
 			}
 		],
 		"decisionDate": "2026-11-20"

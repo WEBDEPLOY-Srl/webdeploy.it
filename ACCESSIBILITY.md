@@ -29,7 +29,7 @@ the newsletter explanation and the 404 recovery link. Browser tests also exercis
 at three phone sizes, equal consent controls, focus restoration, the product demos and map access.
 
 Automated rules cover only part of WCAG. Changes to layout, navigation or interactive parts are also
-checked with the keyboard in both browsers. Statement updated on 2026-11-18.
+checked with the keyboard in both browsers. Statement updated on 2026-11-20.
 
 ## Known limits
 

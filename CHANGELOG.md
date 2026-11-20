@@ -14,19 +14,22 @@ The next site version is **2.0.0**. The public routes, English content and newsl
 - Newsletter submission and confirmation events, with the Meta `Lead` event gated on accepted marketing cookies and limited to `content_name: newsletter`.
 - The approved newsletter privacy notice at `/privacy#newsletter` and newsletter links from the footer, news pages and contacts page.
 - Browser screenshot comparisons cover all 15 page designs and the interactive states of the newsletter, navigation, demos and consent banner.
+- The full accessibility scan covers the newsletter with consent pending and dismissed, including measurable contrast in both states.
 - The manual production Lighthouse gate records both mobile and desktop matrices, quiet-host qualifications and every attempt. It verifies passive analytics collection and accepts a mobile Performance 99 only when Matomo-dominated total blocking time is the sole failing audit. It preserves the by-design 404 and noindex exceptions and all raw scores.
 
 ### Changed
 - The website now builds offline with Node built-ins from HTML templates, native CSS and browser ES modules. Shared JS/CSS assets use a build ID and in-page media and fonts use content hashes. Stable public media and social preview URLs remain available.
+- The builder validates multiline static imports, preloads shared module dependencies and publishes directories that nginx workers can read directly from a bind mount.
 - Native document navigation replaces the client router and hover prefetch. The contact map now initializes on viewport proximity or focus. ALTCHA and Leaflet ship as pinned local distributions with verified checksums.
 - The nginx image serves a static Content-Security-Policy and a complete 404 document. The cache-revalidated version marker supports visitors with an older tab open.
 - Strict JSDoc type checks, node:test, production nginx browser tests and the full-tree npm audit replace the framework-dependent checks.
 - Pages prioritize their first-viewport fonts and responsive artwork. The homepage paints its portrait and consent controls before loading below-fold styles and demo behavior. Self-hosted interface font subsets retain the original glyphs, and each tool mark is a lazy, independently cached image with its original artwork and attribution.
 - The workstation shows its original screen artwork until its live demo approaches the viewport. The newsletter prepares its local ALTCHA worker when the form approaches or receives input.
+- Responsive image preloads let older Safari versions fetch the selected image once. Browsers with responsive preload support can still start that same download from the document head.
 - Cookieless analytics starts on idle or early interaction. On a passive visit, the first page view follows the tracker script's load. Very short bounces may end before that page view is counted.
 - The cookie banner now takes its accessible name directly from the approved title. Its solid background keeps text and privacy-link contrast consistent over artwork.
 - The cookie banner uses identical Reject and Accept button styling, restores Close when reopened, keeps its measured space reserved while pending and during phone focus-hide, and removes it only when dismissed. Its privacy link remains visible at 200% page zoom. The `/newsletter` mobile view hides the site header so the form stays above the banner.
-- The newsletter form waits for local ALTCHA readiness and disables human-interaction-signature collection. Returning from Listmonk resets list choices and submission state; setup failures instruct visitors to reload.
+- The newsletter enables submission after local ALTCHA signals readiness and finishes configuration with human-interaction-signature collection disabled. Returning from Listmonk resets list choices and submission state. Setup failures instruct visitors to reload.
 - The confirmed-page event is recorded only when the referrer origin is `https://newsletter.webdeploy.it`. The privacy notice now describes per-visit Matomo records and transactional manage-link behavior.
 - The retired early-access path now redirects to `/newsletter` while preserving query parameters; the news-writer skill matches the smm campaign source contract.
 
@@ -38,14 +41,11 @@ The next site version is **2.0.0**. The public routes, English content and newsl
 - Unused Brotli sidecars. The production nginx image serves the prebuilt gzip representations.
 
 ### Fixed
-- Build output directories can be served directly by a different user, including nginx workers reading a bind mount.
-- The build validates multiline static imports and preloads shared module dependencies before entry scripts execute.
-- The full accessibility scan covers the newsletter with consent pending and dismissed, including measurable contrast in both states.
 - Without JavaScript, the mobile navigation scrolls with the page and interactive demo controls are hidden. Header disclosures, focus restoration in the kiosk, and the consent heading now support keyboard and screen reader navigation.
 - Narrow article layouts wrap long settings names, printouts omit interactive controls, and share feedback uses a persistent live region.
 - On phones, service descriptions and article introductions now precede supporting artwork and sharing actions. Newsletter choices use larger, more widely spaced text.
 - Small-screen demos expose a larger kiosk Back button and readable workstation results. The contact map reports unavailable tiles while keeping the address and attribution available.
-- Early homepage consent and menu input works while optional modules load. The newsletter enables submission after ALTCHA signals readiness and finishes configuration.
+- Early homepage consent and menu input works while optional modules load. Consent setup removes partial listeners and markup before the shell retries.
 
 ## [1.47.0] - 2026-11-16
 

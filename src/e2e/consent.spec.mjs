@@ -52,6 +52,36 @@ test('a passive home visit records one Matomo page view without visitor input', 
 	expect(traffic.meta).toEqual([]);
 });
 
+test('consent recovers from a partial first initialization with one banner and one set of handlers', async ({page}) => {
+	await page.addInitScript(() => {
+		const observe = ResizeObserver.prototype.observe;
+		let failOnce = true;
+		/** @this {ResizeObserver} @param {Element} target @param {ResizeObserverOptions} [options] @returns {void} */
+		function failFirstObservation(target, options) {
+			if (failOnce && target.matches('.cookie-banner')) {
+				failOnce = false;
+				document.documentElement.dataset.consentRetryTest = 'triggered';
+				throw new Error('Simulated first consent observation failure');
+			}
+			observe.call(this, target, options);
+		}
+		ResizeObserver.prototype.observe = failFirstObservation;
+	});
+	await page.goto('/');
+	await expect(page.locator('html')).toHaveAttribute('data-consent-retry-test','triggered');
+	const control = page.getByRole('button',{name:'Cookie settings'});
+	await expect(control).toBeVisible();
+	await expect(banner(page)).toHaveCount(1);
+	await expect(page.locator('.consent-reservation')).toHaveCount(1);
+	await banner(page).getByRole('button',{name:'Reject'}).click();
+	await control.click();
+	await expect(banner(page)).toHaveCount(1);
+	await expect(page.locator('.consent-reservation')).toHaveCount(1);
+	await page.keyboard.press('Escape');
+	await expect(banner(page)).toHaveCount(0);
+	await expect(control).toBeFocused();
+});
+
 test('no Meta request is made before consent, and one is made after accepting', async ({
 	page,
 	traffic

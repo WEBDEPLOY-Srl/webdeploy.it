@@ -64,13 +64,13 @@ export function initializeConsent() {
 		synchronize();
 		if (returnFocus) control.focus();
 	}
-	control.hidden = false;
-	control.addEventListener('click', () => {
+	function openSettings() {
 		reopened = true;
 		synchronize();
 		banner.focus();
-	});
-	banner.addEventListener('click', (event) => {
+	}
+	/** @param {MouseEvent} event @returns {void} */
+	function choose(event) {
 		if (!(event.target instanceof Element)) return;
 		const button = event.target.closest('button');
 		if (!button) return;
@@ -82,28 +82,44 @@ export function initializeConsent() {
 			if (choice === 'granted' || before === 'granted') synchronizePixel();
 		}
 		dismiss();
-	});
-	window.addEventListener('keydown', (event) => {
-		if (event.key === 'Escape' && reopened) dismiss();
-	});
-	document.addEventListener('focusin', focusState);
-	document.addEventListener('focusout', () => requestAnimationFrame(focusState));
-	phone.addEventListener('change', focusState);
+	}
 	function restore() {
 		const choice = marketingChoice();
 		if (choice === 'granted' || previous === 'granted') synchronizePixel();
 		previous = choice;
 		synchronize();
 	}
-	window.addEventListener('pagehide', () => {
-		previous = marketingChoice();
-	});
-	window.addEventListener('pageshow', (event) => {
-		if (event.persisted) restore();
-	});
-	window.addEventListener('storage', (event) => {
-		if (event.key === 'wd_consent_marketing' || event.key === null) restore();
-	});
-	restore();
+	const listeners = new AbortController();
+	const options = { signal: listeners.signal };
+	// Home and the shared shell can both initialize consent. A failed attempt must be safe to retry.
 	initialized = true;
+	try {
+		control.addEventListener('click', openSettings, options);
+		banner.addEventListener('click', choose, options);
+		window.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && reopened) dismiss();
+		}, options);
+		document.addEventListener('focusin', focusState, options);
+		document.addEventListener('focusout', () => requestAnimationFrame(focusState), options);
+		phone.addEventListener('change', focusState, options);
+		window.addEventListener('pagehide', () => {
+			previous = marketingChoice();
+		}, options);
+		window.addEventListener('pageshow', (event) => {
+			if (event.persisted) restore();
+		}, options);
+		window.addEventListener('storage', (event) => {
+			if (event.key === 'wd_consent_marketing' || event.key === null) restore();
+		}, options);
+		restore();
+		control.hidden = false;
+	} catch (error) {
+		listeners.abort();
+		observer.disconnect();
+		banner.remove();
+		reservation.remove();
+		document.documentElement.style.removeProperty('--consent-height');
+		initialized = false;
+		throw error;
+	}
 }

@@ -16,7 +16,9 @@ import { within, write } from './files.mjs';
 /** @param {SitePage['priorityImage']} image @returns {string} */
 function preloadImage(image) {
 	if (!image) return '';
-	const attributes = { href: image.href, type: image.type, media: image.media, imagesrcset: image.srcset, imagesizes: image.sizes };
+	// Engines without responsive link preloads discover the selected source in the picture itself.
+	const attributes = { href: image.srcset ? undefined : image.href, type: image.type, media: image.media,
+		imagesrcset: image.srcset, imagesizes: image.srcset ? image.sizes : undefined };
 	const values = Object.entries(attributes).filter(([, value]) => value !== undefined)
 		.map(([name, value]) => `${name}="${escapeHtml(String(value))}"`);
 	return '<link rel="preload" as="image" fetchpriority="high" ' + values.join(' ') + '>';
@@ -186,8 +188,7 @@ export async function emitPage(page, site, copy, assets, partials, source, stage
 	const articles = template.includes('{{@newsCards}}') ? articlesByDate(pages) : [];
 	const card = articles[0]?.card;
 	const leadCard = card?.sources ? {
-		href: card.sources.split(',')[0].trim().split(/\s+/)[0], type: 'image/avif',
-		srcset: card.sources, sizes: cardSizes
+		type: 'image/avif', srcset: card.sources, sizes: cardSizes
 	} : undefined;
 	const fullSheet = assets.base + '/' + stylesheetPath(page.styles);
 	const stylesheet = `<link rel="stylesheet" href="${fullSheet}">`;

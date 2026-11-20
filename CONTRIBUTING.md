@@ -41,13 +41,17 @@ transparent and so that forks can keep to the same style.
   relative native imports and `new URL(..., import.meta.url)` for local workers.
 - **Responsive media.** Keep the existing full-resolution file as a fallback. Generate and
   commit display-sized versions offline. The current AVIF, WebP and PNG derivatives were
-  produced with ImageMagick 7.1.2-34. The portrait workshop crop is 760 × 941 at offset (711, 0) in the original. Its AVIF and WebP versions
+  produced with ImageMagick 7.1.2-34. Crop the original workshop image to 760 × 941 at offset (711, 0),
+  then resize it to 660 × 817 for the shipped portrait. Its AVIF and WebP versions
   both include a 60% sRGB veil of `#050a10`, paired with the portrait gradient in `base/layout.css`.
   Rebuild both formats together to retain the same appearance. The homepage embeds the small
   AVIF portrait in its initial HTML so mobile visitors can paint the real artwork without a
   separate request. Wide and fallback variants use their immutable URLs. The optional news-card `sources` field accepts a
-  width-described AVIF srcset of 16:9 crops. Check the visual result in both desktop and
-  phone layouts. The icon font subset contains the codepoints mapped in `base/fonts.css`.
+  width-described AVIF srcset of 16:9 crops. Responsive image preloads use `imagesrcset` and
+  `imagesizes` without a fixed `href`. Safari 16.4–17.1 can then fetch the image selected by
+  `<picture>` once. Safari 17.2 added responsive preload support. Check the result on desktop
+  and phone layouts. The icon font subset contains the codepoints mapped in `base/fonts.css`.
+  [WebKit release notes](https://webkit.org/blog/14787/webkit-features-in-safari-17-2/)
 - **First paint.** The home route's `firstStylesheet` uses the same reset, shell and hero
   sources as the complete page. Consent initializes immediately. The complete stylesheet
   and optional modules start after a rendering opportunity, on early input or on the bounded

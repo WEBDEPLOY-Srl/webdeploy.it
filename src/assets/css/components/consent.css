@@ -9,14 +9,6 @@ html {
 	block-size: var(--consent-height, 7rem);
 }
 
-.consent-heading {
-	position: absolute;
-	inline-size: 1px;
-	block-size: 1px;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
 .cookie-banner {
 	position: fixed;
 	z-index: 50;

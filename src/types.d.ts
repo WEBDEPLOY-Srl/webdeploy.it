@@ -18,7 +18,8 @@ export interface SitePage {
 	entry?: string;
 	firstStylesheet?: string;
 	embeddedPortrait?: string;
-	priorityImage?: {href: string; type: string; srcset?: string; sizes?: string; media?: string};
+	priorityImage?: {type: string; sizes?: string; media?: string} &
+		({srcset: string; href?: string} | {href: string; srcset?: undefined});
 	card?: { date: string; description: string; image: string; sources?: string; width: number; height: number };
 }
 
