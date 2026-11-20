@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-The next site version is **2.0.0**. The public routes, English content and newsletter submission contract carry forward from 1.x.
+## [2.0.0] - 2026-11-20
+
+The public routes, English content and newsletter submission contract carry forward from 1.x.
 
 ### Added
 - A two-list newsletter signup at `/newsletter`, with separately unticked consents, a self-hosted ALTCHA check, and a confirmation page excluded from search indexing and the sitemap.
