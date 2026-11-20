@@ -43,6 +43,7 @@ The public routes, English content and newsletter submission contract carry forw
 - Unused Brotli sidecars. The production nginx image serves the prebuilt gzip representations.
 
 ### Fixed
+- The image build pins the current digest of the builder image; the previous digest had been removed from the registry.
 - Without JavaScript, the mobile navigation scrolls with the page and interactive demo controls are hidden. Header disclosures, focus restoration in the kiosk, and the consent heading now support keyboard and screen reader navigation.
 - Narrow article layouts wrap long settings names, printouts omit interactive controls, and share feedback uses a persistent live region.
 - On phones, service descriptions and article introductions now precede supporting artwork and sharing actions. Newsletter choices use larger, more widely spaced text.
