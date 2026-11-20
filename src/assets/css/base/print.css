@@ -1,0 +1,84 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+
+@media print {
+	/* Reset colors for printing */
+	body {
+		background: white !important;
+		color: black !important;
+		font-size: 12pt;
+	}
+
+	/* Hide non-essential elements */
+	header,
+	footer,
+	.crt-scanlines,
+	.skip-link,
+	.cookie-banner,
+	.consent-reservation,
+	.share-controls,
+	.toast-container,
+	.btn-retro-primary,
+	.btn-retro-secondary,
+	.btn-cta-primary,
+	nav {
+		display: none !important;
+	}
+
+	/* Remove background effects */
+	.site-shell {
+		background: white !important;
+		background-image: none !important;
+	}
+	.site-shell main *,
+	.site-footer {
+		color: black !important;
+		background-color: transparent !important;
+	}
+
+	/* Remove shadows and borders that don't print well */
+	.card-retro {
+		border: 1px solid #ccc !important;
+		box-shadow: none !important;
+	}
+
+	/* Remove text effects */
+	.title-glow {
+		text-shadow: none !important;
+	}
+
+	/* Ensure links are visible */
+	a[href]:after {
+		content: ' (' attr(href) ')';
+		font-size: 10pt;
+		color: #666;
+	}
+
+	/* Don't show URL for internal links */
+	a[href^='/']:after,
+	a[href^='#']:after,
+	a[href^='mailto:']:after {
+		content: '';
+	}
+
+	/* Page breaks */
+	h1,
+	h2,
+	h3 {
+		page-break-after: avoid;
+	}
+
+	section {
+		page-break-inside: avoid;
+	}
+
+	/* Ensure images print */
+	img {
+		max-width: 100% !important;
+		page-break-inside: avoid;
+	}
+}

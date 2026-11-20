@@ -1,0 +1,29 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+.home-page {
+	font-family: var(--font-reading, system-ui, sans-serif);
+}
+
+.home-about {
+	border-block: 1px solid rgba(0, 240, 255, 0.18);
+	background: rgba(14, 22, 33, 0.68);
+}
+
+.home-about__content {
+	display: grid;
+	gap: clamp(2rem, 6vw, 6rem);
+	align-items: center;
+}
+
+@media (min-width: 64rem) {
+	.home-about__content {
+		grid-template-columns: minmax(16rem, 0.7fr) minmax(0, 1.3fr);
+		align-items: start;
+	}
+
+	.home-about__copy {
+		position: sticky;
+		top: 6rem;
+	}
+}

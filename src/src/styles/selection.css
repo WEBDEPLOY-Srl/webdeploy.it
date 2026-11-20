@@ -1,9 +1,0 @@
-/* ==========================================
-   TEXT SELECTION
-   ========================================== */
-
-/* Selection colors */
-::selection {
-	background-color: var(--color-secondary);
-	color: white;
-}

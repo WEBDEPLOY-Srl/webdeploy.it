@@ -1,0 +1,55 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+.custom-marker {
+	background: transparent;
+	border: none;
+}
+
+.leaflet-popup-content-wrapper {
+	background: var(--color-surface-dark);
+	color: var(--color-text-body);
+	border: 2px solid var(--color-primary);
+	border-radius: 0;
+}
+
+.leaflet-popup-tip {
+	background: var(--color-surface-dark);
+	border: 1px solid var(--color-primary);
+}
+
+.leaflet-popup-close-button {
+	color: var(--color-primary) !important;
+}
+
+.map-pin {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2rem;
+	height: 2rem;
+	color: black;
+	background: var(--color-primary);
+	border: 2px solid black;
+	font-weight: bold;
+}
+.map-popup {
+	font: 0.875rem/1.25rem var(--font-mono);
+}
+
+.contact-map__message {
+	position: absolute;
+	z-index: 800;
+	inset: 0.75rem 0.75rem auto auto;
+	max-inline-size: calc(100% - 4rem);
+	margin: 0;
+	pointer-events: none;
+}
+
+.contact-map__message:not(:empty) {
+	padding: 0.5rem 0.75rem;
+	background: var(--color-background-dark);
+	color: var(--color-text-heading);
+	border: 1px solid var(--color-primary);
+	font: 0.875rem/1.4 var(--font-reading);
+}

@@ -1,0 +1,77 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="services-page">
+	<section class="home-service home-service--art-right" aria-labelledby="backup-title">
+		<div class="page-container home-service__layout">
+			<div class="home-service__copy">
+				<h1 id="backup-title" class="section-title backup-title">{{services.backup.title}}</h1>
+				<p class="home-service__subtitle">{{services.backup.subtitle}}</p>
+				<p class="section-lead">{{services.backup.description}}</p>
+			</div>
+			<figure class="home-service__art">
+				<img
+					class="home-service__image home-service__image--logo"
+					src="/images/borgbackup-logo.svg"
+					alt="{{services.backup.imageAlt}}"
+					width="320"
+					height="133"
+					fetchpriority="high"
+					decoding="async"
+				/>
+				<figcaption class="home-service__credit">
+					{{services.backup.imageCredit}}
+					<a href="/images/borgbackup-logo-LICENSE.txt">{{services.backup.licenceLink}}</a>
+				</figcaption>
+			</figure>
+		</div>
+	</section>
+	<section class="home-section backup-band">
+		<div class="page-container backup-grid">
+			<div class="backup-item">
+				<h2 id="backup-encrypted">{{services.backup.sections.encrypted.title}}</h2>
+				<p class="home-service__subtitle">{{services.backup.sections.encrypted.subtitle}}</p>
+				<p class="section-lead">{{services.backup.sections.encrypted.body}}</p>
+			</div>
+			<div class="backup-item">
+				<h2 id="backup-open">{{services.backup.sections.open.title}}</h2>
+				<p class="home-service__subtitle">{{services.backup.sections.open.subtitle}}</p>
+				<p class="section-lead">{{services.backup.sections.open.body}}</p>
+			</div>
+			<div class="backup-item">
+				<h2 id="backup-access">{{services.backup.sections.access.title}}</h2>
+				<p class="home-service__subtitle">{{services.backup.sections.access.subtitle}}</p>
+				<p class="section-lead">{{services.backup.sections.access.body}}</p>
+			</div>
+			<div class="backup-item">
+				<h2 id="backup-restore">{{services.backup.sections.restore.title}}</h2>
+				<p class="home-service__subtitle">{{services.backup.sections.restore.subtitle}}</p>
+				<p class="section-lead">{{services.backup.sections.restore.body}}</p>
+			</div>
+		</div>
+	</section>
+	<section class="home-service home-service--art-left" aria-labelledby="backup-inwd">
+		<div class="page-container home-service__layout">
+			<div class="home-service__copy">
+				<h2 id="backup-inwd">{{services.backup.subtitle}}</h2>
+				<p class="section-lead">{{services.backup.inwd.body}}</p>
+				<a href="https://inwd.org" class="btn-action"
+					>{{services.backup.inwd.cta}} <span aria-hidden="true">↗</span></a
+				>
+			</div>
+			<figure class="home-service__art">
+				<img
+					class="home-service__image home-service__image--logo"
+					src="/images/inwd-managed-host.webp"
+					srcset="/images/inwd-managed-host-600.webp 600w, /images/inwd-managed-host.webp 1248w"
+					sizes="(min-width: 64rem) 40vw, 100vw"
+					alt="{{services.linux.imageAlt}}"
+					width="1248"
+					height="1014"
+					loading="lazy"
+					decoding="async"
+				/>
+			</figure>
+		</div>
+	</section>
+	{{>contact-band}}
+</div>

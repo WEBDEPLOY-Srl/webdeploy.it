@@ -1,4 +1,5 @@
 .env
+/.ci-state/
 node_modules/
 .claude/commands/
 .claude/skills/frontend-design/

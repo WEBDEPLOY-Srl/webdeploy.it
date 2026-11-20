@@ -1,0 +1,105 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+.contacts-page {
+	font-family: var(--font-reading, system-ui, sans-serif);
+}
+
+.contacts-intro {
+	padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.contacts-intro__title {
+	font-size: clamp(2.75rem, 7vw, 5rem);
+}
+
+.contacts-columns__layout {
+	display: grid;
+	gap: clamp(3rem, 6vw, 5rem);
+}
+
+.contacts-column {
+	padding-top: 2rem;
+	border-top: 1px solid rgba(0, 240, 255, 0.35);
+}
+
+.contacts-column__title {
+	margin: 0;
+	color: white;
+	font-family: var(--font-display);
+	font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+	font-weight: 400;
+	line-height: 1.1;
+	text-transform: uppercase;
+}
+
+.contacts-column__title--careers {
+	color: var(--color-secondary);
+}
+
+.contacts-column .btn-action {
+	text-transform: none;
+}
+
+.btn-action--secondary {
+	background: var(--color-secondary);
+}
+
+.contacts-details {
+	display: grid;
+	gap: 1rem;
+	margin: 1.75rem 0 0;
+}
+
+.contacts-details dt {
+	color: var(--color-primary);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+.contacts-details dd {
+	margin: 0.25rem 0 0;
+	color: var(--color-text-body);
+	font-size: 1rem;
+	line-height: 1.6;
+}
+
+.contacts-details a {
+	color: white;
+	text-underline-offset: 0.2rem;
+}
+
+.contacts-details a:hover {
+	color: var(--color-primary);
+}
+
+.contacts-note {
+	margin: 1.5rem 0 0;
+	color: var(--color-text-body);
+	font-family: var(--font-mono);
+	font-size: 0.8125rem;
+	line-height: 1.6;
+}
+
+.contacts-note a {
+	color: var(--color-primary);
+	text-underline-offset: 0.2rem;
+}
+
+.contacts-map {
+	padding: clamp(3rem, 6vw, 5rem) 0 clamp(4rem, 8vw, 7rem);
+}
+
+.contacts-map__frame {
+	overflow: hidden;
+	border: 1px solid rgba(0, 240, 255, 0.35);
+}
+
+@media (min-width: 64rem) {
+	.contacts-columns__layout {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}

@@ -1,0 +1,99 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+.services-page {
+	font-family: var(--font-reading, system-ui, sans-serif);
+}
+
+.linux-intro .section-title {
+	max-width: 48rem;
+	font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.linux-intro__subtitle {
+	margin-top: 1.25rem;
+}
+
+.inventory {
+	width: 100%;
+	max-width: 34rem;
+	margin-inline: auto;
+}
+
+.inventory__label,
+.inventory__note {
+	color: var(--color-text-body);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	letter-spacing: 0.08em;
+	line-height: 1.6;
+}
+
+.inventory__label {
+	margin-bottom: 0.75rem;
+	color: var(--color-secondary);
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.inventory__note {
+	margin-top: 0.75rem;
+	letter-spacing: normal;
+}
+
+.inventory__list {
+	margin: 0;
+	border-top: 1px solid rgba(0, 240, 255, 0.35);
+}
+
+.inventory__row {
+	display: grid;
+	gap: 0.25rem 1.5rem;
+	padding: 1rem 0;
+	border-bottom: 1px solid var(--home-rule, rgba(148, 163, 184, 0.34));
+}
+
+.inventory__row dt {
+	color: white;
+	font-family: var(--font-display);
+	font-size: 1.125rem;
+	text-transform: uppercase;
+}
+
+.inventory__row dd {
+	margin: 0;
+	color: var(--color-text-body);
+	font-size: 0.9375rem;
+	line-height: 1.5;
+}
+
+.linux-band {
+	border-block: 1px solid rgba(0, 240, 255, 0.18);
+	background: rgba(14, 22, 33, 0.68);
+}
+
+.linux-band__layout {
+	display: grid;
+	gap: 2.5rem;
+	align-items: center;
+}
+
+/* The example list explains the copy, so on small screens it follows it instead of leading. */
+@media (max-width: 63.99rem) {
+	.inventory {
+		order: 0;
+	}
+}
+
+@media (min-width: 40rem) {
+	.inventory__row {
+		grid-template-columns: minmax(9rem, 0.8fr) minmax(0, 1.2fr);
+		align-items: baseline;
+	}
+}
+
+@media (min-width: 64rem) {
+	.linux-band__layout {
+		grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+	}
+}

@@ -1,0 +1,36 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+.services-page {
+	font-family: var(--font-reading, system-ui, sans-serif);
+}
+
+.backup-title {
+	font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.backup-band {
+	border-block: 1px solid rgba(0, 240, 255, 0.18);
+	background: rgba(14, 22, 33, 0.68);
+}
+
+.backup-grid {
+	display: grid;
+	gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.backup-item h2 {
+	margin: 0;
+	color: white;
+	font-family: var(--font-display);
+	font-size: clamp(1.5rem, 3vw, 2.25rem);
+	font-weight: 400;
+	line-height: 1.1;
+	text-transform: uppercase;
+}
+
+@media (min-width: 48rem) {
+	.backup-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}

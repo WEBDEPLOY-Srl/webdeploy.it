@@ -1,0 +1,16 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="newsletter-page">
+	<div class="newsletter-layout">
+		<div class="newsletter-intro">
+			<h1>{{newsletter.title}}</h1>
+			<p class="newsletter-lead">{{newsletter.lead}}</p>
+		</div>
+		{{>newsletter-form}}
+		<div class="newsletter-more">
+			<h2>{{newsletter.newsletterContentsTitle}}</h2>
+			<p>{{newsletter.newsletterContents}}</p>
+			<a href="/news">{{newsletter.recentNews}}</a>
+		</div>
+	</div>
+</div>

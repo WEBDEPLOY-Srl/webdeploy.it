@@ -1,0 +1,128 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="kiosk-page">
+	<section class="readable-hero">
+		<div class="readable-hero__content">
+			<div class="readable-hero__copy">
+				<h1 class="readable-hero__title">
+					<span>inWD<sup class="readable-hero__mark">™</sup> Kiosk</span>
+				</h1>
+				<p class="readable-hero__tagline">{{totem.heroTagline}}</p>
+				<div class="readable-hero__actions">
+					<a href="#why-linux" class="readable-hero__primary">{{totem.learnMore}}</a
+					><a href="mailto:{{@email}}">{{totem.requestDemo}}</a>
+				</div>
+			</div>
+			<div class="readable-hero__visual">{{>kiosk}}</div>
+		</div>
+	</section>
+	<section class="kiosk-section kiosk-features" aria-label="{{totem.heroName}}">
+		<div class="page-container kiosk-columns">
+			<div class="kiosk-column">
+				<h2>{{totem.features.linux.title}}</h2>
+				<p class="section-lead">{{totem.features.linux.details}}</p>
+			</div>
+			<div class="kiosk-column">
+				<h2>{{totem.features.security.title}}</h2>
+				<p class="section-lead">{{totem.features.security.details}}</p>
+			</div>
+			<div class="kiosk-column">
+				<h2>{{totem.features.noLockIn.title}}</h2>
+				<p class="section-lead">{{totem.features.noLockIn.details}}</p>
+			</div>
+		</div>
+	</section>
+	<section
+		id="why-linux"
+		class="kiosk-section kiosk-section--band kiosk-features-anchor"
+		aria-labelledby="kiosk-why-title"
+	>
+		<div class="page-container">
+			<h2 id="kiosk-why-title" class="section-title">{{totem.included.title}}</h2>
+			<div class="kiosk-columns kiosk-columns--spaced">
+				<div class="kiosk-column">
+					<h3>{{totem.included.hardware.title}}</h3>
+					<ul class="section-points">
+						<li>{{totem.included.hardware.items.0}}</li>
+						<li>{{totem.included.hardware.items.1}}</li>
+						<li>{{totem.included.hardware.items.2}}</li>
+					</ul>
+				</div>
+				<div class="kiosk-column">
+					<h3>{{totem.included.software.title}}</h3>
+					<ul class="section-points">
+						<li>{{totem.included.software.items.0}}</li>
+						<li>{{totem.included.software.items.1}}</li>
+						<li>{{totem.included.software.items.2}}</li>
+					</ul>
+				</div>
+				<div class="kiosk-column">
+					<h3>{{totem.included.branding.title}}</h3>
+					<ul class="section-points">
+						<li>{{totem.included.branding.items.0}}</li>
+						<li>{{totem.included.branding.items.1}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="kiosk-section" aria-labelledby="kiosk-technology-title">
+		<div class="page-container kiosk-split">
+			<div>
+				<h2 id="kiosk-technology-title" class="section-title">{{totem.technology.title}}</h2>
+				<p class="section-lead">{{totem.technology.description}}</p>
+				<p class="section-lead">{{totem.technology.listTitle}}</p>
+				<ul class="section-points">
+					<li>{{totem.technology.features.0}}</li>
+					<li>{{totem.technology.features.1}}</li>
+					<li>{{totem.technology.features.2}}</li>
+					<li>{{totem.technology.features.3}}</li>
+					<li>{{totem.technology.features.4}}</li>
+				</ul>
+			</div>
+			<div class="kiosk-panel">
+				<h3>{{totem.support.title}}</h3>
+				<p class="section-lead">{{totem.support.description}}</p>
+				<ul class="section-points">
+					<li>{{totem.support.features.0}}</li>
+					<li>{{totem.support.features.1}}</li>
+					<li>{{totem.support.features.2}}</li>
+					<li>{{totem.support.features.3}}</li>
+				</ul>
+				<a href="https://inwd.org" class="btn-action"
+					>{{totem.support.link}} <span aria-hidden="true">↗</span></a
+				>
+			</div>
+		</div>
+	</section>
+	<section class="kiosk-section kiosk-section--band" aria-labelledby="kiosk-applications-title">
+		<div class="page-container">
+			<h2 id="kiosk-applications-title" class="section-title">{{totem.applications.title}}</h2>
+			<p class="section-lead">{{totem.applications.description}}</p>
+			<ul class="kiosk-tiles">
+				<li>{{totem.applications.items.0}}</li>
+				<li>{{totem.applications.items.1}}</li>
+				<li>{{totem.applications.items.2}}</li>
+				<li>{{totem.applications.items.3}}</li>
+			</ul>
+		</div>
+	</section>
+	<section class="contact-band">
+		<div class="contact-band__top"></div>
+		<div class="contact-band__bottom"></div>
+		<div class="contact-band__inner">
+			<h2 class="contact-band__title">{{totem.requestDemo}}</h2>
+			<p class="contact-band__lead">{{totem.cta.description}}</p>
+			<a href="mailto:{{@email}}" class="btn-cta-primary contact-band__action"
+				>{{totem.cta.button}}</a
+			>
+			<p class="kiosk-contact">
+				<strong>Email:</strong> {{@email}}<br />
+				<strong>{{totem.cta.partnership}}:</strong> {{totem.cta.poweredBy}}
+				<a href="https://m4ss.net" target="_blank" rel="noopener noreferrer" class="underlined-link"
+					>m4ss.net <span class="sr-only">{{common.opensInNewTab}}</span></a
+				>
+			</p>
+		</div>
+	</section>
+</div>
