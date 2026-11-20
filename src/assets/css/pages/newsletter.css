@@ -2,72 +2,120 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 .newsletter-page {
-	padding: 0.5rem 1rem 4rem;
-}
-
-.newsletter-layout {
-	width: min(100%, 48rem);
-	margin: 0 auto;
-	padding: clamp(0.75rem, 3vw, 2rem);
-	border: 1px solid rgba(0, 240, 255, 0.32);
-	background: rgb(11 16 27 / 88%);
+	width: min(100%, 68rem);
+	margin-inline: auto;
+	padding: clamp(1.25rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) clamp(3rem, 7vw, 6rem);
 }
 
 .newsletter-intro {
-	margin-bottom: 0.5rem;
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) clamp(4.25rem, 20vw, 13rem);
+	align-items: center;
+	column-gap: clamp(0.75rem, 3vw, 3rem);
+	margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+	padding-bottom: clamp(1rem, 2.5vw, 2rem);
+	border-bottom: 1px solid var(--color-border-muted);
 }
 
 .newsletter-intro h1 {
-	margin: 0 0 0.3rem;
-	color: white;
-	font-family: var(--font-display, system-ui, sans-serif);
-	font-size: clamp(1.75rem, 7vw, 3.5rem);
-	line-height: 1;
+	align-self: end;
+	color: var(--color-text-heading);
+	font: 400 clamp(2.25rem, 6vw, 5rem)/1 var(--font-display);
 	text-transform: uppercase;
+}
+
+.newsletter-intro__copy {
+	align-self: start;
 }
 
 .newsletter-lead {
-	margin: 0;
+	margin-block: 0.4rem 0.65rem;
 	color: #cbd5e1;
-	font-size: 0.9rem;
-	line-height: 1.25;
+	font: 1.125rem/1.45 system-ui, sans-serif;
 }
 
-.newsletter-more {
-	margin-top: 1.5rem;
-	padding-top: 1rem;
-	border-top: 1px solid #334155;
-	color: #cbd5e1;
-	font-size: 0.9rem;
-}
-
-.newsletter-more h2 {
-	margin: 0 0 0.4rem;
-	color: var(--color-secondary, #ff00ff);
-	font-family: var(--font-display, system-ui, sans-serif);
-	font-size: 1.25rem;
-	text-transform: uppercase;
-}
-
-.newsletter-more p {
-	margin: 0 0 0.5rem;
-}
-
-.newsletter-more a {
-	color: var(--color-primary, #00f0ff);
+.newsletter-page a {
+	color: var(--color-primary);
+	font: 0.875rem/1.5 var(--font-mono);
 	text-decoration: underline;
-	text-underline-offset: 2px;
+	text-underline-offset: 0.22em;
 }
 
-@media (max-width: 639px) {
-	.newsletter-lead {
-		font-size: 0.8rem;
-		line-height: 1.1;
-	}
+.newsletter-page a:hover {
+	color: white;
+}
+
+/* Perforations frame the site's workshop illustration like a postage stamp. */
+.newsletter-stamp {
+	--perforation: radial-gradient(circle, var(--color-background-dark) 32%, transparent 39%);
+	position: relative;
+	display: block;
+	grid-column: 2;
+	grid-row: 1 / span 2;
+	margin-inline-end: 0.25rem;
+	padding: clamp(0.375rem, 1vw, 0.75rem);
+	background:
+		var(--perforation) top -4px left / 8px 8px repeat-x,
+		var(--perforation) bottom -4px left / 8px 8px repeat-x,
+		var(--perforation) left -4px top / 8px 8px repeat-y,
+		var(--perforation) right -4px top / 8px 8px repeat-y,
+		#d7e4df;
+	transform: rotate(4deg);
+}
+
+.newsletter-stamp img {
+	width: 100%;
+	aspect-ratio: 3 / 2;
+	object-fit: cover;
 }
 
 @media (min-width: 640px) {
+	.newsletter-stamp::after {
+		content: '';
+		position: absolute;
+		right: 86%;
+		bottom: 12%;
+		width: clamp(2rem, 5vw, 4rem);
+		height: 1.1rem;
+		border-block: 2px solid;
+		color: var(--color-primary);
+		background: linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat;
+		transform: rotate(-9deg);
+	}
+}
+
+@media (max-width: 639px) {
+	/* Give the full headline room even before the narrower display font loads. */
+	.newsletter-intro h1 {
+		grid-column: 1 / -1;
+		font-size: clamp(1.75rem, 8.1vw, 3rem);
+	}
+
+	.newsletter-stamp {
+		grid-row: 2;
+	}
+
+	.newsletter-lead {
+		margin-block: 0.25rem 0.375rem;
+		font-size: 1rem;
+		line-height: 1.35;
+	}
+}
+
+@media (max-width: 639px) and (max-height: 720px) {
 	.newsletter-page {
-		padding-top: 3rem;
+		padding-top: 0.5rem;
+	}
+
+	.newsletter-intro {
+		grid-template-columns: minmax(0, 1fr) 3.5rem;
+		column-gap: 0.625rem;
+		margin-bottom: 0.5rem;
+		padding-bottom: 0.5rem;
+	}
+
+	.newsletter-lead {
+		margin-block: 0.125rem;
+		font-size: 0.9375rem;
 	}
 }

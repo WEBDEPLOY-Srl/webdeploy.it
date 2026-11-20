@@ -13,39 +13,48 @@
 >
 	<fieldset aria-describedby="newsletter-list-error" class="newsletter-lists">
 		<legend>{{newsletter.whatTitle}}</legend>
-		<label class="newsletter-choice"
-			><input
-				type="checkbox"
-				name="l"
-				value="300c28fe-d91b-4965-b247-da6e6dafdb7a"
-				autocomplete="off"
-			/>
-			<span><strong>{{newsletter.generalLabel}}.</strong> {{newsletter.generalText}}</span></label
-		>
-		<label class="newsletter-choice"
-			><input
-				type="checkbox"
-				name="l"
-				value="71ca6320-90f7-4cd5-9e52-cb53ba5b84ba"
-				autocomplete="off"
-			/>
-			<span
-				><strong>{{newsletter.marketingLabel}}.</strong> {{newsletter.marketingText}}</span
-			></label
-		>
+		<div class="newsletter-choices">
+			<label class="newsletter-choice">
+				<input
+					type="checkbox"
+					name="l"
+					value="300c28fe-d91b-4965-b247-da6e6dafdb7a"
+					autocomplete="off"
+				/>
+				<span class="newsletter-choice__body">
+					<strong>{{newsletter.generalLabel}}</strong>
+					{{newsletter.generalText}}
+				</span>
+			</label>
+			<label class="newsletter-choice">
+				<input
+					type="checkbox"
+					name="l"
+					value="71ca6320-90f7-4cd5-9e52-cb53ba5b84ba"
+					autocomplete="off"
+				/>
+				<span class="newsletter-choice__body">
+					<strong>{{newsletter.marketingLabel}}</strong>
+					{{newsletter.marketingText}}
+				</span>
+			</label>
+		</div>
 		<p id="newsletter-list-error" class="form-error" role="alert"></p>
 	</fieldset>
-	<div class="email-field">
-		<label for="newsletter-email">{{newsletter.emailLabel}}</label>
-		<input
-			id="newsletter-email"
-			type="email"
-			name="email"
-			autocomplete="email"
-			inputmode="email"
-			placeholder="{{newsletter.emailPlaceholder}}"
-			required=""
-		/>
+	<div class="newsletter-delivery">
+		<div class="email-field">
+			<label for="newsletter-email">{{newsletter.emailLabel}}</label>
+			<input
+				id="newsletter-email"
+				type="email"
+				name="email"
+				autocomplete="email"
+				inputmode="email"
+				placeholder="{{newsletter.emailPlaceholder}}"
+				required=""
+			/>
+		</div>
+		<button class="newsletter-submit" type="submit" disabled="">{{newsletter.submit}}</button>
 	</div>
 	<input type="hidden" name="nonce" value="" />
 	<template data-spam-widget>
@@ -58,9 +67,16 @@
 		></altcha-widget>
 	</template>
 	<p class="form-error" data-spam-error role="alert" hidden></p>
-	<button class="newsletter-submit" type="submit" disabled="">{{newsletter.submit}}</button>
-	<p class="newsletter-note">
-		{{newsletter.confirmationNote}} <a href="/privacy#newsletter">{{newsletter.privacyLink}}</a>
-	</p>
+	<div class="newsletter-followup">
+		<details>
+			<summary>{{newsletter.afterSignup}}</summary>
+			<ul>
+				<li>{{newsletter.confirmationNote}}</li>
+				<li>{{newsletter.withdrawalNote}}</li>
+				<li>{{newsletter.controllerNote}}</li>
+			</ul>
+		</details>
+		<a href="/privacy#newsletter">{{newsletter.privacyLink}}</a>
+	</div>
 	<noscript><p class="form-error">{{newsletter.noScript}}</p></noscript>
 </form>
