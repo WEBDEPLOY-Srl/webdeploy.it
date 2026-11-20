@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-11-20
+
 ### Changed
 - The newsletter signup now opens with a sample-news link and presents each mailing list as a separately selectable card. Confirmation, withdrawal and deletion details sit beside the form in an expandable note.
 
