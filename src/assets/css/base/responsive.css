@@ -1,0 +1,61 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+/* ==========================================
+   RESPONSIVE: Safe area insets (notched devices)
+   ========================================== */
+
+/* Support for iPhone X+ and other notched devices */
+@supports (padding: env(safe-area-inset-bottom)) {
+	body {
+		padding-left: env(safe-area-inset-left);
+		padding-right: env(safe-area-inset-right);
+	}
+
+	/* Ensure sticky header respects notch */
+	header {
+		padding-left: max(1rem, env(safe-area-inset-left));
+		padding-right: max(1rem, env(safe-area-inset-right));
+	}
+
+	/* Footer padding for home indicator */
+	footer {
+		padding-bottom: max(2rem, env(safe-area-inset-bottom));
+	}
+}
+
+/* ==========================================
+   RESPONSIVE: Landscape orientation
+   ========================================== */
+
+@media (orientation: landscape) and (max-height: 500px) {
+	/* Reduce vertical padding in landscape on small screens */
+	.reading-page,
+	.error-page {
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+	}
+
+	.contact-band {
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+	}
+
+	.reading-page {
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+	}
+
+	/* Smaller hero text in landscape */
+	.reading-title {
+		font-size: 2.5rem;
+	}
+}
+
+/* ==========================================
+   RESPONSIVE: Touch-friendly utilities
+   ========================================== */
+
+/* Minimum touch target for footer/small links */
+
+/* Increase tap area without changing visual size */

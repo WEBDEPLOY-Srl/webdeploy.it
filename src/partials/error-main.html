@@ -1,0 +1,19 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="error-page">
+	<div class="error-content">
+		<div class="article-header"><span class="title-glow error-code">404</span></div>
+		<h1 class="error-title">{{error.notFoundTitle}}</h1>
+		<p class="error-message">{{error.notFoundText}}</p>
+		<div class="error-actions">
+			<a href="/" class="btn-retro-primary error-action">{{error.returnHome}}</a>
+			<button data-history-back hidden class="btn-retro-secondary error-action">
+				{{error.goBack}}
+			</button>
+		</div>
+		<p class="error-help">
+			{{error.needHelp}}
+			<a class="accent-link" href="mailto:{{@email}}">{{@email}}</a>
+		</p>
+	</div>
+</div>

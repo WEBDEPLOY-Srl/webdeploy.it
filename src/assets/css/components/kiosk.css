@@ -1,0 +1,349 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+.kiosk-demo {
+	display: grid;
+	justify-items: center;
+}
+
+.kiosk-demo__caption {
+	max-width: 22rem;
+	margin: 1rem 0 0;
+	color: var(--color-text-body);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	line-height: 1.6;
+	text-align: center;
+}
+
+.kiosk-demo__device {
+	position: relative;
+	height: clamp(26rem, 72vh, 40rem);
+	aspect-ratio: 898 / 1752;
+	container-type: inline-size;
+}
+
+/* Matches the transparent screen opening in the frame image (x 176-725, y 88-1092 of
+	   898x1752). The frame sits on top, so its bezel covers the screen edges. */
+.kiosk-demo__screen {
+	position: absolute;
+	top: 5.02%;
+	left: 19.6%;
+	width: 61.25%;
+	height: 57.36%;
+	overflow: hidden;
+	background: var(--color-background-dark);
+	box-shadow: 0 0 3rem rgba(0, 240, 255, 0.22);
+	color: white;
+	container-type: inline-size;
+	font-family: var(--font-mono);
+	transition: box-shadow 300ms;
+}
+
+.kiosk-demo__screen--windows {
+	background: #10307a;
+	box-shadow: 0 0 3rem rgba(60, 110, 230, 0.35);
+}
+
+.kiosk-demo__picture {
+	display: block;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+.kiosk-demo__frame {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+	filter: drop-shadow(0 0 1px rgba(0, 240, 255, 0.55));
+	pointer-events: none;
+}
+
+.kiosk-demo__app {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.kiosk-demo__status {
+	display: flex;
+	justify-content: space-between;
+	padding: 4cqw 5cqw;
+	border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+	color: var(--color-primary);
+	font-size: 4cqw;
+	font-weight: 700;
+}
+
+.kiosk-demo__body {
+	padding: 6cqw 5cqw;
+}
+
+.kiosk-demo__title {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: 11cqw;
+	line-height: 1;
+	text-transform: uppercase;
+}
+
+.kiosk-demo__prompt {
+	margin: 2cqw 0 0;
+	color: var(--color-text-body);
+	font-size: 4.5cqw;
+}
+
+.kiosk-demo__tiles {
+	display: grid;
+	gap: 3cqw;
+	margin-top: 6cqw;
+}
+
+.kiosk-demo__tile,
+.kiosk-demo__back {
+	display: flex;
+	gap: 4cqw;
+	align-items: center;
+	border: 1px solid rgba(0, 240, 255, 0.3);
+	background: var(--color-surface-dark);
+	color: white;
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+}
+
+.kiosk-demo__tile {
+	width: 100%;
+	padding: 5cqw;
+	font-size: 5cqw;
+}
+
+.kiosk-demo__back {
+	margin-bottom: 6cqw;
+	padding: 2.5cqw 4cqw;
+	font-size: 4cqw;
+}
+
+.kiosk-demo__tile .pixel-icon,
+.kiosk-demo__back .pixel-icon {
+	color: var(--color-primary);
+	font-size: 8cqw;
+}
+
+.kiosk-demo__back .pixel-icon {
+	font-size: 5cqw;
+}
+
+.kiosk-demo__tile:hover,
+.kiosk-demo__back:hover {
+	border-color: var(--color-secondary);
+}
+
+.kiosk-demo__tile:focus-visible,
+.kiosk-demo__back:focus-visible {
+	outline: 2px solid var(--color-secondary);
+	outline-offset: -2px;
+}
+
+.kiosk-demo__list {
+	display: grid;
+	gap: 4cqw;
+	margin: 6cqw 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.kiosk-demo__list li {
+	position: relative;
+	padding-left: 5cqw;
+	color: var(--color-text-body);
+	font-size: 4.5cqw;
+	line-height: 1.4;
+}
+
+.kiosk-demo__list li::before {
+	position: absolute;
+	top: 0.5em;
+	left: 0;
+	width: 2cqw;
+	height: 2cqw;
+	background: var(--color-primary);
+	content: '';
+}
+
+.kiosk-demo__footer {
+	margin: auto 0 0;
+	padding: 4cqw 5cqw;
+	color: rgba(203, 213, 225, 0.6);
+	font-size: 3.5cqw;
+}
+
+.kiosk-demo__update {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	padding: 8cqw;
+	text-align: center;
+}
+
+.kiosk-demo__update-title {
+	margin: 0;
+	font-family: var(--font-reading, system-ui, sans-serif);
+	font-size: 6.5cqw;
+	line-height: 1.35;
+}
+
+.kiosk-demo__update-note {
+	margin: 6cqw 0 0;
+	font-family: var(--font-reading, system-ui, sans-serif);
+	font-size: 4.5cqw;
+	line-height: 1.4;
+	opacity: 0.85;
+}
+
+.kiosk-demo__spinner {
+	position: relative;
+	width: 12cqw;
+	height: 12cqw;
+	margin-bottom: 8cqw;
+}
+
+.kiosk-demo__spinner span {
+	position: absolute;
+	inset: 0;
+	animation: kiosk-demo-orbit 2.4s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+	animation-delay: calc(var(--dot) * -0.18s);
+}
+
+.kiosk-demo__spinner span::before {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 1.8cqw;
+	height: 1.8cqw;
+	border-radius: 50%;
+	background: white;
+	content: '';
+}
+
+@keyframes kiosk-demo-orbit {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* Sits in the open bay between the legs (x 203-696, y 1133-1568 of the frame image). */
+.kiosk-demo__switch {
+	position: absolute;
+	top: 64.7%;
+	left: 22.6%;
+	display: flex;
+	flex-direction: column;
+	gap: 3cqw;
+	justify-content: center;
+	width: 55%;
+	height: 24.8%;
+	padding: 0 5cqw;
+}
+
+.kiosk-demo__switch button {
+	min-height: 2.75rem;
+	padding: 0.5rem;
+	border: 1px solid rgba(0, 240, 255, 0.35);
+	background: transparent;
+	color: var(--color-text-body);
+	font-family: var(--font-mono);
+	font-size: max(0.75rem, 3.6cqw);
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	cursor: pointer;
+}
+
+.kiosk-demo__switch button[aria-pressed='true'] {
+	background: var(--color-primary);
+	color: var(--color-background-dark);
+}
+
+.kiosk-demo__switch button:focus-visible {
+	outline: 2px solid var(--color-secondary);
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.kiosk-demo__spinner span {
+		animation: none;
+	}
+
+	.kiosk-demo__screen {
+		transition: none;
+	}
+}
+
+/* Geometry measured against the device artwork. */
+.kiosk-demo__spinner > span:nth-child(1) {
+	--dot: 0;
+}
+.kiosk-demo__spinner > span:nth-child(2) {
+	--dot: 1;
+}
+.kiosk-demo__spinner > span:nth-child(3) {
+	--dot: 2;
+}
+.kiosk-demo__spinner > span:nth-child(4) {
+	--dot: 3;
+}
+.kiosk-demo__spinner > span:nth-child(5) {
+	--dot: 4;
+}
+
+/* Keep the device artwork and allow the real controls to use readable phone sizes. */
+@media (max-width: 639px) {
+	.kiosk-page .readable-hero__visual {
+		min-inline-size: 0;
+		inline-size: 100%;
+	}
+
+	.kiosk-demo__caption {
+		min-inline-size: 0;
+		max-inline-size: min(100%, 22rem);
+	}
+
+	.kiosk-demo__device {
+		inline-size: min(100%, 20rem);
+		block-size: auto;
+	}
+
+	.kiosk-demo__app {
+		overflow-y: auto;
+	}
+
+	.kiosk-demo__switch {
+		/* Resolve spacing from the positioned device even during its first layout. */
+		padding-inline: 5%;
+		gap: 0.5rem;
+	}
+
+	.kiosk-demo__tile,
+	.kiosk-demo__back {
+		min-block-size: 2.75rem;
+		min-inline-size: 2.75rem;
+		padding: 0.35rem;
+		font-size: 0.8125rem;
+		line-height: 1.25;
+	}
+
+	.kiosk-demo__back,
+	.kiosk-demo__back .pixel-icon {
+		font-size: 0.875rem;
+	}
+
+	.kiosk-demo__list li {
+		font-size: 0.8125rem;
+		line-height: 1.4;
+	}
+}

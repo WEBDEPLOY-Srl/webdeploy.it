@@ -1,0 +1,82 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="reading-page">
+	<div class="reading-column">
+		<div class="reading-header">
+			<h1 class="reading-title"><span class="accent">&gt;</span> {{privacy.title}}</h1>
+		</div>
+		<div class="policy-sections">
+			<div class="card-retro reading-card"><p class="policy-paragraph">{{privacy.intro}}</p></div>
+			<div class="card-retro reading-card">
+				<h2 class="policy-heading">{{privacy.analyticsTitle}}</h2>
+				<p class="policy-intro">{{privacy.analyticsText}}</p>
+				<ul class="policy-list">
+					<li class="policy-item"><span class="accent">•</span> {{privacy.analyticsFeatures.0}}</li>
+					<li class="policy-item"><span class="accent">•</span> {{privacy.analyticsFeatures.1}}</li>
+					<li class="policy-item"><span class="accent">•</span> {{privacy.analyticsFeatures.2}}</li>
+					<li class="policy-item"><span class="accent">•</span> {{privacy.analyticsFeatures.3}}</li>
+				</ul>
+			</div>
+			<div class="card-retro reading-card">
+				<h2 class="policy-heading-alt">{{privacy.optOutTitle}}</h2>
+				<p class="policy-intro">{{privacy.optOutText}}</p>
+				{{>opt-out}}
+			</div>
+			<div class="card-retro reading-card">
+				<h2 class="policy-heading">{{privacy.dataTitle}}</h2>
+				<p class="policy-intro">{{privacy.dataText}}</p>
+				<ul class="policy-compact-list">
+					<li class="policy-item">
+						<span class="secondary-bullet">•</span> {{privacy.dataItems.0}}
+					</li>
+					<li class="policy-item">
+						<span class="secondary-bullet">•</span> {{privacy.dataItems.1}}
+					</li>
+					<li class="policy-item">
+						<span class="secondary-bullet">•</span> {{privacy.dataItems.2}}
+					</li>
+					<li class="policy-item">
+						<span class="secondary-bullet">•</span> {{privacy.dataItems.3}}
+					</li>
+				</ul>
+				<p class="policy-followup">{{privacy.mapText}}</p>
+			</div>
+			<div class="card-retro reading-card">
+				<h2 class="policy-heading-alt">{{privacy.marketingTitle}}</h2>
+				<p class="policy-paragraph">{{privacy.marketingText}}</p>
+			</div>
+			<section
+				id="newsletter"
+				class="card-retro policy-newsletter"
+				aria-labelledby="newsletter-privacy-title"
+			>
+				<h2 id="newsletter-privacy-title" class="policy-newsletter__title">
+					{{privacy.newsletterTitle}}
+				</h2>
+				<ol class="policy-newsletter__items">
+					<li>{{privacy.newsletterItems.0}}</li>
+					<li>{{privacy.newsletterItems.1}}</li>
+					<li>{{privacy.newsletterItems.2}}</li>
+					<li>{{privacy.newsletterItems.3}}</li>
+					<li>{{privacy.newsletterItems.4}}</li>
+					<li>{{privacy.newsletterItems.5}}</li>
+					<li>{{privacy.newsletterItems.6}}</li>
+					<li>{{privacy.newsletterItems.7}}</li>
+					<li>{{privacy.newsletterItems.8}}</li>
+					<li>{{privacy.newsletterItems.9}}</li>
+					<li>{{privacy.newsletterItems.10}}</li>
+					<li>{{privacy.newsletterItems.11}}</li>
+				</ol>
+			</section>
+			<div id="dpa" class="card-retro policy-newsletter">
+				<h2 class="policy-heading-alt">{{privacy.dpaTitle}}</h2>
+				<p class="policy-paragraph">{{privacy.dpaText}}</p>
+			</div>
+			<div class="card-retro reading-card">
+				<h2 class="policy-heading">{{privacy.contactTitle}}</h2>
+				<p class="policy-note">{{privacy.contactText}}</p>
+				<a href="mailto:{{@email}}" class="contact-email">{{@email}}</a>
+			</div>
+		</div>
+	</div>
+</div>

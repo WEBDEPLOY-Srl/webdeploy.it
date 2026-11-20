@@ -1,0 +1,5 @@
+# SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+# SPDX-License-Identifier: AGPL-3.0-only
+# The build compares these upstream distributions to their published byte digests.
+src/vendor/altcha-3.6.0/** -text whitespace=-trailing-space,-blank-at-eof,cr-at-eol
+src/vendor/leaflet-1.9.4/** -text whitespace=-trailing-space,-blank-at-eof,cr-at-eol

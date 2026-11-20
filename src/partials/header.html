@@ -1,0 +1,92 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<header class="site-header">
+	<div class="site-header__container">
+		<div class="site-header__inner">
+			<a href="/" class="site-logo"
+				><div class="site-logo__frame">
+					<img
+						src="/webdeploy-icon-96.png"
+						fetchpriority="low"
+						alt="WEBDEPLOY"
+						width="48"
+						height="48"
+						class="site-logo__image"
+					/></div
+			></a>
+			<nav class="site-nav" aria-label="{{nav.mainNavigation}}">
+				<div class="dropdown-container">
+					<button
+						class="site-nav__trigger"
+						aria-expanded="false"
+						aria-controls="products-menu"
+					>
+						{{nav.products}}
+						<span class="pixel-icon pixel-icon-chevron-down" aria-hidden="true"></span>
+					</button>
+					<ul
+						id="products-menu"
+						aria-label="{{nav.productsSubmenu}}"
+						class="dropdown-menu products-dropdown"
+					>
+						<li><a href="/totem" class="site-nav__option">{{nav.kiosk}}</a></li>
+					</ul>
+				</div>
+				<a href="/news" class="site-nav__link">{{nav.news}}</a>
+				<div class="dropdown-container">
+					<button
+						class="site-nav__trigger"
+						aria-expanded="false"
+						aria-controls="services-menu"
+					>
+						{{nav.services}}
+						<span class="pixel-icon pixel-icon-chevron-down" aria-hidden="true"></span>
+					</button>
+					<ul
+						id="services-menu"
+						aria-label="{{nav.servicesSubmenu}}"
+						class="dropdown-menu services-dropdown"
+					>
+						<li><a href="https://inwd.org" class="site-nav__option"
+							>{{nav.managedInfra}} <span aria-hidden="true"> ↗</span></a
+						></li>
+						<li><a href="/services/linux-workstations" class="site-nav__option"
+							>{{nav.linuxMigration}}</a
+						></li>
+						<li><a href="/services/backup" class="site-nav__option">{{nav.backup}}</a></li>
+						<li><a href="/services/consulting" class="site-nav__option"
+							>{{nav.consulting}}</a
+						></li>
+					</ul>
+				</div>
+				<a href="/developer-manifesto" class="site-nav__link">{{nav.manifesto}}</a>
+				<a href="/contacts" class="site-nav__link">{{nav.contacts}}</a>
+			</nav>
+			<div class="site-header__controls">
+				<button
+					class="site-menu-toggle header-control"
+					aria-label="{{nav.openMenu}}"
+					data-open-label="{{nav.openMenu}}"
+					data-close-label="{{nav.closeMenu}}"
+					aria-expanded="false"
+					aria-controls="mobile-menu"
+				>
+					<span class="pixel-icon pixel-icon-menu" aria-hidden="true"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+	<template id="mobile-navigation-template">{{>mobile-menu}}</template>
+	<noscript>
+		<nav class="fallback-nav" aria-label="{{nav.mainNavigation}}">
+			<a href="/totem">{{nav.kiosk}}</a>
+			<a href="/news">{{nav.news}}</a>
+			<a href="https://inwd.org">{{nav.managedInfra}}</a>
+			<a href="/services/linux-workstations">{{nav.linuxMigration}}</a>
+			<a href="/services/backup">{{nav.backup}}</a>
+			<a href="/services/consulting">{{nav.consulting}}</a>
+			<a href="/developer-manifesto">{{nav.manifesto}}</a>
+			<a href="/contacts">{{nav.contacts}}</a>
+		</nav>
+	</noscript>
+</header>

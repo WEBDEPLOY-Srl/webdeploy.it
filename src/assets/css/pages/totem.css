@@ -1,0 +1,91 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+.kiosk-page {
+	font-family: var(--font-reading, system-ui, sans-serif);
+}
+
+.kiosk-section {
+	padding: clamp(4rem, 8vw, 7rem) 0;
+}
+
+.kiosk-section--band {
+	border-block: 1px solid rgba(0, 240, 255, 0.18);
+	background: rgba(14, 22, 33, 0.68);
+}
+
+.kiosk-features {
+	padding-top: 0;
+}
+
+.kiosk-columns {
+	display: grid;
+	gap: 2.5rem clamp(2rem, 4vw, 3.5rem);
+}
+
+.kiosk-columns--spaced {
+	margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.kiosk-column {
+	padding-top: 1.25rem;
+	border-top: 2px solid var(--color-primary);
+}
+
+.kiosk-column h2,
+.kiosk-column h3,
+.kiosk-panel h3 {
+	margin: 0;
+	color: var(--color-secondary);
+	font-family: var(--font-display);
+	font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+	font-weight: 400;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+
+.kiosk-column .section-lead {
+	margin-top: 0.75rem;
+	font-size: 1rem;
+}
+
+.kiosk-split {
+	display: grid;
+	gap: clamp(2.5rem, 6vw, 5rem);
+	align-items: start;
+}
+
+.kiosk-panel {
+	padding: clamp(1.5rem, 3vw, 2.25rem);
+	border: 1px solid rgba(0, 240, 255, 0.16);
+	background: var(--color-background-dark);
+}
+
+.kiosk-tiles {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+	gap: 0.75rem;
+	margin: 2rem 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.kiosk-tiles li {
+	padding: 1.25rem;
+	border: 1px solid rgba(0, 240, 255, 0.16);
+	background: var(--color-background-dark);
+	color: var(--color-text-body);
+	line-height: 1.6;
+}
+
+@media (min-width: 48rem) {
+	.kiosk-columns {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 64rem) {
+	.kiosk-split {
+		grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+	}
+}

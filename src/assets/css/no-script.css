@@ -1,0 +1,22 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+.site-header__inner .site-nav,
+.site-menu-toggle,
+.contact-map__overlay,
+.contact-map__canvas,
+.share-controls button,
+.ws-demo__controls,
+.ws-demo__result,
+.kiosk-demo__tiles,
+.kiosk-demo__prompt,
+.kiosk-demo__switch {
+	display: none;
+}
+.contact-map {
+	display: none;
+}
+
+.site-header {
+	position: relative;
+}

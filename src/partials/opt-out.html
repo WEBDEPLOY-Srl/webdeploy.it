@@ -1,0 +1,25 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div
+	id="matomo-opt-out"
+	data-no-cookies="{{privacy.optOut.OptOutErrorNoCookies}}"
+	data-not-https="{{privacy.optOut.OptOutErrorNotHttps}}"
+>
+	<p class="opt-out-error" role="alert" hidden></p>
+	<div data-opt-out-controls hidden>
+		<p data-tracked="true">{{privacy.optOut.YouMayOptOut2}} {{privacy.optOut.YouMayOptOut3}}</p>
+		<p data-tracked="false" hidden>
+			{{privacy.optOut.OptOutComplete}} {{privacy.optOut.OptOutCompleteBis}}
+		</p>
+		<input id="trackVisits" type="checkbox" />
+		<label for="trackVisits"
+			><strong
+				><span data-tracked="true"
+					>{{privacy.optOut.YouAreNotOptedOut}} {{privacy.optOut.UncheckToOptOut}}</span
+				><span data-tracked="false" hidden
+					>{{privacy.optOut.YouAreOptedOut}} {{privacy.optOut.CheckToOptIn}}</span
+				></strong
+			></label
+		>
+	</div>
+</div>

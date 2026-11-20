@@ -1,0 +1,120 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="services-page">
+	<section class="home-service home-service--art-right linux-intro" aria-labelledby="linux-title">
+		<div class="page-container home-service__layout">
+			<div class="home-service__copy">
+				<h1 id="linux-title" class="section-title">{{services.linux.title}}</h1>
+				<p class="home-service__subtitle linux-intro__subtitle">{{services.linux.subtitle}}</p>
+				<p class="section-lead">{{services.linux.description}}</p>
+			</div>
+			<figure class="home-service__art">
+				<picture>
+					<source type="image/avif" srcset="{{@prioritySources}}" sizes="{{@prioritySizes}}" />
+					<img
+						class="home-service__image home-service__image--logo"
+						src="/images/inwd-managed-host.webp"
+						srcset="/images/inwd-managed-host-600.webp 600w, /images/inwd-managed-host.webp 1248w"
+						sizes="(min-width: 30rem) 28rem, calc(100vw - 2rem)"
+						alt="{{services.linux.imageAlt}}"
+						width="1248"
+						height="1014"
+						fetchpriority="high"
+						decoding="async"
+					/>
+				</picture>
+			</figure>
+		</div>
+	</section>
+	<section class="home-service home-service--art-left" aria-labelledby="linux-inventory">
+		<div class="page-container home-service__layout">
+			<div class="home-service__copy">
+				<h2 id="linux-inventory">{{services.linux.inventory.title}}</h2>
+				<p class="home-service__subtitle">{{services.linux.inventory.subtitle}}</p>
+				<p class="section-lead">{{services.linux.inventory.body}}</p>
+			</div>
+			<figure class="home-service__art inventory">
+				<figcaption class="inventory__label">{{services.linux.inventory.examplesLabel}}</figcaption>
+				<dl class="inventory__list">
+					<div class="inventory__row">
+						<dt>{{services.linux.inventory.examples.0.item}}</dt>
+						<dd>{{services.linux.inventory.examples.0.result}}</dd>
+					</div>
+					<div class="inventory__row">
+						<dt>{{services.linux.inventory.examples.1.item}}</dt>
+						<dd>{{services.linux.inventory.examples.1.result}}</dd>
+					</div>
+					<div class="inventory__row">
+						<dt>{{services.linux.inventory.examples.2.item}}</dt>
+						<dd>{{services.linux.inventory.examples.2.result}}</dd>
+					</div>
+					<div class="inventory__row">
+						<dt>{{services.linux.inventory.examples.3.item}}</dt>
+						<dd>{{services.linux.inventory.examples.3.result}}</dd>
+					</div>
+					<div class="inventory__row">
+						<dt>{{services.linux.inventory.examples.4.item}}</dt>
+						<dd>{{services.linux.inventory.examples.4.result}}</dd>
+					</div>
+				</dl>
+				<p class="inventory__note">{{services.linux.inventory.examplesNote}}</p>
+			</figure>
+		</div>
+	</section>
+	<section class="home-section linux-band" aria-labelledby="linux-testing">
+		<div class="page-container linux-band__layout">
+			<div>
+				<h2 id="linux-testing" class="section-title">{{services.linux.testing.title}}</h2>
+				<p class="home-service__subtitle">{{services.linux.testing.subtitle}}</p>
+				<p class="section-lead">{{services.linux.testing.body}}</p>
+			</div>
+			<ul class="section-points">
+				<li>{{services.linux.testing.points.0}}</li>
+				<li>{{services.linux.testing.points.1}}</li>
+				<li>{{services.linux.testing.points.2}}</li>
+				<li>{{services.linux.testing.points.3}}</li>
+			</ul>
+		</div>
+	</section>
+	<section class="home-service home-service--art-right" aria-labelledby="linux-test-machine">
+		<div class="page-container home-service__layout">
+			<div class="home-service__copy">
+				<h2 id="linux-test-machine">{{services.linux.testMachine.title}}</h2>
+				<p class="home-service__subtitle">{{services.linux.testMachine.subtitle}}</p>
+				<p class="section-lead">{{services.linux.testMachine.body}}</p>
+			</div>
+			<figure class="home-service__art">
+				{{>workstation}}
+				<figcaption class="home-service__credit">
+					{{services.linux.testMachine.imageCaption}}
+				</figcaption>
+			</figure>
+		</div>
+	</section>
+	<section class="home-service home-service--art-left" aria-labelledby="linux-support">
+		<div class="page-container home-service__layout">
+			<div class="home-service__copy">
+				<h2 id="linux-support">{{services.linux.support.title}}</h2>
+				<p class="home-service__subtitle">{{services.linux.support.subtitle}}</p>
+				<p class="section-lead">{{services.linux.support.body}}</p>
+				<a href="https://inwd.org" class="btn-action"
+					>{{services.linux.support.link}} <span aria-hidden="true">↗</span></a
+				>
+			</div>
+			<figure class="home-service__art">
+				<img
+					class="home-service__image home-service__image--icon"
+					src="/images/inwd-trunk-rack.webp"
+					srcset="/images/inwd-trunk-rack-500.webp 500w, /images/inwd-trunk-rack.webp 907w"
+					sizes="(min-width: 34rem) 24rem, calc(75vw - 1.5rem)"
+					alt="{{services.linux.support.imageAlt}}"
+					width="907"
+					height="1026"
+					loading="lazy"
+					decoding="async"
+				/>
+			</figure>
+		</div>
+	</section>
+	{{>contact-band}}
+</div>

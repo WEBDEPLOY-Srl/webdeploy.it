@@ -1,0 +1,91 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<div class="manifesto-page">
+	<section class="home-section manifesto-intro" aria-labelledby="manifesto-title">
+		<div class="page-container">
+			<p class="section-eyebrow">{{manifesto.eyebrow}}</p>
+			<h1 id="manifesto-title" class="section-title manifesto-intro__title">{{manifesto.title}}</h1>
+		</div>
+	</section>
+	<section class="home-section manifesto-group" aria-labelledby="manifesto-coreBeliefs">
+		<div class="page-container manifesto-group__layout">
+			<h2 id="manifesto-coreBeliefs" class="section-title manifesto-group__title">
+				{{manifesto.coreBeliefs}}
+			</h2>
+			<div class="manifesto-items">
+				<article class="manifesto-item">
+					<h3>{{manifesto.devExp.title}}</h3>
+					<p class="section-lead">{{manifesto.devExp.description}}</p>
+				</article>
+				<article class="manifesto-item">
+					<h3>{{manifesto.openSource.title}}</h3>
+					<p class="section-lead">{{manifesto.openSource.description}}</p>
+				</article>
+				<article class="manifesto-item">
+					<h3>{{manifesto.workLife.title}}</h3>
+					<p class="section-lead">{{manifesto.workLife.description}}</p>
+					<ul class="section-points">
+						<li>{{manifesto.workLife.items.0}}</li>
+						<li>{{manifesto.workLife.items.1}}</li>
+						<li>{{manifesto.workLife.items.2}}</li>
+					</ul>
+					<p class="manifesto-item__note">{{manifesto.workLife.note}}</p>
+				</article>
+			</div>
+		</div>
+	</section>
+	<section
+		class="home-section manifesto-group manifesto-group--band"
+		aria-labelledby="manifesto-techPhilosophy"
+	>
+		<div class="page-container manifesto-group__layout">
+			<h2 id="manifesto-techPhilosophy" class="section-title manifesto-group__title">
+				{{manifesto.techPhilosophy}}
+			</h2>
+			<div class="manifesto-items">
+				<article class="manifesto-item">
+					<h3>{{manifesto.quality.title}}</h3>
+					<p class="section-lead">{{manifesto.quality.description}}</p>
+				</article>
+				<article class="manifesto-item">
+					<h3>{{manifesto.docs.title}}</h3>
+					<p class="section-lead">{{manifesto.docs.description}}</p>
+				</article>
+				<article class="manifesto-item">
+					<h3>{{manifesto.tools.title}}</h3>
+					<p class="section-lead">{{manifesto.tools.description}}</p>
+				</article>
+				<article class="manifesto-item">
+					<h3>{{manifesto.community.title}}</h3>
+					<p class="section-lead">{{manifesto.community.description}}</p>
+				</article>
+			</div>
+		</div>
+	</section>
+	<section class="home-section manifesto-group" aria-labelledby="manifesto-howWeWork">
+		<div class="page-container manifesto-group__layout">
+			<h2 id="manifesto-howWeWork" class="section-title manifesto-group__title">
+				{{manifesto.howWeWork}}
+			</h2>
+			<div class="manifesto-items">
+				<article class="manifesto-item">
+					<h3>{{manifesto.purpose.title}}</h3>
+					<p class="section-lead">{{manifesto.purpose.description}}</p>
+				</article>
+				<article class="manifesto-item">
+					<h3>{{manifesto.iterative.title}}</h3>
+					<p class="section-lead">{{manifesto.iterative.description}}</p>
+				</article>
+				<article class="manifesto-item">
+					<h3>{{manifesto.learning.title}}</h3>
+					<p class="section-lead">{{manifesto.learning.description}}</p>
+				</article>
+				<article class="manifesto-item">
+					<h3>{{manifesto.growth.title}}</h3>
+					<p class="section-lead">{{manifesto.growth.description}}</p>
+				</article>
+			</div>
+		</div>
+	</section>
+	{{>contact-band}}
+</div>

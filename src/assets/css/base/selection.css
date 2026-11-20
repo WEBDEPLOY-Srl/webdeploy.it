@@ -1,0 +1,12 @@
+/* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
+ * SPDX-License-Identifier: AGPL-3.0-only
+ */
+/* ==========================================
+   TEXT SELECTION
+   ========================================== */
+
+/* Selection colors */
+::selection {
+	background-color: var(--color-secondary);
+	color: white;
+}
