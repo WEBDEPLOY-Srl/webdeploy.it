@@ -2,9 +2,11 @@
 // SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
 // SPDX-License-Identifier: AGPL-3.0-only
 
-/** @param {string} image @param {string} extension @returns {string} */
+const cardMasterWidths = { fosdem: 1200, php2shell: 1122 };
+
+/** @param {keyof typeof cardMasterWidths} image @param {string} extension @returns {string} */
 function cardSources(image, extension) {
-	return [400, 592, 672, 800, 1088, 1184, 1440]
+	return [400, 592, 672, 800, cardMasterWidths[image]]
 		.map((width) => `/images/${image}-card-${width}.${extension} ${width}w`)
 		.join(', ');
 }
@@ -64,7 +66,7 @@ export const pages = [
 			image: '/fosdem-2026.jpg',
 			sources: cardSources('fosdem', 'avif'),
 			fallback: { type: 'image/jpeg', srcset: cardSources('fosdem', 'jpg') },
-			width: 1200,
+			width: cardMasterWidths.fosdem,
 			height: 1600
 		}
 	},
@@ -84,7 +86,7 @@ export const pages = [
 			image: '/news-php2shell.webp',
 			sources: cardSources('php2shell', 'avif'),
 			fallback: { type: 'image/webp', srcset: cardSources('php2shell', 'webp') },
-			width: 1122,
+			width: cardMasterWidths.php2shell,
 			height: 748
 		}
 	},

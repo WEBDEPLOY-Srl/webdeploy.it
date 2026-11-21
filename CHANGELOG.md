@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed the three decorative lines beside the newsletter header stamp on desktop.
 
 ### Fixed
-- News thumbnails now use the actual card width when choosing an image. Higher-quality landscape crops cover desktop and high-density phone displays.
+- News thumbnails and their preload now use the rendered card width to select sharper landscape crops. High-density displays can use the full width of the original artwork, up to 1122 pixels for PHP2Shell and 1200 pixels for FOSDEM.
 
 ## [2.0.1] - 2026-11-20
 

@@ -53,8 +53,9 @@ transparent and so that forks can keep to the same style.
   The optional news-card `sources` field accepts a width-described AVIF srcset of 16:9 crops.
   The `fallback` field supplies the alternate MIME type and srcset.
   The news grid and its preload share the same slot sizes, including padding, gap and borders.
-  A 767-pixel viewport needs 1430 image pixels at DPR 2. Candidates extend to 1440 pixels.
-  At widths above the source’s 1122 or 1200 pixels, the encoder resamples the original.
+  For high-density displays, the largest crop uses the master’s native width of 1122 pixels
+  for the illustration or 1200 pixels for the photograph. Keep the AVIF and fallback
+  candidates at the same widths when adding an article.
   Responsive image preloads use `imagesrcset` and
   `imagesizes` without a fixed `href`. Safari 16.4–17.1 can then fetch the image selected by
   `<picture>` once. Safari 17.2 added responsive preload support. Check the result on desktop

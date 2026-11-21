@@ -17,8 +17,10 @@ for image in php2shell fosdem; do
 		php2shell) original=news-php2shell.webp ;;
 		fosdem) original=fosdem-2026.jpg ;;
 	esac
-	for width in 400 592 672 800 1088 1184 1440; do
-		height=$((width * 9 / 16))
+	master_width=$(magick identify -ping -format '%w' "$original")
+	for width in 400 592 672 800 "$master_width"; do
+		[ "$width" -le "$master_width" ] || continue
+		height=$(((width * 9 + 8) / 16))
 		size="${width}x${height}"
 		target="images/${image}-card-${width}"
 		magick "$original" -auto-orient -colorspace sRGB -filter Lanczos \
