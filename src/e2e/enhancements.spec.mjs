@@ -137,7 +137,7 @@ test.describe('HTML without JavaScript', () => {
 			}
 		}
 	});
-	test('navigation, the error page and newsletter fallback remain usable', async ({
+	test('navigation and the error page remain usable without JavaScript', async ({
 		page,
 		traffic
 	}) => {
@@ -145,34 +145,26 @@ test.describe('HTML without JavaScript', () => {
 		await expect(page.locator('.fallback-nav a[href="/services/backup"]')).toBeVisible();
 		await page.locator('.fallback-nav a[href="/services/backup"]').click();
 		await expect(page.locator('h1')).not.toBeEmpty();
-		await page.goto('/newsletter');
-		const subscribe = page.getByRole('button', { name: 'Subscribe' });
-		await expect(subscribe).toBeEnabled();
-		const note = page.locator('form noscript p');
-		await expect(note).toBeVisible();
-		await expect(note).toContainText('Turn on JavaScript to complete the spam check.', {
-			useInnerText: true
-		});
-		const endpoint = 'https://newsletter.webdeploy.it/subscription/form';
-		await page.route(endpoint, (route) => route.fulfill({
-			status: 400, contentType: 'text/html', body: '<p>Invalid CAPTCHA.</p>'
-		}));
-		await page.getByLabel('Email address').fill('native@example.test');
-		await page.locator('input[name=l]').first().check();
-		const posting = page.waitForRequest(endpoint);
-		await subscribe.click();
-		const post = await posting;
-		expect(post.method()).toBe('POST');
-		expect(post.isNavigationRequest()).toBe(true);
-		expect(Object.fromEntries(new URLSearchParams(post.postData() ?? ''))).toEqual({
-			l: '300c28fe-d91b-4965-b247-da6e6dafdb7a', email: 'native@example.test', nonce: ''
-		});
-		await expect(page).toHaveURL(endpoint);
-		await expect(page.locator('body')).toContainText('Invalid CAPTCHA.');
 		const response = await page.goto('/__nojs__/missing');
 		expect(response?.status()).toBe(404);
 		await expect(page.getByRole('link', { name: 'Return Home' })).toBeVisible();
 		expect(traffic.meta).toHaveLength(0);
+	});
+	test('newsletter shows one disabled submit button and explains the spam check', async ({ page, traffic }) => {
+		await page.goto('/newsletter');
+		const button = page.locator('form button');
+		await expect(button).toHaveCount(1);
+		await expect(button).toHaveAccessibleName('Subscribe');
+		await expect(button).toBeVisible();
+		await expect(button).toBeDisabled();
+		const note = page.locator('form noscript p');
+		await expect(note).toBeVisible();
+		await expect(note).toHaveText('Turn on JavaScript to complete the spam check.', { useInnerText: true });
+		await page.getByLabel('Email address').fill('reader@example.test');
+		await page.locator('input[name=l]').first().check();
+		await page.getByLabel('Email address').press('Enter');
+		await expect(page).toHaveURL(/\/newsletter$/);
+		expect(traffic.listmonk.filter(request => request.method === 'POST')).toHaveLength(0);
 	});
 });
 

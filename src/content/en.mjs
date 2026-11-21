@@ -783,7 +783,7 @@ export const en = {
 		privacyLink: 'Read the newsletter privacy notice',
 		noScript: 'Turn on JavaScript to complete the spam check.',
 		success: 'Check your inbox to confirm your subscription.',
-		requestError: 'We couldn’t complete your signup. Please try again.',
+		requestError: "We couldn't complete your signup. Check your address and try again.",
 		unknownResult: 'We couldn’t confirm your signup. Check your inbox before trying again in a few minutes.',
 		rateLimitError: 'Too many signup attempts. Please try again later.',
 		verificationError: 'The spam check could not be completed. Please try again.',

@@ -8,8 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Newsletter signup now shows an inbox reminder on the same page and clears the form after Listmonk accepts the request. Errors keep the address and list choices. If the browser loses the response, it asks the visitor to check their inbox before retrying. Each submit sends at most one POST.
-- Matomo’s `newsletter_submit_initiated` event and the consent-gated Meta `Lead` now fire after an accepted inline submission. The native fallback still records them immediately before navigation.
+- Newsletter signup now submits inline after ALTCHA verification. An accepted request clears the form and focuses an inbox reminder. Errors keep the address and list choices for another attempt. With JavaScript disabled, Subscribe stays disabled and the form explains how to enable the spam check.
+- A signup request times out after 20 seconds. A timeout, connection failure or unreadable cross-origin response leaves the result unknown. The page asks the visitor to check their inbox before trying again. Each submit sends at most one POST.
+- Matomo’s `newsletter_submit_initiated` event and the consent-gated Meta `Lead` now count accepted inline submissions. Previously they counted initiation after the spam check. Verified native submissions still record them immediately before navigation.
 - Removed the three decorative lines beside the newsletter header stamp on desktop.
 
 ### Fixed

@@ -117,7 +117,10 @@ form.addEventListener('submit', async (event) => {
 	debug('Newsletter', 'Posting verified signup');
 	let response;
 	try {
-		response = await fetch(form.action, { method: 'POST', mode: 'cors', credentials: 'omit', body });
+		response = await fetch(form.action, {
+			method: 'POST', mode: 'cors', credentials: 'omit', body,
+			signal: AbortSignal.timeout(20000)
+		});
 	} catch {
 		// A missing CORS header can hide a completed POST. Reposting can send a second opt-in.
 		debug('Newsletter', 'Signup outcome unavailable');

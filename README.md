@@ -91,12 +91,15 @@ requires JavaScript for its local spam check.
 On `/newsletter`, the verified form sends a URL-encoded POST to the public Listmonk form.
 A readable 2xx response shows the inbox reminder and clears the form. An HTTP error keeps the
 address and choices. The endpoint must return `Access-Control-Allow-Origin: https://webdeploy.it`
-and `Vary: Origin` on success and error responses. If the network or CORS makes the response
-unreadable, Listmonk may already have accepted the request. The page keeps the fields and asks
-the visitor to check their inbox before retrying in a few minutes. This avoids a second opt-in
-email or another POST counting against the signup rate limit. Each submit uses one transport.
-If fetch is unavailable before dispatch, the verified form posts by native navigation. With
-JavaScript disabled the native form reaches Listmonk, which requires a valid proof to accept it.
+and `Vary: Origin` on success and error responses. An upstream 5xx without
+`Access-Control-Allow-Origin`, including a gateway-generated 502, is unreadable to the browser.
+If the connection fails, the response is unreadable, or the POST times out after 20 seconds,
+the signup result is unknown. Listmonk may already have accepted the request. The page
+keeps the fields and asks the visitor to check their inbox before trying again in a few
+minutes. Only an explicit retry sends another POST, which avoids a duplicate opt-in email
+or another request counting against the signup rate limit.
+If fetch is unavailable before dispatch, the verified form posts by native navigation.
+With JavaScript disabled, Subscribe stays disabled and the form explains how to enable the spam check.
 
 The site serves English only. `src/content/en.mjs` and `src/content/it.mjs` retain matching keys,
 array lengths and types. Enabling Italian in a future release requires generating `/it/` pages

@@ -17,14 +17,6 @@
 	display: none;
 }
 
-.newsletter-delivery > button:disabled {
-	display: none;
-}
-
-.newsletter-delivery > noscript {
-	display: contents;
-}
-
 .site-header {
 	position: relative;
 }

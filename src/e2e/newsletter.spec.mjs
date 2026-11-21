@@ -521,9 +521,9 @@ for (const [status, message] of /** @type {const} */ ([
 		}));
 		const submit = page.getByRole('button', { name: 'Subscribe' });
 		await submit.click();
-		await expect(page.locator('[data-submit-error]')).toHaveText(
-			status === 429 ? en.newsletter.rateLimitError : en.newsletter.requestError
-		);
+		const error = page.locator('[data-submit-error]');
+		await expect(error).toHaveText(status === 429 ? en.newsletter.rateLimitError : en.newsletter.requestError);
+		await expect(error).toBeFocused();
 		await expect(page.getByRole('status')).toBeEmpty();
 		await expect(page.getByLabel('Email address')).toHaveValue('hello@example.com');
 		await expect(boxes.nth(0)).toBeChecked();
@@ -625,7 +625,9 @@ test('a lost connection permits another POST only after an explicit retry', asyn
 	});
 	const submit = page.getByRole('button', {name:'Subscribe'});
 	await submit.click();
-	await expect(page.locator('[data-submit-error]')).toHaveText(en.newsletter.unknownResult);
+	const error = page.locator('[data-submit-error]');
+	await expect(error).toHaveText(en.newsletter.unknownResult);
+	await expect(error).toBeFocused();
 	await expect(page.getByLabel('Email address')).toHaveValue('hello@example.com');
 	await page.waitForLoadState('networkidle');
 	expect(posts).toBe(1);
@@ -633,6 +635,36 @@ test('a lost connection permits another POST only after an explicit retry', asyn
 	await expect(page.getByRole('status')).toHaveText(en.newsletter.success);
 	await expect(page.getByText('Remote service message')).toHaveCount(0);
 	expect(posts).toBe(2);
+});
+
+test('a held signup POST times out after 20 seconds and keeps the form without reposting', async ({ page }) => {
+	test.setTimeout(45_000);
+	await prepareForm(page);
+	const choice = page.locator('input[name=l]').first();
+	await choice.check();
+	/** @type {string[]} */
+	const requests = [];
+	await page.route(endpoint, route => {
+		// Leave the real fetch pending until its own signal aborts it.
+		requests.push(route.request().resourceType());
+	});
+	const started = page.waitForRequest(endpoint);
+	const submit = page.locator('button[type=submit]');
+	await submit.click();
+	await started;
+	const start = performance.now();
+	await expect(submit).toBeDisabled();
+	const error = page.locator('[data-submit-error]');
+	await expect(error).toHaveText(en.newsletter.unknownResult, { timeout: 28_000 });
+	expect(performance.now() - start).toBeGreaterThanOrEqual(19_000);
+	await expect(error).toBeFocused();
+	await expect(page.getByLabel('Email address')).toHaveValue('hello@example.com');
+	await expect(choice).toBeChecked();
+	await expect(page.locator('input[name=altcha]')).toHaveValue('');
+	await expect(submit).toBeEnabled();
+	await expect(page).toHaveURL(/\/newsletter$/);
+	expect(requests).toEqual(['fetch']);
+	expect(await page.evaluate(() => (window._paq ?? []).some(row => row[2] === 'newsletter_submit_initiated'))).toBe(false);
 });
 
 test('native transport chosen before dispatch posts once, records events and restores choices on Back', async ({ page }) => {

@@ -788,7 +788,7 @@ export const it = {
 		privacyLink: 'Leggi l’informativa sulla newsletter',
 		noScript: 'Attiva JavaScript per completare il controllo antispam.',
 		success: 'Controlla la tua casella di posta per confermare l’iscrizione.',
-		requestError: 'Non è stato possibile completare l’iscrizione. Riprova.',
+		requestError: "Non è stato possibile completare l'iscrizione. Controlla l'indirizzo e riprova.",
 		unknownResult: 'Non è stato possibile verificare l’esito dell’iscrizione. Controlla la posta prima di riprovare tra qualche minuto.',
 		rateLimitError: 'Troppi tentativi di iscrizione. Riprova più tardi.',
 		verificationError: 'Non è stato possibile completare il controllo antispam. Riprova.',
