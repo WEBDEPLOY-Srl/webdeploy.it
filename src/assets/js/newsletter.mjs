@@ -15,7 +15,10 @@ const lists = Array.from(form.querySelectorAll('input[name=l]')).filter(
 const first = element(form, 'input[name=l]', HTMLInputElement);
 const button = element(form, 'button[type=submit]', HTMLButtonElement);
 const listError = element(form, '#newsletter-list-error', HTMLElement);
-const spamError = element(form, '[data-spam-error]', HTMLElement);
+const submitError = element(form, '[data-submit-error]', HTMLElement);
+const status = element(form, '.newsletter-status', HTMLElement);
+const choices = element(form, 'fieldset', HTMLFieldSetElement);
+const email = element(form, 'input[type=email]', HTMLInputElement);
 const label = button.textContent;
 const widgetTemplate = element(form, '[data-spam-widget]', HTMLTemplateElement);
 let widget = form.querySelector('altcha-widget');
@@ -30,14 +33,33 @@ function validate() {
 	listError.textContent = attempted ? message : '';
 }
 function paint() {
+	choices.inert = submitting;
+	email.readOnly = submitting;
 	button.disabled = !ready || submitting;
 	button.textContent = submitting ? (form.dataset.submitting ?? label) : label;
 }
-function clearError() {
-	spamError.hidden = true;
-	spamError.textContent = '';
+/** @param {string} [message] */
+function setError(message = '') {
+	submitError.textContent = message;
+	submitError.hidden = !message;
+}
+function trackSubmission() {
+	try {
+		newsletterEvent('newsletter_submit_initiated');
+		trackNewsletterLead();
+	} catch {
+		debug('Analytics', 'Tracking unavailable at signup');
+	}
+}
+/** @param {import('../../types.d.ts').AltchaWidget} instance @returns {Promise<string>} */
+async function verify(instance) {
+	const proof = await instance.verify();
+	if (!proof?.payload || instance.getState() !== 'verified') throw new Error('Verification failed');
+	return proof.payload;
 }
 validate();
+paint();
+form.addEventListener('input', () => { status.textContent = ''; });
 form.addEventListener('change', validate);
 first.addEventListener('invalid', () => {
 	attempted = true;
@@ -51,8 +73,9 @@ window.addEventListener('pageshow', (event) => {
 	for (const box of lists) box.checked = false;
 	if (ready && widget) {
 		widget.reset();
-		clearError();
+		setError();
 	}
+	status.textContent = '';
 	validate();
 	paint();
 });
@@ -61,28 +84,63 @@ form.addEventListener('submit', async (event) => {
 	validate();
 	if (!ready || submitting || !widget || !form.reportValidity()) return;
 	const attempt = ++generation;
+	const instance = widget;
 	submitting = true;
-	clearError();
+	setError();
+	status.textContent = '';
 	paint();
+	let payload;
 	try {
-		const proof = await widget.verify();
-		if (attempt !== generation) return;
-		if (!proof?.payload || widget.getState() !== 'verified') throw new Error('Verification failed');
-		try {
-			newsletterEvent('newsletter_submit_initiated');
-			trackNewsletterLead();
-		} catch {
-			debug('Analytics', 'Tracking unavailable at signup');
-		}
-		await new Promise((resolve) => setTimeout(resolve, 180));
-		if (attempt === generation) HTMLFormElement.prototype.submit.call(form);
+		payload = await verify(instance);
 	} catch {
 		if (attempt !== generation) return;
 		submitting = false;
-		spamError.textContent = form.dataset.verificationError ?? '';
-		spamError.hidden = false;
+		setError(form.dataset.verificationError);
 		paint();
+		return;
 	}
+	if (attempt !== generation) return;
+	if (typeof window.fetch !== 'function') {
+		// Choose the native transport only before dispatching any signup request.
+		trackSubmission();
+		await new Promise((resolve) => setTimeout(resolve, 180));
+		if (attempt === generation) HTMLFormElement.prototype.submit.call(form);
+		return;
+	}
+
+	const body = new URLSearchParams();
+	for (const [name, value] of new FormData(form)) {
+		if (typeof value === 'string') body.append(name, value);
+	}
+	body.set('altcha', payload);
+	const start = performance.now();
+	debug('Newsletter', 'Posting verified signup');
+	let response;
+	try {
+		response = await fetch(form.action, { method: 'POST', mode: 'cors', credentials: 'omit', body });
+	} catch {
+		// A missing CORS header can hide a completed POST. Reposting can send a second opt-in.
+		debug('Newsletter', 'Signup outcome unavailable');
+	}
+	if (attempt !== generation) return;
+	if (response) debug('Newsletter', `Signup HTTP ${response.status} in ${Math.round(performance.now() - start)} ms`);
+	submitting = false;
+	paint();
+	instance.reset();
+	if (!response?.ok) {
+		const message = response?.status === 429 ? form.dataset.rateLimitError : form.dataset.requestError;
+		setError(response ? message : form.dataset.unknownResult);
+		submitError.focus();
+		submitError.scrollIntoView({ block: 'nearest' });
+		return;
+	}
+	trackSubmission();
+	form.reset();
+	attempted = false;
+	validate();
+	status.textContent = form.dataset.success ?? '';
+	status.focus();
+	status.scrollIntoView({ block: 'nearest' });
 });
 
 async function initialize() {
@@ -125,8 +183,7 @@ async function initialize() {
 		ready = true;
 		paint();
 	} catch {
-		spamError.textContent = form.dataset.setupError ?? '';
-		spamError.hidden = false;
+		setError(form.dataset.setupError);
 		paint();
 		debug('Newsletter', 'Local spam check failed to initialize');
 	}

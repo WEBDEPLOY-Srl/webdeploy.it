@@ -46,8 +46,16 @@ transparent and so that forks can keep to the same style.
   both include a 60% sRGB veil of `#050a10`, paired with the portrait gradient in `base/layout.css`.
   Rebuild both formats together to retain the same appearance. The homepage embeds the small
   AVIF portrait in its initial HTML so mobile visitors can paint the real artwork without a
-  separate request. Wide and fallback variants use their immutable URLs. The optional news-card `sources` field accepts a
-  width-described AVIF srcset of 16:9 crops. Responsive image preloads use `imagesrcset` and
+  separate request. Wide and fallback variants use their immutable URLs. Run
+  `scripts/news-card-images.sh` from the repository root to regenerate the 16:9 news crops with
+  ImageMagick 7 and avifenc 1.4. The script reads the shipped article masters, preserves the
+  centre of each image and produces AVIF plus WebP for the illustration or JPEG for the photograph.
+  The optional news-card `sources` field accepts a width-described AVIF srcset of 16:9 crops.
+  The `fallback` field supplies the alternate MIME type and srcset.
+  The news grid and its preload share the same slot sizes, including padding, gap and borders.
+  A 767-pixel viewport needs 1430 image pixels at DPR 2. Candidates extend to 1440 pixels.
+  At widths above the source’s 1122 or 1200 pixels, the encoder resamples the original.
+  Responsive image preloads use `imagesrcset` and
   `imagesizes` without a fixed `href`. Safari 16.4–17.1 can then fetch the image selected by
   `<picture>` once. Safari 17.2 added responsive preload support. Check the result on desktop
   and phone layouts. The icon font subset contains the codepoints mapped in `base/fonts.css`.

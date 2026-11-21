@@ -88,6 +88,16 @@ cascade layers, custom properties and container queries. The site uses native do
 and browser history. Its primary content and navigation are available without JavaScript. Signup
 requires JavaScript for its local spam check.
 
+On `/newsletter`, the verified form sends a URL-encoded POST to the public Listmonk form.
+A readable 2xx response shows the inbox reminder and clears the form. An HTTP error keeps the
+address and choices. The endpoint must return `Access-Control-Allow-Origin: https://webdeploy.it`
+and `Vary: Origin` on success and error responses. If the network or CORS makes the response
+unreadable, Listmonk may already have accepted the request. The page keeps the fields and asks
+the visitor to check their inbox before retrying in a few minutes. This avoids a second opt-in
+email or another POST counting against the signup rate limit. Each submit uses one transport.
+If fetch is unavailable before dispatch, the verified form posts by native navigation. With
+JavaScript disabled the native form reaches Listmonk, which requires a valid proof to accept it.
+
 The site serves English only. `src/content/en.mjs` and `src/content/it.mjs` retain matching keys,
 array lengths and types. Enabling Italian in a future release requires generating `/it/` pages
 with their own canonical URLs, paired hreflang and language navigation.

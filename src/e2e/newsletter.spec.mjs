@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
 // SPDX-License-Identifier: AGPL-3.0-only
 import { createHash } from 'node:crypto';
+import { createServer } from 'node:http';
 import AxeBuilder from '@axe-core/playwright';
 import assert from 'node:assert/strict';
 import { en } from '../content/en.mjs';
@@ -9,6 +10,7 @@ import { expect, test } from './fixtures.mjs';
 import { sitemapPaths } from './routes.mjs';
 const LIST_NEWS = '300c28fe-d91b-4965-b247-da6e6dafdb7a';
 const LIST_MARKETING = '71ca6320-90f7-4cd5-9e52-cb53ba5b84ba';
+const endpoint = 'https://newsletter.webdeploy.it/subscription/form';
 /** @param {import("@playwright/test").Page} page */
 const banner = (page) => page.getByRole('complementary', { name: 'Privacy & cookies' });
 /** @param {import("@playwright/test").Page} page @param {Record<string,unknown>} config */
@@ -50,8 +52,7 @@ test('solves a real ALTCHA v1 challenge with the local SHA worker', async ({
 		}
 	});
 	const response = await page.goto('/newsletter');
-	const serverHtml = await response?.text();
-	expect(serverHtml).toMatch(/<button[^>]*type="submit"[^>]*disabled/);
+	expect(await response?.text()).toMatch(/<button[^>]*type="submit"[^>]*disabled/);
 	await page.getByLabel('Email address').fill('hello@example.com');
 	await page.locator('input[name="l"]').first().check();
 	const submit = page.getByRole('button', { name: 'Subscribe' });
@@ -72,7 +73,7 @@ test('solves a real ALTCHA v1 challenge with the local SHA worker', async ({
 	const post = traffic.listmonk.find(({ method }) => method === 'POST');
 	const altcha = new URLSearchParams(post?.body ?? '').get('altcha');
 	const proof = JSON.parse(Buffer.from(altcha ?? '', 'base64').toString('utf8'));
-	const salt = 'abc?expires=1893456000';
+	const salt = 'abc1?expires=1893456000';
 	const expectedProof = {
 		algorithm: 'SHA-256',
 		challenge: createHash('sha256').update(`${salt}1234`).digest('hex'),
@@ -81,6 +82,9 @@ test('solves a real ALTCHA v1 challenge with the local SHA worker', async ({
 		signature: 'offline-signature'
 	};
 	expect(proof).toMatchObject(expectedProof);
+	await expect(page.getByRole('status')).toHaveText(en.newsletter.success);
+	await expect(page.locator('altcha-widget input[name=altcha]')).toHaveValue('');
+	expect(await page.evaluate(() => document.querySelector('altcha-widget')?.getState())).toBe('unverified');
 	expect(challengeOrigin).toBe(new URL(page.url()).origin);
 	expect(
 		workers.some(
@@ -94,6 +98,7 @@ test('solves a real ALTCHA v1 challenge with the local SHA worker', async ({
 	await expect(page.locator('input[name="l"]').nth(0)).not.toBeChecked();
 	await expect(page.locator('input[name="l"]').nth(1)).not.toBeChecked();
 	await expect(submit).toBeEnabled();
+	await page.getByLabel('Email address').fill('hello@example.com');
 	await page.locator('input[name="l"]').first().check();
 	await submit.click();
 	await expect
@@ -105,7 +110,8 @@ test('solves a real ALTCHA v1 challenge with the local SHA worker', async ({
 	const restoredPayload = restoredBody.get('altcha');
 	expect(restoredPayload).toBeTruthy();
 	expect(JSON.parse(Buffer.from(restoredPayload ?? '', 'base64').toString('utf8'))).toMatchObject(
-		expectedProof
+		{ ...expectedProof, salt: 'abc2?expires=1893456000',
+			challenge: createHash('sha256').update('abc2?expires=18934560001234').digest('hex') }
 	);
 	expect(cspViolations).toEqual([]);
 });
@@ -300,7 +306,7 @@ test('ALTCHA failure sends no events and does not post', async ({ page, traffic 
 		await page.evaluate(() => (window.fbq?.queue ?? []).some((item) => item[1] === 'Lead'))
 	).toBe(false);
 });
-test('Matomo records submission initiation and Meta Lead only after marketing consent', async ({
+test('Matomo counts an accepted signup and Meta Lead requires marketing consent', async ({
 	page,
 	traffic
 }) => {
@@ -308,6 +314,7 @@ test('Matomo records submission initiation and Meta Lead only after marketing co
 	await page.locator('input[name="l"]').first().check();
 	await banner(page).getByRole('button', { name: 'Reject' }).click();
 	await page.getByRole('button', { name: 'Subscribe' }).click();
+	await expect(page.getByRole('status')).toHaveText(en.newsletter.success);
 	await expect
 		.poll(() => traffic.listmonk.filter(({ method }) => method === 'POST').length)
 		.toBe(1);
@@ -341,6 +348,7 @@ test('Matomo records submission initiation and Meta Lead only after marketing co
 	expect(autoConfigIndex).toBeGreaterThanOrEqual(0);
 	expect(initIndex).toBeGreaterThan(autoConfigIndex);
 	await page.getByRole('button', { name: 'Subscribe' }).click();
+	await expect(page.getByRole('status')).toHaveText(en.newsletter.success);
 	await expect
 		.poll(() => traffic.listmonk.filter(({ method }) => method === 'POST').length)
 		.toBe(2);
@@ -439,23 +447,236 @@ test('newsletter is the only page with a form', async ({ page }) => {
 		expect(await page.locator('form').count(), path).toBe(0);
 	}
 });
-test('form returns from Listmonk with enabled submit and unticked lists', async ({ page }) => {
+test('accepted POST announces success, moves focus, clears the form and tracks exactly once', async ({ page }) => {
 	await prepareForm(page);
-	await page.locator('input[name="l"]').first().check();
-	await page.route('https://newsletter.webdeploy.it/subscription/form', (route) =>
-		route.fulfill({
-			status: 200,
-			contentType: 'text/html; charset=utf-8',
-			body: '<!doctype html><html><body>Check your inbox</body></html>'
-		})
-	);
-	await page.getByRole('button', { name: 'Subscribe' }).click();
-	await expect(page).toHaveURL('https://newsletter.webdeploy.it/subscription/form');
+	const bothLists = page.locator('input[name=l]');
+	await bothLists.nth(0).check();
+	await bothLists.nth(1).check();
+	const pixel = page.waitForResponse(/connect\.facebook\.net\/en_US\/fbevents\.js/);
+	await banner(page).getByRole('button', { name: 'Accept' }).click();
+	await pixel;
+	await page.waitForLoadState('networkidle');
+	const counts = () => page.evaluate(() => ({
+		matomo: (window._paq ?? []).filter((row) => row[2] === 'newsletter_submit_initiated').length,
+		meta: (window.fbq?.queue ?? []).filter((row) => row[1] === 'Lead').length
+	}));
+	let release = () => {};
+	const hold = new Promise(resolve => { release = () => resolve(undefined); });
+	let posts = 0;
+	await page.route(endpoint, async (route) => {
+		posts++;
+		await hold;
+		await route.fulfill({
+			status: 200, contentType: 'text/html', headers: {
+				'access-control-allow-origin': new URL(page.url()).origin, vary: 'Origin'
+			}, body: '<p>An e-mail has been sent to you to confirm your subscription(s).</p>'
+		});
+	});
+	const post = page.waitForRequest(endpoint);
+	const submit = page.locator('button[type=submit]');
+	await submit.click();
+	try {
+		const request = await post;
+		expect(request.method()).toBe('POST');
+		expect(request.resourceType()).toBe('fetch');
+		expect(request.headers()['content-type']).toMatch(/^application\/x-www-form-urlencoded/i);
+		expect(request.headers()['cookie']).toBeUndefined();
+		await expect(submit).toBeDisabled();
+		await page.evaluate(() => document.forms[0].requestSubmit());
+		expect(await counts()).toEqual({ matomo: 0, meta: 0 });
+	} finally {
+		release();
+	}
+	const status = page.getByRole('status');
+	await expect(status).toHaveText(en.newsletter.success);
+	await expect(status).toBeFocused();
+	await expect(page).toHaveURL(/\/newsletter$/);
+	await expect(page.getByLabel('Email address')).toHaveValue('');
+	await expect(bothLists.nth(0)).not.toBeChecked();
+	await expect(bothLists.nth(1)).not.toBeChecked();
+	await expect(page.locator('input[type=hidden][name=altcha]')).toHaveValue('');
+	await expect(submit).toBeEnabled();
+	expect(posts).toBe(1);
+	expect(await counts()).toEqual({ matomo: 1, meta: 1 });
+	expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+
+for (const [status, message] of /** @type {const} */ ([
+	[400, 'No valid lists selected to subscribe.'], [400, 'Invalid CAPTCHA.'], [400, 'Invalid email.'],
+	[400, 'E-mail domain is blocklisted.'],
+	[404, 'Public subscription disabled.'], [429, 'Too Many Requests'],
+	[500, 'Error processing request.'], [502, 'Invalid feature.']
+])) {
+	test(`HTTP ${status} (${message}) keeps the form and permits retry`, async ({ page }) => {
+		await prepareForm(page);
+		const boxes = page.locator('input[name=l]');
+		await boxes.nth(0).check();
+		await boxes.nth(1).check();
+		let posts = 0;
+		await page.route(endpoint, route => route.fulfill({
+			status: ++posts === 1 ? status : 200,
+			contentType: 'text/html',
+			headers: { 'access-control-allow-origin': new URL(page.url()).origin, vary: 'Origin' },
+			body: posts === 1 ? '<p>' + message + '</p>' : '<p>Subscribed successfully.</p>'
+		}));
+		const submit = page.getByRole('button', { name: 'Subscribe' });
+		await submit.click();
+		await expect(page.locator('[data-submit-error]')).toHaveText(
+			status === 429 ? en.newsletter.rateLimitError : en.newsletter.requestError
+		);
+		await expect(page.getByRole('status')).toBeEmpty();
+		await expect(page.getByLabel('Email address')).toHaveValue('hello@example.com');
+		await expect(boxes.nth(0)).toBeChecked();
+		await expect(boxes.nth(1)).toBeChecked();
+		await expect(page.locator('input[name=altcha]')).toHaveValue('');
+		await expect(submit).toBeEnabled();
+		expect(await page.evaluate(() => (window._paq ?? []).some(row => row[2] === 'newsletter_submit_initiated'))).toBe(false);
+		if (status === 429) expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+		await submit.click();
+		await expect(page.getByRole('status')).toHaveText(en.newsletter.success);
+		await expect(page.locator('[data-submit-error]')).toBeHidden();
+		expect(posts).toBe(2);
+	});
+}
+
+for (const upstreamStatus of [200, 502]) {
+	test(`HTTP ${upstreamStatus} without CORS leaves the result unknown after exactly one POST`, async ({ page, browserName, context, baseURL }) => {
+		// Playwright supplies ACAO on cross-origin route.fulfill responses. Let the browser
+		// contact a loopback server so the POST arrives but its response is unreadable.
+		/** @type {URLSearchParams[]} */
+		const bodies = [];
+		const server = createServer(async (req, res) => {
+			const chunks = [];
+			for await (const chunk of req) chunks.push(chunk);
+			bodies.push(new URLSearchParams(Buffer.concat(chunks).toString()));
+			res.writeHead(upstreamStatus, { 'content-type': 'text/html' }).end('<strong>Remote service message</strong>');
+		});
+		await new Promise((resolve, reject) => server.once('error', reject).listen(0, '127.0.0.1', () => resolve(undefined)));
+		const address = server.address();
+		assert.ok(address && typeof address === 'object');
+		const standIn = `http://127.0.0.1:${address.port}`;
+		try {
+			if (browserName === 'chromium') {
+				// Chromium assigns a fulfilled test document the public address space.
+				await context.grantPermissions(['local-network-access'], { origin: new URL(baseURL ?? '').origin });
+			}
+			await page.route('**/newsletter', async route => {
+				const response = await route.fetch();
+				const headers = response.headers();
+				headers['content-security-policy'] = headers['content-security-policy'].replaceAll(
+					new URL(endpoint).origin, new URL(endpoint).origin + ' ' + standIn
+				);
+				await route.fulfill({ response, headers });
+			});
+			await prepareForm(page);
+			const action = standIn + '/subscription/form';
+			await page.evaluate((url) => { document.forms[0].action = url; }, action);
+			const boxes = page.locator('input[name=l]');
+			await boxes.nth(0).check();
+			await boxes.nth(1).check();
+			const pixel = page.waitForResponse(/connect\.facebook\.net\/en_US\/fbevents\.js/);
+			await banner(page).getByRole('button', {name:'Accept'}).click();
+			await pixel;
+			await page.waitForLoadState('networkidle');
+			/** @type {string[]} */
+			const modes = [];
+			await page.route(action, route => {
+				modes.push(route.request().resourceType());
+				return route.continue();
+			});
+			const submit = page.getByRole('button', {name:'Subscribe'});
+			await submit.click();
+			await expect(page.locator('[data-submit-error]')).toHaveText(en.newsletter.unknownResult);
+			await expect(page.locator('[data-submit-error]')).toBeFocused();
+			await page.waitForLoadState('networkidle');
+			await expect(page).toHaveURL(/\/newsletter$/);
+			expect(modes).toEqual(['fetch']);
+			expect(bodies).toHaveLength(1);
+			expect(bodies[0].get('email')).toBe('hello@example.com');
+			expect(bodies[0].getAll('l')).toEqual([LIST_NEWS, LIST_MARKETING]);
+			expect(bodies[0].get('nonce')).toBe('');
+			expect(bodies[0].get('altcha')).toBeTruthy();
+			await expect(page.getByText('Remote service message')).toHaveCount(0);
+			await expect(page.getByLabel('Email address')).toHaveValue('hello@example.com');
+			await expect(boxes.nth(0)).toBeChecked();
+			await expect(boxes.nth(1)).toBeChecked();
+			await expect(submit).toBeEnabled();
+			expect(await page.evaluate(() => ({
+				matomo: (window._paq ?? []).filter(row => row[2] === 'newsletter_submit_initiated'),
+				leads: (window.fbq?.queue ?? []).filter(row => row[1] === 'Lead')
+			}))).toEqual({ matomo: [], leads: [] });
+		} finally {
+			await new Promise(resolve => server.close(resolve));
+		}
+	});
+}
+
+test('a lost connection permits another POST only after an explicit retry', async ({ page }) => {
+	await prepareForm(page);
+	await page.locator('input[name=l]').first().check();
+	let posts = 0;
+	await page.route(endpoint, route => {
+		if (++posts === 1) return route.abort();
+		return route.fulfill({
+			status: 200, contentType: 'text/html',
+			headers: { 'access-control-allow-origin': new URL(page.url()).origin, vary: 'Origin' },
+			body: '<p>Remote service message</p>'
+		});
+	});
+	const submit = page.getByRole('button', {name:'Subscribe'});
+	await submit.click();
+	await expect(page.locator('[data-submit-error]')).toHaveText(en.newsletter.unknownResult);
+	await expect(page.getByLabel('Email address')).toHaveValue('hello@example.com');
+	await page.waitForLoadState('networkidle');
+	expect(posts).toBe(1);
+	await submit.click();
+	await expect(page.getByRole('status')).toHaveText(en.newsletter.success);
+	await expect(page.getByText('Remote service message')).toHaveCount(0);
+	expect(posts).toBe(2);
+});
+
+test('native transport chosen before dispatch posts once, records events and restores choices on Back', async ({ page }) => {
+	await prepareForm(page);
+	const boxes = page.locator('input[name=l]');
+	await boxes.nth(0).check();
+	await boxes.nth(1).check();
+	const pixel = page.waitForResponse(/connect\.facebook\.net\/en_US\/fbevents\.js/);
+	await banner(page).getByRole('button', {name:'Accept'}).click();
+	await pixel;
+	await page.waitForLoadState('networkidle');
+	await page.evaluate(() => {
+		Object.defineProperty(window, 'fetch', { configurable: true, value: undefined });
+		document.forms[0].addEventListener('formdata', () => {
+			sessionStorage.setItem('native-signup-events', JSON.stringify({
+				matomo: (window._paq ?? []).filter(row => row[2] === 'newsletter_submit_initiated'),
+				meta: (window.fbq?.queue ?? []).filter(row => row[1] === 'Lead')
+			}));
+		});
+	});
+	let posts = 0;
+	await page.route(endpoint, route => {
+		posts++;
+		expect(route.request().method()).toBe('POST');
+		expect(route.request().isNavigationRequest()).toBe(true);
+		const data = new URLSearchParams(route.request().postData() ?? '');
+		expect(data.getAll('l')).toEqual([LIST_NEWS, LIST_MARKETING]);
+		expect(data.get('email')).toBe('hello@example.com');
+		expect(data.get('nonce')).toBe('');
+		expect(data.get('altcha')).toBeTruthy();
+		return route.fulfill({ contentType:'text/html', body:'<p>Check your inbox</p>' });
+	});
+	await page.getByRole('button', {name:'Subscribe'}).click();
+	await expect(page).toHaveURL(endpoint);
+	expect(posts).toBe(1);
 	await page.goBack();
 	await expect(page).toHaveURL(/\/newsletter$/);
-	await expect(page.getByRole('button', { name: 'Subscribe' })).toBeEnabled();
-	await expect(page.locator('input[name="l"]').nth(0)).not.toBeChecked();
-	await expect(page.locator('input[name="l"]').nth(1)).not.toBeChecked();
+	expect(await page.evaluate(() => JSON.parse(sessionStorage.getItem('native-signup-events') ?? 'null'))).toEqual({
+		matomo:[['trackEvent','Newsletter','newsletter_submit_initiated']],
+		meta:[['track','Lead',{content_name:'newsletter'}]]
+	});
+	await expect(page.getByRole('button', {name:'Subscribe'})).toBeEnabled();
+	await expect(boxes.nth(0)).not.toBeChecked();
+	await expect(boxes.nth(1)).not.toBeChecked();
 });
 test('privacy notice reflects live newsletter retention, links and per-visit analytics', async ({
 	page

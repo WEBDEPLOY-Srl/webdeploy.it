@@ -77,3 +77,31 @@ test('the home page with consent pending has no WCAG violations', async ({ page,
 
 	expect(wholePage.violations.map((v) => v.id)).toEqual([]);
 });
+
+for (const [width, dpr] of [[1280, 1], [1280, 2], [767, 2], [390, 3]]) {
+	test.describe(`news thumbnails at ${width}px and DPR ${dpr}`, () => {
+		test.use({ viewport: { width, height: 900 }, deviceScaleFactor: dpr });
+		test('loads a 16:9 candidate covering each card and reuses its preload', async ({ page }) => {
+			const requests = new Set();
+			page.on('request', request => {
+				if (request.url().includes('php2shell-card-')) requests.add(request.url());
+			});
+			await page.goto('/news');
+			const images = page.locator('.news-card__image');
+			await expect(images).toHaveCount(2);
+			for (const image of await images.all()) {
+				await image.scrollIntoViewIfNeeded();
+				const { slot, height, source } = await image.evaluate(async node => {
+					if (!(node instanceof HTMLImageElement)) throw new Error('Expected a card image');
+					await node.decode();
+					return { slot: node.clientWidth, height: node.clientHeight, source: node.currentSrc };
+				});
+				const candidate = /-card-(\d+)\.[a-f0-9]+\.avif$/.exec(source);
+				expect(candidate).not.toBeNull();
+				expect(Number(candidate?.[1])).toBeGreaterThanOrEqual(slot * dpr);
+				expect(Math.abs(height - slot * 9 / 16)).toBeLessThan(1);
+			}
+			expect(requests.size).toBe(1);
+		});
+	});
+}

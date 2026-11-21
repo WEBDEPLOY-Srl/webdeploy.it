@@ -786,7 +786,11 @@ export const it = {
 			'Puoi revocare ciascun consenso in qualsiasi momento da ogni email. La relativa iscrizione viene cancellata entro 24 ore; l’indirizzo viene cancellato quando non restano altre iscrizioni.',
 		controllerNote: 'WEBDEPLOY S.R.L. è il titolare del trattamento.',
 		privacyLink: 'Leggi l’informativa sulla newsletter',
-		noScript: 'JavaScript è necessario per completare il controllo antispam e inviare il modulo.',
+		noScript: 'Attiva JavaScript per completare il controllo antispam.',
+		success: 'Controlla la tua casella di posta per confermare l’iscrizione.',
+		requestError: 'Non è stato possibile completare l’iscrizione. Riprova.',
+		unknownResult: 'Non è stato possibile verificare l’esito dell’iscrizione. Controlla la posta prima di riprovare tra qualche minuto.',
+		rateLimitError: 'Troppi tentativi di iscrizione. Riprova più tardi.',
 		verificationError: 'Non è stato possibile completare il controllo antispam. Riprova.',
 		setupError:
 			'Non è stato possibile caricare il controllo antispam. Ricarica la pagina per riprovare.',

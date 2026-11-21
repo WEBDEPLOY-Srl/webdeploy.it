@@ -4,6 +4,10 @@
 	data-required="{{newsletter.requiredError}}"
 	data-setup-error="{{newsletter.setupError}}"
 	data-verification-error="{{newsletter.verificationError}}"
+	data-request-error="{{newsletter.requestError}}"
+	data-unknown-result="{{newsletter.unknownResult}}"
+	data-rate-limit-error="{{newsletter.rateLimitError}}"
+	data-success="{{newsletter.success}}"
 	data-submitting="{{newsletter.submitting}}"
 	action="https://newsletter.webdeploy.it/subscription/form"
 	method="post"
@@ -54,7 +58,8 @@
 				required=""
 			/>
 		</div>
-		<button class="newsletter-submit" type="submit" disabled="">{{newsletter.submit}}</button>
+		<noscript><button class="newsletter-submit" type="submit">{{newsletter.submit}}</button></noscript>
+		<button class="newsletter-submit" type="submit" disabled>{{newsletter.submit}}</button>
 	</div>
 	<input type="hidden" name="nonce" value="" />
 	<template data-spam-widget>
@@ -66,7 +71,8 @@
 			name="altcha"
 		></altcha-widget>
 	</template>
-	<p class="form-error" data-spam-error role="alert" hidden></p>
+	<p class="form-error" data-submit-error role="alert" tabindex="-1" hidden></p>
+	<p class="newsletter-status" role="status" tabindex="-1"></p>
 	<div class="newsletter-followup">
 		<details>
 			<summary>{{newsletter.afterSignup}}</summary>

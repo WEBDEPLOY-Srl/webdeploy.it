@@ -104,7 +104,7 @@ test('a failed widget stays disabled and gives the approved reload instruction',
 }) => {
 	await page.route('**/dist/external/altcha.min.js', (r) => r.abort());
 	await page.goto('/newsletter');
-	await expect(page.locator('[data-spam-error]')).toHaveText(
+	await expect(page.locator('[data-submit-error]')).toHaveText(
 		'The spam check could not be loaded. Reload the page to try again.'
 	);
 	await expect(page.getByRole('button', { name: 'Subscribe' })).toBeDisabled();
@@ -146,12 +146,29 @@ test.describe('HTML without JavaScript', () => {
 		await page.locator('.fallback-nav a[href="/services/backup"]').click();
 		await expect(page.locator('h1')).not.toBeEmpty();
 		await page.goto('/newsletter');
-		await expect(page.getByRole('button', { name: 'Subscribe' })).toBeDisabled();
+		const subscribe = page.getByRole('button', { name: 'Subscribe' });
+		await expect(subscribe).toBeEnabled();
 		const note = page.locator('form noscript p');
 		await expect(note).toBeVisible();
-		await expect(note).toContainText('JavaScript is required to complete the spam check', {
+		await expect(note).toContainText('Turn on JavaScript to complete the spam check.', {
 			useInnerText: true
 		});
+		const endpoint = 'https://newsletter.webdeploy.it/subscription/form';
+		await page.route(endpoint, (route) => route.fulfill({
+			status: 400, contentType: 'text/html', body: '<p>Invalid CAPTCHA.</p>'
+		}));
+		await page.getByLabel('Email address').fill('native@example.test');
+		await page.locator('input[name=l]').first().check();
+		const posting = page.waitForRequest(endpoint);
+		await subscribe.click();
+		const post = await posting;
+		expect(post.method()).toBe('POST');
+		expect(post.isNavigationRequest()).toBe(true);
+		expect(Object.fromEntries(new URLSearchParams(post.postData() ?? ''))).toEqual({
+			l: '300c28fe-d91b-4965-b247-da6e6dafdb7a', email: 'native@example.test', nonce: ''
+		});
+		await expect(page).toHaveURL(endpoint);
+		await expect(page.locator('body')).toContainText('Invalid CAPTCHA.');
 		const response = await page.goto('/__nojs__/missing');
 		expect(response?.status()).toBe(404);
 		await expect(page.getByRole('link', { name: 'Return Home' })).toBeVisible();

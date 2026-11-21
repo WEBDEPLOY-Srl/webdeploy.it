@@ -201,3 +201,36 @@ test('invalid newsletter form', async ({ page }, info) => {
 	}
 	await capture(page, info, 'signup-invalid', page.locator('form'));
 });
+
+test('inline newsletter results', async ({ page }, info) => {
+	await page.addInitScript(() => localStorage.setItem('wd_consent_marketing', 'denied'));
+	let attempt = 0;
+	await page.route('https://newsletter.webdeploy.it/subscription/form', route => {
+		attempt++;
+		if (attempt === 2) return route.abort();
+		return route.fulfill({
+			status: attempt === 1 ? 429 : 200,
+			headers: { 'access-control-allow-origin': new URL(page.url()).origin, vary: 'Origin' },
+			contentType: 'text/html', body: '<p>Hosted result</p>'
+		});
+	});
+	await page.goto('/newsletter');
+	const form = page.locator('form');
+	const submit = form.getByRole('button', { name: 'Subscribe' });
+	await expect(submit).toBeEnabled();
+	await page.evaluate(async () => {
+		await document.fonts.ready;
+		await document.querySelector('altcha-widget')?.configure({ test: true });
+	});
+	await form.getByLabel('Email address').fill('reader@example.test');
+	await form.locator('input[name=l]').first().check();
+	await submit.click();
+	await expect(form.locator('[data-submit-error]')).toBeVisible();
+	await capture(page, info, 'signup-rate-limited', form);
+	await submit.click();
+	await expect(form.locator('[data-submit-error]')).toContainText('Check your inbox before');
+	await capture(page, info, 'signup-unknown', form);
+	await submit.click();
+	await expect(form.getByRole('status')).toBeFocused();
+	await capture(page, info, 'signup-pending-confirmation', form);
+});

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Newsletter signup now shows an inbox reminder on the same page and clears the form after Listmonk accepts the request. Errors keep the address and list choices. If the browser loses the response, it asks the visitor to check their inbox before retrying. Each submit sends at most one POST.
+- Matomo’s `newsletter_submit_initiated` event and the consent-gated Meta `Lead` now fire after an accepted inline submission. The native fallback still records them immediately before navigation.
+- Removed the three decorative lines beside the newsletter header stamp on desktop.
+
+### Fixed
+- News thumbnails now use the actual card width when choosing an image. Higher-quality landscape crops cover desktop and high-density phone displays.
+
 ## [2.0.1] - 2026-11-20
 
 ### Changed
