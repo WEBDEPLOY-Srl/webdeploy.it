@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2026-11-21
+
 ### Changed
 - Newsletter signup now submits inline after ALTCHA verification. An accepted request clears the form and focuses an inbox reminder. Errors keep the address and list choices for another attempt. With JavaScript disabled, Subscribe stays disabled and the form explains how to enable the spam check.
 - A signup request times out after 20 seconds. A timeout, connection failure or unreadable cross-origin response leaves the result unknown. The page asks the visitor to check their inbox before trying again. Each submit sends at most one POST.
