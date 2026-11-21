@@ -46,7 +46,8 @@ async function stubExternalHosts(page, traffic, unexpected) {
 					body: route.request().postData()
 				});
 				if (url.pathname === '/api/public/captcha/altcha') {
-					const salt = 'abc?expires=1893456000';
+					const challengeNumber = traffic.listmonk.filter((request) => request.url === url.href).length;
+					const salt = `abc${challengeNumber}?expires=1893456000`;
 					const origin = route.request().headers().origin ?? new URL(page.url()).origin;
 					return route.fulfill({
 						status: 200,
@@ -63,6 +64,14 @@ async function stubExternalHosts(page, traffic, unexpected) {
 							salt,
 							signature: 'offline-signature'
 						})
+					});
+				}
+				if (url.pathname === '/subscription/form' && route.request().method() === 'POST') {
+					return route.fulfill({
+						status: 200,
+						contentType: 'text/html; charset=utf-8',
+						headers: { 'access-control-allow-origin': new URL(page.url()).origin, vary: 'Origin' },
+						body: '<p>An e-mail has been sent to you to confirm your subscription(s).</p>'
 					});
 				}
 				return route.fulfill({ status: 204 });

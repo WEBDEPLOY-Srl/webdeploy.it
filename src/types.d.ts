@@ -20,7 +20,15 @@ export interface SitePage {
 	embeddedPortrait?: string;
 	priorityImage?: {type: string; sizes?: string; media?: string} &
 		({srcset: string; href?: string} | {href: string; srcset?: undefined});
-	card?: { date: string; description: string; image: string; sources?: string; width: number; height: number };
+	card?: {
+		date: string;
+		description: string;
+		image: string;
+		sources?: string;
+		fallback?: { type: 'image/jpeg' | 'image/webp'; srcset: string };
+		width: number;
+		height: number;
+	};
 }
 
 export interface BuiltAssets {
