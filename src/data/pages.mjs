@@ -2,6 +2,15 @@
 // SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
 // SPDX-License-Identifier: AGPL-3.0-only
 
+const cardMasterWidths = { fosdem: 1200, php2shell: 1122 };
+
+/** @param {keyof typeof cardMasterWidths} image @param {string} extension @returns {string} */
+function cardSources(image, extension) {
+	return [400, 592, 672, 800, cardMasterWidths[image]]
+		.map((width) => `/images/${image}-card-${width}.${extension} ${width}w`)
+		.join(', ');
+}
+
 /** @type {import("../types.d.ts").SitePage[]} */
 export const pages = [
 	{
@@ -55,8 +64,9 @@ export const pages = [
 			date: 'news.fosdem2026.date',
 			description: 'news.fosdem2026.description',
 			image: '/fosdem-2026.jpg',
-			sources: '/images/fosdem-card-400.avif 400w, /images/fosdem-card-672.avif 672w, /images/fosdem-card-800.avif 800w',
-			width: 1200,
+			sources: cardSources('fosdem', 'avif'),
+			fallback: { type: 'image/jpeg', srcset: cardSources('fosdem', 'jpg') },
+			width: cardMasterWidths.fosdem,
 			height: 1600
 		}
 	},
@@ -74,8 +84,9 @@ export const pages = [
 			date: 'news.php2shell.date',
 			description: 'news.php2shell.description',
 			image: '/news-php2shell.webp',
-			sources: '/images/php2shell-card-400.avif 400w, /images/php2shell-card-672.avif 672w, /images/php2shell-card-800.avif 800w',
-			width: 1122,
+			sources: cardSources('php2shell', 'avif'),
+			fallback: { type: 'image/webp', srcset: cardSources('php2shell', 'webp') },
+			width: cardMasterWidths.php2shell,
 			height: 748
 		}
 	},

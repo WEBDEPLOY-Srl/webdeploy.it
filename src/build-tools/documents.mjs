@@ -149,7 +149,19 @@ function privacyLink(text) {
 	);
 }
 
-const cardSizes = '(min-width: 80rem) 25rem, (min-width: 48rem) 32vw, calc(100vw - 2rem)';
+// Match .reading-wide padding, the two-column gap and each card's two 2px borders.
+const cardSizes = [
+	'(min-width: 80rem) calc(37rem - 4px)',
+	'(min-width: 64rem) calc(50vw - 3rem - 4px)',
+	'(min-width: 48rem) calc(50vw - 2.5rem - 4px)',
+	'(min-width: 40rem) calc(100vw - 3rem - 4px)',
+	'calc(100vw - 2rem - 4px)'
+].join(', ');
+
+/** @param {string} type @param {string} srcset @returns {string} */
+function cardSource(type, srcset) {
+	return `<source type="${type}" width="672" height="378" srcset="${escapeHtml(srcset)}" sizes="${cardSizes}">`;
+}
 
 /** @param {SitePage[]} pages @returns {SitePage[]} */
 function articlesByDate(pages) {
@@ -169,9 +181,10 @@ function newsCards(pages, copy, partials) {
 				description: escapeHtml(stringAt(copy, fields.description)),
 				image: escapeHtml(fields.image),
 				cardLoading: index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"',
-				cardSource: fields.sources
-					? `<source type="image/avif" srcset="${escapeHtml(fields.sources)}" sizes="${cardSizes}">`
-					: '',
+				cardSource: [
+					fields.sources ? cardSource('image/avif', fields.sources) : '',
+					fields.fallback ? cardSource(fields.fallback.type, fields.fallback.srcset) : ''
+				].join('\n'),
 				width: String(fields.width),
 				height: String(fields.height),
 				date: escapeHtml(stringAt(copy, fields.date))
