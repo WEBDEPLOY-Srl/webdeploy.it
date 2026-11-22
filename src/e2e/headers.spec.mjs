@@ -22,6 +22,10 @@ async function headersOf(request, path) {
 	const values = (name) => list.filter((h) => h.name.toLowerCase() === name).map((h) => h.value);
 	return { response, values };
 }
+/** @param {(name:string) => string[]} values @param {string} path */
+function expectSingleHeaders(values, path) {
+	for (const name of SINGLE) expect(values(name), `${name} on ${path}`).toHaveLength(1);
+}
 /** @param {import("@playwright/test").APIRequestContext} request */
 async function assetPaths(request) {
 	const html = await (await request.get('/')).text();
@@ -121,6 +125,49 @@ test('all retired paths preserve their HTTP contracts', async ({ request }) => {
 		const { response, values } = await headersOf(request, path);
 		expect(response.status()).toBe(301);
 		expect(values('location')).toEqual(['/#services']);
+	}
+});
+
+test('real trailing-slash pages redirect canonically and unknown pages stay 404', async ({ request }) => {
+	for (const [path, status, location] of /** @type {const} */ ([
+		['/newsletter/?a=1&b=2', 301, '/newsletter?a=1&b=2'],
+		['/services/backup/', 301, '/services/backup'],
+		['/nope/', 404, undefined]
+	])) {
+		const { response, values } = await headersOf(request, path);
+		expect(response.status(), path).toBe(status);
+		if (location) expect(values('location'), path).toEqual([location]);
+		else expect(values('location'), path).toEqual([]);
+		expectSingleHeaders(values, path);
+	}
+});
+
+test('slashless static directories fail directly without redirect', async ({ request }) => {
+	const home = await headersOf(request, '/');
+	expect(home.response.status(), '/').toBe(200);
+	expectSingleHeaders(home.values, '/');
+	for (const path of ['/assets', '/images', '/fonts', '/_app', '/.well-known']) {
+		const { response, values } = await headersOf(request, path);
+		expect(response.status(), path).toBe(404);
+		expect(values('location'), path).toEqual([]);
+		expectSingleHeaders(values, path);
+	}
+});
+
+test('double-slash paths never redirect to a protocol-relative location', async ({ request }) => {
+	const origin = new URL(process.env.E2E_BASE_URL ?? 'http://127.0.0.1:18080').origin;
+	for (const path of ['//contacts/', '/%2F%2Fcontacts/']) {
+		const url = origin + path;
+		const { response, values } = await headersOf(request, url);
+		expect([301, 404], url).toContain(response.status());
+		if (response.status() === 301) {
+			const location = values('location');
+			expect(location, url).toEqual(['/contacts']);
+			expect(new URL(location[0], origin).origin, url).toBe(origin);
+		} else {
+			expect(values('location'), url).toEqual([]);
+		}
+		expectSingleHeaders(values, url);
 	}
 });
 test('hashed subresources are immutable and pages revalidate by ETag', async ({ request }) => {
