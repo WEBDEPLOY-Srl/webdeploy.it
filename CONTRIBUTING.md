@@ -257,6 +257,11 @@ directory. Add the verified path and its receipt to `profiledCallers` if the pro
 the existing credit. Retain earlier entries for archived runs. The gate reports an unprofiled
 build ID and counts only direct tracker blocking until that evidence exists.
 
+`profiledCallers` matches the exact `/assets/build/<id>/js/matomo.mjs` URL. The ID hashes the shared
+JavaScript and CSS asset set, not only `matomo.mjs`; a CSS change can invalidate a caller profile
+even when the adapter source hash is unchanged. Version 2.0.2 retained profiles for its recorded
+build IDs and used direct tracker credit only for any new ID until re-profiling.
+
 `--strict` requires all four raw 100s on every page. Both modes exit nonzero on uncovered
 failures. To apply either mode to existing reports without launching a browser, pass `--read-run`.
 

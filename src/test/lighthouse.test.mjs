@@ -43,6 +43,10 @@ test('the Lighthouse inventory covers every declared location in both presets', 
 	assert.ok(expectations.pages[missingPath].mainDocument404?.evidence.endsWith('/mobile/404.json'));
 	assert.equal(expectations.performance99.preset, 'mobile');
 	assert.deepEqual(expectations.performance99.audits, ['total-blocking-time']);
+	assert.ok(expectations.performance99.profiledCallers.some(({path, evidence}) =>
+		path === '/assets/build/0ed881c4c4798e9c/js/matomo.mjs' &&
+		evidence === 'adapter-profiles/0ed881c4c4798e9c.json'
+	));
 	assert.equal(expectations.newsMobilePerformance98.path, '/news');
 	assert.equal(expectations.newsMobilePerformance98.preset, 'mobile');
 	assert.equal(expectations.newsMobilePerformance98.minimumScore, 0.98);
@@ -157,6 +161,26 @@ test('only an exact 99 can use the corroborated tracker expectation and strict k
 		report.categories.performance.score = score;
 		assert.equal(evaluateVisit(report).failures.length, 1);
 	}
+});
+
+test('the current aggregate build ID uses its newly recorded Matomo profile', () => {
+	const report = trackerVisit();
+	const profile = expectations.performance99.profiledCallers.find(({path}) =>
+		path === '/assets/build/0ed881c4c4798e9c/js/matomo.mjs'
+	);
+	assert.ok(profile);
+	const previous = new URL(expectations.performance99.profiledCallers[0].path, report.requestedUrl).href;
+	const current = new URL(profile.path, report.requestedUrl).href;
+	const requests = report.audits['network-requests'].details?.items;
+	const cpu = report.audits['bootup-time'].details?.items;
+	const tasks = report.audits['long-tasks'].details?.debugData;
+	assert.ok(requests && cpu && tasks);
+	for (const item of [...requests,...cpu]) if (item.url === previous) item.url = current;
+	tasks.urls[1] = current;
+	const gate = evaluateVisit(report);
+	assert.deepEqual(gate.failures, []);
+	assert.equal(gate.adapterNotice, undefined);
+	assert.equal(gate.performanceAttribution?.profiledCaller, current);
 });
 
 test('only /news mobile Performance 98 or higher can waive LCP and TBT failures', () => {
