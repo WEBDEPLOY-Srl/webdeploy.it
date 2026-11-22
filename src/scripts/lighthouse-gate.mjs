@@ -73,9 +73,11 @@ function matchesDocument404(report, url, expected) {
  * @param {import('./lighthouse-types.d.ts').Expectations} expectations @param {boolean} strict @returns {AuditCell}
  */
 export function assess(report, url, preset, expectations, strict) {
-	const path = new URL(url).pathname;
+	const targetUrl = new URL(url);
+	const path = targetUrl.pathname;
 	const cell = emptyCell(path, preset);
 	const policy = expectations.performance99;
+	const newsPolicy = expectations.newsMobilePerformance97;
 	const adapter = adapterProfile(report, policy);
 	if (adapter.notice) cell.adapterNotice = adapter.notice;
 	if (report.lighthouseVersion !== version) cell.failures.push('Wrong Lighthouse version');
@@ -99,19 +101,32 @@ export function assess(report, url, preset, expectations, strict) {
 			const audit = report.audits?.[ref.id];
 			return !audit || (audit.score !== 1 && !['notApplicable', 'manual', 'informative'].includes(audit.scoreDisplayMode ?? ''));
 		}).map((ref) => ref.id);
+		const completeMetrics = id === 'performance' &&
+			['first-contentful-paint','largest-contentful-paint','total-blocking-time','speed-index','cumulative-layout-shift']
+				.every((metric) => weighted.some((ref) => ref.id === metric)) && weighted.every(({id: auditId}) => {
+					const audit = report.audits?.[auditId];
+					return typeof audit?.score === 'number' && Number.isFinite(audit.score) && audit.score >= 0 && audit.score <= 1 &&
+						audit.scoreDisplayMode === 'numeric';
+				});
 		if (id === 'performance' && preset === policy.preset && category.score === 0.99) {
 			const attribution = trackerBlocking(report, policy, adapter.url);
 			cell.performanceAttribution = attribution;
-			const completeMetrics = ['first-contentful-paint','largest-contentful-paint','total-blocking-time','speed-index','cumulative-layout-shift']
-				.every((metric) => weighted.some((ref) => ref.id === metric)) && weighted.every(({id}) => {
-				const score = report.audits?.[id]?.score;
-				return typeof score === 'number' && Number.isFinite(score) && score >= 0 && score <= 1 &&
-					report.audits[id].scoreDisplayMode === 'numeric';
-			});
 			if (!strict && completeMetrics && attribution?.dominates && failed.length === 1 && failed[0] === policy.audits[0]) {
 				cell.exceptions.push('Matomo Performance 99 (' + failed.join(', ') + ')');
 				continue;
 			}
+		}
+		if (id === 'performance' && !strict && path === newsPolicy.path && !targetUrl.search && !targetUrl.hash &&
+			preset === newsPolicy.preset && completeMetrics && category.score >= newsPolicy.minimumScore && failed.length > 0 &&
+			failed.every((auditId) => {
+				const audit = report.audits?.[auditId];
+				return newsPolicy.audits.includes(/** @type {typeof newsPolicy.audits[number]} */ (auditId)) &&
+					typeof audit?.score === 'number' && Number.isFinite(audit.score) && audit.score >= 0 && audit.score < 1 &&
+					audit.scoreDisplayMode === 'numeric';
+			})) {
+			cell.exceptions.push('Owner-accepted /news mobile Performance ' + cell.scores.performance +
+				' (only failing audits: ' + failed.join(', ') + ')');
+			continue;
 		}
 		const expected = expectations.pages[path];
 		const allowed = id === 'seo' ? expected?.seo ?? [] :

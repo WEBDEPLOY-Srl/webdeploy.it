@@ -31,7 +31,7 @@
 	border: 1px solid var(--color-border-strong);
 	color: #cbd5e1;
 	background: var(--color-surface-dark);
-	font: 1rem/1.45 system-ui, sans-serif;
+	font: 1rem/1.45 var(--font-reading);
 }
 
 .newsletter-choice strong {
@@ -95,7 +95,7 @@
 	border-inline-start: 3px solid var(--color-primary);
 	color: white;
 	background: var(--color-surface-light);
-	font: 1rem/1.45 system-ui, sans-serif;
+	font: 1rem/1.45 var(--font-reading);
 }
 
 .newsletter-delivery {
@@ -186,7 +186,7 @@
 	padding-inline-start: 1.25rem;
 	list-style: disc;
 	color: #cbd5e1;
-	font: 1rem/1.5 system-ui, sans-serif;
+	font: 1rem/1.5 var(--font-reading);
 }
 
 .newsletter-followup li + li {

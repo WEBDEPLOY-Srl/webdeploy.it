@@ -43,6 +43,14 @@ test('the Lighthouse inventory covers every declared location in both presets', 
 	assert.ok(expectations.pages[missingPath].mainDocument404?.evidence.endsWith('/mobile/404.json'));
 	assert.equal(expectations.performance99.preset, 'mobile');
 	assert.deepEqual(expectations.performance99.audits, ['total-blocking-time']);
+	assert.ok(expectations.performance99.profiledCallers.some(({path, evidence}) =>
+		path === '/assets/build/0ed881c4c4798e9c/js/matomo.mjs' &&
+		evidence === 'adapter-profiles/0ed881c4c4798e9c.json'
+	));
+	assert.equal(expectations.newsMobilePerformance97.path, '/news');
+	assert.equal(expectations.newsMobilePerformance97.preset, 'mobile');
+	assert.equal(expectations.newsMobilePerformance97.minimumScore, 0.97);
+	assert.deepEqual(expectations.newsMobilePerformance97.audits, ['largest-contentful-paint', 'total-blocking-time']);
 });
 
 test('a truthful 404 and noindex are the only approved SEO failures', () => {
@@ -153,6 +161,111 @@ test('only an exact 99 can use the corroborated tracker expectation and strict k
 		report.categories.performance.score = score;
 		assert.equal(evaluateVisit(report).failures.length, 1);
 	}
+});
+
+test('the current aggregate build ID uses its newly recorded Matomo profile', () => {
+	const report = trackerVisit();
+	const profile = expectations.performance99.profiledCallers.find(({path}) =>
+		path === '/assets/build/0ed881c4c4798e9c/js/matomo.mjs'
+	);
+	assert.ok(profile);
+	const previous = new URL(expectations.performance99.profiledCallers[0].path, report.requestedUrl).href;
+	const current = new URL(profile.path, report.requestedUrl).href;
+	const requests = report.audits['network-requests'].details?.items;
+	const cpu = report.audits['bootup-time'].details?.items;
+	const tasks = report.audits['long-tasks'].details?.debugData;
+	assert.ok(requests && cpu && tasks);
+	for (const item of [...requests,...cpu]) if (item.url === previous) item.url = current;
+	tasks.urls[1] = current;
+	const gate = evaluateVisit(report);
+	assert.deepEqual(gate.failures, []);
+	assert.equal(gate.adapterNotice, undefined);
+	assert.equal(gate.performanceAttribution?.profiledCaller, current);
+});
+
+test('only /news mobile Performance 97 or higher can waive complete LCP and TBT metrics', () => {
+	const report = sample('/news');
+	const metrics = ['first-contentful-paint','largest-contentful-paint','total-blocking-time','speed-index','cumulative-layout-shift'];
+	report.categories.performance.score = 0.97;
+	report.categories.performance.auditRefs = metrics.map((id) => ({id,weight:1}));
+	for (const id of metrics) report.audits[id] = {score:1,scoreDisplayMode:'numeric',numericValue:100};
+	report.audits['largest-contentful-paint'] = {score:0.93,scoreDisplayMode:'numeric',numericValue:2325};
+	/** @param {Report} sampleReport @param {import('../scripts/lighthouse-types.d.ts').Preset} [preset] @param {boolean} [strict] */
+	const evaluate = (sampleReport, preset = 'mobile', strict = false) =>
+		assess(sampleReport, sampleReport.requestedUrl, preset, expectations, strict);
+	const accepted = evaluate(report);
+	assert.deepEqual(accepted.failures, []);
+	assert.deepEqual(accepted.exceptions, [
+		'Owner-accepted /news mobile Performance 97 (only failing audits: largest-contentful-paint)'
+	]);
+	assert.deepEqual(evaluate(report, 'mobile', true).exceptions, []);
+	assert.equal(evaluate(report, 'mobile', true).failures[0], 'performance: largest-contentful-paint');
+
+	const score99 = structuredClone(report);
+	score99.categories.performance.score = 0.99;
+	assert.deepEqual(evaluate(score99).failures, []);
+	assert.match(evaluate(score99).exceptions[0], /Performance 99/);
+
+	const bothAudits = structuredClone(report);
+	bothAudits.categories.performance.auditRefs.push({id:'total-blocking-time',weight:1});
+	bothAudits.audits['total-blocking-time'] = {score:0.97,scoreDisplayMode:'numeric',numericValue:60};
+	assert.deepEqual(evaluate(bothAudits).failures, []);
+	const tbtOnly = structuredClone(report);
+	tbtOnly.audits['largest-contentful-paint'].score = 1;
+	tbtOnly.audits['total-blocking-time'] = {score:0.97,scoreDisplayMode:'numeric',numericValue:60};
+	assert.deepEqual(evaluate(tbtOnly).failures, []);
+	const otherCategory = structuredClone(report);
+	otherCategory.categories.accessibility.score = 0.99;
+	assert.deepEqual(evaluate(otherCategory).failures, ['accessibility: category below 100']);
+	assert.equal(evaluate(otherCategory).exceptions.length, 1);
+
+	const desktop = structuredClone(report);
+	desktop.configSettings.formFactor = 'desktop';
+	desktop.configSettings.screenEmulation = {mobile:false,width:1350,height:940,deviceScaleFactor:1,disabled:false};
+	desktop.configSettings.throttling = {rttMs:40,throughputKbps:10240,cpuSlowdownMultiplier:1};
+	assert.ok(evaluate(desktop, 'desktop').failures.includes('performance: largest-contentful-paint'));
+
+	const otherPage = structuredClone(report);
+	otherPage.requestedUrl = 'http://127.0.0.1:18080/privacy';
+	otherPage.finalDisplayedUrl = otherPage.requestedUrl;
+	const documentRequest = otherPage.audits['network-requests']?.details?.items?.[0];
+	assert.ok(documentRequest);
+	documentRequest.url = otherPage.requestedUrl;
+	assert.ok(evaluate(otherPage).failures.includes('performance: largest-contentful-paint'));
+	const queryUrl = structuredClone(report);
+	queryUrl.requestedUrl += '?source=gate-test';
+	queryUrl.finalDisplayedUrl = queryUrl.requestedUrl;
+	const queriedDocument = queryUrl.audits['network-requests']?.details?.items?.[0];
+	assert.ok(queriedDocument);
+	queriedDocument.url = queryUrl.requestedUrl;
+	assert.ok(evaluate(queryUrl).failures.includes('performance: largest-contentful-paint'));
+
+	const belowMinimum = structuredClone(report);
+	belowMinimum.categories.performance.score = 0.96;
+	assert.ok(evaluate(belowMinimum).failures.includes('performance: largest-contentful-paint'));
+	const missingAudit = structuredClone(report);
+	delete missingAudit.audits['largest-contentful-paint'];
+	assert.ok(evaluate(missingAudit).failures.includes('performance: largest-contentful-paint'));
+
+	const unrelatedAudit = structuredClone(report);
+	unrelatedAudit.audits['speed-index'] = {score:0.9,scoreDisplayMode:'numeric',numericValue:1800};
+	assert.deepEqual(evaluate(unrelatedAudit).failures, ['performance: largest-contentful-paint, speed-index']);
+
+	const clsNotApplicable = structuredClone(report);
+	clsNotApplicable.audits['cumulative-layout-shift'].score = null;
+	clsNotApplicable.audits['cumulative-layout-shift'].scoreDisplayMode = 'notApplicable';
+	assert.ok(evaluate(clsNotApplicable).failures.includes('performance: largest-contentful-paint'));
+	const missingClsReference = structuredClone(report);
+	missingClsReference.categories.performance.auditRefs = missingClsReference.categories.performance.auditRefs
+		.filter((ref) => ref.id !== 'cumulative-layout-shift');
+	assert.ok(evaluate(missingClsReference).failures.includes('performance: largest-contentful-paint'));
+	const missingClsAudit = structuredClone(report);
+	delete missingClsAudit.audits['cumulative-layout-shift'];
+	assert.ok(evaluate(missingClsAudit).failures.includes('performance: largest-contentful-paint, cumulative-layout-shift'));
+	const informativeSpeedIndex = structuredClone(report);
+	informativeSpeedIndex.audits['speed-index'].score = null;
+	informativeSpeedIndex.audits['speed-index'].scoreDisplayMode = 'informative';
+	assert.ok(evaluate(informativeSpeedIndex).failures.includes('performance: largest-contentful-paint'));
 });
 
 test('other weighted audits, missing measurements and other categories remain independent failures', () => {

@@ -13,9 +13,21 @@
 			{
 				"path": "/assets/build/a9d2e942f2827e54/js/matomo.mjs",
 				"evidence": "adapter-profiles/a9d2e942f2827e54.json"
+			},
+			{
+				"path": "/assets/build/0ed881c4c4798e9c/js/matomo.mjs",
+				"evidence": "adapter-profiles/0ed881c4c4798e9c.json"
 			}
 		],
 		"decisionDate": "2026-11-20"
+	},
+	"newsMobilePerformance97": {
+		"path": "/news",
+		"preset": "mobile",
+		"minimumScore": 0.97,
+		"audits": ["largest-contentful-paint", "total-blocking-time"],
+		"decision": "The owner accepted the q80 lead-card image quality and a narrow mobile Performance 97 exception.",
+		"decisionDate": "2026-11-22"
 	},
 	"pages": {
 		"/newsletter/confirmed": {

@@ -41,7 +41,7 @@ async function isFile(file) {
 
 /**
  * The relay forwards nginx's original status, headers and encoded body. Local
- * preview resolves clean URLs but the acceptance suite always uses real nginx.
+ * preview canonicalizes page slashes; acceptance always uses real nginx.
  * @param {{root:string, upstream?:URL}} options
  * @returns {import('node:http').Server}
  */
@@ -69,19 +69,28 @@ export function previewServer({ root, upstream }) {
 				req.pipe(forward);
 				return;
 			}
-			const pathname = decodeURIComponent(new URL(req.url ?? '/', 'http://localhost').pathname);
-			const short = pathname.replace(/^\/+/, '');
-			const candidates = short
-				? [short, short + '.html', join(short, 'index.html')]
-				: ['index.html'];
-			for (const name of candidates) {
-				const path = within(root, name);
-				if (!(await isFile(path))) continue;
-				res.writeHead(200, {
-					'content-type': types[extname(path)] ?? 'application/octet-stream'
-				});
-				res.end(req.method === 'HEAD' ? undefined : await readFile(path));
-				return;
+			const requestTarget = (req.url ?? '/').replace(/^\/+/, '/');
+			const url = new URL(requestTarget, 'http://localhost');
+			const pathname = decodeURIComponent(url.pathname).replace(/\/{2,}/g, '/');
+			const cleanPath = pathname.replace(/\/+$/, '') || '/';
+			const short = cleanPath.replace(/^\/+/, '');
+			if (pathname.endsWith('/') && pathname !== '/') {
+				if (await isFile(within(root, short + '.html'))) {
+					res.writeHead(301, { location: `/${short}${url.search}` });
+					res.end();
+					return;
+				}
+			} else {
+				const candidates = short ? [short, short + '.html'] : ['index.html'];
+				for (const name of candidates) {
+					const path = within(root, name);
+					if (!(await isFile(path))) continue;
+					res.writeHead(200, {
+						'content-type': types[extname(path)] ?? 'application/octet-stream'
+					});
+					res.end(req.method === 'HEAD' ? undefined : await readFile(path));
+					return;
+				}
 			}
 			const fallback = within(root, '404.html');
 			res.writeHead(404, { 'content-type': types['.html'] });
