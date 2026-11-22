@@ -110,6 +110,23 @@ transparent and so that forks can keep to the same style.
   them under a new version heading and bumps `version` in `src/package.json`, following
   [Semantic Versioning](https://semver.org/).
 
+## Updating the CI builder image pin
+
+The `build_frontend` step in `.woodpecker/.build.yml` uses the `webdeploy/alpine` image. Its builder
+workflow publishes a dated tag in `YYYY-MM-DD-<CI_PIPELINE_NUMBER>` form for each build. Pin a dated
+tag, never `latest`, and keep every tag referenced by a pin in the Forgejo cleanup rule.
+
+After the builder workflow succeeds, inspect the dated tag and copy its manifest digest:
+
+```sh
+docker buildx imagetools inspect \
+  git.webdeploy.it/webdeploy/alpine:<dated-tag>
+```
+
+Update the `build_frontend` image in `.woodpecker/.build.yml` to
+`git.webdeploy.it/webdeploy/alpine:<dated-tag>@sha256:<digest>`. Keep both the dated tag and digest;
+verify the tag exists and is retained by the Forgejo package cleanup rule before committing the pin.
+
 ## Licence
 
 The code is licensed under the GNU Affero General Public License v3.0 only. The WEBDEPLOY and inWD names

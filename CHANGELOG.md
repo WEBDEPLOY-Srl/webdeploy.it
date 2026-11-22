@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- The image build pins an immutable dated builder tag (`alpine:2026-11-22-582` plus its digest) instead of a digest of `alpine:latest`, which was deleted whenever the builder was rebuilt.
+
 ## [2.0.2] - 2026-11-21
 
 ### Changed
