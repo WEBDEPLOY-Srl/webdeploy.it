@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.3] - 2026-11-22
+
+### Changed
+- The image build pins an immutable dated builder tag (`alpine:2026-11-22-582` plus its digest) instead of a digest of `alpine:latest`, which was deleted whenever the builder was rebuilt.
+- The Lighthouse release gate accepts `/news` mobile Performance 97 or higher only when failing weighted audits are limited to LCP and/or TBT, reflecting the owner's 2026-11-22 approval of full-quality q80 lead-card images.
+- The Lighthouse gate registers the verified current Matomo adapter profile for TBT attribution while retaining archived profiles.
+
+### Fixed
+- Newsletter reading text uses the site's Space Mono font.
+- Phone newsletter copy is more compact, with reserved wrapped height so the form stays above the cookie banner while Space Mono loads.
+- Trailing slashes on real page URLs redirect to their slashless canonical URL and preserve query strings.
+- News card crops retain high image quality across responsive sizes, with 4:4:4 chroma for the PHP2Shell illustration.
+
 ## [2.0.2] - 2026-11-21
 
 ### Changed
