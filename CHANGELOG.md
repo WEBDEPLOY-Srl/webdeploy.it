@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Newsletter reading text uses the site's Space Mono font.
+- Phone newsletter copy is more compact, with reserved wrapped height so the form stays above the cookie banner while Space Mono loads.
 - Trailing slashes on real page URLs redirect to their slashless canonical URL and preserve query strings.
 - News card crops retain high image quality across responsive sizes, with 4:4:4 chroma for the PHP2Shell illustration.
 
