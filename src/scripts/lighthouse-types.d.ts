@@ -29,7 +29,7 @@ export interface NewsMobilePerformanceExpectation {
 }
 export interface Expectations {
 	performance99: PerformanceExpectation;
-	newsMobilePerformance98: NewsMobilePerformanceExpectation;
+	newsMobilePerformance97: NewsMobilePerformanceExpectation;
 	pages: Record<string, {seo: string[]; mainDocument404?: Console404}>;
 }
 export interface AuditItem {

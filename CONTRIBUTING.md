@@ -231,14 +231,15 @@ in both `bootup-time` and `third-parties-insight`, and the complete `long-tasks`
 It clips each task to the first-contentful-paint to interactive interval and counts time above
 50 ms. The sum must reproduce the raw TBT within 1 ms. Unknown scripts and unattributed tasks
 count towards the denominator. The credited share must exceed half of both the reconstructed
-and reported totals. A failing LCP or desktop Performance below 100 still fails the gate outside
-the `/news` exception below.
+and reported totals. A failing LCP still fails the gate outside the `/news` mobile exception below.
+Desktop Performance below 100 always fails.
 
 On 2026-11-22 the owner accepted the q80 lead-card image quality and its larger mobile transfer. Only
-`/news` mobile Performance may use a minimum raw score of 98, and only when every failing weighted
+`/news` mobile Performance may use a minimum raw score of 97, and only when every failing weighted
 performance audit is `largest-contentful-paint` and/or `total-blocking-time`. Missing or non-numeric
 audits, any other failing audit, other categories, routes, or presets still fail. `--strict` still
 requires raw 100. The applied exception appears in the gate table and stdout.
+The second owner decision on 2026-11-22 lowered the original 98 minimum to 97.
 
 The hosted script receives direct credit. The owner explicitly retained partial credit for
 Matomo's own synchronous `trackPageView` when it runs inside the first-party adapter. A profiled

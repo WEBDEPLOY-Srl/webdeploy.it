@@ -9,9 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - The image build pins an immutable dated builder tag (`alpine:2026-11-22-582` plus its digest) instead of a digest of `alpine:latest`, which was deleted whenever the builder was rebuilt.
-- The Lighthouse release gate accepts `/news` mobile Performance 98 or higher only when failing weighted audits are limited to LCP and/or TBT, reflecting the owner's 2026-11-22 approval of full-quality q80 lead-card images.
-- The Lighthouse gate registers the freshly profiled current Matomo adapter build for the existing TBT attribution exception.
-- The Lighthouse gate includes a verified Matomo profile for the current shared asset build ID while retaining archived caller profiles.
+- The Lighthouse release gate accepts `/news` mobile Performance 97 or higher only when failing weighted audits are limited to LCP and/or TBT, reflecting the owner's 2026-11-22 approval of full-quality q80 lead-card images.
+- The Lighthouse gate registers the verified current Matomo adapter profile for TBT attribution while retaining archived profiles.
 
 ### Fixed
 - Newsletter reading text uses the site's Space Mono font.

@@ -47,10 +47,10 @@ test('the Lighthouse inventory covers every declared location in both presets', 
 		path === '/assets/build/0ed881c4c4798e9c/js/matomo.mjs' &&
 		evidence === 'adapter-profiles/0ed881c4c4798e9c.json'
 	));
-	assert.equal(expectations.newsMobilePerformance98.path, '/news');
-	assert.equal(expectations.newsMobilePerformance98.preset, 'mobile');
-	assert.equal(expectations.newsMobilePerformance98.minimumScore, 0.98);
-	assert.deepEqual(expectations.newsMobilePerformance98.audits, ['largest-contentful-paint', 'total-blocking-time']);
+	assert.equal(expectations.newsMobilePerformance97.path, '/news');
+	assert.equal(expectations.newsMobilePerformance97.preset, 'mobile');
+	assert.equal(expectations.newsMobilePerformance97.minimumScore, 0.97);
+	assert.deepEqual(expectations.newsMobilePerformance97.audits, ['largest-contentful-paint', 'total-blocking-time']);
 });
 
 test('a truthful 404 and noindex are the only approved SEO failures', () => {
@@ -183,10 +183,12 @@ test('the current aggregate build ID uses its newly recorded Matomo profile', ()
 	assert.equal(gate.performanceAttribution?.profiledCaller, current);
 });
 
-test('only /news mobile Performance 98 or higher can waive LCP and TBT failures', () => {
+test('only /news mobile Performance 97 or higher can waive complete LCP and TBT metrics', () => {
 	const report = sample('/news');
-	report.categories.performance.score = 0.98;
-	report.categories.performance.auditRefs = [{id:'largest-contentful-paint',weight:1}];
+	const metrics = ['first-contentful-paint','largest-contentful-paint','total-blocking-time','speed-index','cumulative-layout-shift'];
+	report.categories.performance.score = 0.97;
+	report.categories.performance.auditRefs = metrics.map((id) => ({id,weight:1}));
+	for (const id of metrics) report.audits[id] = {score:1,scoreDisplayMode:'numeric',numericValue:100};
 	report.audits['largest-contentful-paint'] = {score:0.93,scoreDisplayMode:'numeric',numericValue:2325};
 	/** @param {Report} sampleReport @param {import('../scripts/lighthouse-types.d.ts').Preset} [preset] @param {boolean} [strict] */
 	const evaluate = (sampleReport, preset = 'mobile', strict = false) =>
@@ -194,7 +196,7 @@ test('only /news mobile Performance 98 or higher can waive LCP and TBT failures'
 	const accepted = evaluate(report);
 	assert.deepEqual(accepted.failures, []);
 	assert.deepEqual(accepted.exceptions, [
-		'Owner-accepted /news mobile Performance 98 (only failing audits: largest-contentful-paint)'
+		'Owner-accepted /news mobile Performance 97 (only failing audits: largest-contentful-paint)'
 	]);
 	assert.deepEqual(evaluate(report, 'mobile', true).exceptions, []);
 	assert.equal(evaluate(report, 'mobile', true).failures[0], 'performance: largest-contentful-paint');
@@ -209,9 +211,8 @@ test('only /news mobile Performance 98 or higher can waive LCP and TBT failures'
 	bothAudits.audits['total-blocking-time'] = {score:0.97,scoreDisplayMode:'numeric',numericValue:60};
 	assert.deepEqual(evaluate(bothAudits).failures, []);
 	const tbtOnly = structuredClone(report);
-	tbtOnly.categories.performance.auditRefs = [{id:'total-blocking-time',weight:1}];
+	tbtOnly.audits['largest-contentful-paint'].score = 1;
 	tbtOnly.audits['total-blocking-time'] = {score:0.97,scoreDisplayMode:'numeric',numericValue:60};
-	delete tbtOnly.audits['largest-contentful-paint'];
 	assert.deepEqual(evaluate(tbtOnly).failures, []);
 	const otherCategory = structuredClone(report);
 	otherCategory.categories.accessibility.score = 0.99;
@@ -240,16 +241,31 @@ test('only /news mobile Performance 98 or higher can waive LCP and TBT failures'
 	assert.ok(evaluate(queryUrl).failures.includes('performance: largest-contentful-paint'));
 
 	const belowMinimum = structuredClone(report);
-	belowMinimum.categories.performance.score = 0.97;
+	belowMinimum.categories.performance.score = 0.96;
 	assert.ok(evaluate(belowMinimum).failures.includes('performance: largest-contentful-paint'));
 	const missingAudit = structuredClone(report);
 	delete missingAudit.audits['largest-contentful-paint'];
 	assert.ok(evaluate(missingAudit).failures.includes('performance: largest-contentful-paint'));
 
 	const unrelatedAudit = structuredClone(report);
-	unrelatedAudit.categories.performance.auditRefs.push({id:'speed-index',weight:1});
 	unrelatedAudit.audits['speed-index'] = {score:0.9,scoreDisplayMode:'numeric',numericValue:1800};
-	assert.ok(evaluate(unrelatedAudit).failures.includes('performance: largest-contentful-paint, speed-index'));
+	assert.deepEqual(evaluate(unrelatedAudit).failures, ['performance: largest-contentful-paint, speed-index']);
+
+	const clsNotApplicable = structuredClone(report);
+	clsNotApplicable.audits['cumulative-layout-shift'].score = null;
+	clsNotApplicable.audits['cumulative-layout-shift'].scoreDisplayMode = 'notApplicable';
+	assert.ok(evaluate(clsNotApplicable).failures.includes('performance: largest-contentful-paint'));
+	const missingClsReference = structuredClone(report);
+	missingClsReference.categories.performance.auditRefs = missingClsReference.categories.performance.auditRefs
+		.filter((ref) => ref.id !== 'cumulative-layout-shift');
+	assert.ok(evaluate(missingClsReference).failures.includes('performance: largest-contentful-paint'));
+	const missingClsAudit = structuredClone(report);
+	delete missingClsAudit.audits['cumulative-layout-shift'];
+	assert.ok(evaluate(missingClsAudit).failures.includes('performance: largest-contentful-paint, cumulative-layout-shift'));
+	const informativeSpeedIndex = structuredClone(report);
+	informativeSpeedIndex.audits['speed-index'].score = null;
+	informativeSpeedIndex.audits['speed-index'].scoreDisplayMode = 'informative';
+	assert.ok(evaluate(informativeSpeedIndex).failures.includes('performance: largest-contentful-paint'));
 });
 
 test('other weighted audits, missing measurements and other categories remain independent failures', () => {

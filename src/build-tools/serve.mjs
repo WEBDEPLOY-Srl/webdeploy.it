@@ -69,7 +69,8 @@ export function previewServer({ root, upstream }) {
 				req.pipe(forward);
 				return;
 			}
-			const url = new URL(req.url ?? '/', 'http://localhost');
+			const requestTarget = (req.url ?? '/').replace(/^\/+/, '/');
+			const url = new URL(requestTarget, 'http://localhost');
 			const pathname = decodeURIComponent(url.pathname).replace(/\/{2,}/g, '/');
 			const cleanPath = pathname.replace(/\/+$/, '') || '/';
 			const short = cleanPath.replace(/^\/+/, '');

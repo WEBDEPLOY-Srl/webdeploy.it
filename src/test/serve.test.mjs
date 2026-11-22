@@ -13,6 +13,7 @@ test('preview canonicalizes existing pages and 404s slashless directories', asyn
 	const root = await mkdtemp(join(tmpdir(), 'webdeploy-preview-'));
 	await writeFile(join(root, 'index.html'), '<h1>Home</h1>');
 	await writeFile(join(root, 'newsletter.html'), '<h1>Newsletter</h1>');
+	await writeFile(join(root, 'contacts.html'), '<h1>Contacts</h1>');
 	await mkdir(join(root, 'newsletter'));
 	await writeFile(join(root, 'newsletter', 'confirmed.html'), '<h1>Confirmed</h1>');
 	await mkdir(join(root, 'assets'));
@@ -35,6 +36,11 @@ test('preview canonicalizes existing pages and 404s slashless directories', asyn
 	const nested = await fetch(origin + '/newsletter/confirmed/', { redirect: 'manual' });
 	assert.equal(nested.status, 301);
 	assert.equal(nested.headers.get('location'), '/newsletter/confirmed');
+	for (const path of ['//contacts/', '/%2F%2Fcontacts/']) {
+		const duplicate = await fetch(origin + path, { redirect: 'manual' });
+		assert.equal(duplicate.status, 301);
+		assert.equal(duplicate.headers.get('location'), '/contacts');
+	}
 	assert.equal((await fetch(origin + '/')).status, 200);
 	assert.equal((await fetch(origin + '/assets')).status, 404);
 	assert.equal((await fetch(origin + '/assets/')).status, 404);

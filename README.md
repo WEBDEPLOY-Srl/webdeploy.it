@@ -79,7 +79,7 @@ only when total blocking time is the sole failing audit and Matomo accounts for 
 The owner explicitly retained partial credit for Matomo's own synchronous `trackPageView` inside
 the first-party adapter. The original profile measured 33.3 ms in that call and 1.9 ms in the other
 calls. Four mobile measurements qualified. On 2026-11-22 the owner accepted a narrow `/news`
-mobile Performance 98 exception for failing `largest-contentful-paint` and/or `total-blocking-time`
+mobile Performance 97 exception for failing `largest-contentful-paint` and/or `total-blocking-time`
 audits, reflecting the larger q80 lead-card images. Other routes, presets, categories and audits
 keep existing thresholds. Desktop Performance has no exception.
 `--strict` requires four raw 100s. Woodpecker runs the independent functional checks on each push.
