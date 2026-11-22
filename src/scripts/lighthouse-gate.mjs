@@ -73,9 +73,11 @@ function matchesDocument404(report, url, expected) {
  * @param {import('./lighthouse-types.d.ts').Expectations} expectations @param {boolean} strict @returns {AuditCell}
  */
 export function assess(report, url, preset, expectations, strict) {
-	const path = new URL(url).pathname;
+	const targetUrl = new URL(url);
+	const path = targetUrl.pathname;
 	const cell = emptyCell(path, preset);
 	const policy = expectations.performance99;
+	const newsPolicy = expectations.newsMobilePerformance98;
 	const adapter = adapterProfile(report, policy);
 	if (adapter.notice) cell.adapterNotice = adapter.notice;
 	if (report.lighthouseVersion !== version) cell.failures.push('Wrong Lighthouse version');
@@ -112,6 +114,18 @@ export function assess(report, url, preset, expectations, strict) {
 				cell.exceptions.push('Matomo Performance 99 (' + failed.join(', ') + ')');
 				continue;
 			}
+		}
+		if (id === 'performance' && !strict && path === newsPolicy.path && !targetUrl.search && !targetUrl.hash &&
+			preset === newsPolicy.preset && category.score >= newsPolicy.minimumScore && failed.length > 0 &&
+			failed.every((auditId) => {
+				const audit = report.audits?.[auditId];
+				return newsPolicy.audits.includes(/** @type {typeof newsPolicy.audits[number]} */ (auditId)) &&
+					typeof audit?.score === 'number' && Number.isFinite(audit.score) && audit.score >= 0 && audit.score < 1 &&
+					audit.scoreDisplayMode === 'numeric';
+			})) {
+			cell.exceptions.push('Owner-accepted /news mobile Performance ' + cell.scores.performance +
+				' (only failing audits: ' + failed.join(', ') + ')');
+			continue;
 		}
 		const expected = expectations.pages[path];
 		const allowed = id === 'seo' ? expected?.seo ?? [] :

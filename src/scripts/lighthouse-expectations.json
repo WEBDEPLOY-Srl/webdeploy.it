@@ -17,6 +17,14 @@
 		],
 		"decisionDate": "2026-11-20"
 	},
+	"newsMobilePerformance98": {
+		"path": "/news",
+		"preset": "mobile",
+		"minimumScore": 0.98,
+		"audits": ["largest-contentful-paint", "total-blocking-time"],
+		"decision": "The owner accepted the q80 lead-card image quality and a narrow mobile Performance 98 exception.",
+		"decisionDate": "2026-11-22"
+	},
 	"pages": {
 		"/newsletter/confirmed": {
 			"seo": ["is-crawlable"]

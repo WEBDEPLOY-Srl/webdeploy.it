@@ -19,8 +19,17 @@ export interface PerformanceExpectation {
 	profiledCallers: Array<{path: string; evidence: string}>;
 	decisionDate: string;
 }
+export interface NewsMobilePerformanceExpectation {
+	path: '/news';
+	preset: 'mobile';
+	minimumScore: number;
+	audits: Array<'largest-contentful-paint' | 'total-blocking-time'>;
+	decision: string;
+	decisionDate: string;
+}
 export interface Expectations {
 	performance99: PerformanceExpectation;
+	newsMobilePerformance98: NewsMobilePerformanceExpectation;
 	pages: Record<string, {seo: string[]; mainDocument404?: Console404}>;
 }
 export interface AuditItem {

@@ -229,6 +229,12 @@ async function summarize(directory, manifest, strictMode) {
 	const mode = strictMode ? 'strict' : 'gate';
 	const count = cells.filter((cell) => !cell.failures.length).length;
 	await writeJson(join(directory, mode + '.json'), {mode,passed:count === cells.length,cells});
+	for (const cell of cells) {
+		for (const exception of cell.exceptions) {
+			if (exception.startsWith('Owner-accepted /news mobile Performance '))
+				process.stdout.write('Applied exception: ' + cell.path + ' ' + cell.preset + ': ' + exception + '\n');
+		}
+	}
 	const header = '| URL | Preset | Performance | Accessibility | Best Practices | SEO | Attempts | Benchmark | Load start/end | Idle | Matomo credited / total TBT (ms) | Expectations or failures |';
 	const rows = cells.map((cell) => {
 		const lab = cell.lab;

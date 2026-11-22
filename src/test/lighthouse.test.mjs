@@ -43,6 +43,10 @@ test('the Lighthouse inventory covers every declared location in both presets', 
 	assert.ok(expectations.pages[missingPath].mainDocument404?.evidence.endsWith('/mobile/404.json'));
 	assert.equal(expectations.performance99.preset, 'mobile');
 	assert.deepEqual(expectations.performance99.audits, ['total-blocking-time']);
+	assert.equal(expectations.newsMobilePerformance98.path, '/news');
+	assert.equal(expectations.newsMobilePerformance98.preset, 'mobile');
+	assert.equal(expectations.newsMobilePerformance98.minimumScore, 0.98);
+	assert.deepEqual(expectations.newsMobilePerformance98.audits, ['largest-contentful-paint', 'total-blocking-time']);
 });
 
 test('a truthful 404 and noindex are the only approved SEO failures', () => {
@@ -153,6 +157,75 @@ test('only an exact 99 can use the corroborated tracker expectation and strict k
 		report.categories.performance.score = score;
 		assert.equal(evaluateVisit(report).failures.length, 1);
 	}
+});
+
+test('only /news mobile Performance 98 or higher can waive LCP and TBT failures', () => {
+	const report = sample('/news');
+	report.categories.performance.score = 0.98;
+	report.categories.performance.auditRefs = [{id:'largest-contentful-paint',weight:1}];
+	report.audits['largest-contentful-paint'] = {score:0.93,scoreDisplayMode:'numeric',numericValue:2325};
+	/** @param {Report} sampleReport @param {import('../scripts/lighthouse-types.d.ts').Preset} [preset] @param {boolean} [strict] */
+	const evaluate = (sampleReport, preset = 'mobile', strict = false) =>
+		assess(sampleReport, sampleReport.requestedUrl, preset, expectations, strict);
+	const accepted = evaluate(report);
+	assert.deepEqual(accepted.failures, []);
+	assert.deepEqual(accepted.exceptions, [
+		'Owner-accepted /news mobile Performance 98 (only failing audits: largest-contentful-paint)'
+	]);
+	assert.deepEqual(evaluate(report, 'mobile', true).exceptions, []);
+	assert.equal(evaluate(report, 'mobile', true).failures[0], 'performance: largest-contentful-paint');
+
+	const score99 = structuredClone(report);
+	score99.categories.performance.score = 0.99;
+	assert.deepEqual(evaluate(score99).failures, []);
+	assert.match(evaluate(score99).exceptions[0], /Performance 99/);
+
+	const bothAudits = structuredClone(report);
+	bothAudits.categories.performance.auditRefs.push({id:'total-blocking-time',weight:1});
+	bothAudits.audits['total-blocking-time'] = {score:0.97,scoreDisplayMode:'numeric',numericValue:60};
+	assert.deepEqual(evaluate(bothAudits).failures, []);
+	const tbtOnly = structuredClone(report);
+	tbtOnly.categories.performance.auditRefs = [{id:'total-blocking-time',weight:1}];
+	tbtOnly.audits['total-blocking-time'] = {score:0.97,scoreDisplayMode:'numeric',numericValue:60};
+	delete tbtOnly.audits['largest-contentful-paint'];
+	assert.deepEqual(evaluate(tbtOnly).failures, []);
+	const otherCategory = structuredClone(report);
+	otherCategory.categories.accessibility.score = 0.99;
+	assert.deepEqual(evaluate(otherCategory).failures, ['accessibility: category below 100']);
+	assert.equal(evaluate(otherCategory).exceptions.length, 1);
+
+	const desktop = structuredClone(report);
+	desktop.configSettings.formFactor = 'desktop';
+	desktop.configSettings.screenEmulation = {mobile:false,width:1350,height:940,deviceScaleFactor:1,disabled:false};
+	desktop.configSettings.throttling = {rttMs:40,throughputKbps:10240,cpuSlowdownMultiplier:1};
+	assert.ok(evaluate(desktop, 'desktop').failures.includes('performance: largest-contentful-paint'));
+
+	const otherPage = structuredClone(report);
+	otherPage.requestedUrl = 'http://127.0.0.1:18080/privacy';
+	otherPage.finalDisplayedUrl = otherPage.requestedUrl;
+	const documentRequest = otherPage.audits['network-requests']?.details?.items?.[0];
+	assert.ok(documentRequest);
+	documentRequest.url = otherPage.requestedUrl;
+	assert.ok(evaluate(otherPage).failures.includes('performance: largest-contentful-paint'));
+	const queryUrl = structuredClone(report);
+	queryUrl.requestedUrl += '?source=gate-test';
+	queryUrl.finalDisplayedUrl = queryUrl.requestedUrl;
+	const queriedDocument = queryUrl.audits['network-requests']?.details?.items?.[0];
+	assert.ok(queriedDocument);
+	queriedDocument.url = queryUrl.requestedUrl;
+	assert.ok(evaluate(queryUrl).failures.includes('performance: largest-contentful-paint'));
+
+	const belowMinimum = structuredClone(report);
+	belowMinimum.categories.performance.score = 0.97;
+	assert.ok(evaluate(belowMinimum).failures.includes('performance: largest-contentful-paint'));
+	const missingAudit = structuredClone(report);
+	delete missingAudit.audits['largest-contentful-paint'];
+	assert.ok(evaluate(missingAudit).failures.includes('performance: largest-contentful-paint'));
+
+	const unrelatedAudit = structuredClone(report);
+	unrelatedAudit.categories.performance.auditRefs.push({id:'speed-index',weight:1});
+	unrelatedAudit.audits['speed-index'] = {score:0.9,scoreDisplayMode:'numeric',numericValue:1800};
+	assert.ok(evaluate(unrelatedAudit).failures.includes('performance: largest-contentful-paint, speed-index'));
 });
 
 test('other weighted audits, missing measurements and other categories remain independent failures', () => {
