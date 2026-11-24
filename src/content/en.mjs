@@ -760,7 +760,7 @@ export const en = {
 	newsletter: {
 		title: 'WEBDEPLOY newsletter',
 		metaDescription: 'Choose which WEBDEPLOY news and service updates you want by email.',
-		heading: 'From the workbench',
+		heading: 'Do you dream of\nnetiquette?',
 		lead: 'WEBDEPLOY news, security notices and offers by email.',
 		whatTitle: 'Choose one or both lists',
 		generalLabel: 'News and notices',

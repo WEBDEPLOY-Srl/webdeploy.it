@@ -37,9 +37,9 @@ test('preserves the privacy and newsletter dictionaries', () => {
 		),
 		[
 			'39f8e57883879d475f92b65c1a02b9235bc14a0c2d1796209c11ce36779f58bd',
-			'85ace2bf07fb3eb4278eb2f49b948e0d971a0371f63a60d754e8b7c3742651c0',
+			'6b2d4401cc1c9b71dd07f3a60fa582d17f2eed55c6eabecca494af17d6a414fa',
 			'42f20dfee96881845a9d8b1c349da45ceb4019d121f551a7ec135150ce82fd1e',
-			'64a7657cdccd333bc9eb67cc3acc54f6bd5021ab9111e228a7b245180d15aa23'
+			'5bf15933fb07e10c5e77eede1bc945ffcc7367635b6163a9450a905d8deb63ed'
 		]
 	);
 });
