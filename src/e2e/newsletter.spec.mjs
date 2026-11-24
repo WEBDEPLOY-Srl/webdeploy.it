@@ -115,6 +115,36 @@ test('solves a real ALTCHA v1 challenge with the local SHA worker', async ({
 	);
 	expect(cspViolations).toEqual([]);
 });
+test('the stamp is a responsive, preloaded high-priority image', async ({ page }) => {
+	await page.setViewportSize({ width: 402, height: 874 });
+	await page.goto('/newsletter');
+	const image = page.locator('.newsletter-stamp img');
+	await expect(image).toHaveAttribute('loading', 'eager');
+	await expect(image).toHaveAttribute('fetchpriority', 'high');
+	await expect(image).toHaveAttribute('width', '960');
+	await expect(image).toHaveAttribute('height', '540');
+	const sources = page.locator('.newsletter-stamp source');
+	await expect(sources).toHaveCount(2);
+	const expectedSizes =
+		'(max-width: 639px) calc(100vw - 2.5rem), (min-width: 75rem) calc(13rem - 1.75rem), (min-width: 65rem) calc(13rem - 2vw - 0.25rem), calc(18vw - 0.25rem)';
+	for (const source of await sources.all()) {
+		await expect(source).toHaveAttribute('sizes', expectedSizes);
+		await expect(source).toHaveAttribute('srcset', /400w,.*592w,.*672w,.*800w,.*960w/);
+	}
+	const preload = page.locator('link[rel="preload"][as="image"][fetchpriority="high"]');
+	await expect(preload).toHaveCount(1);
+	const avifSource = sources.first();
+	const avifSrcset = await avifSource.getAttribute('srcset');
+	const avifSizes = await avifSource.getAttribute('sizes');
+	assert.ok(avifSrcset && avifSizes);
+	await expect(preload).toHaveAttribute('imagesrcset', avifSrcset);
+	await expect(preload).toHaveAttribute('imagesizes', avifSizes);
+	await expect
+		.poll(() =>
+			image.evaluate((element) => (element instanceof HTMLImageElement ? element.naturalWidth : 0))
+		)
+		.toBeGreaterThan(0);
+});
 test('the newsletter is accessible and its form stays reachable on phone sizes', async ({
 	page
 }) => {

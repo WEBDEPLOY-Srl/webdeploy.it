@@ -8,8 +8,21 @@
 			<a href="/news">{{newsletter.recentNews}}</a>
 		</div>
 		<picture class="newsletter-stamp">
-			<source type="image/avif" srcset="/images/neon-cafe-960.avif" />
-			<img src="/images/neon-cafe-workshop.webp" width="960" height="540" alt="" />
+			<source type="image/avif" srcset="{{@prioritySources}}" sizes="{{@prioritySizes}}" />
+			<source
+				type="image/webp"
+				srcset="/images/neon-cafe-stamp-400.webp 400w, /images/neon-cafe-stamp-592.webp 592w, /images/neon-cafe-stamp-672.webp 672w, /images/neon-cafe-stamp-800.webp 800w, /images/neon-cafe-stamp-960.webp 960w"
+				sizes="{{@prioritySizes}}"
+			/>
+			<img
+				src="/images/neon-cafe-stamp-960.webp"
+				width="960"
+				height="540"
+				alt=""
+				loading="eager"
+				decoding="async"
+				fetchpriority="high"
+			/>
 		</picture>
 	</div>
 	{{>newsletter-form}}
