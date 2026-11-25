@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.4] - 2026-11-25
+
+### Changed
+- The newsletter heading now asks “Do you dream of netiquette?” in English and Italian.
+
+### Fixed
+- The newsletter stamp now preloads the responsive AVIF image and serves smaller AVIF/WebP crops by viewport density.
+- The newsletter stamp now spans the page width on phones, with a widescreen crop beneath the heading.
+
 ## [2.0.3] - 2026-11-22
 
 ### Changed
