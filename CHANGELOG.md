@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Restored the mobile menu on the newsletter signup page. Its header pairs the WD logo with the WEBDEPLOY wordmark and a Newsletter subtitle while keeping signup controls visible above the cookie banner on short phones.
+
 ## [2.0.5] - 2026-11-25
 
 ### Changed

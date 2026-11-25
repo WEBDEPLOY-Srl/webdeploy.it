@@ -174,6 +174,13 @@ test('the first phone view shows every signup control above the cookie banner', 
 		await page.goto('/newsletter');
 		await expect(banner(page)).toBeVisible();
 		const bannerBox = await banner(page).boundingBox();
+		const header = page.locator('.site-header');
+		await expect(header).toBeInViewport({ ratio: 1 });
+		expect((await header.boundingBox())?.y).toBe(0);
+		await expect(header.getByRole('link', { name: 'WEBDEPLOY', exact: true })).toBeInViewport({ ratio: 1 });
+		await expect(header.locator('.site-menu-toggle')).toBeInViewport({ ratio: 1 });
+		await expect(header.getByText(/^webdeploy$/i)).toBeVisible();
+		await expect(header.getByText(/^newsletter$/i)).toBeVisible();
 		const reservationBox = await page.locator('.consent-reservation').boundingBox();
 		const checkboxes = await page.locator('input[name="l"]').all();
 		const choiceBoxes = await Promise.all((await page.locator('.newsletter-choice').all()).map(label => label.boundingBox()));
@@ -551,6 +558,7 @@ test('newsletter is the only page with a form', async ({ page }) => {
 	]) {
 		await page.goto(path);
 		expect(await page.locator('form').count(), path).toBe(0);
+		await expect(page.locator('.site-header .newsletter-brand')).toHaveCount(0);
 	}
 });
 test('accepted POST announces success, moves focus, clears the form and tracks exactly once', async ({ page }) => {
