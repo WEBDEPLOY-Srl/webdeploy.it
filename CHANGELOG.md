@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.4] - 2026-11-25
+
 ### Changed
 - The newsletter heading now asks “Do you dream of netiquette?” in English and Italian.
 
