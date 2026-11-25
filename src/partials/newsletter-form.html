@@ -25,10 +25,7 @@
 					value="300c28fe-d91b-4965-b247-da6e6dafdb7a"
 					autocomplete="off"
 				/>
-				<span class="newsletter-choice__body">
-					<strong>{{newsletter.generalLabel}}</strong>
-					{{newsletter.generalText}}
-				</span>
+				<span class="newsletter-choice__body">{{newsletter.generalText}}</span>
 			</label>
 			<label class="newsletter-choice">
 				<input
@@ -37,10 +34,7 @@
 					value="71ca6320-90f7-4cd5-9e52-cb53ba5b84ba"
 					autocomplete="off"
 				/>
-				<span class="newsletter-choice__body">
-					<strong>{{newsletter.marketingLabel}}</strong>
-					{{newsletter.marketingText}}
-				</span>
+				<span class="newsletter-choice__body">{{newsletter.marketingText}}</span>
 			</label>
 		</div>
 		<p id="newsletter-list-error" class="form-error" role="alert"></p>
@@ -77,6 +71,8 @@
 			<summary>{{newsletter.afterSignup}}</summary>
 			<ul>
 				<li>{{newsletter.confirmationNote}}</li>
+				<li>{{newsletter.newsNote}} <a href="/news">{{newsletter.recentNews}}</a></li>
+				<li>{{newsletter.servicesNote}}</li>
 				<li>{{newsletter.withdrawalNote}}</li>
 				<li>{{newsletter.controllerNote}}</li>
 			</ul>

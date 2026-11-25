@@ -2,37 +2,31 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 .newsletter-page {
-	width: min(100%, 68rem);
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	display: grid;
+	gap: var(--space-4);
+	width: min(100%, 70rem);
 	margin-inline: auto;
-	padding: clamp(1.25rem, 4vw, 3.5rem) clamp(1rem, 4vw, 3rem) clamp(3rem, 7vw, 6rem);
+	padding: var(--space-4) var(--space-4) var(--space-8);
 }
 
 .newsletter-intro {
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) clamp(4.25rem, 20vw, 13rem);
-	align-items: center;
-	column-gap: clamp(0.75rem, 3vw, 3rem);
-	margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
-	padding-bottom: clamp(1rem, 2.5vw, 2rem);
-	border-bottom: 1px solid var(--color-border-muted);
+	grid-template-columns: minmax(0, 1fr);
+	align-content: start;
+	gap: var(--space-2);
 }
 
 .newsletter-intro h1 {
-	align-self: end;
 	color: var(--color-text-heading);
-	font: 400 clamp(2.25rem, 6vw, 5rem)/1 var(--font-display);
+	font: 400 clamp(2rem, 9vw, 3rem)/1 var(--font-display);
 	text-transform: uppercase;
 	white-space: pre-line;
-}
-
-.newsletter-intro__copy {
-	align-self: start;
-}
-
-.newsletter-lead {
-	margin-block: 0.4rem 0.65rem;
-	color: #cbd5e1;
-	font: 1.125rem/1.45 var(--font-reading);
 }
 
 .newsletter-page a {
@@ -46,75 +40,42 @@
 	color: white;
 }
 
-/* Perforations frame the site's workshop illustration like a postage stamp. */
+/* The paper and its outline share a 30-by-12 perforation grid at every size. */
 .newsletter-stamp {
-	--perforation: radial-gradient(circle, var(--color-background-dark) 32%, transparent 39%);
+	position: relative;
 	display: block;
-	grid-column: 2;
-	grid-row: 1 / span 2;
-	margin-inline-end: 0.25rem;
-	padding: clamp(0.375rem, 1vw, 0.75rem);
-	background:
-		var(--perforation) top -4px left / 8px 8px repeat-x,
-		var(--perforation) bottom -4px left / 8px 8px repeat-x,
-		var(--perforation) left -4px top / 8px 8px repeat-y,
-		var(--perforation) right -4px top / 8px 8px repeat-y,
-		#d7e4df;
-	transform: rotate(4deg);
+	width: 100%;
+	aspect-ratio: 5 / 2;
+	background: #d7e4df;
+	mask: url('/images/newsletter-paper.svg') center / 100% 100% no-repeat;
 }
 
 .newsletter-stamp img {
-	width: 100%;
-	aspect-ratio: 3 / 2;
+	position: absolute;
+	inset: 5% 2%;
+	display: block;
+	width: 96%;
+	height: 90%;
 	object-fit: cover;
 }
 
-@media (max-width: 639px) {
-	/* Give the full headline room even before the narrower display font loads. */
-	.newsletter-intro h1 {
-		grid-column: 1 / -1;
-		font-size: clamp(1.75rem, 8.1vw, 3rem);
-	}
-
-	.newsletter-stamp {
-		grid-column: 1 / -1;
-		grid-row: 2;
-		margin-inline-end: 0;
-		transform: rotate(1deg);
-	}
-
-	.newsletter-stamp img {
-		aspect-ratio: 16 / 9;
-	}
-
-	.newsletter-lead {
-		margin-block: 0.25rem 0.375rem;
-		font-size: 0.9375rem;
-		line-height: 1.2;
-	}
-
-	.newsletter-intro__copy {
-		grid-column: 1 / -1;
-	}
-}
-
-@media (max-width: 639px) and (max-height: 720px) {
+@media (min-width: 48rem) {
 	.newsletter-page {
-		padding-top: 0.5rem;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		align-items: start;
+		gap: var(--space-8);
+		padding: 4rem var(--space-8);
 	}
 
 	.newsletter-intro {
-		grid-template-columns: minmax(0, 1fr);
-		column-gap: 0;
-		margin-bottom: 0.5rem;
-		padding-bottom: 0.5rem;
+		gap: var(--space-6);
+	}
+
+	.newsletter-intro h1 {
+		font-size: clamp(3rem, 6vw, 5rem);
 	}
 
 	.newsletter-stamp {
-		padding: 0.25rem;
-	}
-
-	.newsletter-lead {
-		margin-block: 0.125rem;
+		transform: rotate(-1deg);
 	}
 }

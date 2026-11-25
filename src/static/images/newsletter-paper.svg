@@ -1,0 +1,12 @@
+<!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 288" preserveAspectRatio="none">
+  <mask id="paper">
+    <rect width="720" height="288" fill="white"/>
+    <!-- Each edge ends on a full pitch. Round punch centres meet at the corners. -->
+    <path d="M0 0H720V288H0Z" fill="none" stroke="black"
+          stroke-width="11" stroke-linecap="round" stroke-dasharray="0 24"/>
+    <circle r="5.5"/>
+  </mask>
+  <rect width="720" height="288" fill="white" mask="url(#paper)"/>
+</svg>

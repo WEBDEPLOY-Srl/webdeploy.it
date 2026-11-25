@@ -126,7 +126,7 @@ test('the stamp is a responsive, preloaded high-priority image', async ({ page }
 	const sources = page.locator('.newsletter-stamp source');
 	await expect(sources).toHaveCount(2);
 	const expectedSizes =
-		'(max-width: 639px) calc(100vw - 2.5rem), (min-width: 75rem) calc(13rem - 1.75rem), (min-width: 65rem) calc(13rem - 2vw - 0.25rem), calc(18vw - 0.25rem)';
+		'(min-width: 70rem) 30.72rem, (min-width: 48rem) calc(48vw - 2.88rem), calc(96vw - 1.92rem)';
 	for (const source of await sources.all()) {
 		await expect(source).toHaveAttribute('sizes', expectedSizes);
 		await expect(source).toHaveAttribute('srcset', /400w,.*592w,.*672w,.*800w,.*960w/);
@@ -144,13 +144,29 @@ test('the stamp is a responsive, preloaded high-priority image', async ({ page }
 			image.evaluate((element) => (element instanceof HTMLImageElement ? element.naturalWidth : 0))
 		)
 		.toBeGreaterThan(0);
+	const stamp = page.locator('.newsletter-stamp');
+	const paper = await stamp.boundingBox();
+	const art = await image.boundingBox();
+	assert.ok(paper && art);
+	expect(paper.width / paper.height).toBeCloseTo(2.5, 1);
+	expect(art.y).toBeGreaterThan(paper.y);
+	expect(art.y + art.height).toBeLessThan(paper.y + paper.height);
+	await page.setViewportSize({ width: 1280, height: 800 });
+	const desktopPaper = await stamp.boundingBox();
+	const form = await page.locator('.newsletter-form').boundingBox();
+	assert.ok(desktopPaper && form);
+	expect(desktopPaper.x + desktopPaper.width).toBeLessThan(form.x);
 });
-test('the newsletter is accessible and its form stays reachable on phone sizes', async ({
+test('the first phone view shows every signup control above the cookie banner', async ({
 	page
 }) => {
 	for (const viewport of [
 		{ width: 360, height: 640 },
+		{ width: 375, height: 620 },
+		{ width: 375, height: 667 },
 		{ width: 390, height: 844 },
+		{ width: 402, height: 700 },
+		{ width: 402, height: 874 },
 		{ width: 412, height: 915 }
 	]) {
 		await page.setViewportSize(viewport);
@@ -160,13 +176,10 @@ test('the newsletter is accessible and its form stays reachable on phone sizes',
 		const bannerBox = await banner(page).boundingBox();
 		const reservationBox = await page.locator('.consent-reservation').boundingBox();
 		const checkboxes = await page.locator('input[name="l"]').all();
-		const checkboxBoxes = await Promise.all(checkboxes.map((input) => input.boundingBox()));
+		const choiceBoxes = await Promise.all((await page.locator('.newsletter-choice').all()).map(label => label.boundingBox()));
 		const emailBox = await page.getByLabel('Email address').boundingBox();
 		const submitBox = await page.getByRole('button', { name: 'Subscribe' }).boundingBox();
-		const { scrollY, documentHeight } = await page.evaluate(() => ({
-			scrollY: window.scrollY,
-			documentHeight: document.documentElement.scrollHeight
-		}));
+		expect(await page.evaluate(() => window.scrollY)).toBe(0);
 		assert.ok(bannerBox);
 		expect(bannerBox.height).toBeLessThanOrEqual(112);
 		assert.ok(reservationBox);
@@ -178,19 +191,22 @@ test('the newsletter is accessible and its form stays reachable on phone sizes',
 		);
 		assert.ok(copyBox);
 		expect(copyBox.height).toBeLessThanOrEqual(copyLineHeight * 2);
-		expect(checkboxBoxes).toHaveLength(2);
+		expect(checkboxes).toHaveLength(2);
+		expect(choiceBoxes).toHaveLength(2);
 		for (const [name, box] of /** @type {const} */ ([
-			...checkboxBoxes.map((box, index) => /** @type {const} */ ([`checkbox ${index + 1}`, box])),
+			...choiceBoxes.map((box, index) => /** @type {const} */ ([`checkbox ${index + 1}`, box])),
 			['email', emailBox],
 			['submit', submitBox]
 		])) {
 			assert.ok(box);
 			expect(box.x).toBeGreaterThanOrEqual(0);
 			expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
-			expect(
-				box.y + scrollY + box.height,
-				`${name} must remain in the scrollable document`
-			).toBeLessThanOrEqual(documentHeight);
+			expect(box.y).toBeGreaterThanOrEqual(0);
+			expect(box.y + box.height, name).toBeLessThanOrEqual(bannerBox.y);
+			expect(await page.evaluate(({x,y}) => {
+				const target = document.elementFromPoint(x,y);
+				return !!target?.closest('.newsletter-choice, #newsletter-email, .newsletter-submit');
+			}, {x:box.x + box.width / 2, y:box.y + box.height / 2})).toBe(true);
 		}
 		const buttons = await banner(page).getByRole('button').all();
 		const buttonWidths = await Promise.all(
@@ -252,17 +268,20 @@ test('each card labels one independent checkbox and signup details open by keybo
 	await page.goto('/newsletter');
 	const copy = en.newsletter;
 	const group = page.getByRole('group', { name: copy.whatTitle });
-	const news = group.getByRole('checkbox', { name: copy.generalLabel + ' ' + copy.generalText, exact: true });
-	const services = group.getByRole('checkbox', { name: copy.marketingLabel + ' ' + copy.marketingText, exact: true });
+	const news = group.getByRole('checkbox', { name: copy.generalText, exact: true });
+	const services = group.getByRole('checkbox', { name: copy.marketingText, exact: true });
+	await expect(news).toHaveCSS('appearance', 'none');
 	await expect(news).not.toBeChecked();
 	await expect(services).not.toBeChecked();
-	await group.getByText(copy.generalLabel, { exact: true }).click();
+	await group.getByText(copy.generalText, { exact: true }).click();
 	await expect(news).toBeChecked();
 	await expect(services).not.toBeChecked();
 	await news.press('Tab');
 	await expect(services).toBeFocused();
+	await expect(services).toHaveCSS('outline-style', 'solid');
 	await services.press('Space');
 	await expect(services).toBeChecked();
+	expect(await services.evaluate(el => getComputedStyle(el, '::after').borderBottomColor)).toBe('rgb(0, 240, 255)');
 	await expect(news).toBeChecked();
 	await services.press('Tab');
 	await expect(page.getByLabel(copy.emailLabel)).toBeFocused();
@@ -273,10 +292,20 @@ test('each card labels one independent checkbox and signup details open by keybo
 	await expect(form.getByRole('link', { name: copy.privacyLink })).toHaveAttribute('href', '/privacy#newsletter');
 	const summary = form.locator('summary');
 	await summary.press('Enter');
-	for (const note of [copy.confirmationNote, copy.withdrawalNote, copy.controllerNote])
+	for (const note of [copy.confirmationNote, copy.servicesNote, copy.withdrawalNote, copy.controllerNote])
 		await expect(form.getByText(note, { exact: true })).toBeVisible();
+	await expect(form.getByText(copy.newsNote, { exact: false })).toBeVisible();
 	await summary.press('Space');
 	await expect(confirmation).toBeHidden();
+
+	await news.evaluate(input => { input.setAttribute('disabled', ''); });
+	await expect(news).toBeDisabled();
+	await expect(news).toHaveCSS('cursor', 'not-allowed');
+	await page.emulateMedia({ forcedColors: 'active' });
+	if (await page.evaluate(() => matchMedia('(forced-colors: active)').matches)) {
+		await expect(services).toHaveCSS('appearance', 'auto');
+		await expect(services).toBeChecked();
+	}
 });
 test('cookie banner hides on phone field focus and dismisses without moving the page', async ({
 	page

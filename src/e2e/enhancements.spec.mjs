@@ -318,7 +318,7 @@ test('a distant newsletter form waits for proximity, then mounts its real ready 
 	});
 	await page.route(/\/assets\/build\/[^/]+\/css\/page-[^/]+\.css$/, async (route) => {
 		const response = await route.fetch();
-		await route.fulfill({response, body:(await response.text()) + '\n.newsletter-intro { min-height: 300vh; }'});
+		await route.fulfill({response, body:(await response.text()) + '\n.newsletter-form { margin-block-start: 300vh; }'});
 	});
 	await page.goto('/newsletter');
 	const form = page.locator('.newsletter-form');
