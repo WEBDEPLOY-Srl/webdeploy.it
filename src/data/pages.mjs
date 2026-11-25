@@ -13,7 +13,7 @@ function stampSources(extension) {
 }
 
 const stampSizes =
-	'(max-width: 639px) and (max-height: 42rem) min(14.4rem, calc(96vw - 1.92rem)), (min-width: 83.333rem) 34.08rem, (min-width: 64rem) calc(45.12vw - 1.92rem), (min-width: 50rem) calc(45.12vw - 1.44rem), (min-width: 48rem) calc(48vw - 2.88rem), calc(96vw - 1.92rem)';
+	'(max-width: 639px) and (max-height: 44rem) min(15rem, calc(100vw - 2rem)), (min-width: 83.333rem) 31rem, (min-width: 64rem) calc(40vw - 1.5rem), (min-width: 48rem) calc(40vw - 1.5rem), calc(100vw - 2rem)';
 
 /** @param {keyof typeof cardMasterWidths} image @param {string} extension @returns {string} */
 function cardSources(image, extension) {

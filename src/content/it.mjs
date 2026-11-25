@@ -798,8 +798,6 @@ export const it = {
 		confirmedText:
 			'Il tuo indirizzo è confermato. Cerca un messaggio WEBDEPLOY da newsletter@inwd.org. Puoi lasciare una lista in qualsiasi momento tramite il link contenuto in un’email.',
 		confirmedNews: 'Leggi l’ultimo articolo',
-		endbandTitle: 'Notizie via email, alle tue condizioni.',
-		endbandText: 'Scegli cosa ricevere. Ogni lista è facoltativa.',
-		endbandLink: 'Scegli cosa ricevere'
+		formRegion: 'Iscrizione alla newsletter'
 	}
 };

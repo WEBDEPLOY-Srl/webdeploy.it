@@ -126,7 +126,7 @@ test('the stamp is a responsive, preloaded high-priority image', { tag: '@webkit
 	const sources = page.locator('.newsletter-stamp source');
 	await expect(sources).toHaveCount(2);
 	const expectedSizes =
-		'(max-width: 639px) and (max-height: 42rem) min(14.4rem, calc(96vw - 1.92rem)), (min-width: 83.333rem) 34.08rem, (min-width: 64rem) calc(45.12vw - 1.92rem), (min-width: 50rem) calc(45.12vw - 1.44rem), (min-width: 48rem) calc(48vw - 2.88rem), calc(96vw - 1.92rem)';
+		'(max-width: 639px) and (max-height: 44rem) min(15rem, calc(100vw - 2rem)), (min-width: 83.333rem) 31rem, (min-width: 64rem) calc(40vw - 1.5rem), (min-width: 48rem) calc(40vw - 1.5rem), calc(100vw - 2rem)';
 	for (const source of await sources.all()) {
 		await expect(source).toHaveAttribute('sizes', expectedSizes);
 		await expect(source).toHaveAttribute('srcset', /400w,.*592w,.*672w,.*800w,.*960w/);
@@ -152,16 +152,16 @@ test('the stamp is a responsive, preloaded high-priority image', { tag: '@webkit
 	expect(art.y).toBeGreaterThan(paper.y);
 	expect(art.y + art.height).toBeLessThan(paper.y + paper.height);
 	await page.setViewportSize({ width: 1280, height: 800 });
+	const desktopHeading = await page.locator('.newsletter-intro h1').boundingBox();
 	const desktopPaper = await stamp.boundingBox();
-	const form = await page.locator('.newsletter-form').boundingBox();
-	assert.ok(desktopPaper && form);
-	expect(desktopPaper.x + desktopPaper.width).toBeLessThan(form.x);
+	assert.ok(desktopHeading && desktopPaper);
+	expect(desktopHeading.x + desktopHeading.width).toBeLessThan(desktopPaper.x);
 	await expect
 		.poll(() => image.evaluate((element) => (element instanceof HTMLImageElement ? element.currentSrc : '')))
 		.toMatch(/neon-cafe-stamp-592\.[a-f0-9]{16}\.avif$/);
 });
 
-test('the newsletter uses the inner-page desktop scale and its endband returns to signup', async ({ page }) => {
+test('the newsletter gives its title room and uses the magenta band for signup', async ({ page }) => {
 	await page.setViewportSize({ width: 1440, height: 900 });
 	await page.goto('/newsletter');
 	const content = page.locator('.newsletter-page');
@@ -169,20 +169,22 @@ test('the newsletter uses the inner-page desktop scale and its endband returns t
 	const heading = page.locator('.newsletter-intro h1');
 	expect((await content.boundingBox())?.width).toBe(1280);
 	expect((await intro.boundingBox())?.x).toBe(112);
+	expect((await intro.boundingBox())?.width).toBe(1216);
 	expect(await heading.evaluate((element) => getComputedStyle(element).fontSize)).toBe('64px');
-	const cta = page.getByRole('link', { name: en.newsletter.endbandLink });
+	const band = page.locator('.newsletter-endband');
+	const form = band.locator('.newsletter-form');
+	await expect(form).toHaveCount(1);
+	await expect(page.locator('.newsletter-form')).toHaveCount(1);
+	await expect(band.locator('.contact-band__lead, .contact-band__action')).toHaveCount(0);
+	await expect(form.getByRole('group', { name: en.newsletter.whatTitle })).toBeVisible();
+	await expect(form.getByRole('link', { name: en.newsletter.privacyLink })).toHaveAttribute('href', '/privacy#newsletter');
+	const cta = form.getByRole('button', { name: en.newsletter.submit });
 	await cta.focus();
-	await page.keyboard.press('Shift+Tab');
-	await page.keyboard.press('Tab');
 	await expect(cta).toBeFocused();
 	expect(await cta.evaluate((element) => getComputedStyle(element).outlineColor)).toBe('rgb(255, 255, 255)');
-	await page.keyboard.press('Enter');
-	await expect(page).toHaveURL(/#newsletter-signup$/);
-	await expect(page.locator('.newsletter-form')).toBeInViewport();
+	expect(await cta.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(0, 0, 0)');
 	await page.emulateMedia({ forcedColors: 'active' });
 	await cta.focus();
-	await page.keyboard.press('Shift+Tab');
-	await page.keyboard.press('Tab');
 	await expect(cta).toBeFocused();
 	expect(await cta.evaluate(() => matchMedia('(forced-colors: active)').matches)).toBe(true);
 	expect(await cta.evaluate((element) => getComputedStyle(element).outlineColor)).not.toBe(
@@ -222,6 +224,20 @@ test('the first phone view shows every signup control above the cookie banner', 
 		const choiceBoxes = await Promise.all((await page.locator('.newsletter-choice').all()).map(label => label.boundingBox()));
 		const emailBox = await page.getByLabel('Email address').boundingBox();
 		const submitBox = await page.getByRole('button', { name: 'Subscribe' }).boundingBox();
+		assert.ok(emailBox && submitBox);
+		expect(emailBox.width).toBeGreaterThan(160);
+		expect(emailBox.width).toBeGreaterThan(submitBox.width);
+		expect(submitBox.height).toBeGreaterThanOrEqual(44);
+		const placeholderFits = await page.getByLabel('Email address').evaluate((element) => {
+			if (!(element instanceof HTMLInputElement)) return false;
+			const style = getComputedStyle(element);
+			const context = document.createElement('canvas').getContext('2d');
+			if (!context) return false;
+			context.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+			const padding = parseFloat(style.paddingInlineStart) + parseFloat(style.paddingInlineEnd);
+			return context.measureText(element.placeholder).width <= element.clientWidth - padding;
+		});
+		expect(placeholderFits).toBe(true);
 		expect(await page.evaluate(() => window.scrollY)).toBe(0);
 		assert.ok(bannerBox);
 		expect(bannerBox.height).toBeLessThanOrEqual(112);
