@@ -126,7 +126,7 @@ test('the stamp is a responsive, preloaded high-priority image', { tag: '@webkit
 	const sources = page.locator('.newsletter-stamp source');
 	await expect(sources).toHaveCount(2);
 	const expectedSizes =
-		'(max-width: 639px) and (max-height: 42rem) min(14.4rem, calc(96vw - 1.92rem)), (min-width: 70rem) 30.72rem, (min-width: 48rem) calc(48vw - 2.88rem), calc(96vw - 1.92rem)';
+		'(max-width: 639px) and (max-height: 42rem) min(14.4rem, calc(96vw - 1.92rem)), (min-width: 83.333rem) 34.08rem, (min-width: 64rem) calc(45.12vw - 1.92rem), (min-width: 50rem) calc(45.12vw - 1.44rem), (min-width: 48rem) calc(48vw - 2.88rem), calc(96vw - 1.92rem)';
 	for (const source of await sources.all()) {
 		await expect(source).toHaveAttribute('sizes', expectedSizes);
 		await expect(source).toHaveAttribute('srcset', /400w,.*592w,.*672w,.*800w,.*960w/);
@@ -156,7 +156,40 @@ test('the stamp is a responsive, preloaded high-priority image', { tag: '@webkit
 	const form = await page.locator('.newsletter-form').boundingBox();
 	assert.ok(desktopPaper && form);
 	expect(desktopPaper.x + desktopPaper.width).toBeLessThan(form.x);
+	await expect
+		.poll(() => image.evaluate((element) => (element instanceof HTMLImageElement ? element.currentSrc : '')))
+		.toMatch(/neon-cafe-stamp-592\.[a-f0-9]{16}\.avif$/);
 });
+
+test('the newsletter uses the inner-page desktop scale and its endband returns to signup', async ({ page }) => {
+	await page.setViewportSize({ width: 1440, height: 900 });
+	await page.goto('/newsletter');
+	const content = page.locator('.newsletter-page');
+	const intro = page.locator('.newsletter-intro');
+	const heading = page.locator('.newsletter-intro h1');
+	expect((await content.boundingBox())?.width).toBe(1280);
+	expect((await intro.boundingBox())?.x).toBe(112);
+	expect(await heading.evaluate((element) => getComputedStyle(element).fontSize)).toBe('64px');
+	const cta = page.getByRole('link', { name: en.newsletter.endbandLink });
+	await cta.focus();
+	await page.keyboard.press('Shift+Tab');
+	await page.keyboard.press('Tab');
+	await expect(cta).toBeFocused();
+	expect(await cta.evaluate((element) => getComputedStyle(element).outlineColor)).toBe('rgb(255, 255, 255)');
+	await page.keyboard.press('Enter');
+	await expect(page).toHaveURL(/#newsletter-signup$/);
+	await expect(page.locator('.newsletter-form')).toBeInViewport();
+	await page.emulateMedia({ forcedColors: 'active' });
+	await cta.focus();
+	await page.keyboard.press('Shift+Tab');
+	await page.keyboard.press('Tab');
+	await expect(cta).toBeFocused();
+	expect(await cta.evaluate(() => matchMedia('(forced-colors: active)').matches)).toBe(true);
+	expect(await cta.evaluate((element) => getComputedStyle(element).outlineColor)).not.toBe(
+		'rgb(0, 240, 255)'
+	);
+});
+
 test('the first phone view shows every signup control above the cookie banner', { tag: '@webkit' }, async ({
 	page
 }) => {
