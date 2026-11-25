@@ -759,7 +759,7 @@ export const en = {
 	// Newsletter signup
 	newsletter: {
 		title: 'WEBDEPLOY newsletter',
-		metaDescription: 'Choose which WEBDEPLOY news and service updates you want by email.',
+		metaDescription: 'Choose whether to receive news, notices or offers about WEBDEPLOY services by email.',
 		heading: 'Do you dream of\nnetiquette?',
 		whatTitle: 'Choose one or both lists',
 		generalText: 'Email me WEBDEPLOY news and notices',

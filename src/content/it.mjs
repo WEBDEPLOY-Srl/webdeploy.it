@@ -764,7 +764,7 @@ export const it = {
 	newsletter: {
 		title: 'Newsletter WEBDEPLOY',
 		metaDescription:
-			'Scegli quali notizie e aggiornamenti sui servizi WEBDEPLOY ricevere via email.',
+			'Scegli se ricevere via email notizie, avvisi o offerte sui servizi WEBDEPLOY.',
 		heading: 'Sogni la\nnetiquette?',
 		whatTitle: 'Scegli una o entrambe le liste',
 		generalText: 'Desidero ricevere via email notizie e avvisi di WEBDEPLOY',

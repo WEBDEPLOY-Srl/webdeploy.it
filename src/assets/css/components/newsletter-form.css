@@ -225,6 +225,13 @@
 	margin-top: 0.5rem;
 }
 
+@media (max-width: 23.4375rem) {
+	/* Reserve the two-line label while Space Mono replaces the fallback font. */
+	.newsletter-choice__body {
+		min-height: calc(2lh + var(--space-4) + 2px);
+	}
+}
+
 @media (max-width: 20rem) {
 	.newsletter-delivery {
 		grid-template-columns: minmax(0, 1fr);
