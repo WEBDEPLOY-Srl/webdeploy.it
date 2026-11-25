@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.6] - 2026-11-25
+
+### Changed
+- The newsletter signup header pairs the WD logo with the WEBDEPLOY wordmark and a Newsletter subtitle.
+- The newsletter page gives its title more desktop width and places the existing signup form in the shared magenta contact band.
+- The newsletter stamp preload follows the wider title and image layout while preserving compact phone sizing.
+
+### Fixed
+- Restored the site header on phones on `/newsletter`.
+- The Subscribe button uses the shared contact-band CTA style with a visible focus ring on magenta.
+
 ## [2.0.5] - 2026-11-25
 
 ### Changed

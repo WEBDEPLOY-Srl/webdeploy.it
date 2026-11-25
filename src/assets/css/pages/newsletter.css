@@ -1,43 +1,114 @@
 /* SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L.
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-.newsletter-page {
+.newsletter-brand {
+	display: grid;
+	color: var(--color-primary);
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+.newsletter-brand__name {
+	font: 400 2.25rem/0.9 var(--font-display);
+	/* A subpixel blur keeps this offset shadow measurable by contrast tools. */
+	text-shadow: 0.028em 0.028em 0.125px var(--color-secondary);
+}
+
+.newsletter-brand__subtitle {
+	font: 700 0.6875rem/1.2 var(--font-mono);
+	letter-spacing: 0.25em;
+}
+
+.newsletter-landing {
 	--space-1: 0.25rem;
 	--space-2: 0.5rem;
 	--space-3: 0.75rem;
 	--space-4: 1rem;
 	--space-6: 1.5rem;
 	--space-8: 2rem;
-	display: grid;
-	gap: var(--space-4);
-	width: min(100%, 70rem);
+}
+
+.newsletter-page {
+	display: block;
+	width: min(100%, 80rem);
 	margin-inline: auto;
-	padding: var(--space-4) var(--space-4) var(--space-8);
+	padding: var(--space-4);
 }
 
-.newsletter-intro {
-	display: grid;
-	grid-template-columns: minmax(0, 1fr);
-	align-content: start;
-	gap: var(--space-2);
+.newsletter-endband {
+	padding-block: clamp(1.25rem, 4vw, 3rem);
 }
 
-.newsletter-intro h1 {
-	color: var(--color-text-heading);
-	font: 400 clamp(2rem, 9vw, 3rem)/1 var(--font-display);
-	text-transform: uppercase;
-	white-space: pre-line;
+.newsletter-form {
+	scroll-margin-block-start: 5rem;
 }
 
-.newsletter-page a {
+.newsletter-endband .newsletter-form {
+	width: min(100%, 50rem);
+	margin-inline: auto;
+	padding: clamp(0.75rem, 3vw, 1.5rem);
+	border: 1px solid var(--color-primary);
+	background: var(--color-surface-dark);
+	text-align: left;
+}
+
+.newsletter-endband .newsletter-form a {
 	color: var(--color-primary);
 	font: 0.875rem/1.5 var(--font-mono);
 	text-decoration: underline;
 	text-underline-offset: 0.22em;
 }
 
-.newsletter-page a:hover {
+.newsletter-endband .newsletter-form a:hover {
 	color: white;
+}
+
+.newsletter-endband .newsletter-submit {
+	min-height: 2.75rem;
+	padding: 1rem 2.5rem;
+	border: 2px solid #000;
+	color: white;
+	background: #000;
+	box-shadow: 8px 8px 0 rgba(255, 255, 255, 0.5);
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+
+.newsletter-endband .newsletter-submit:hover:enabled {
+	color: #000;
+	background: white;
+}
+
+.newsletter-endband .newsletter-submit:focus-visible {
+	outline-color: white;
+	box-shadow: none;
+}
+
+@media (max-width: 639px) {
+	.newsletter-endband .newsletter-submit {
+		padding: 0.875rem 0.125rem;
+		letter-spacing: 0.025em;
+	}
+}
+
+@media (forced-colors: active) {
+	.newsletter-endband .newsletter-submit:focus-visible {
+		outline-color: Highlight;
+	}
+}
+
+.newsletter-intro {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	align-content: start;
+	gap: var(--space-3);
+}
+
+.newsletter-intro h1 {
+	color: var(--color-text-heading);
+	font: 400 clamp(1.75rem, 8vw, 2rem)/0.95 var(--font-display);
+	text-transform: uppercase;
+	white-space: pre-line;
 }
 
 /* The paper and its outline share a 30-by-12 perforation grid at every size. */
@@ -60,20 +131,54 @@
 	object-fit: cover;
 }
 
-@media (min-width: 48rem) {
+@media (max-width: 639px) {
+	.newsletter-landing .site-header__inner {
+		height: 3.5rem;
+	}
+}
+
+@media (max-width: 639px) and (max-height: 44rem) {
 	.newsletter-page {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		align-items: start;
-		gap: var(--space-8);
-		padding: 4rem var(--space-8);
+		padding-block-start: var(--space-2);
+		padding-block-end: var(--space-2);
 	}
 
 	.newsletter-intro {
-		gap: var(--space-6);
+		gap: var(--space-2);
+	}
+
+	.newsletter-endband {
+		padding-block: var(--space-2);
+	}
+
+	.newsletter-endband .newsletter-form {
+		padding: var(--space-2);
+	}
+
+	.newsletter-stamp {
+		inline-size: min(100%, 15rem);
+		justify-self: center;
 	}
 
 	.newsletter-intro h1 {
-		font-size: clamp(3rem, 6vw, 5rem);
+		font-size: clamp(1.75rem, 8vw, 2rem);
+	}
+}
+
+@media (min-width: 48rem) {
+	.newsletter-page {
+		padding: clamp(2rem, 5vw, 4rem) 2rem;
+	}
+
+	.newsletter-intro {
+		grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+		align-items: center;
+		gap: clamp(1.5rem, 4vw, 4rem);
+	}
+
+	.newsletter-intro h1 {
+		font-size: clamp(3rem, 5vw, 4rem);
+		line-height: 1.05;
 	}
 
 	.newsletter-stamp {
