@@ -126,7 +126,7 @@ test('the stamp is a responsive, preloaded high-priority image', { tag: '@webkit
 	const sources = page.locator('.newsletter-stamp source');
 	await expect(sources).toHaveCount(2);
 	const expectedSizes =
-		'(min-width: 70rem) 30.72rem, (min-width: 48rem) calc(48vw - 2.88rem), calc(96vw - 1.92rem)';
+		'(max-width: 639px) and (max-height: 44rem) min(15rem, calc(100vw - 2rem)), (min-width: 83.333rem) 31rem, (min-width: 64rem) calc(40vw - 1.5rem), (min-width: 48rem) calc(40vw - 1.5rem), calc(100vw - 2rem)';
 	for (const source of await sources.all()) {
 		await expect(source).toHaveAttribute('sizes', expectedSizes);
 		await expect(source).toHaveAttribute('srcset', /400w,.*592w,.*672w,.*800w,.*960w/);
@@ -152,11 +152,46 @@ test('the stamp is a responsive, preloaded high-priority image', { tag: '@webkit
 	expect(art.y).toBeGreaterThan(paper.y);
 	expect(art.y + art.height).toBeLessThan(paper.y + paper.height);
 	await page.setViewportSize({ width: 1280, height: 800 });
+	const desktopHeading = await page.locator('.newsletter-intro h1').boundingBox();
 	const desktopPaper = await stamp.boundingBox();
-	const form = await page.locator('.newsletter-form').boundingBox();
-	assert.ok(desktopPaper && form);
-	expect(desktopPaper.x + desktopPaper.width).toBeLessThan(form.x);
+	assert.ok(desktopHeading && desktopPaper);
+	expect(desktopHeading.x + desktopHeading.width).toBeLessThan(desktopPaper.x);
+	await expect
+		.poll(() => image.evaluate((element) => (element instanceof HTMLImageElement ? element.currentSrc : '')))
+		.toMatch(/neon-cafe-stamp-592\.[a-f0-9]{16}\.avif$/);
 });
+
+test('the newsletter gives its title room and uses the magenta band for signup', async ({ page }) => {
+	await page.setViewportSize({ width: 1440, height: 900 });
+	await page.goto('/newsletter');
+	const content = page.locator('.newsletter-page');
+	const intro = page.locator('.newsletter-intro');
+	const heading = page.locator('.newsletter-intro h1');
+	expect((await content.boundingBox())?.width).toBe(1280);
+	expect((await intro.boundingBox())?.x).toBe(112);
+	expect((await intro.boundingBox())?.width).toBe(1216);
+	expect(await heading.evaluate((element) => getComputedStyle(element).fontSize)).toBe('64px');
+	const band = page.locator('.newsletter-endband');
+	const form = band.locator('.newsletter-form');
+	await expect(form).toHaveCount(1);
+	await expect(page.locator('.newsletter-form')).toHaveCount(1);
+	await expect(band.locator('.contact-band__lead, .contact-band__action')).toHaveCount(0);
+	await expect(form.getByRole('group', { name: en.newsletter.whatTitle })).toBeVisible();
+	await expect(form.getByRole('link', { name: en.newsletter.privacyLink })).toHaveAttribute('href', '/privacy#newsletter');
+	const cta = form.getByRole('button', { name: en.newsletter.submit });
+	await cta.focus();
+	await expect(cta).toBeFocused();
+	expect(await cta.evaluate((element) => getComputedStyle(element).outlineColor)).toBe('rgb(255, 255, 255)');
+	expect(await cta.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(0, 0, 0)');
+	await page.emulateMedia({ forcedColors: 'active' });
+	await cta.focus();
+	await expect(cta).toBeFocused();
+	expect(await cta.evaluate(() => matchMedia('(forced-colors: active)').matches)).toBe(true);
+	expect(await cta.evaluate((element) => getComputedStyle(element).outlineColor)).not.toBe(
+		'rgb(0, 240, 255)'
+	);
+});
+
 test('the first phone view shows every signup control above the cookie banner', { tag: '@webkit' }, async ({
 	page
 }) => {
@@ -174,11 +209,35 @@ test('the first phone view shows every signup control above the cookie banner', 
 		await page.goto('/newsletter');
 		await expect(banner(page)).toBeVisible();
 		const bannerBox = await banner(page).boundingBox();
+		const paper = await page.locator('.newsletter-stamp').boundingBox();
+		assert.ok(paper);
+		expect(paper.width / paper.height).toBeCloseTo(2.5, 1);
+		const header = page.locator('.site-header');
+		await expect(header).toBeInViewport({ ratio: 1 });
+		expect((await header.boundingBox())?.y).toBe(0);
+		await expect(header.getByRole('link', { name: 'WEBDEPLOY', exact: true })).toBeInViewport({ ratio: 1 });
+		await expect(header.locator('.site-menu-toggle')).toBeInViewport({ ratio: 1 });
+		await expect(header.getByText(/^webdeploy$/i)).toBeVisible();
+		await expect(header.getByText(/^newsletter$/i)).toBeVisible();
 		const reservationBox = await page.locator('.consent-reservation').boundingBox();
 		const checkboxes = await page.locator('input[name="l"]').all();
 		const choiceBoxes = await Promise.all((await page.locator('.newsletter-choice').all()).map(label => label.boundingBox()));
 		const emailBox = await page.getByLabel('Email address').boundingBox();
 		const submitBox = await page.getByRole('button', { name: 'Subscribe' }).boundingBox();
+		assert.ok(emailBox && submitBox);
+		expect(emailBox.width).toBeGreaterThan(160);
+		expect(emailBox.width).toBeGreaterThan(submitBox.width);
+		expect(submitBox.height).toBeGreaterThanOrEqual(44);
+		const placeholderFits = await page.getByLabel('Email address').evaluate((element) => {
+			if (!(element instanceof HTMLInputElement)) return false;
+			const style = getComputedStyle(element);
+			const context = document.createElement('canvas').getContext('2d');
+			if (!context) return false;
+			context.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+			const padding = parseFloat(style.paddingInlineStart) + parseFloat(style.paddingInlineEnd);
+			return context.measureText(element.placeholder).width <= element.clientWidth - padding;
+		});
+		expect(placeholderFits).toBe(true);
 		expect(await page.evaluate(() => window.scrollY)).toBe(0);
 		assert.ok(bannerBox);
 		expect(bannerBox.height).toBeLessThanOrEqual(112);
@@ -230,6 +289,30 @@ test('the first phone view shows every signup control above the cookie banner', 
 		);
 	}
 });
+test('the phone menu keeps its last link above the consent banner and restores focus', { tag: '@webkit' }, async ({ page }) => {
+	await page.setViewportSize({ width: 360, height: 640 });
+	await page.goto('/newsletter');
+	await expect(banner(page)).toBeVisible();
+	const toggle = page.locator('.site-menu-toggle');
+	await toggle.click();
+	await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+	const menu = page.locator('#mobile-menu');
+	await expect(menu).toBeVisible();
+	await menu.getByRole('button', { name: 'Services' }).click();
+	const last = menu.getByRole('link').last();
+	await last.focus();
+	await expect(last).toBeFocused();
+	await last.click({ trial: true });
+	const linkBox = await last.boundingBox();
+	const bannerBox = await banner(page).boundingBox();
+	assert.ok(linkBox && bannerBox);
+	expect(linkBox.y + linkBox.height).toBeLessThanOrEqual(bannerBox.y);
+	await last.press('Escape');
+	await expect(menu).toBeHidden();
+	await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+	await expect(toggle).toBeFocused();
+});
+
 for (const { width, height } of [{ width: 360, height: 640 }, { width: 375, height: 620 }]) {
 	test(`Subscribe stays above the banner at ${width}x${height} while web fonts load`, { tag: '@webkit' }, async ({ page }) => {
 		await page.setViewportSize({ width, height });
@@ -551,6 +634,7 @@ test('newsletter is the only page with a form', async ({ page }) => {
 	]) {
 		await page.goto(path);
 		expect(await page.locator('form').count(), path).toBe(0);
+		await expect(page.locator('.site-header .newsletter-brand')).toHaveCount(0);
 	}
 });
 test('accepted POST announces success, moves focus, clears the form and tracks exactly once', async ({ page }) => {

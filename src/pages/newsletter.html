@@ -2,7 +2,7 @@
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
 <div class="newsletter-page">
 	<div class="newsletter-intro">
-		<h1>{{newsletter.heading}}</h1>
+		<h1 id="newsletter-page-heading">{{newsletter.heading}}</h1>
 		<picture class="newsletter-stamp">
 			<source type="image/avif" srcset="{{@prioritySources}}" sizes="{{@prioritySizes}}" />
 			<source
@@ -21,5 +21,11 @@
 			/>
 		</picture>
 	</div>
-	{{>newsletter-form}}
 </div>
+<section class="contact-band newsletter-endband" aria-label="{{newsletter.formRegion}}">
+	<div class="contact-band__top"></div>
+	<div class="contact-band__bottom"></div>
+	<div class="contact-band__inner">
+		{{>newsletter-form}}
+	</div>
+</section>

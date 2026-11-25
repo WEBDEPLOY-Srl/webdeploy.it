@@ -225,6 +225,9 @@ export async function emitPage(page, site, copy, assets, partials, source, stage
 		head: (shell.includes('{{@styles}}') ? '' : styles + '\n') + head(page, site, copy, assets),
 		styles,
 		portraitImage,
+		newsletterBrand: page.path === '/newsletter'
+			? render('{{>newsletter-brand}}', copy, partials, {})
+			: '',
 		imagePreload: preloadImage(page.priorityImage ?? leadCard),
 		prioritySources: escapeHtml(page.priorityImage?.srcset ?? ''),
 		prioritySizes: escapeHtml(page.priorityImage?.sizes ?? ''),

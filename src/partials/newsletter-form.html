@@ -1,6 +1,7 @@
 <!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
 <form
+	id="newsletter-signup"
 	data-required="{{newsletter.requiredError}}"
 	data-setup-error="{{newsletter.setupError}}"
 	data-verification-error="{{newsletter.verificationError}}"
@@ -52,7 +53,7 @@
 				required=""
 			/>
 		</div>
-		<button class="newsletter-submit" type="submit" disabled>{{newsletter.submit}}</button>
+		<button class="btn-cta-primary newsletter-submit" type="submit" disabled>{{newsletter.submit}}</button>
 	</div>
 	<input type="hidden" name="nonce" value="" />
 	<template data-spam-widget>
