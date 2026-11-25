@@ -70,7 +70,7 @@
 	transform: translateY(-1px) rotate(45deg);
 }
 
-.newsletter-choice:hover input:enabled + span {
+.newsletter-choice:hover input:enabled:not(:checked) + span {
 	border-color: var(--color-text-body);
 }
 

@@ -115,7 +115,7 @@ test('solves a real ALTCHA v1 challenge with the local SHA worker', async ({
 	);
 	expect(cspViolations).toEqual([]);
 });
-test('the stamp is a responsive, preloaded high-priority image', async ({ page }) => {
+test('the stamp is a responsive, preloaded high-priority image', { tag: '@webkit' }, async ({ page }) => {
 	await page.setViewportSize({ width: 402, height: 874 });
 	await page.goto('/newsletter');
 	const image = page.locator('.newsletter-stamp img');
@@ -157,7 +157,7 @@ test('the stamp is a responsive, preloaded high-priority image', async ({ page }
 	assert.ok(desktopPaper && form);
 	expect(desktopPaper.x + desktopPaper.width).toBeLessThan(form.x);
 });
-test('the first phone view shows every signup control above the cookie banner', async ({
+test('the first phone view shows every signup control above the cookie banner', { tag: '@webkit' }, async ({
 	page
 }) => {
 	for (const viewport of [
@@ -230,7 +230,7 @@ test('the first phone view shows every signup control above the cookie banner', 
 		);
 	}
 });
-test('the shortest phone keeps Subscribe reachable without a layout jump while web fonts load', async ({ page }) => {
+test('the shortest phone keeps Subscribe reachable without a layout jump while web fonts load', { tag: '@webkit' }, async ({ page }) => {
 	await page.setViewportSize({ width: 360, height: 640 });
 	let releaseFonts = () => {};
 	/** @type {Promise<void>} */
@@ -264,7 +264,7 @@ test('the shortest phone keeps Subscribe reachable without a layout jump while w
 	expect(reachable.y).toBeGreaterThanOrEqual(0);
 	expect(reachable.y + reachable.height).toBeLessThanOrEqual(640);
 });
-test('each card labels one independent checkbox and signup details open by keyboard', async ({ page }) => {
+test('each card labels one independent checkbox and signup details open by keyboard', { tag: '@webkit' }, async ({ page }) => {
 	await page.goto('/newsletter');
 	const copy = en.newsletter;
 	const group = page.getByRole('group', { name: copy.whatTitle });
@@ -275,6 +275,9 @@ test('each card labels one independent checkbox and signup details open by keybo
 	await expect(services).not.toBeChecked();
 	await group.getByText(copy.generalText, { exact: true }).click();
 	await expect(news).toBeChecked();
+	const newsLabel = group.getByText(copy.generalText, { exact: true });
+	await newsLabel.hover();
+	await expect(newsLabel).toHaveCSS('border-top-color', 'rgb(0, 240, 255)');
 	await expect(services).not.toBeChecked();
 	await news.press('Tab');
 	await expect(services).toBeFocused();
@@ -301,11 +304,18 @@ test('each card labels one independent checkbox and signup details open by keybo
 	await news.evaluate(input => { input.setAttribute('disabled', ''); });
 	await expect(news).toBeDisabled();
 	await expect(news).toHaveCSS('cursor', 'not-allowed');
+});
+test('forced colors restore native checkboxes', { tag: '@webkit' }, async ({ page }) => {
 	await page.emulateMedia({ forcedColors: 'active' });
-	if (await page.evaluate(() => matchMedia('(forced-colors: active)').matches)) {
-		await expect(services).toHaveCSS('appearance', 'auto');
-		await expect(services).toBeChecked();
-	}
+	test.skip(
+		!await page.evaluate(() => matchMedia('(forced-colors: active)').matches),
+		'This browser does not emulate forced colors.'
+	);
+	await page.goto('/newsletter');
+	const services = page.getByRole('checkbox', { name: en.newsletter.marketingText });
+	await expect(services).toHaveCSS('appearance', 'auto');
+	await services.check();
+	await expect(services).toBeChecked();
 });
 test('cookie banner hides on phone field focus and dismisses without moving the page', async ({
 	page

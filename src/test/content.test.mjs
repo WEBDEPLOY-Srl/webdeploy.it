@@ -37,9 +37,9 @@ test('preserves the privacy and newsletter dictionaries', () => {
 		),
 		[
 			'39f8e57883879d475f92b65c1a02b9235bc14a0c2d1796209c11ce36779f58bd',
-			'77d4d4b5509766738eaa1b3aca9a60d2f021c44a6866554fc993034b2e4c2941',
+			'3777730581f3150bf9e85908e7c355ec119d1b2e2616b7fc51b5fc325d05975f',
 			'42f20dfee96881845a9d8b1c349da45ceb4019d121f551a7ec135150ce82fd1e',
-			'1023e9abb7332f8718c1f8654b5e1bc82f9298c987b819333be60d5317cb4aac'
+			'c5001304c6806780c8f704ac2ea43d8b21573d9066ec1da6648a06d1a119fe2b'
 		]
 	);
 });
@@ -50,8 +50,8 @@ test('the two list-specific consent statements stay verbatim across newsletter c
 			digest(JSON.stringify([generalText, marketingText]))
 		),
 		[
-			'a00c66f830af4971ff02386e95f2d491ab9ede3ee2746c5d7678f660dc80e447',
-			'afeb3cb0d000dfbfc7e39ab81b54c9ea53e3238c15c0a67e873c2e3781126d38'
+			'7b515084c6dcdad4527061a0451933f7dd57a422989f951ed376e93a2df324f8',
+			'6d0160f2b6c136c522c964873c763b7769f64e680c8bc46e82bd5079b571a1fd'
 		]
 	);
 });

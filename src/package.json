@@ -20,6 +20,7 @@
 		"check": "npm run lint && npm run typecheck",
 		"test:unit": "node --test --test-isolation=none test/*.test.mjs",
 		"test:e2e": "playwright test -c playwright.config.mjs",
+		"test:e2e:webkit": "playwright test -c playwright.newsletter-webkit.config.mjs",
 		"test:parity": "playwright test -c parity/playwright.config.mjs"
 	},
 	"devDependencies": {

@@ -9,7 +9,7 @@ export default defineConfig({
 	projects: [{
 		name: 'newsletter-webkit',
 		testMatch: '**/newsletter.spec.mjs',
-		grep: /first phone view|shortest phone|each card labels|stamp is a responsive/,
+		grep: /@webkit/,
 		use: devices['Desktop Safari']
 	}]
 });

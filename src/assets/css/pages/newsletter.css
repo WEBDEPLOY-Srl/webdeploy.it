@@ -47,6 +47,7 @@
 	width: 100%;
 	aspect-ratio: 5 / 2;
 	background: #d7e4df;
+	-webkit-mask: url('/images/newsletter-paper.svg') center / 100% 100% no-repeat;
 	mask: url('/images/newsletter-paper.svg') center / 100% 100% no-repeat;
 }
 
