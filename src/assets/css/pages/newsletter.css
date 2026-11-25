@@ -10,7 +10,8 @@
 
 .newsletter-brand__name {
 	font: 400 2.25rem/0.9 var(--font-display);
-	filter: drop-shadow(0.028em 0.028em var(--color-secondary));
+	/* A subpixel blur keeps this offset shadow measurable by contrast tools. */
+	text-shadow: 0.028em 0.028em 0.125px var(--color-secondary);
 }
 
 .newsletter-brand__subtitle {
@@ -90,7 +91,8 @@
 	}
 
 	.newsletter-stamp {
-		max-height: 6rem;
+		inline-size: min(100%, 15rem);
+		justify-self: center;
 	}
 }
 

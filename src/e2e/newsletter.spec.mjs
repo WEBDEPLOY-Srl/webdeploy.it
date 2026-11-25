@@ -126,7 +126,7 @@ test('the stamp is a responsive, preloaded high-priority image', { tag: '@webkit
 	const sources = page.locator('.newsletter-stamp source');
 	await expect(sources).toHaveCount(2);
 	const expectedSizes =
-		'(min-width: 70rem) 30.72rem, (min-width: 48rem) calc(48vw - 2.88rem), calc(96vw - 1.92rem)';
+		'(max-width: 639px) and (max-height: 42rem) min(14.4rem, calc(96vw - 1.92rem)), (min-width: 70rem) 30.72rem, (min-width: 48rem) calc(48vw - 2.88rem), calc(96vw - 1.92rem)';
 	for (const source of await sources.all()) {
 		await expect(source).toHaveAttribute('sizes', expectedSizes);
 		await expect(source).toHaveAttribute('srcset', /400w,.*592w,.*672w,.*800w,.*960w/);
@@ -174,6 +174,9 @@ test('the first phone view shows every signup control above the cookie banner', 
 		await page.goto('/newsletter');
 		await expect(banner(page)).toBeVisible();
 		const bannerBox = await banner(page).boundingBox();
+		const paper = await page.locator('.newsletter-stamp').boundingBox();
+		assert.ok(paper);
+		expect(paper.width / paper.height).toBeCloseTo(2.5, 1);
 		const header = page.locator('.site-header');
 		await expect(header).toBeInViewport({ ratio: 1 });
 		expect((await header.boundingBox())?.y).toBe(0);
@@ -237,6 +240,30 @@ test('the first phone view shows every signup control above the cookie banner', 
 		);
 	}
 });
+test('the phone menu keeps its last link above the consent banner and restores focus', { tag: '@webkit' }, async ({ page }) => {
+	await page.setViewportSize({ width: 360, height: 640 });
+	await page.goto('/newsletter');
+	await expect(banner(page)).toBeVisible();
+	const toggle = page.locator('.site-menu-toggle');
+	await toggle.click();
+	await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+	const menu = page.locator('#mobile-menu');
+	await expect(menu).toBeVisible();
+	await menu.getByRole('button', { name: 'Services' }).click();
+	const last = menu.getByRole('link').last();
+	await last.focus();
+	await expect(last).toBeFocused();
+	await last.click({ trial: true });
+	const linkBox = await last.boundingBox();
+	const bannerBox = await banner(page).boundingBox();
+	assert.ok(linkBox && bannerBox);
+	expect(linkBox.y + linkBox.height).toBeLessThanOrEqual(bannerBox.y);
+	await last.press('Escape');
+	await expect(menu).toBeHidden();
+	await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+	await expect(toggle).toBeFocused();
+});
+
 for (const { width, height } of [{ width: 360, height: 640 }, { width: 375, height: 620 }]) {
 	test(`Subscribe stays above the banner at ${width}x${height} while web fonts load`, { tag: '@webkit' }, async ({ page }) => {
 		await page.setViewportSize({ width, height });
