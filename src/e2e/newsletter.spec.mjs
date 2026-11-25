@@ -115,7 +115,7 @@ test('solves a real ALTCHA v1 challenge with the local SHA worker', async ({
 	);
 	expect(cspViolations).toEqual([]);
 });
-test('the stamp is a responsive, preloaded high-priority image', async ({ page }) => {
+test('the stamp is a responsive, preloaded high-priority image', { tag: '@webkit' }, async ({ page }) => {
 	await page.setViewportSize({ width: 402, height: 874 });
 	await page.goto('/newsletter');
 	const image = page.locator('.newsletter-stamp img');
@@ -126,7 +126,7 @@ test('the stamp is a responsive, preloaded high-priority image', async ({ page }
 	const sources = page.locator('.newsletter-stamp source');
 	await expect(sources).toHaveCount(2);
 	const expectedSizes =
-		'(max-width: 639px) calc(100vw - 2.5rem), (min-width: 75rem) calc(13rem - 1.75rem), (min-width: 65rem) calc(13rem - 2vw - 0.25rem), calc(18vw - 0.25rem)';
+		'(min-width: 70rem) 30.72rem, (min-width: 48rem) calc(48vw - 2.88rem), calc(96vw - 1.92rem)';
 	for (const source of await sources.all()) {
 		await expect(source).toHaveAttribute('sizes', expectedSizes);
 		await expect(source).toHaveAttribute('srcset', /400w,.*592w,.*672w,.*800w,.*960w/);
@@ -144,13 +144,29 @@ test('the stamp is a responsive, preloaded high-priority image', async ({ page }
 			image.evaluate((element) => (element instanceof HTMLImageElement ? element.naturalWidth : 0))
 		)
 		.toBeGreaterThan(0);
+	const stamp = page.locator('.newsletter-stamp');
+	const paper = await stamp.boundingBox();
+	const art = await image.boundingBox();
+	assert.ok(paper && art);
+	expect(paper.width / paper.height).toBeCloseTo(2.5, 1);
+	expect(art.y).toBeGreaterThan(paper.y);
+	expect(art.y + art.height).toBeLessThan(paper.y + paper.height);
+	await page.setViewportSize({ width: 1280, height: 800 });
+	const desktopPaper = await stamp.boundingBox();
+	const form = await page.locator('.newsletter-form').boundingBox();
+	assert.ok(desktopPaper && form);
+	expect(desktopPaper.x + desktopPaper.width).toBeLessThan(form.x);
 });
-test('the newsletter is accessible and its form stays reachable on phone sizes', async ({
+test('the first phone view shows every signup control above the cookie banner', { tag: '@webkit' }, async ({
 	page
 }) => {
 	for (const viewport of [
 		{ width: 360, height: 640 },
+		{ width: 375, height: 620 },
+		{ width: 375, height: 667 },
 		{ width: 390, height: 844 },
+		{ width: 402, height: 700 },
+		{ width: 402, height: 874 },
 		{ width: 412, height: 915 }
 	]) {
 		await page.setViewportSize(viewport);
@@ -160,13 +176,10 @@ test('the newsletter is accessible and its form stays reachable on phone sizes',
 		const bannerBox = await banner(page).boundingBox();
 		const reservationBox = await page.locator('.consent-reservation').boundingBox();
 		const checkboxes = await page.locator('input[name="l"]').all();
-		const checkboxBoxes = await Promise.all(checkboxes.map((input) => input.boundingBox()));
+		const choiceBoxes = await Promise.all((await page.locator('.newsletter-choice').all()).map(label => label.boundingBox()));
 		const emailBox = await page.getByLabel('Email address').boundingBox();
 		const submitBox = await page.getByRole('button', { name: 'Subscribe' }).boundingBox();
-		const { scrollY, documentHeight } = await page.evaluate(() => ({
-			scrollY: window.scrollY,
-			documentHeight: document.documentElement.scrollHeight
-		}));
+		expect(await page.evaluate(() => window.scrollY)).toBe(0);
 		assert.ok(bannerBox);
 		expect(bannerBox.height).toBeLessThanOrEqual(112);
 		assert.ok(reservationBox);
@@ -178,19 +191,22 @@ test('the newsletter is accessible and its form stays reachable on phone sizes',
 		);
 		assert.ok(copyBox);
 		expect(copyBox.height).toBeLessThanOrEqual(copyLineHeight * 2);
-		expect(checkboxBoxes).toHaveLength(2);
+		expect(checkboxes).toHaveLength(2);
+		expect(choiceBoxes).toHaveLength(2);
 		for (const [name, box] of /** @type {const} */ ([
-			...checkboxBoxes.map((box, index) => /** @type {const} */ ([`checkbox ${index + 1}`, box])),
+			...choiceBoxes.map((box, index) => /** @type {const} */ ([`checkbox ${index + 1}`, box])),
 			['email', emailBox],
 			['submit', submitBox]
 		])) {
 			assert.ok(box);
 			expect(box.x).toBeGreaterThanOrEqual(0);
 			expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
-			expect(
-				box.y + scrollY + box.height,
-				`${name} must remain in the scrollable document`
-			).toBeLessThanOrEqual(documentHeight);
+			expect(box.y).toBeGreaterThanOrEqual(0);
+			expect(box.y + box.height, name).toBeLessThanOrEqual(bannerBox.y);
+			expect(await page.evaluate(({x,y}) => {
+				const target = document.elementFromPoint(x,y);
+				return !!target?.closest('.newsletter-choice, #newsletter-email, .newsletter-submit');
+			}, {x:box.x + box.width / 2, y:box.y + box.height / 2})).toBe(true);
 		}
 		const buttons = await banner(page).getByRole('button').all();
 		const buttonWidths = await Promise.all(
@@ -214,55 +230,68 @@ test('the newsletter is accessible and its form stays reachable on phone sizes',
 		);
 	}
 });
-test('the shortest phone keeps Subscribe reachable without a layout jump while web fonts load', async ({ page }) => {
-	await page.setViewportSize({ width: 360, height: 640 });
-	let releaseFonts = () => {};
-	/** @type {Promise<void>} */
-	const held = new Promise((resolve) => { releaseFonts = resolve; });
-	await page.route(/\.woff2$/, async (route) => {
-		await held;
-		await route.continue();
+for (const { width, height } of [{ width: 360, height: 640 }, { width: 375, height: 620 }]) {
+	test(`Subscribe stays above the banner at ${width}x${height} while web fonts load`, { tag: '@webkit' }, async ({ page }) => {
+		await page.setViewportSize({ width, height });
+		let releaseFonts = () => {};
+		/** @type {Promise<void>} */
+		const held = new Promise((resolve) => { releaseFonts = resolve; });
+		await page.route(/\.woff2$/, async (route) => {
+			await held;
+			await route.continue();
+		});
+		const submit = page.getByRole('button', { name: 'Subscribe' });
+		let before;
+		try {
+			await page.goto('/newsletter', { waitUntil: 'domcontentloaded' });
+			await expect(banner(page)).toBeVisible();
+			before = await submit.boundingBox();
+			assert.ok(before);
+			const bannerBox = await banner(page).boundingBox();
+			assert.ok(bannerBox);
+			expect(await page.evaluate(() => scrollY)).toBe(0);
+			expect(before.y).toBeGreaterThanOrEqual(0);
+			expect(before.y + before.height).toBeLessThanOrEqual(bannerBox.y);
+		} finally {
+			releaseFonts();
+		}
+		await page.evaluate(async () => { await document.fonts.ready; });
+		const documentTop = async (/** @type {{ y: number }} */ box) =>
+			box.y + (await page.evaluate(() => window.scrollY));
+		const beforeTop = await documentTop(before);
+		const after = await submit.boundingBox();
+		assert.ok(after);
+		expect(await documentTop(after)).toBeCloseTo(beforeTop, 0);
+		await page.getByLabel('Email address').focus();
+		await expect(banner(page)).toBeHidden();
+		await submit.scrollIntoViewIfNeeded();
+		const reachable = await submit.boundingBox();
+		assert.ok(reachable);
+		expect(reachable.y).toBeGreaterThanOrEqual(0);
+		expect(reachable.y + reachable.height).toBeLessThanOrEqual(height);
 	});
-	const submit = page.getByRole('button', { name: 'Subscribe' });
-	let before;
-	try {
-		await page.goto('/newsletter', { waitUntil: 'domcontentloaded' });
-		await expect(banner(page)).toBeVisible();
-		before = await submit.boundingBox();
-		assert.ok(before);
-	} finally {
-		releaseFonts();
-	}
-	await page.evaluate(async () => { await document.fonts.ready; });
-	const documentTop = async (/** @type {{ y: number }} */ box) =>
-		box.y + (await page.evaluate(() => window.scrollY));
-	const beforeTop = await documentTop(before);
-	const after = await submit.boundingBox();
-	assert.ok(after);
-	expect(await documentTop(after)).toBeCloseTo(beforeTop, 0);
-	await page.getByLabel('Email address').focus();
-	await expect(banner(page)).toBeHidden();
-	await submit.scrollIntoViewIfNeeded();
-	const reachable = await submit.boundingBox();
-	assert.ok(reachable);
-	expect(reachable.y).toBeGreaterThanOrEqual(0);
-	expect(reachable.y + reachable.height).toBeLessThanOrEqual(640);
-});
-test('each card labels one independent checkbox and signup details open by keyboard', async ({ page }) => {
+}
+test('each card labels one independent checkbox and signup details open by keyboard', { tag: '@webkit' }, async ({ page }) => {
 	await page.goto('/newsletter');
 	const copy = en.newsletter;
 	const group = page.getByRole('group', { name: copy.whatTitle });
-	const news = group.getByRole('checkbox', { name: copy.generalLabel + ' ' + copy.generalText, exact: true });
-	const services = group.getByRole('checkbox', { name: copy.marketingLabel + ' ' + copy.marketingText, exact: true });
+	const news = group.getByRole('checkbox', { name: copy.generalText, exact: true });
+	const services = group.getByRole('checkbox', { name: copy.marketingText, exact: true });
+	await expect(news).toHaveCSS('appearance', 'none');
 	await expect(news).not.toBeChecked();
 	await expect(services).not.toBeChecked();
-	await group.getByText(copy.generalLabel, { exact: true }).click();
+	await group.getByText(copy.generalText, { exact: true }).click();
 	await expect(news).toBeChecked();
+	const newsLabel = group.getByText(copy.generalText, { exact: true });
+	await newsLabel.hover();
+	await expect(newsLabel).toHaveCSS('border-top-color', 'rgb(0, 240, 255)');
 	await expect(services).not.toBeChecked();
 	await news.press('Tab');
 	await expect(services).toBeFocused();
+	await expect(services).toHaveCSS('outline-style', 'solid');
 	await services.press('Space');
 	await expect(services).toBeChecked();
+	expect(await services.evaluate(el => getComputedStyle(el, '::after').borderBottomColor)).toBe('rgb(0, 240, 255)');
 	await expect(news).toBeChecked();
 	await services.press('Tab');
 	await expect(page.getByLabel(copy.emailLabel)).toBeFocused();
@@ -273,10 +302,27 @@ test('each card labels one independent checkbox and signup details open by keybo
 	await expect(form.getByRole('link', { name: copy.privacyLink })).toHaveAttribute('href', '/privacy#newsletter');
 	const summary = form.locator('summary');
 	await summary.press('Enter');
-	for (const note of [copy.confirmationNote, copy.withdrawalNote, copy.controllerNote])
+	for (const note of [copy.confirmationNote, copy.servicesNote, copy.withdrawalNote, copy.controllerNote])
 		await expect(form.getByText(note, { exact: true })).toBeVisible();
+	await expect(form.getByText(copy.newsNote, { exact: false })).toBeVisible();
 	await summary.press('Space');
 	await expect(confirmation).toBeHidden();
+
+	await news.evaluate(input => { input.setAttribute('disabled', ''); });
+	await expect(news).toBeDisabled();
+	await expect(news).toHaveCSS('cursor', 'not-allowed');
+});
+test('forced colors restore native checkboxes', { tag: '@webkit' }, async ({ page }) => {
+	await page.emulateMedia({ forcedColors: 'active' });
+	test.skip(
+		!await page.evaluate(() => matchMedia('(forced-colors: active)').matches),
+		'This browser does not emulate forced colors.'
+	);
+	await page.goto('/newsletter');
+	const services = page.getByRole('checkbox', { name: en.newsletter.marketingText });
+	await expect(services).toHaveCSS('appearance', 'auto');
+	await services.check();
+	await expect(services).toBeChecked();
 });
 test('cookie banner hides on phone field focus and dismisses without moving the page', async ({
 	page

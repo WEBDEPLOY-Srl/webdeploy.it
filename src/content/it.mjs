@@ -764,16 +764,11 @@ export const it = {
 	newsletter: {
 		title: 'Newsletter WEBDEPLOY',
 		metaDescription:
-			'Scegli quali notizie e aggiornamenti sui servizi WEBDEPLOY ricevere via email.',
+			'Scegli se ricevere via email notizie, avvisi o offerte sui servizi WEBDEPLOY.',
 		heading: 'Sogni la\nnetiquette?',
-		lead: 'Notizie, avvisi di sicurezza e offerte di WEBDEPLOY via email.',
 		whatTitle: 'Scegli una o entrambe le liste',
-		generalLabel: 'Notizie e avvisi',
-		generalText:
-			'Acconsento a ricevere via email le notizie di WEBDEPLOY: articoli tecnici, avvisi di sicurezza e normativi e notizie sui rilasci e sugli eventi. Riceverò un’email quando pubblichiamo un articolo e una email introduttiva circa una settimana dopo la conferma.',
-		marketingLabel: 'Servizi e offerte',
-		marketingText:
-			'Acconsento a ricevere email che promuovono i servizi di WEBDEPLOY (inWD, backup cifrati, migrazione Linux, inWD Kiosk, consulenza), comprese le offerte.',
+		generalText: 'Desidero ricevere via email notizie e avvisi di WEBDEPLOY',
+		marketingText: 'Desidero ricevere via email offerte sui servizi WEBDEPLOY',
 		emailLabel: 'Indirizzo email',
 		emailPlaceholder: 'tu@example.com',
 		requiredError: 'Scegli almeno una lista email.',
@@ -782,6 +777,10 @@ export const it = {
 		afterSignup: 'Dopo l’iscrizione',
 		confirmationNote:
 			'Per prima cosa invieremo un’email per confermare il tuo indirizzo; prima della conferma non invieremo altro. Dopo la conferma riceverai un’email di benvenuto.',
+		newsNote:
+			'Chi sceglie le notizie riceve un’email per ogni nuovo articolo su tecnologia, sicurezza, normative, rilasci o eventi e un’email introduttiva circa una settimana dopo la conferma.',
+		servicesNote:
+			'Le email sui servizi promuovono inWD, backup cifrati, migrazioni a Linux, inWD Kiosk e consulenza.',
 		withdrawalNote:
 			'Puoi revocare ciascun consenso in qualsiasi momento da ogni email. La relativa iscrizione viene cancellata entro 24 ore; l’indirizzo viene cancellato quando non restano altre iscrizioni.',
 		controllerNote: 'WEBDEPLOY S.R.L. è il titolare del trattamento.',

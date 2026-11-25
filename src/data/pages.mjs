@@ -13,7 +13,7 @@ function stampSources(extension) {
 }
 
 const stampSizes =
-	'(max-width: 639px) calc(100vw - 2.5rem), (min-width: 75rem) calc(13rem - 1.75rem), (min-width: 65rem) calc(13rem - 2vw - 0.25rem), calc(18vw - 0.25rem)';
+	'(min-width: 70rem) 30.72rem, (min-width: 48rem) calc(48vw - 2.88rem), calc(96vw - 1.92rem)';
 
 /** @param {keyof typeof cardMasterWidths} image @param {string} extension @returns {string} */
 function cardSources(image, extension) {
