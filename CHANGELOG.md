@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.6] - 2026-11-25
+
 ### Changed
 - The newsletter signup header pairs the WD logo with the WEBDEPLOY wordmark and a Newsletter subtitle.
 - The newsletter page gives its title more desktop width and places the existing signup form in the shared magenta contact band.
