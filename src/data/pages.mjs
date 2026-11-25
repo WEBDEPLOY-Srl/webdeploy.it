@@ -3,6 +3,17 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 
 const cardMasterWidths = { fosdem: 1200, php2shell: 1122 };
+const stampWidths = [400, 592, 672, 800, 960];
+
+/** @param {string} extension @returns {string} */
+function stampSources(extension) {
+	return stampWidths
+		.map((width) => `/images/neon-cafe-stamp-${width}.${extension} ${width}w`)
+		.join(', ');
+}
+
+const stampSizes =
+	'(max-width: 639px) calc(100vw - 2.5rem), (min-width: 75rem) calc(13rem - 1.75rem), (min-width: 65rem) calc(13rem - 2vw - 0.25rem), calc(18vw - 0.25rem)';
 
 /** @param {keyof typeof cardMasterWidths} image @param {string} extension @returns {string} */
 function cardSources(image, extension) {
@@ -92,6 +103,7 @@ export const pages = [
 	},
 	{
 		path: '/newsletter',
+		priorityImage: { type: 'image/avif', srcset: stampSources('avif'), sizes: stampSizes },
 		modules: ['newsletter'],
 		file: 'newsletter.html',
 		title: 'newsletter.title',
