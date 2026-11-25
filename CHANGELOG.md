@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.5] - 2026-11-25
+
+### Changed
+- The newsletter signup page pairs shorter email-list choices with a widescreen perforated stamp. Subscription details are available under “After you subscribe”.
+
+### Fixed
+- The email field, list choices and Subscribe button fit above the cookie banner on short phone viewports. Newsletter checkboxes now show a consistent checked state and keyboard focus in Safari, Firefox and Chromium.
+
 ## [2.0.4] - 2026-11-25
 
 ### Changed

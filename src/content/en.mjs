@@ -759,16 +759,11 @@ export const en = {
 	// Newsletter signup
 	newsletter: {
 		title: 'WEBDEPLOY newsletter',
-		metaDescription: 'Choose which WEBDEPLOY news and service updates you want by email.',
+		metaDescription: 'Choose whether to receive news, notices or offers about WEBDEPLOY services by email.',
 		heading: 'Do you dream of\nnetiquette?',
-		lead: 'WEBDEPLOY news, security notices and offers by email.',
 		whatTitle: 'Choose one or both lists',
-		generalLabel: 'News and notices',
-		generalText:
-			"I agree to receive WEBDEPLOY's news by email: technical articles, security and regulatory notices, and news about its releases and events. An email is sent when a news post is published, plus one introductory email about a week after I confirm.",
-		marketingLabel: 'Services and offers',
-		marketingText:
-			"I agree to receive emails promoting WEBDEPLOY's services (inWD, encrypted backups, Linux migration, inWD Kiosk, consulting), including offers.",
+		generalText: 'Email me WEBDEPLOY news and notices',
+		marketingText: 'Email me offers about WEBDEPLOY services',
 		emailLabel: 'Email address',
 		emailPlaceholder: 'you@example.com',
 		requiredError: 'Choose at least one email list.',
@@ -777,6 +772,10 @@ export const en = {
 		afterSignup: 'After you subscribe',
 		confirmationNote:
 			'We first send one email to confirm your address; nothing else is sent until you confirm. After you confirm, you receive one welcome email.',
+		newsNote:
+			'News subscribers get an email with each new post about technology, security, regulations, releases or events, plus one introductory email about a week after confirming.',
+		servicesNote:
+			'Service emails promote inWD, encrypted backups, Linux migration, inWD Kiosk and consulting.',
 		withdrawalNote:
 			'You can withdraw either consent at any time from any email. That subscription is then deleted within 24 hours, and your address with it once no subscription remains.',
 		controllerNote: 'WEBDEPLOY S.R.L. is the data controller.',

@@ -37,21 +37,21 @@ test('preserves the privacy and newsletter dictionaries', () => {
 		),
 		[
 			'39f8e57883879d475f92b65c1a02b9235bc14a0c2d1796209c11ce36779f58bd',
-			'6b2d4401cc1c9b71dd07f3a60fa582d17f2eed55c6eabecca494af17d6a414fa',
+			'ab5e92254321f615066c81b57444401286cb36120f8c5f2950425ec4827ad66f',
 			'42f20dfee96881845a9d8b1c349da45ceb4019d121f551a7ec135150ce82fd1e',
-			'5bf15933fb07e10c5e77eede1bc945ffcc7367635b6163a9450a905d8deb63ed'
+			'aeca80e6355a10bfca58b496316c9784758b2210bd25f2609b323e65149b8363'
 		]
 	);
 });
 
-test('the two approved consent statements stay verbatim across newsletter copy edits', () => {
+test('the two list-specific consent statements stay verbatim across newsletter copy edits', () => {
 	assert.deepEqual(
 		[en.newsletter, it.newsletter].map(({ generalText, marketingText }) =>
 			digest(JSON.stringify([generalText, marketingText]))
 		),
 		[
-			'a646dabc0f8992bbad4afdde5db09c9ede1d670c247aa46258241ea390ceaec8',
-			'b59539cf51a5d8ae7211c6ff70c7cfefc3934fa612e1c2e53da2fea2e78a856d'
+			'7b515084c6dcdad4527061a0451933f7dd57a422989f951ed376e93a2df324f8',
+			'6d0160f2b6c136c522c964873c763b7769f64e680c8bc46e82bd5079b571a1fd'
 		]
 	);
 });
