@@ -14,12 +14,13 @@ const lists = Array.from(form.querySelectorAll('input[name=l]')).filter(
 );
 const first = element(form, 'input[name=l]', HTMLInputElement);
 const button = element(form, 'button[type=submit]', HTMLButtonElement);
+const buttonLabel = element(button, '.newsletter-submit__label', HTMLSpanElement);
 const listError = element(form, '#newsletter-list-error', HTMLElement);
 const submitError = element(form, '[data-submit-error]', HTMLElement);
 const status = element(form, '.newsletter-status', HTMLElement);
 const choices = element(form, 'fieldset', HTMLFieldSetElement);
 const email = element(form, 'input[type=email]', HTMLInputElement);
-const label = button.textContent;
+const label = buttonLabel.textContent;
 const widgetTemplate = element(form, '[data-spam-widget]', HTMLTemplateElement);
 let widget = form.querySelector('altcha-widget');
 let ready = false,
@@ -36,7 +37,7 @@ function paint() {
 	choices.inert = submitting;
 	email.readOnly = submitting;
 	button.disabled = !ready || submitting;
-	button.textContent = submitting ? (form.dataset.submitting ?? label) : label;
+	buttonLabel.textContent = submitting ? (form.dataset.submitting ?? label) : label;
 }
 /** @param {string} [message] */
 function setError(message = '') {

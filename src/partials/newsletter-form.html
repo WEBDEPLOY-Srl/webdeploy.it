@@ -16,6 +16,18 @@
 	autocomplete="off"
 	class="newsletter-form"
 >
+	<div class="email-field">
+		<label for="newsletter-email">{{newsletter.emailLabel}}</label>
+		<input
+			id="newsletter-email"
+			type="email"
+			name="email"
+			autocomplete="email"
+			inputmode="email"
+			placeholder="{{newsletter.emailPlaceholder}}"
+			required=""
+		/>
+	</div>
 	<fieldset aria-describedby="newsletter-list-error" class="newsletter-lists">
 		<legend>{{newsletter.whatTitle}}</legend>
 		<div class="newsletter-choices">
@@ -40,21 +52,21 @@
 		</div>
 		<p id="newsletter-list-error" class="form-error" role="alert"></p>
 	</fieldset>
-	<div class="newsletter-delivery">
-		<div class="email-field">
-			<label for="newsletter-email">{{newsletter.emailLabel}}</label>
-			<input
-				id="newsletter-email"
-				type="email"
-				name="email"
-				autocomplete="email"
-				inputmode="email"
-				placeholder="{{newsletter.emailPlaceholder}}"
-				required=""
-			/>
-		</div>
-		<button class="btn-cta-primary newsletter-submit" type="submit" disabled>{{newsletter.submit}}</button>
-	</div>
+	<button class="newsletter-submit" type="submit" disabled>
+		<span class="newsletter-submit__label">{{newsletter.submit}}</span>
+		<svg
+			aria-hidden="true"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="1.8"
+			stroke-linecap="square"
+			stroke-linejoin="miter"
+		>
+			<path d="M3 12h17m-7-7 7 7-7 7" />
+		</svg>
+	</button>
+	<p class="newsletter-confirmation-note">{{newsletter.confirmationPrompt}}</p>
 	<input type="hidden" name="nonce" value="" />
 	<template data-spam-widget>
 		<altcha-widget

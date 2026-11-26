@@ -115,21 +115,27 @@ test('solves a real ALTCHA v1 challenge with the local SHA worker', async ({
 	);
 	expect(cspViolations).toEqual([]);
 });
-test('the stamp is a responsive, preloaded high-priority image', { tag: '@webkit' }, async ({ page }) => {
+test('the story image is the preloaded LCP image without duplicate requests', { tag: '@webkit' }, async ({ page }) => {
 	await page.setViewportSize({ width: 402, height: 874 });
+	/** @type {string[]} */
+	const imageRequests = [];
+	page.on('request', (request) => {
+		if (/\/newsletter-story-\d+\.[a-f0-9]{16}\.(?:avif|webp)$/.test(new URL(request.url()).pathname))
+			imageRequests.push(request.url());
+	});
 	await page.goto('/newsletter');
-	const image = page.locator('.newsletter-stamp img');
+	const image = page.locator('.newsletter-story img');
 	await expect(image).toHaveAttribute('loading', 'eager');
 	await expect(image).toHaveAttribute('fetchpriority', 'high');
-	await expect(image).toHaveAttribute('width', '960');
-	await expect(image).toHaveAttribute('height', '540');
-	const sources = page.locator('.newsletter-stamp source');
+	await expect(image).toHaveAttribute('width', '1080');
+	await expect(image).toHaveAttribute('height', '650');
+	const sources = page.locator('.newsletter-story source');
 	await expect(sources).toHaveCount(2);
 	const expectedSizes =
-		'(max-width: 639px) and (max-height: 44rem) min(15rem, calc(100vw - 2rem)), (min-width: 83.333rem) 31rem, (min-width: 64rem) calc(40vw - 1.5rem), (min-width: 48rem) calc(40vw - 1.5rem), calc(100vw - 2rem)';
+		'(min-width: 66rem) 32.75rem, (min-width: 48rem) calc(52.07vw - 1.562rem), (max-width: 639px) and (max-height: 44rem) 10rem, (max-width: 399px) and (min-height: 44.0625rem) clamp(10rem, calc(140vh - 51.35rem), min(100vw, 21rem)), (min-width: 25rem) and (max-width: 639px) and (min-height: 44.0625rem) clamp(10rem, calc(140vh - 51.35rem), 100vw), (min-width: 25rem) 100vw, (min-width: 22rem) 22rem, 100vw';
 	for (const source of await sources.all()) {
 		await expect(source).toHaveAttribute('sizes', expectedSizes);
-		await expect(source).toHaveAttribute('srcset', /400w,.*592w,.*672w,.*800w,.*960w/);
+		await expect(source).toHaveAttribute('srcset', /480w,.*768w,.*1080w/);
 	}
 	const preload = page.locator('link[rel="preload"][as="image"][fetchpriority="high"]');
 	await expect(preload).toHaveCount(1);
@@ -144,45 +150,80 @@ test('the stamp is a responsive, preloaded high-priority image', { tag: '@webkit
 			image.evaluate((element) => (element instanceof HTMLImageElement ? element.naturalWidth : 0))
 		)
 		.toBeGreaterThan(0);
-	const stamp = page.locator('.newsletter-stamp');
-	const paper = await stamp.boundingBox();
-	const art = await image.boundingBox();
-	assert.ok(paper && art);
-	expect(paper.width / paper.height).toBeCloseTo(2.5, 1);
-	expect(art.y).toBeGreaterThan(paper.y);
-	expect(art.y + art.height).toBeLessThan(paper.y + paper.height);
+	await expect.poll(() => imageRequests.length).toBe(1);
+	// WebKit advertises the LCP entry type but does not emit a passive-load entry.
+	if (test.info().project.name !== 'newsletter-webkit') {
+		const lcp = await page.evaluate(
+			() =>
+				new Promise((resolve) => {
+					/** @type {{className:string,url:string}|null} */
+					let latest = null;
+					const observer = new PerformanceObserver((list) => {
+						const entry = /** @type {(PerformanceEntry & {element?:Element|null,url?:string})|undefined} */ (
+							list.getEntries().at(-1)
+						);
+						if (entry?.element)
+							latest = {
+								className:
+									entry.element instanceof HTMLImageElement ? entry.element.className : '',
+								url: entry.url ?? ''
+							};
+					});
+					observer.observe({ type: 'largest-contentful-paint', buffered: true });
+					window.setTimeout(() => {
+						observer.disconnect();
+						resolve(latest ?? null);
+					}, 100);
+				})
+		);
+		assert.ok(lcp);
+		expect(lcp.className).toContain('newsletter-story__image');
+		const selectedSource = await image.evaluate((element) =>
+			element instanceof HTMLImageElement ? element.currentSrc : ''
+		);
+		if (lcp.url) expect(new URL(lcp.url).pathname).toBe(new URL(selectedSource).pathname);
+	}
+	expect(await page.locator('.newsletter-story').evaluate((element) => getComputedStyle(element).maskImage)).toBe('none');
 	await page.setViewportSize({ width: 1280, height: 800 });
 	const desktopHeading = await page.locator('.newsletter-intro h1').boundingBox();
-	const desktopPaper = await stamp.boundingBox();
-	assert.ok(desktopHeading && desktopPaper);
-	expect(desktopHeading.x + desktopHeading.width).toBeLessThan(desktopPaper.x);
+	const desktopArt = await page.locator('.newsletter-story').boundingBox();
+	assert.ok(desktopHeading && desktopArt);
+	expect(desktopHeading.x).toBeGreaterThan(desktopArt.x);
 	await expect
-		.poll(() => image.evaluate((element) => (element instanceof HTMLImageElement ? element.currentSrc : '')))
-		.toMatch(/neon-cafe-stamp-592\.[a-f0-9]{16}\.avif$/);
+		.poll(() =>
+			image.evaluate((element) => (element instanceof HTMLImageElement ? element.currentSrc : ''))
+		)
+		.toMatch(/newsletter-story-\d+\.[a-f0-9]{16}\.avif$/);
 });
 
-test('the newsletter gives its title room and uses the magenta band for signup', async ({ page }) => {
+test('the newsletter uses the approved intro and compact magenta signup action', async ({ page }) => {
 	await page.setViewportSize({ width: 1440, height: 900 });
 	await page.goto('/newsletter');
 	const content = page.locator('.newsletter-page');
 	const intro = page.locator('.newsletter-intro');
 	const heading = page.locator('.newsletter-intro h1');
-	expect((await content.boundingBox())?.width).toBe(1280);
-	expect((await intro.boundingBox())?.x).toBe(112);
-	expect((await intro.boundingBox())?.width).toBe(1216);
-	expect(await heading.evaluate((element) => getComputedStyle(element).fontSize)).toBe('64px');
-	const band = page.locator('.newsletter-endband');
-	const form = band.locator('.newsletter-form');
+	expect((await content.boundingBox())?.width).toBe(1056);
+	expect((await intro.boundingBox())?.x).toBeGreaterThan(600);
+	expect(await heading.evaluate((element) => getComputedStyle(element).fontSize)).toBe('76px');
+	await expect(intro.locator('p')).toHaveText(en.newsletter.intro);
+	const region = page.getByRole('region', { name: en.newsletter.formRegion });
+	const form = region.locator('.newsletter-form');
 	await expect(form).toHaveCount(1);
 	await expect(page.locator('.newsletter-form')).toHaveCount(1);
-	await expect(band.locator('.contact-band__lead, .contact-band__action')).toHaveCount(0);
 	await expect(form.getByRole('group', { name: en.newsletter.whatTitle })).toBeVisible();
 	await expect(form.getByRole('link', { name: en.newsletter.privacyLink })).toHaveAttribute('href', '/privacy#newsletter');
+	const formOrder = await form.evaluate((element) => {
+		const email = element.querySelector('.email-field');
+		const lists = element.querySelector('.newsletter-lists');
+		return !!email && !!lists && !!(email.compareDocumentPosition(lists) & Node.DOCUMENT_POSITION_FOLLOWING);
+	});
+	expect(formOrder).toBe(true);
 	const cta = form.getByRole('button', { name: en.newsletter.submit });
+	await expect(cta).toBeEnabled();
 	await cta.focus();
 	await expect(cta).toBeFocused();
 	expect(await cta.evaluate((element) => getComputedStyle(element).outlineColor)).toBe('rgb(255, 255, 255)');
-	expect(await cta.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(0, 0, 0)');
+	expect(await cta.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(255, 0, 255)');
 	await page.emulateMedia({ forcedColors: 'active' });
 	await cta.focus();
 	await expect(cta).toBeFocused();
@@ -198,9 +239,17 @@ test('the first phone view shows every signup control above the cookie banner', 
 	for (const viewport of [
 		{ width: 360, height: 640 },
 		{ width: 375, height: 620 },
+		{ width: 375, height: 704 },
+		{ width: 375, height: 705 },
 		{ width: 375, height: 667 },
 		{ width: 390, height: 844 },
 		{ width: 402, height: 700 },
+		{ width: 402, height: 704 },
+		{ width: 402, height: 705 },
+		{ width: 402, height: 720 },
+		{ width: 402, height: 721 },
+		{ width: 402, height: 832 },
+		{ width: 402, height: 833 },
 		{ width: 402, height: 874 },
 		{ width: 412, height: 915 }
 	]) {
@@ -209,9 +258,20 @@ test('the first phone view shows every signup control above the cookie banner', 
 		await page.goto('/newsletter');
 		await expect(banner(page)).toBeVisible();
 		const bannerBox = await banner(page).boundingBox();
-		const paper = await page.locator('.newsletter-stamp').boundingBox();
-		assert.ok(paper);
-		expect(paper.width / paper.height).toBeCloseTo(2.5, 1);
+		const story = await page.locator('.newsletter-story').boundingBox();
+		assert.ok(story);
+		const expectedStoryWidth =
+			viewport.height <= 44 * 16
+				? Math.min(viewport.width, 160)
+				: Math.max(
+						160,
+						Math.min(
+							viewport.width < 400 ? Math.min(viewport.width, 336) : viewport.width,
+							viewport.height * 1.4 - 821.6
+						)
+					);
+		expect(story.width).toBeCloseTo(expectedStoryWidth, 1);
+		expect(story.height).toBeCloseTo((expectedStoryWidth * 650) / 1080, 0);
 		const header = page.locator('.site-header');
 		await expect(header).toBeInViewport({ ratio: 1 });
 		expect((await header.boundingBox())?.y).toBe(0);
@@ -223,10 +283,14 @@ test('the first phone view shows every signup control above the cookie banner', 
 		const checkboxes = await page.locator('input[name="l"]').all();
 		const choiceBoxes = await Promise.all((await page.locator('.newsletter-choice').all()).map(label => label.boundingBox()));
 		const emailBox = await page.getByLabel('Email address').boundingBox();
+		const emailBorder = await page.getByLabel('Email address').evaluate((element) => getComputedStyle(element).borderTopColor);
+		const choiceBorder = await page.locator('input[name="l"]').first().evaluate((element) => getComputedStyle(element).borderTopColor);
+		expect(emailBorder).toBe('rgb(100, 116, 139)');
+		expect(choiceBorder).toBe('rgb(100, 116, 139)');
 		const submitBox = await page.getByRole('button', { name: 'Subscribe' }).boundingBox();
 		assert.ok(emailBox && submitBox);
 		expect(emailBox.width).toBeGreaterThan(160);
-		expect(emailBox.width).toBeGreaterThan(submitBox.width);
+		expect(emailBox.width).toBeCloseTo(submitBox.width, 0);
 		expect(submitBox.height).toBeGreaterThanOrEqual(44);
 		const placeholderFits = await page.getByLabel('Email address').evaluate((element) => {
 			if (!(element instanceof HTMLInputElement)) return false;
@@ -357,6 +421,8 @@ for (const { width, height } of [{ width: 360, height: 640 }, { width: 375, heig
 test('each card labels one independent checkbox and signup details open by keyboard', { tag: '@webkit' }, async ({ page }) => {
 	await page.goto('/newsletter');
 	const copy = en.newsletter;
+	const submit = page.getByRole('button', { name: copy.submit });
+	await expect(submit).toBeEnabled();
 	const group = page.getByRole('group', { name: copy.whatTitle });
 	const news = group.getByRole('checkbox', { name: copy.generalText, exact: true });
 	const services = group.getByRole('checkbox', { name: copy.marketingText, exact: true });
@@ -367,17 +433,21 @@ test('each card labels one independent checkbox and signup details open by keybo
 	await expect(news).toBeChecked();
 	const newsLabel = group.getByText(copy.generalText, { exact: true });
 	await newsLabel.hover();
-	await expect(newsLabel).toHaveCSS('border-top-color', 'rgb(0, 240, 255)');
+	await expect(news).toHaveCSS('border-top-color', 'rgb(0, 240, 255)');
 	await expect(services).not.toBeChecked();
+	const email = page.getByLabel(copy.emailLabel);
+	await email.focus();
+	await email.press('Tab');
+	await expect(news).toBeFocused();
+	await expect(news).toHaveCSS('outline-style', 'solid');
 	await news.press('Tab');
 	await expect(services).toBeFocused();
-	await expect(services).toHaveCSS('outline-style', 'solid');
 	await services.press('Space');
 	await expect(services).toBeChecked();
 	expect(await services.evaluate(el => getComputedStyle(el, '::after').borderBottomColor)).toBe('rgb(0, 240, 255)');
 	await expect(news).toBeChecked();
 	await services.press('Tab');
-	await expect(page.getByLabel(copy.emailLabel)).toBeFocused();
+	await expect(submit).toBeFocused();
 
 	const form = page.locator('form');
 	const confirmation = form.getByText(copy.confirmationNote, { exact: true });

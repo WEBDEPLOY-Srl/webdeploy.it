@@ -766,6 +766,7 @@ export const it = {
 		metaDescription:
 			'Scegli se ricevere via email notizie, avvisi o offerte sui servizi WEBDEPLOY.',
 		heading: 'Sogni la\nnetiquette?',
+		intro: 'Avvisi di sicurezza, resoconti di eventi open source e tutto ciò che nel mondo dell’informatica cattura la mia curiosità.\n- zbolo.',
 		whatTitle: 'Scegli una o entrambe le liste',
 		generalText: 'Desidero ricevere via email notizie e avvisi di WEBDEPLOY',
 		marketingText: 'Desidero ricevere via email offerte sui servizi WEBDEPLOY',
@@ -774,6 +775,7 @@ export const it = {
 		requiredError: 'Scegli almeno una lista email.',
 		submit: 'Iscriviti',
 		submitting: 'Verifica della richiesta…',
+		confirmationPrompt: 'Conferma il tuo indirizzo email per iniziare a ricevere i contenuti scelti.',
 		afterSignup: 'Dopo l’iscrizione',
 		confirmationNote:
 			'Per prima cosa invieremo un’email per confermare il tuo indirizzo; prima della conferma non invieremo altro. Dopo la conferma riceverai un’email di benvenuto.',
