@@ -132,7 +132,7 @@ test('the story image is the preloaded LCP image without duplicate requests', { 
 	const sources = page.locator('.newsletter-story source');
 	await expect(sources).toHaveCount(2);
 	const expectedSizes =
-		'(min-width: 83.3334rem) 35.5rem, (min-width: 80rem) calc(38rem - 3vw), (min-width: 64rem) calc(47vw - 2rem), (min-width: 40rem) calc(50vw - 2.25rem), (max-height: 41rem) min(38vw, 10rem), clamp(8rem, calc(140vh - 54rem), calc(100vw - 2rem))';
+		'(min-width: 83.3334rem) 35.5rem, (min-width: 80rem) calc(38rem - 3vw), (min-width: 64rem) calc(47vw - 2rem), (min-width: 40rem) calc(50vw - 2.25rem), calc(100vw - 2rem)';
 	for (const source of await sources.all()) {
 		await expect(source).toHaveAttribute('sizes', expectedSizes);
 		await expect(source).toHaveAttribute('srcset', /480w,.*768w,.*1080w/);
@@ -213,6 +213,7 @@ test('the newsletter uses the approved intro and compact magenta signup action',
 	expect(artwork.y + artwork.height / 2).toBeCloseTo(signup.y + signup.height / 2, 0);
 	expect((await intro.locator('p').boundingBox())?.x).toBeCloseTo(signup.x, 0);
 	await expect(heading).toHaveClass(/section-title/);
+	await expect(heading).toHaveCSS('text-transform', 'none');
 	await expect(intro.locator('p')).toHaveText(en.newsletter.intro);
 	const region = page.getByRole('region', { name: en.newsletter.formRegion });
 	const form = region.locator('.newsletter-form');
@@ -241,39 +242,28 @@ test('the newsletter uses the approved intro and compact magenta signup action',
 	);
 });
 
-test('the first phone view shows every signup control above the cookie banner', { tag: '@webkit' }, async ({
-	page
-}) => {
-	for (const viewport of [
-		{ width: 360, height: 640 },
-		{ width: 375, height: 620 },
-		{ width: 375, height: 704 },
-		{ width: 375, height: 705 },
-		{ width: 375, height: 667 },
-		{ width: 390, height: 844 },
-		{ width: 402, height: 700 },
-		{ width: 402, height: 704 },
-		{ width: 402, height: 705 },
-		{ width: 402, height: 720 },
-		{ width: 402, height: 721 },
-		{ width: 402, height: 832 },
-		{ width: 402, height: 833 },
-		{ width: 402, height: 874 },
-		{ width: 412, height: 915 }
-	]) {
+for (const viewport of [
+	{ width: 360, height: 640 },
+	{ width: 375, height: 620 },
+	{ width: 375, height: 667 },
+	{ width: 390, height: 844 },
+	{ width: 402, height: 700 },
+	{ width: 402, height: 874 },
+	{ width: 412, height: 915 }
+]) {
+	test(`full-width artwork and scrollable signup at ${viewport.width}x${viewport.height}`, { tag: '@webkit' }, async ({ page }) => {
 		await page.setViewportSize(viewport);
-		await page.addInitScript(() => localStorage.removeItem('wd_consent_marketing'));
 		await page.goto('/newsletter');
 		await expect(banner(page)).toBeVisible();
 		const bannerBox = await banner(page).boundingBox();
 		const story = await page.locator('.newsletter-story').boundingBox();
 		assert.ok(story);
-		const expectedStoryWidth =
-			viewport.height <= 41 * 16
-				? Math.min(viewport.width * 0.38, 160)
-				: Math.max(128, Math.min(viewport.width - 32, viewport.height * 1.4 - 864));
-		expect(story.width).toBeCloseTo(expectedStoryWidth, 1);
-		expect(story.height).toBeCloseTo((expectedStoryWidth * 650) / 1080, 0);
+		expect(story.x).toBe(16);
+		expect(story.width).toBeCloseTo(viewport.width - 32, 1);
+		expect(story.height).toBeCloseTo((story.width * 650) / 1080, 0);
+		const heading = await page.locator('.newsletter-intro h1').boundingBox();
+		assert.ok(heading);
+		expect(heading.y).toBeGreaterThan(story.y + story.height);
 		const header = page.locator('.site-header');
 		await expect(header).toBeInViewport({ ratio: 1 });
 		expect((await header.locator('.site-header__inner').boundingBox())?.height).toBe(72);
@@ -284,7 +274,6 @@ test('the first phone view shows every signup control above the cookie banner', 
 		await expect(header.getByText(/^newsletter$/i)).toBeVisible();
 		const reservationBox = await page.locator('.consent-reservation').boundingBox();
 		const checkboxes = await page.locator('input[name="l"]').all();
-		const choiceBoxes = await Promise.all((await page.locator('.newsletter-choice').all()).map(label => label.boundingBox()));
 		const emailBox = await page.getByLabel('Email address').boundingBox();
 		const emailBorder = await page.getByLabel('Email address').evaluate((element) => getComputedStyle(element).borderTopColor);
 		const choiceBorder = await page.locator('input[name="l"]').first().evaluate((element) => getComputedStyle(element).borderTopColor);
@@ -318,22 +307,6 @@ test('the first phone view shows every signup control above the cookie banner', 
 		assert.ok(copyBox);
 		expect(copyBox.height).toBeLessThanOrEqual(copyLineHeight * 2);
 		expect(checkboxes).toHaveLength(2);
-		expect(choiceBoxes).toHaveLength(2);
-		for (const [name, box] of /** @type {const} */ ([
-			...choiceBoxes.map((box, index) => /** @type {const} */ ([`checkbox ${index + 1}`, box])),
-			['email', emailBox],
-			['submit', submitBox]
-		])) {
-			assert.ok(box);
-			expect(box.x).toBeGreaterThanOrEqual(0);
-			expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
-			expect(box.y).toBeGreaterThanOrEqual(0);
-			expect(box.y + box.height, name).toBeLessThanOrEqual(bannerBox.y);
-			expect(await page.evaluate(({x,y}) => {
-				const target = document.elementFromPoint(x,y);
-				return !!target?.closest('.newsletter-choice, #newsletter-email, .newsletter-submit');
-			}, {x:box.x + box.width / 2, y:box.y + box.height / 2})).toBe(true);
-		}
 		const buttons = await banner(page).getByRole('button').all();
 		const buttonWidths = await Promise.all(
 			buttons.map(async (button) => (await button.boundingBox())?.width ?? NaN)
@@ -344,18 +317,30 @@ test('the first phone view shows every signup control above the cookie banner', 
 		expect(await banner(page).getByRole('button', { name: 'Accept' }).count()).toBe(1);
 		await expect(banner(page)).toHaveAccessibleName('Privacy & cookies');
 		await expect(banner(page).getByRole('heading', { name: 'Privacy & cookies', level: 2 })).toHaveCount(1);
-		await page.getByLabel('Email address').focus();
+		const email = page.getByLabel('Email address');
+		await email.click();
+		await expect(email).toBeFocused();
 		await expect(banner(page)).toBeHidden();
-		await page.getByRole('button', { name: 'Subscribe' }).scrollIntoViewIfNeeded();
-		const reachableSubmit = await page.getByRole('button', { name: 'Subscribe' }).boundingBox();
-		assert.ok(reachableSubmit);
-		expect(reachableSubmit.y).toBeGreaterThanOrEqual(0);
-		expect(reachableSubmit.y + reachableSubmit.height).toBeLessThanOrEqual(viewport.height);
+		for (const checkbox of checkboxes) {
+			await checkbox.check();
+			await expect(checkbox).toBeChecked();
+		}
+		const submit = page.getByRole('button', { name: 'Subscribe' });
+		await submit.focus();
+		await expect(banner(page)).toBeVisible();
+		await submit.evaluate(button => button.scrollIntoView({ block: 'center' }));
+		await expect(submit).toBeInViewport({ ratio: 1 });
+		const visibleBanner = await banner(page).boundingBox();
+		const button = await submit.boundingBox();
+		assert.ok(visibleBanner && button);
+		expect(button.y + button.height).toBeLessThanOrEqual(visibleBanner.y);
+		await submit.click({ trial: true });
 		expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
 			viewport.width
 		);
-	}
-});
+	});
+}
+
 test('the phone menu keeps its last link above the consent banner and restores focus', { tag: '@webkit' }, async ({ page }) => {
 	await page.setViewportSize({ width: 360, height: 640 });
 	await page.goto('/newsletter');
@@ -381,7 +366,7 @@ test('the phone menu keeps its last link above the consent banner and restores f
 });
 
 for (const { width, height } of [{ width: 360, height: 640 }, { width: 375, height: 620 }]) {
-	test(`Subscribe stays above the banner at ${width}x${height} while web fonts load`, { tag: '@webkit' }, async ({ page }) => {
+	test(`Subscribe keeps its document position at ${width}x${height} while web fonts load`, { tag: '@webkit' }, async ({ page }) => {
 		await page.setViewportSize({ width, height });
 		let releaseFonts = () => {};
 		/** @type {Promise<void>} */
@@ -391,27 +376,17 @@ for (const { width, height } of [{ width: 360, height: 640 }, { width: 375, heig
 			await route.continue();
 		});
 		const submit = page.getByRole('button', { name: 'Subscribe' });
-		let before;
+		const documentTop = () => submit.evaluate(element => element.getBoundingClientRect().top + scrollY);
+		let beforeTop;
 		try {
 			await page.goto('/newsletter', { waitUntil: 'domcontentloaded' });
 			await expect(banner(page)).toBeVisible();
-			before = await submit.boundingBox();
-			assert.ok(before);
-			const bannerBox = await banner(page).boundingBox();
-			assert.ok(bannerBox);
-			expect(await page.evaluate(() => scrollY)).toBe(0);
-			expect(before.y).toBeGreaterThanOrEqual(0);
-			expect(before.y + before.height).toBeLessThanOrEqual(bannerBox.y);
+			beforeTop = await documentTop();
 		} finally {
 			releaseFonts();
 		}
 		await page.evaluate(async () => { await document.fonts.ready; });
-		const documentTop = async (/** @type {{ y: number }} */ box) =>
-			box.y + (await page.evaluate(() => window.scrollY));
-		const beforeTop = await documentTop(before);
-		const after = await submit.boundingBox();
-		assert.ok(after);
-		expect(await documentTop(after)).toBeCloseTo(beforeTop, 0);
+		expect(await documentTop()).toBeCloseTo(beforeTop, 0);
 		await page.getByLabel('Email address').focus();
 		await expect(banner(page)).toBeHidden();
 		await submit.scrollIntoViewIfNeeded();

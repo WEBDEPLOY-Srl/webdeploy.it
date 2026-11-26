@@ -46,6 +46,7 @@
 
 .newsletter-intro .section-title {
 	color: var(--color-primary);
+	text-transform: none;
 	white-space: pre-line;
 }
 
@@ -169,92 +170,37 @@
 	}
 }
 
-@media (max-width: 639px) {
+@media (width < 40rem) {
 	.newsletter-section {
-		padding-block: 0.25rem 2rem;
-	}
-
-	.newsletter-page {
-		gap: 0.5rem;
+		padding-block: var(--space-6) var(--space-8);
 	}
 
 	.newsletter-editorial {
-		gap: 0.25rem;
-	}
-
-	.newsletter-story {
-		width: clamp(8rem, calc(140vh - 54rem), 100%);
-		justify-self: center;
-	}
-
-	.newsletter-intro .section-title {
-		text-transform: none;
-	}
-
-	.newsletter-intro .section-lead {
-		margin-top: 0.25rem;
-		font-size: var(--text-caption);
-		line-height: var(--line-caption);
+		gap: var(--space-6);
 	}
 
 	.newsletter-form {
-		padding-top: 0.25rem;
+		padding-top: var(--space-6);
 		border-top: 1px dashed var(--color-border-strong);
 	}
 
-	.newsletter-lists {
-		margin-block: 0.375rem;
+	.newsletter-form .email-field {
+		gap: var(--space-2);
 	}
 
-	.newsletter-lists legend {
-		margin-bottom: 0;
+	.newsletter-lists,
+	.newsletter-confirmation-note {
+		margin-block: var(--space-6);
 	}
 
-	.newsletter-choices {
-		gap: 0;
-	}
-
-	.newsletter-choice__body {
-		min-height: 2rem;
-		padding: 0.125rem 0 0.125rem 1.75rem;
-		font-size: var(--text-caption);
-		line-height: var(--line-caption);
-	}
-
-	.newsletter-choice input {
-		width: 1.125rem;
-		height: 1.125rem;
+	.newsletter-followup {
+		padding-top: var(--space-4);
 	}
 }
 
-/* Share the title row with the artwork on short phones to keep signup in view. */
-@media (max-width: 639px) and (max-height: 41rem) {
-	/* Reserve both lines while the consent labels switch to Space Mono. */
-	.newsletter-choice__body {
-		min-height: calc(2 * var(--line-caption) + 0.25rem);
-	}
-
-	.newsletter-editorial {
-		grid-template-columns: auto 1fr;
-		align-items: center;
-		column-gap: 0.5rem;
-	}
-
-	.newsletter-intro .section-title {
-		/* Match the VT323 advance while the narrower title column uses a fallback. */
-		font-size-adjust: ch-width 0.4;
-	}
-
-	.newsletter-intro {
-		display: contents;
-	}
-
-	.newsletter-story {
-		width: min(38vw, 10rem);
-	}
-
+@media (max-width: 23.4375rem) {
+	/* Reserve the signed intro's five lines while Space Mono loads on narrow phones. */
 	.newsletter-intro .section-lead {
-		grid-column: 1 / -1;
-		margin: 0;
+		min-block-size: 5lh;
 	}
 }
