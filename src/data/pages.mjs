@@ -5,7 +5,7 @@
 const cardMasterWidths = { fosdem: 1200, php2shell: 1122 };
 const storyWidths = [480, 768, 1080];
 const storySizes =
-	'(min-width: 66rem) 32.75rem, (min-width: 48rem) calc(52.07vw - 1.562rem), (max-width: 639px) and (max-height: 44rem) 10rem, (max-width: 399px) and (min-height: 44.0625rem) clamp(10rem, calc(140vh - 51.35rem), min(100vw, 21rem)), (min-width: 25rem) and (max-width: 639px) and (min-height: 44.0625rem) clamp(10rem, calc(140vh - 51.35rem), 100vw), (min-width: 25rem) 100vw, (min-width: 22rem) 22rem, 100vw';
+	'(min-width: 83.3334rem) 35.5rem, (min-width: 80rem) calc(38rem - 3vw), (min-width: 64rem) calc(47vw - 2rem), (min-width: 40rem) calc(50vw - 2.25rem), calc(100vw - 2rem)';
 
 /** @param {string} extension @returns {string} */
 function storySources(extension) {

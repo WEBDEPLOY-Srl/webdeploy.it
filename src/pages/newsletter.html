@@ -1,28 +1,30 @@
 <!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
-<div class="newsletter-page">
-	<picture class="newsletter-story">
-		<source type="image/avif" srcset="{{@prioritySources}}" sizes="{{@prioritySizes}}" />
-		<source
-			type="image/webp"
-			srcset="/images/newsletter-story-480.webp 480w, /images/newsletter-story-768.webp 768w, /images/newsletter-story-1080.webp 1080w"
-			sizes="{{@prioritySizes}}"
-		/>
-		<img
-			class="newsletter-story__image"
-			src="/images/newsletter-story-1080.webp"
-			width="1080"
-			height="650"
-			alt=""
-			loading="eager"
-			decoding="async"
-			fetchpriority="high"
-		/>
-	</picture>
-	<div class="newsletter-content">
-		<div class="newsletter-intro">
-			<h1 id="newsletter-page-heading">{{newsletter.heading}}</h1>
-			<p>{{newsletter.intro}}</p>
+<div class="home-section newsletter-section">
+	<div class="page-container newsletter-page">
+		<div class="newsletter-editorial">
+			<picture class="newsletter-story">
+				<source type="image/avif" srcset="{{@prioritySources}}" sizes="{{@prioritySizes}}" />
+				<source
+					type="image/webp"
+					srcset="/images/newsletter-story-480.webp 480w, /images/newsletter-story-768.webp 768w, /images/newsletter-story-1080.webp 1080w"
+					sizes="{{@prioritySizes}}"
+				/>
+				<img
+					class="newsletter-story__image"
+					src="/images/newsletter-story-1080.webp"
+					width="1080"
+					height="650"
+					alt=""
+					loading="eager"
+					decoding="async"
+					fetchpriority="high"
+				/>
+			</picture>
+			<div class="newsletter-intro">
+				<h1 class="section-title" id="newsletter-page-heading">{{newsletter.heading}}</h1>
+				<p class="section-lead">{{newsletter.intro}}</p>
+			</div>
 		</div>
 		<section class="newsletter-signup" aria-label="{{newsletter.formRegion}}">
 			{{>newsletter-form}}
