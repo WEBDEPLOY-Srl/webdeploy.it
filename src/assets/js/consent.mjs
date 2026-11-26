@@ -36,7 +36,7 @@ export function initializeConsent() {
 	});
 	function focusState() {
 		const hidden =
-			phone.matches && Boolean(document.activeElement?.matches('input,select,textarea'));
+			phone.matches && Boolean(document.activeElement?.closest('input, select, textarea, .newsletter-form'));
 		banner.classList.toggle('hidden-for-field', hidden);
 		banner.inert = hidden;
 		if (hidden) banner.setAttribute('aria-hidden', 'true');

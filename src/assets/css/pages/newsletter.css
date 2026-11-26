@@ -94,6 +94,10 @@
 	border-color: var(--color-text-muted);
 }
 
+.newsletter-choice:hover input:enabled:not(:checked) {
+	border-color: var(--color-text-body);
+}
+
 .newsletter-choice input:checked + span {
 	background: transparent;
 }
@@ -123,7 +127,7 @@
 	font: var(--text-caption)/var(--line-caption) var(--font-mono);
 }
 
-@media (min-width: 40rem) and (max-width: 63.999rem) {
+@media (40rem <= width < 64rem) {
 	.newsletter-editorial {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		align-items: center;
@@ -135,7 +139,7 @@
 	}
 }
 
-@media (min-width: 64rem) {
+@media (width >= 64rem) {
 	.newsletter-page,
 	.newsletter-intro {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -158,7 +162,7 @@
 	}
 }
 
-@media (min-width: 80rem) {
+@media (width >= 80rem) {
 	/* Fit the wordmark beside the logo without moving the shared desktop navigation. */
 	.newsletter-landing .site-logo {
 		position: relative;
@@ -198,7 +202,7 @@
 	}
 }
 
-@media (max-width: 23.4375rem) {
+@media (width <= 23.4375rem) {
 	/* Reserve the signed intro's five lines while Space Mono loads on narrow phones. */
 	.newsletter-intro .section-lead {
 		min-block-size: 5lh;

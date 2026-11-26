@@ -242,6 +242,31 @@ test('the newsletter uses the approved intro and compact magenta signup action',
 	);
 });
 
+/** @param {import('@playwright/test').Page} page */
+async function tabThroughPhoneSignup(page) {
+	const email = page.getByLabel('Email address');
+	await email.click();
+	await expect(email).toBeFocused();
+	await expect(page.locator('.cookie-banner')).toBeHidden();
+	for (const checkbox of await page.getByRole('checkbox').all()) {
+		await page.keyboard.press('Tab');
+		await expect(checkbox).toBeFocused();
+		await page.keyboard.press('Space');
+		await expect(checkbox).toBeChecked();
+	}
+	await page.keyboard.press('Tab');
+	const submit = page.getByRole('button', { name: 'Subscribe' });
+	await expect(submit).toBeFocused();
+	await expect(page.locator('.cookie-banner')).toBeHidden();
+	await expect(submit).toBeInViewport({ ratio: 1 });
+}
+
+test('Tab reaches Subscribe at 320x568', { tag: '@webkit' }, async ({ page }) => {
+	await page.setViewportSize({ width: 320, height: 568 });
+	await page.goto('/newsletter');
+	await tabThroughPhoneSignup(page);
+});
+
 for (const viewport of [
 	{ width: 360, height: 640 },
 	{ width: 375, height: 620 },
@@ -317,24 +342,7 @@ for (const viewport of [
 		expect(await banner(page).getByRole('button', { name: 'Accept' }).count()).toBe(1);
 		await expect(banner(page)).toHaveAccessibleName('Privacy & cookies');
 		await expect(banner(page).getByRole('heading', { name: 'Privacy & cookies', level: 2 })).toHaveCount(1);
-		const email = page.getByLabel('Email address');
-		await email.click();
-		await expect(email).toBeFocused();
-		await expect(banner(page)).toBeHidden();
-		for (const checkbox of checkboxes) {
-			await checkbox.check();
-			await expect(checkbox).toBeChecked();
-		}
-		const submit = page.getByRole('button', { name: 'Subscribe' });
-		await submit.focus();
-		await expect(banner(page)).toBeVisible();
-		await submit.evaluate(button => button.scrollIntoView({ block: 'center' }));
-		await expect(submit).toBeInViewport({ ratio: 1 });
-		const visibleBanner = await banner(page).boundingBox();
-		const button = await submit.boundingBox();
-		assert.ok(visibleBanner && button);
-		expect(button.y + button.height).toBeLessThanOrEqual(visibleBanner.y);
-		await submit.click({ trial: true });
+		await tabThroughPhoneSignup(page);
 		expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(
 			viewport.width
 		);
