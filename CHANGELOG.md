@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.8] - 2026-11-26
+
+### Fixed
+
+- Keep the cookie banner hidden while phone users tab through newsletter signup, and restore hover feedback on unchecked list choices.
+- Align the newsletter header and typography with the rest of the site and balance the artwork and signup form across desktop and tablet screens. Keep the newsletter heading in sentence case at every screen size. On phones, show the artwork at full content width and give the introduction and signup controls more room as visitors scroll.
+
 ## [2.0.7] - 2026-11-26
 
 ### Changed
