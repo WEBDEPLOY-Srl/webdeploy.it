@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.8] - 2026-11-26
+
 ### Fixed
 
 - Keep the cookie banner hidden while phone users tab through newsletter signup, and restore hover feedback on unchecked list choices.
