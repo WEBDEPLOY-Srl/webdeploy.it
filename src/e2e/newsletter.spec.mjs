@@ -132,7 +132,7 @@ test('the story image is the preloaded LCP image without duplicate requests', { 
 	const sources = page.locator('.newsletter-story source');
 	await expect(sources).toHaveCount(2);
 	const expectedSizes =
-		'(min-width: 66rem) 32.75rem, (min-width: 48rem) calc(52.07vw - 1.562rem), (max-width: 639px) and (max-height: 44rem) 10rem, (max-width: 399px) and (min-height: 44.0625rem) clamp(10rem, calc(140vh - 51.35rem), min(100vw, 21rem)), (min-width: 25rem) and (max-width: 639px) and (min-height: 44.0625rem) clamp(10rem, calc(140vh - 51.35rem), 100vw), (min-width: 25rem) 100vw, (min-width: 22rem) 22rem, 100vw';
+		'(min-width: 83.3334rem) 35.5rem, (min-width: 80rem) calc(38rem - 3vw), (min-width: 64rem) calc(47vw - 2rem), (min-width: 40rem) calc(50vw - 2.25rem), (max-height: 41rem) min(38vw, 10rem), clamp(8rem, calc(140vh - 54rem), calc(100vw - 2rem))';
 	for (const source of await sources.all()) {
 		await expect(source).toHaveAttribute('sizes', expectedSizes);
 		await expect(source).toHaveAttribute('srcset', /480w,.*768w,.*1080w/);
@@ -188,7 +188,8 @@ test('the story image is the preloaded LCP image without duplicate requests', { 
 	const desktopHeading = await page.locator('.newsletter-intro h1').boundingBox();
 	const desktopArt = await page.locator('.newsletter-story').boundingBox();
 	assert.ok(desktopHeading && desktopArt);
-	expect(desktopHeading.x).toBeGreaterThan(desktopArt.x);
+	expect(desktopHeading.x).toBeCloseTo(desktopArt.x, 0);
+	expect(desktopHeading.y + desktopHeading.height).toBeLessThan(desktopArt.y);
 	await expect
 		.poll(() =>
 			image.evaluate((element) => (element instanceof HTMLImageElement ? element.currentSrc : ''))
@@ -202,9 +203,16 @@ test('the newsletter uses the approved intro and compact magenta signup action',
 	const content = page.locator('.newsletter-page');
 	const intro = page.locator('.newsletter-intro');
 	const heading = page.locator('.newsletter-intro h1');
-	expect((await content.boundingBox())?.width).toBe(1056);
-	expect((await intro.boundingBox())?.x).toBeGreaterThan(600);
-	expect(await heading.evaluate((element) => getComputedStyle(element).fontSize)).toBe('76px');
+	const container = await content.boundingBox();
+	const header = await page.locator('.site-header__container').boundingBox();
+	const artwork = await page.locator('.newsletter-story').boundingBox();
+	const signup = await page.locator('.newsletter-signup').boundingBox();
+	assert.ok(container && header && artwork && signup);
+	expect(container.width).toBe(header.width);
+	expect(artwork.x + artwork.width).toBeLessThan(signup.x);
+	expect(artwork.y + artwork.height / 2).toBeCloseTo(signup.y + signup.height / 2, 0);
+	expect((await intro.locator('p').boundingBox())?.x).toBeCloseTo(signup.x, 0);
+	await expect(heading).toHaveClass(/section-title/);
 	await expect(intro.locator('p')).toHaveText(en.newsletter.intro);
 	const region = page.getByRole('region', { name: en.newsletter.formRegion });
 	const form = region.locator('.newsletter-form');
@@ -261,19 +269,14 @@ test('the first phone view shows every signup control above the cookie banner', 
 		const story = await page.locator('.newsletter-story').boundingBox();
 		assert.ok(story);
 		const expectedStoryWidth =
-			viewport.height <= 44 * 16
-				? Math.min(viewport.width, 160)
-				: Math.max(
-						160,
-						Math.min(
-							viewport.width < 400 ? Math.min(viewport.width, 336) : viewport.width,
-							viewport.height * 1.4 - 821.6
-						)
-					);
+			viewport.height <= 41 * 16
+				? Math.min(viewport.width * 0.38, 160)
+				: Math.max(128, Math.min(viewport.width - 32, viewport.height * 1.4 - 864));
 		expect(story.width).toBeCloseTo(expectedStoryWidth, 1);
 		expect(story.height).toBeCloseTo((expectedStoryWidth * 650) / 1080, 0);
 		const header = page.locator('.site-header');
 		await expect(header).toBeInViewport({ ratio: 1 });
+		expect((await header.locator('.site-header__inner').boundingBox())?.height).toBe(72);
 		expect((await header.boundingBox())?.y).toBe(0);
 		await expect(header.getByRole('link', { name: 'WEBDEPLOY', exact: true })).toBeInViewport({ ratio: 1 });
 		await expect(header.locator('.site-menu-toggle')).toBeInViewport({ ratio: 1 });

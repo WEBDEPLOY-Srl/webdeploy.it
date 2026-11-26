@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Align the newsletter header and typography with the rest of the site and balance the artwork and signup form across desktop and tablet screens.
+
 ## [2.0.7] - 2026-11-26
 
 ### Changed
