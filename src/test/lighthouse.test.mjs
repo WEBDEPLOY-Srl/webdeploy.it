@@ -47,6 +47,10 @@ test('the Lighthouse inventory covers every declared location in both presets', 
 		path === '/assets/build/0ed881c4c4798e9c/js/matomo.mjs' &&
 		evidence === 'adapter-profiles/0ed881c4c4798e9c.json'
 	));
+	assert.ok(expectations.performance99.profiledCallers.some(({path, evidence}) =>
+		path === '/assets/build/ea4fe3630e09b44d/js/matomo.mjs' &&
+		evidence === 'adapter-profiles/ea4fe3630e09b44d.json'
+	));
 	assert.equal(expectations.newsMobilePerformance97.path, '/news');
 	assert.equal(expectations.newsMobilePerformance97.preset, 'mobile');
 	assert.equal(expectations.newsMobilePerformance97.minimumScore, 0.97);
