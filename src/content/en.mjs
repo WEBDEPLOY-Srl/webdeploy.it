@@ -760,7 +760,8 @@ export const en = {
 	newsletter: {
 		title: 'WEBDEPLOY newsletter',
 		metaDescription: 'Choose whether to receive news, notices or offers about WEBDEPLOY services by email.',
-		heading: 'Do you dream of\nnetiquette?',
+		heading: 'Do you dream\nof netiquette?',
+		intro: 'Security advisories, open source event reports, and whatever else in computing catches my curiosity.\n- zbolo.',
 		whatTitle: 'Choose one or both lists',
 		generalText: 'Email me WEBDEPLOY news and notices',
 		marketingText: 'Email me offers about WEBDEPLOY services',
@@ -769,6 +770,7 @@ export const en = {
 		requiredError: 'Choose at least one email list.',
 		submit: 'Subscribe',
 		submitting: 'Checking your request…',
+		confirmationPrompt: 'Confirm your address by email to start receiving your selections.',
 		afterSignup: 'After you subscribe',
 		confirmationNote:
 			'We first send one email to confirm your address; nothing else is sent until you confirm. After you confirm, you receive one welcome email.',

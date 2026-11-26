@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.7] - 2026-11-26
+
+### Changed
+- Replaced the newsletter stamp layout with the approved story artwork and
+  first-person copy, retaining the existing consent lists, spam check and
+  privacy disclosures.
+
 ## [2.0.6] - 2026-11-25
 
 ### Changed

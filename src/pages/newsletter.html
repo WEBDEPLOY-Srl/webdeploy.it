@@ -1,31 +1,31 @@
 <!-- SPDX-FileCopyrightText: 2026 WEBDEPLOY S.R.L. -->
 <!-- SPDX-License-Identifier: AGPL-3.0-only -->
 <div class="newsletter-page">
-	<div class="newsletter-intro">
-		<h1 id="newsletter-page-heading">{{newsletter.heading}}</h1>
-		<picture class="newsletter-stamp">
-			<source type="image/avif" srcset="{{@prioritySources}}" sizes="{{@prioritySizes}}" />
-			<source
-				type="image/webp"
-				srcset="/images/neon-cafe-stamp-400.webp 400w, /images/neon-cafe-stamp-592.webp 592w, /images/neon-cafe-stamp-672.webp 672w, /images/neon-cafe-stamp-800.webp 800w, /images/neon-cafe-stamp-960.webp 960w"
-				sizes="{{@prioritySizes}}"
-			/>
-			<img
-				src="/images/neon-cafe-stamp-960.webp"
-				width="960"
-				height="540"
-				alt=""
-				loading="eager"
-				decoding="async"
-				fetchpriority="high"
-			/>
-		</picture>
+	<picture class="newsletter-story">
+		<source type="image/avif" srcset="{{@prioritySources}}" sizes="{{@prioritySizes}}" />
+		<source
+			type="image/webp"
+			srcset="/images/newsletter-story-480.webp 480w, /images/newsletter-story-768.webp 768w, /images/newsletter-story-1080.webp 1080w"
+			sizes="{{@prioritySizes}}"
+		/>
+		<img
+			class="newsletter-story__image"
+			src="/images/newsletter-story-1080.webp"
+			width="1080"
+			height="650"
+			alt=""
+			loading="eager"
+			decoding="async"
+			fetchpriority="high"
+		/>
+	</picture>
+	<div class="newsletter-content">
+		<div class="newsletter-intro">
+			<h1 id="newsletter-page-heading">{{newsletter.heading}}</h1>
+			<p>{{newsletter.intro}}</p>
+		</div>
+		<section class="newsletter-signup" aria-label="{{newsletter.formRegion}}">
+			{{>newsletter-form}}
+		</section>
 	</div>
 </div>
-<section class="contact-band newsletter-endband" aria-label="{{newsletter.formRegion}}">
-	<div class="contact-band__top"></div>
-	<div class="contact-band__bottom"></div>
-	<div class="contact-band__inner">
-		{{>newsletter-form}}
-	</div>
-</section>

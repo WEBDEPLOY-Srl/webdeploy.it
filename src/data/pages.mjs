@@ -3,17 +3,16 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 
 const cardMasterWidths = { fosdem: 1200, php2shell: 1122 };
-const stampWidths = [400, 592, 672, 800, 960];
+const storyWidths = [480, 768, 1080];
+const storySizes =
+	'(min-width: 66rem) 32.75rem, (min-width: 48rem) calc(52.07vw - 1.562rem), (max-width: 639px) and (max-height: 44rem) 10rem, (max-width: 399px) and (min-height: 44.0625rem) clamp(10rem, calc(140vh - 51.35rem), min(100vw, 21rem)), (min-width: 25rem) and (max-width: 639px) and (min-height: 44.0625rem) clamp(10rem, calc(140vh - 51.35rem), 100vw), (min-width: 25rem) 100vw, (min-width: 22rem) 22rem, 100vw';
 
 /** @param {string} extension @returns {string} */
-function stampSources(extension) {
-	return stampWidths
-		.map((width) => `/images/neon-cafe-stamp-${width}.${extension} ${width}w`)
+function storySources(extension) {
+	return storyWidths
+		.map((width) => `/images/newsletter-story-${width}.${extension} ${width}w`)
 		.join(', ');
 }
-
-const stampSizes =
-	'(max-width: 639px) and (max-height: 44rem) min(15rem, calc(100vw - 2rem)), (min-width: 83.333rem) 31rem, (min-width: 64rem) calc(40vw - 1.5rem), (min-width: 48rem) calc(40vw - 1.5rem), calc(100vw - 2rem)';
 
 /** @param {keyof typeof cardMasterWidths} image @param {string} extension @returns {string} */
 function cardSources(image, extension) {
@@ -103,7 +102,7 @@ export const pages = [
 	},
 	{
 		path: '/newsletter',
-		priorityImage: { type: 'image/avif', srcset: stampSources('avif'), sizes: stampSizes },
+		priorityImage: { type: 'image/avif', srcset: storySources('avif'), sizes: storySizes },
 		modules: ['newsletter'],
 		file: 'newsletter.html',
 		title: 'newsletter.title',
